@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server",
     "deploy": "gh-pages-deploy",
-    "clean-source": "rimraf README.md src package.json package-lock.json truffle.js truffle-config.js contracts migrations build"
+    "clean-source": "rimraf README.md src package.json package-lock.json truffle.js truffle-config.js contracts migrations build .gitignore license dist webpack.config.js"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +26,7 @@
     "react-dom": "^15.6.1",
     "style-loader": "^0.18.2",
     "truffle": "^4.1.13",
+    "truffle-hdwallet-provider": "0.0.6",
     "web3": "^0.20.0",
     "webpack": "^3.5.4",
     "webpack-cli": "^3.1.0",
@@ -39,5 +40,6 @@
       "clean-source"
     ],
     "noprompt": true
-  }
+  },
+  "dependencies": {}
 }
