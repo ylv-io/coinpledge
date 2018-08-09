@@ -1,2 +1,2 @@
-# casino-ethereum
-This is a simple casino build with solidity, truffle and react
+# CoinPledge
+Archive your goals and interact with people in the meaning way.
