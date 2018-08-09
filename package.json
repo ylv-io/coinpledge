@@ -26,6 +26,7 @@
     "react-dom": "^15.6.1",
     "style-loader": "^0.18.2",
     "truffle": "^4.1.13",
+    "truffle-contract": "^3.0.6",
     "truffle-hdwallet-provider": "0.0.6",
     "web3": "^0.20.0",
     "webpack": "^3.5.4",
