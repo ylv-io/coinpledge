@@ -32,7 +32,7 @@
     "webpack-dev-server": "^2.11.2"
   },
   "gh-pages-deploy": {
-    "staticpath": "build_webpack",
+    "staticpath": "dist",
     "cname": "coinpledge.ylv.io",
     "prep": [],
     "post": [
