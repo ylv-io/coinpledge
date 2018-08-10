@@ -14,6 +14,7 @@ class App extends React.Component {
     super(props)
 
     this.createChallenge = this.createChallenge.bind(this);
+    this.resolveChallenge = this.resolveChallenge.bind(this);
 
     this.state = {
       challenges: []
@@ -81,10 +82,10 @@ class App extends React.Component {
     return {
       id: id,
       name: array[0],
-      value: array[1],
+      value: web3.fromWei(array[1].toNumber(), 'ether'),
       judge: array[2],
-      startDate: array[3],
-      time: array[4],
+      startDate: array[3].toNumber(),
+      time: array[4].toNumber(),
       successed: array[5],
       resolved: array[6]
     }
@@ -103,29 +104,104 @@ class App extends React.Component {
   createChallenge(e) {
     e.preventDefault();
 
-    this.state.coin.createChallenge("fuck society", web3.eth.accounts[0], 120, {
-        gas: 300000,
+    const name = e.target.elements.name.value.trim();
+    e.target.elements.name.value = '';
+
+    const value = e.target.elements.value.value.trim();
+    e.target.elements.name.value = '';
+
+    const time = e.target.elements.time.value.trim();
+    e.target.elements.time.value = '';
+
+    const judge = e.target.elements.judge.value.trim();
+    e.target.elements.judge.value = '';
+
+    this.state.coin.createChallenge(name, judge, time, {
         from: web3.eth.accounts[0],
-        value: web3.toWei(0.1, 'ether')
+        value: web3.toWei(value, 'ether')
       })
       .then((result) => {
         console.log(result);
       })
       .catch(function(e) {
-
+        console.log(e);
       });
+  }
+
+  resolveChallenge(e) {
+    e.preventDefault();
+
+    const id = e.target.elements.id.value.trim();
+    e.target.elements.id.value = '';
+
+    const decision = e.target.elements.decision.value;
+    e.target.elements.decision = false;
+
+    this.state.coin.resolveChallenge(id, decision, {
+      from: web3.eth.accounts[0]
+    })
+    .then((result) => {
+      console.log(result);
+    })
+    .catch(function(e) {
+      console.log(e);
+    });
+
   }
 
   render(){
     return (
         <div>
           <h1>CoinPledge</h1>
+          <h4>Create Challenge</h4>
           <form onSubmit={this.createChallenge}>
-              <input type="text" name="name"/>
+              <label htmlFor="name">What?</label> <input type="text" name="name"/> <br/>
+              <label htmlFor="number">How much?</label> <input type="number" step="0.01" name="value"/> <br/>
+              <label htmlFor="judge">Who judge?</label> <input type="text" name="judge"/> <br/>
+              <label htmlFor="time">How long?</label> <input type="number" name="time"/> <br/>
               <button>Create Challenge</button>
           </form>
+          <h4>Resolve Challenge</h4>
+          <form onSubmit={this.resolveChallenge}>
+              <label htmlFor="id">Which challenge?</label> <input type="number" name="id"/> <br/>
+              <label><input type="checkbox" value="check" name="decision"/> Is accomplished? </label> <br/>
+              <button>Resolve Challenge</button>
+          </form>
           <h2>Your Challenges</h2>
-          {this.state.challenges.map((o) => <div key={o.id}>{o.name}</div>)}
+          {this.state.challenges.map((o) => 
+              <div key={o.id}>
+                <h4>{o.name}</h4>
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>Value</td>
+                      <td>{o.value} ether</td>
+                    </tr>
+                    <tr>
+                      <td>Judge</td>
+                      <td>{o.judge}</td>
+                    </tr>
+                    <tr>
+                      <td>Start Date</td>
+                      <td>{o.startDate}</td>
+                    </tr>
+                    <tr>
+                      <td>Time</td>
+                      <td>{o.time} days</td>
+                    </tr>
+                    <tr>
+                      <td>Successed</td>
+                      <td>{o.successed ? "True" : "False"}</td>
+                    </tr>
+                    <tr>
+                      <td>Resolved</td>
+                      <td>{o.resolved ? "True" : "False"}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            )
+          }
         </div>
     )
   }

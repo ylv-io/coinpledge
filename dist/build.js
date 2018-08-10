@@ -34869,6 +34869,7 @@ var App = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.createChallenge = _this.createChallenge.bind(_this);
+    _this.resolveChallenge = _this.resolveChallenge.bind(_this);
 
     _this.state = {
       challenges: []
@@ -34940,10 +34941,10 @@ var App = function (_React$Component) {
       return {
         id: id,
         name: array[0],
-        value: array[1],
+        value: web3.fromWei(array[1].toNumber(), 'ether'),
         judge: array[2],
-        startDate: array[3],
-        time: array[4],
+        startDate: array[3].toNumber(),
+        time: array[4].toNumber(),
         successed: array[5],
         resolved: array[6]
       };
@@ -34965,13 +34966,45 @@ var App = function (_React$Component) {
     value: function createChallenge(e) {
       e.preventDefault();
 
-      this.state.coin.createChallenge("fuck society", web3.eth.accounts[0], 120, {
-        gas: 300000,
+      var name = e.target.elements.name.value.trim();
+      e.target.elements.name.value = '';
+
+      var value = e.target.elements.value.value.trim();
+      e.target.elements.name.value = '';
+
+      var time = e.target.elements.time.value.trim();
+      e.target.elements.time.value = '';
+
+      var judge = e.target.elements.judge.value.trim();
+      e.target.elements.judge.value = '';
+
+      this.state.coin.createChallenge(name, judge, time, {
         from: web3.eth.accounts[0],
-        value: web3.toWei(0.1, 'ether')
+        value: web3.toWei(value, 'ether')
       }).then(function (result) {
         console.log(result);
-      }).catch(function (e) {});
+      }).catch(function (e) {
+        console.log(e);
+      });
+    }
+  }, {
+    key: 'resolveChallenge',
+    value: function resolveChallenge(e) {
+      e.preventDefault();
+
+      var id = e.target.elements.id.value.trim();
+      e.target.elements.id.value = '';
+
+      var decision = e.target.elements.decision.value;
+      e.target.elements.decision = false;
+
+      this.state.coin.resolveChallenge(id, decision, {
+        from: web3.eth.accounts[0]
+      }).then(function (result) {
+        console.log(result);
+      }).catch(function (e) {
+        console.log(e);
+      });
     }
   }, {
     key: 'render',
@@ -34985,13 +35018,84 @@ var App = function (_React$Component) {
           'CoinPledge'
         ),
         _react2.default.createElement(
+          'h4',
+          null,
+          'Create Challenge'
+        ),
+        _react2.default.createElement(
           'form',
           { onSubmit: this.createChallenge },
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'name' },
+            'What?'
+          ),
+          ' ',
           _react2.default.createElement('input', { type: 'text', name: 'name' }),
+          ' ',
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'number' },
+            'How much?'
+          ),
+          ' ',
+          _react2.default.createElement('input', { type: 'number', step: '0.01', name: 'value' }),
+          ' ',
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'judge' },
+            'Who judge?'
+          ),
+          ' ',
+          _react2.default.createElement('input', { type: 'text', name: 'judge' }),
+          ' ',
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'time' },
+            'How long?'
+          ),
+          ' ',
+          _react2.default.createElement('input', { type: 'number', name: 'time' }),
+          ' ',
+          _react2.default.createElement('br', null),
           _react2.default.createElement(
             'button',
             null,
             'Create Challenge'
+          )
+        ),
+        _react2.default.createElement(
+          'h4',
+          null,
+          'Resolve Challenge'
+        ),
+        _react2.default.createElement(
+          'form',
+          { onSubmit: this.resolveChallenge },
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'id' },
+            'Which challenge?'
+          ),
+          ' ',
+          _react2.default.createElement('input', { type: 'number', name: 'id' }),
+          ' ',
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'label',
+            null,
+            _react2.default.createElement('input', { type: 'checkbox', value: 'check', name: 'decision' }),
+            ' Is accomplished? '
+          ),
+          ' ',
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'button',
+            null,
+            'Resolve Challenge'
           )
         ),
         _react2.default.createElement(
@@ -35003,7 +35107,105 @@ var App = function (_React$Component) {
           return _react2.default.createElement(
             'div',
             { key: o.id },
-            o.name
+            _react2.default.createElement(
+              'h4',
+              null,
+              o.name
+            ),
+            _react2.default.createElement(
+              'table',
+              null,
+              _react2.default.createElement(
+                'tbody',
+                null,
+                _react2.default.createElement(
+                  'tr',
+                  null,
+                  _react2.default.createElement(
+                    'td',
+                    null,
+                    'Value'
+                  ),
+                  _react2.default.createElement(
+                    'td',
+                    null,
+                    o.value,
+                    ' ether'
+                  )
+                ),
+                _react2.default.createElement(
+                  'tr',
+                  null,
+                  _react2.default.createElement(
+                    'td',
+                    null,
+                    'Judge'
+                  ),
+                  _react2.default.createElement(
+                    'td',
+                    null,
+                    o.judge
+                  )
+                ),
+                _react2.default.createElement(
+                  'tr',
+                  null,
+                  _react2.default.createElement(
+                    'td',
+                    null,
+                    'Start Date'
+                  ),
+                  _react2.default.createElement(
+                    'td',
+                    null,
+                    o.startDate
+                  )
+                ),
+                _react2.default.createElement(
+                  'tr',
+                  null,
+                  _react2.default.createElement(
+                    'td',
+                    null,
+                    'Time'
+                  ),
+                  _react2.default.createElement(
+                    'td',
+                    null,
+                    o.time,
+                    ' days'
+                  )
+                ),
+                _react2.default.createElement(
+                  'tr',
+                  null,
+                  _react2.default.createElement(
+                    'td',
+                    null,
+                    'Successed'
+                  ),
+                  _react2.default.createElement(
+                    'td',
+                    null,
+                    o.successed ? "True" : "False"
+                  )
+                ),
+                _react2.default.createElement(
+                  'tr',
+                  null,
+                  _react2.default.createElement(
+                    'td',
+                    null,
+                    'Resolved'
+                  ),
+                  _react2.default.createElement(
+                    'td',
+                    null,
+                    o.resolved ? "True" : "False"
+                  )
+                )
+              )
+            )
           );
         })
       );
