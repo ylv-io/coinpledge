@@ -45,7 +45,12 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
   mapping(address => uint) public ownerToChallengeCount;
   mapping(address => uint) public bonusFund;
 
-  function getChallenges(address owner) external view returns(uint[]) {
+  function getChallenges(address owner) 
+  external 
+  view 
+  returns(uint[]) {
+    require(ownerToChallengeCount[owner] > 0, "Has zero challenges");
+
     uint[] memory result = new uint[](ownerToChallengeCount[owner]);
     uint counter = 0;
     for (uint i = 0; i < challenges.length; i++) {
@@ -59,20 +64,24 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
   }
 
 
-  function createChallenge(string name, address judge, uint time) external payable returns (uint retId)
-  {
+  function createChallenge(string name, address judge, uint time) 
+  external 
+  payable 
+  returns (uint retId) {
     require(msg.value >= 0.01 ether, "Has to stake more than 0.01 ether");
 
     uint startDate = block.timestamp;
     uint id = challenges.push(Challenge(name, msg.value, judge, startDate, time, false, false)) - 1;
     challengeToOwner[id] = msg.sender;
+    ownerToChallengeCount[msg.sender]++;
 
     emit NewChallenge(id, name, msg.value, judge, startDate, time);
 
     return id;
   }
 
-  function resolveChallenge(uint challengeId, bool decision) external
+  function resolveChallenge(uint challengeId, bool decision)
+  external
   {
     Challenge storage challenge = challenges[challengeId];
     address challenger = challengeToOwner[challengeId];

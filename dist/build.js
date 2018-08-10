@@ -1564,8 +1564,8 @@ module.exports = ExecutionEnvironment;
  */
 
 
-var BigNumber = __webpack_require__(48);
-var sha3 = __webpack_require__(49);
+var BigNumber = __webpack_require__(49);
+var sha3 = __webpack_require__(50);
 var utf8 = __webpack_require__(136);
 
 var unitMap = {
@@ -5959,7 +5959,7 @@ module.exports = { debugTool: debugTool };
  * @date 2015
  */
 
-var BigNumber = __webpack_require__(48);
+var BigNumber = __webpack_require__(49);
 var utils = __webpack_require__(8);
 var c = __webpack_require__(63);
 var SolidityParam = __webpack_require__(137);
@@ -8937,7 +8937,7 @@ module.exports = PooledClass;
  */
 
 var utils = __webpack_require__(8);
-var errors = __webpack_require__(38);
+var errors = __webpack_require__(39);
 
 var Method = function (options) {
     this.name = options.name;
@@ -9107,7 +9107,7 @@ module.exports = Method;
  */
 
 var utils = __webpack_require__(10);
-var errors = __webpack_require__(42);
+var errors = __webpack_require__(43);
 
 var Method = function (options) {
     this.name = options.name;
@@ -10273,6 +10273,34 @@ module.exports = DOMLazyTree;
 /* 38 */
 /***/ (function(module, exports) {
 
+module.exports = function(module) {
+	if(!module.webpackPolyfill) {
+		module.deprecate = function() {};
+		module.paths = [];
+		// module.parent = undefined by default
+		if(!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports) {
+
 /*
     This file is part of web3.js.
 
@@ -10319,7 +10347,7 @@ module.exports = {
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -10469,7 +10497,7 @@ module.exports = Property;
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10606,7 +10634,7 @@ Duplex.prototype._destroy = function (err, cb) {
 };
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10622,7 +10650,7 @@ module.exports = {
   getProperty: getProperty,
   escapeQuotes: escapeQuotes,
   equal: __webpack_require__(97),
-  ucs2length: __webpack_require__(363),
+  ucs2length: __webpack_require__(364),
   varOccurences: varOccurences,
   varReplace: varReplace,
   cleanUpCode: cleanUpCode,
@@ -10880,7 +10908,7 @@ function unescapeJsonPointer(str) {
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports) {
 
 /*
@@ -10929,7 +10957,7 @@ module.exports = {
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -11079,7 +11107,7 @@ module.exports = Property;
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11093,7 +11121,7 @@ module.exports = Property;
 
 
 
-var EventPluginHub = __webpack_require__(45);
+var EventPluginHub = __webpack_require__(46);
 var EventPluginUtils = __webpack_require__(75);
 
 var accumulateInto = __webpack_require__(108);
@@ -11217,7 +11245,7 @@ module.exports = EventPropagators;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11495,7 +11523,7 @@ module.exports = EventPluginHub;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11557,7 +11585,7 @@ SyntheticEvent.augmentClass(SyntheticUIEvent, UIEventInterface);
 module.exports = SyntheticUIEvent;
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11606,7 +11634,7 @@ var ReactInstanceMap = {
 module.exports = ReactInstanceMap;
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.0.7 https://github.com/MikeMcl/bignumber.js/LICENCE */
@@ -14296,7 +14324,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.0.7 https://github.com/Mik
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -14337,34 +14365,6 @@ module.exports = function (value, options) {
     }).toString();
 };
 
-
-
-/***/ }),
-/* 50 */
-/***/ (function(module, exports) {
-
-module.exports = function(module) {
-	if(!module.webpackPolyfill) {
-		module.deprecate = function() {};
-		module.paths = [];
-		// module.parent = undefined by default
-		if(!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
 
 
 /***/ }),
@@ -17773,7 +17773,7 @@ module.exports = TransactionImpl;
 
 
 
-var SyntheticUIEvent = __webpack_require__(46);
+var SyntheticUIEvent = __webpack_require__(47);
 var ViewportMetrics = __webpack_require__(115);
 
 var getEventModifierState = __webpack_require__(79);
@@ -18736,7 +18736,7 @@ module.exports = ReactBrowserEventEmitter;
 
 
 /// required to define ETH_BIGNUMBER_ROUNDING_MODE
-var BigNumber = __webpack_require__(48);
+var BigNumber = __webpack_require__(49);
 
 var ETH_UNITS = [
     'wei',
@@ -18806,7 +18806,7 @@ module.exports = {
  * @date 2015
  */
 
-var BigNumber = __webpack_require__(48);
+var BigNumber = __webpack_require__(49);
 
 var padLeft = function (string, bytes) {
     var result = string;
@@ -22120,7 +22120,7 @@ module.exports = KeyEscapeUtils;
 var _prodInvariant = __webpack_require__(4);
 
 var ReactCurrentOwner = __webpack_require__(18);
-var ReactInstanceMap = __webpack_require__(47);
+var ReactInstanceMap = __webpack_require__(48);
 var ReactInstrumentation = __webpack_require__(14);
 var ReactUpdates = __webpack_require__(19);
 
@@ -23708,9 +23708,9 @@ exports.XMLHttpRequestEventTarget = XMLHttpRequestEventTarget;
 
 var url = __webpack_require__(69)
   , equal = __webpack_require__(97)
-  , util = __webpack_require__(41)
+  , util = __webpack_require__(42)
   , SchemaObject = __webpack_require__(152)
-  , traverse = __webpack_require__(364);
+  , traverse = __webpack_require__(365);
 
 module.exports = resolve;
 
@@ -24108,15 +24108,15 @@ function errorSubclass(Subclass) {
 
 var f = __webpack_require__(16);
 
-var SolidityTypeAddress = __webpack_require__(410);
-var SolidityTypeBool = __webpack_require__(411);
-var SolidityTypeInt = __webpack_require__(412);
-var SolidityTypeUInt = __webpack_require__(413);
-var SolidityTypeDynamicBytes = __webpack_require__(414);
-var SolidityTypeString = __webpack_require__(415);
-var SolidityTypeReal = __webpack_require__(416);
-var SolidityTypeUReal = __webpack_require__(417);
-var SolidityTypeBytes = __webpack_require__(418);
+var SolidityTypeAddress = __webpack_require__(411);
+var SolidityTypeBool = __webpack_require__(412);
+var SolidityTypeInt = __webpack_require__(413);
+var SolidityTypeUInt = __webpack_require__(414);
+var SolidityTypeDynamicBytes = __webpack_require__(415);
+var SolidityTypeString = __webpack_require__(416);
+var SolidityTypeReal = __webpack_require__(417);
+var SolidityTypeUReal = __webpack_require__(418);
+var SolidityTypeBytes = __webpack_require__(419);
 
 var isDynamic = function (solidityType, type) {
    return solidityType.isDynamicType(type) ||
@@ -26902,7 +26902,7 @@ var ReactDOMComponentTree = __webpack_require__(6);
 var ReactDOMContainerInfo = __webpack_require__(258);
 var ReactDOMFeatureFlags = __webpack_require__(259);
 var ReactFeatureFlags = __webpack_require__(112);
-var ReactInstanceMap = __webpack_require__(47);
+var ReactInstanceMap = __webpack_require__(48);
 var ReactInstrumentation = __webpack_require__(14);
 var ReactMarkupChecksum = __webpack_require__(260);
 var ReactReconciler = __webpack_require__(33);
@@ -28345,7 +28345,7 @@ module.exports = Jsonrpc;
 
 }(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(50)(module), __webpack_require__(11)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(38)(module), __webpack_require__(11)))
 
 /***/ }),
 /* 137 */
@@ -28534,7 +28534,7 @@ module.exports = SolidityParam;
 var utils = __webpack_require__(8);
 var coder = __webpack_require__(94);
 var formatters = __webpack_require__(24);
-var sha3 = __webpack_require__(49);
+var sha3 = __webpack_require__(50);
 var Filter = __webpack_require__(65);
 var watches = __webpack_require__(66);
 
@@ -29141,7 +29141,7 @@ exports = module.exports = __webpack_require__(144);
 exports.Stream = exports;
 exports.Readable = exports;
 exports.Writable = __webpack_require__(148);
-exports.Duplex = __webpack_require__(40);
+exports.Duplex = __webpack_require__(41);
 exports.Transform = __webpack_require__(150);
 exports.PassThrough = __webpack_require__(334);
 
@@ -29252,7 +29252,7 @@ function prependListener(emitter, event, fn) {
 }
 
 function ReadableState(options, stream) {
-  Duplex = Duplex || __webpack_require__(40);
+  Duplex = Duplex || __webpack_require__(41);
 
   options = options || {};
 
@@ -29329,7 +29329,7 @@ function ReadableState(options, stream) {
 }
 
 function Readable(options) {
-  Duplex = Duplex || __webpack_require__(40);
+  Duplex = Duplex || __webpack_require__(41);
 
   if (!(this instanceof Readable)) return new Readable(options);
 
@@ -30672,7 +30672,7 @@ util.inherits(Writable, Stream);
 function nop() {}
 
 function WritableState(options, stream) {
-  Duplex = Duplex || __webpack_require__(40);
+  Duplex = Duplex || __webpack_require__(41);
 
   options = options || {};
 
@@ -30822,7 +30822,7 @@ if (typeof Symbol === 'function' && Symbol.hasInstance && typeof Function.protot
 }
 
 function Writable(options) {
-  Duplex = Duplex || __webpack_require__(40);
+  Duplex = Duplex || __webpack_require__(41);
 
   // Writable ctor is applied to Duplexes, too.
   // `realHasInstance` is necessary because using plain `instanceof`
@@ -31635,7 +31635,7 @@ function simpleEnd(buf) {
 
 module.exports = Transform;
 
-var Duplex = __webpack_require__(40);
+var Duplex = __webpack_require__(41);
 
 /*<replacement>*/
 var util = __webpack_require__(51);
@@ -32555,7 +32555,7 @@ function done(stream, er, data) {
 "use strict";
 
 
-var util = __webpack_require__(41);
+var util = __webpack_require__(42);
 
 module.exports = SchemaObject;
 
@@ -33752,7 +33752,7 @@ module.exports = function generate__limitProperties(it, $keyword, $ruleType) {
 /* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Web3 = __webpack_require__(406);
+var Web3 = __webpack_require__(407);
 
 // dont override global variable
 if (typeof window !== 'undefined' && typeof window.Web3 === 'undefined') {
@@ -34755,7 +34755,7 @@ function isPrimitive(arg) {
 }
 exports.isPrimitive = isPrimitive;
 
-exports.isBuffer = __webpack_require__(443);
+exports.isBuffer = __webpack_require__(444);
 
 function objectToString(o) {
   return Object.prototype.toString.call(o);
@@ -34840,9 +34840,13 @@ var _web = __webpack_require__(268);
 
 var _web2 = _interopRequireDefault(_web);
 
-__webpack_require__(350);
+var _underscore = __webpack_require__(350);
 
-var _CoinPledge = __webpack_require__(355);
+var _underscore2 = _interopRequireDefault(_underscore);
+
+__webpack_require__(351);
+
+var _CoinPledge = __webpack_require__(356);
 
 var _CoinPledge2 = _interopRequireDefault(_CoinPledge);
 
@@ -34854,7 +34858,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var contract = __webpack_require__(356);
+var contract = __webpack_require__(357);
 
 var App = function (_React$Component) {
   _inherits(App, _React$Component);
@@ -34866,7 +34870,9 @@ var App = function (_React$Component) {
 
     _this.createChallenge = _this.createChallenge.bind(_this);
 
-    _this.state = {};
+    _this.state = {
+      challenges: []
+    };
 
     if (typeof web3 != 'undefined') {
       console.log("Using web3 detected from external source like Metamask");
@@ -34880,17 +34886,69 @@ var App = function (_React$Component) {
     var coin = contract(_CoinPledge2.default);
     coin.setProvider(_this.web3.currentProvider);
 
-    var self = _this;
-
     // Find contract instance on blockchain and bind
     coin.deployed().then(function (instance) {
-      self.state.coin = instance;
-    }).then(function (result) {});
+      _this.state.coin = instance;
+
+      //check number of challenges
+      instance.ownerToChallengeCount.call(web3.eth.accounts[0], {
+        from: web3.eth.accounts[0]
+      }).then(function (result) {
+        var numberOfChallenges = result.toNumber();
+        if (numberOfChallenges > 0) _this.getAllChallenges();
+      });
+    });
 
     return _this;
   }
 
   _createClass(App, [{
+    key: 'getAllChallenges',
+    value: function getAllChallenges() {
+      var _this2 = this;
+
+      var instance = this.state.coin;
+      if (instance) {
+        return instance.getChallenges.call(web3.eth.accounts[0], {
+          from: web3.eth.accounts[0]
+        }).then(function (result) {
+          var promises = result.map(function (o) {
+            return instance.challenges.call(o.toNumber(), {
+              from: web3.eth.accounts[0]
+            });
+          });
+
+          return Promise.all(promises);
+        }).then(function (result) {
+          var challenges = result.map(function (o, i) {
+            return _this2.arrayToChallenge(o, i);
+          });
+          console.log(challenges);
+          _this2.setState(function (o) {
+            return {
+              challenges: challenges
+            };
+          });
+        }).catch(function (e) {
+          console.log(e);
+        });
+      }
+    }
+  }, {
+    key: 'arrayToChallenge',
+    value: function arrayToChallenge(array, id) {
+      return {
+        id: id,
+        name: array[0],
+        value: array[1],
+        judge: array[2],
+        startDate: array[3],
+        time: array[4],
+        successed: array[5],
+        resolved: array[6]
+      };
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.updateState();
@@ -34899,22 +34957,21 @@ var App = function (_React$Component) {
     }
   }, {
     key: 'updateState',
-    value: function updateState() {}
+    value: function updateState() {
+      this.getAllChallenges.bind(this)();
+    }
   }, {
     key: 'createChallenge',
     value: function createChallenge(e) {
       e.preventDefault();
 
-      this.state.coin.createChallenge("ylv", web3.eth.accounts[0], 120, {
+      this.state.coin.createChallenge("fuck society", web3.eth.accounts[0], 120, {
         gas: 300000,
         from: web3.eth.accounts[0],
         value: web3.toWei(0.1, 'ether')
       }).then(function (result) {
-        // If this callback is called, the transaction was successfully processed.
-        alert("Transaction successful!");
-      }).catch(function (e) {
-        // There was an error! Handle it.
-      });
+        console.log(result);
+      }).catch(function (e) {});
     }
   }, {
     key: 'render',
@@ -34925,7 +34982,7 @@ var App = function (_React$Component) {
         _react2.default.createElement(
           'h1',
           null,
-          'Hello'
+          'CoinPledge'
         ),
         _react2.default.createElement(
           'form',
@@ -34936,7 +34993,19 @@ var App = function (_React$Component) {
             null,
             'Create Challenge'
           )
-        )
+        ),
+        _react2.default.createElement(
+          'h2',
+          null,
+          'Your Challenges'
+        ),
+        this.state.challenges.map(function (o) {
+          return _react2.default.createElement(
+            'div',
+            { key: o.id },
+            o.name
+          );
+        })
       );
     }
   }]);
@@ -37830,7 +37899,7 @@ module.exports = ARIADOMPropertyConfig;
 
 
 
-var EventPropagators = __webpack_require__(44);
+var EventPropagators = __webpack_require__(45);
 var ExecutionEnvironment = __webpack_require__(7);
 var FallbackCompositionState = __webpack_require__(187);
 var SyntheticCompositionEvent = __webpack_require__(188);
@@ -38394,8 +38463,8 @@ module.exports = SyntheticInputEvent;
 
 
 
-var EventPluginHub = __webpack_require__(45);
-var EventPropagators = __webpack_require__(44);
+var EventPluginHub = __webpack_require__(46);
+var EventPropagators = __webpack_require__(45);
 var ExecutionEnvironment = __webpack_require__(7);
 var ReactDOMComponentTree = __webpack_require__(6);
 var ReactUpdates = __webpack_require__(19);
@@ -39433,7 +39502,7 @@ module.exports = DefaultEventPluginOrder;
 
 
 
-var EventPropagators = __webpack_require__(44);
+var EventPropagators = __webpack_require__(45);
 var ReactDOMComponentTree = __webpack_require__(6);
 var SyntheticMouseEvent = __webpack_require__(58);
 
@@ -40220,7 +40289,7 @@ var DOMLazyTree = __webpack_require__(34);
 var DOMNamespaces = __webpack_require__(81);
 var DOMProperty = __webpack_require__(23);
 var DOMPropertyOperations = __webpack_require__(119);
-var EventPluginHub = __webpack_require__(45);
+var EventPluginHub = __webpack_require__(46);
 var EventPluginRegistry = __webpack_require__(56);
 var ReactBrowserEventEmitter = __webpack_require__(61);
 var ReactDOMComponentFlags = __webpack_require__(107);
@@ -41774,7 +41843,7 @@ module.exports = quoteAttributeValueForBrowser;
 
 
 
-var EventPluginHub = __webpack_require__(45);
+var EventPluginHub = __webpack_require__(46);
 
 function runEventQueueInBatch(events) {
   EventPluginHub.enqueueEvents(events);
@@ -42497,7 +42566,7 @@ module.exports = ReactDOMTextarea;
 var _prodInvariant = __webpack_require__(4);
 
 var ReactComponentEnvironment = __webpack_require__(84);
-var ReactInstanceMap = __webpack_require__(47);
+var ReactInstanceMap = __webpack_require__(48);
 var ReactInstrumentation = __webpack_require__(14);
 
 var ReactCurrentOwner = __webpack_require__(18);
@@ -43108,7 +43177,7 @@ var React = __webpack_require__(31);
 var ReactComponentEnvironment = __webpack_require__(84);
 var ReactCurrentOwner = __webpack_require__(18);
 var ReactErrorUtils = __webpack_require__(76);
-var ReactInstanceMap = __webpack_require__(47);
+var ReactInstanceMap = __webpack_require__(48);
 var ReactInstrumentation = __webpack_require__(14);
 var ReactNodeTypes = __webpack_require__(123);
 var ReactReconciler = __webpack_require__(33);
@@ -45174,7 +45243,7 @@ module.exports = getUnboundedScrollPosition;
 
 
 var DOMProperty = __webpack_require__(23);
-var EventPluginHub = __webpack_require__(45);
+var EventPluginHub = __webpack_require__(46);
 var EventPluginUtils = __webpack_require__(75);
 var ReactComponentEnvironment = __webpack_require__(84);
 var ReactEmptyComponent = __webpack_require__(124);
@@ -46088,7 +46157,7 @@ module.exports = SVGDOMPropertyConfig;
 
 
 
-var EventPropagators = __webpack_require__(44);
+var EventPropagators = __webpack_require__(45);
 var ExecutionEnvironment = __webpack_require__(7);
 var ReactDOMComponentTree = __webpack_require__(6);
 var ReactInputSelection = __webpack_require__(128);
@@ -46283,7 +46352,7 @@ module.exports = SelectEventPlugin;
 var _prodInvariant = __webpack_require__(4);
 
 var EventListener = __webpack_require__(127);
-var EventPropagators = __webpack_require__(44);
+var EventPropagators = __webpack_require__(45);
 var ReactDOMComponentTree = __webpack_require__(6);
 var SyntheticAnimationEvent = __webpack_require__(249);
 var SyntheticClipboardEvent = __webpack_require__(250);
@@ -46294,7 +46363,7 @@ var SyntheticMouseEvent = __webpack_require__(58);
 var SyntheticDragEvent = __webpack_require__(254);
 var SyntheticTouchEvent = __webpack_require__(255);
 var SyntheticTransitionEvent = __webpack_require__(256);
-var SyntheticUIEvent = __webpack_require__(46);
+var SyntheticUIEvent = __webpack_require__(47);
 var SyntheticWheelEvent = __webpack_require__(257);
 
 var emptyFunction = __webpack_require__(17);
@@ -46592,7 +46661,7 @@ module.exports = SyntheticClipboardEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(46);
+var SyntheticUIEvent = __webpack_require__(47);
 
 /**
  * @interface FocusEvent
@@ -46631,7 +46700,7 @@ module.exports = SyntheticFocusEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(46);
+var SyntheticUIEvent = __webpack_require__(47);
 
 var getEventCharCode = __webpack_require__(90);
 var getEventKey = __webpack_require__(253);
@@ -46872,7 +46941,7 @@ module.exports = SyntheticDragEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(46);
+var SyntheticUIEvent = __webpack_require__(47);
 
 var getEventModifierState = __webpack_require__(79);
 
@@ -47196,7 +47265,7 @@ var _prodInvariant = __webpack_require__(4);
 
 var ReactCurrentOwner = __webpack_require__(18);
 var ReactDOMComponentTree = __webpack_require__(6);
-var ReactInstanceMap = __webpack_require__(47);
+var ReactInstanceMap = __webpack_require__(48);
 
 var getHostComponentFromComposite = __webpack_require__(131);
 var invariant = __webpack_require__(1);
@@ -47582,13 +47651,13 @@ var Swarm = __webpack_require__(316);
 var Settings = __webpack_require__(317);
 var version = __webpack_require__(318);
 var utils = __webpack_require__(8);
-var sha3 = __webpack_require__(49);
+var sha3 = __webpack_require__(50);
 var extend = __webpack_require__(319);
 var Batch = __webpack_require__(320);
-var Property = __webpack_require__(39);
+var Property = __webpack_require__(40);
 var HttpProvider = __webpack_require__(321);
 var IpcProvider = __webpack_require__(349);
-var BigNumber = __webpack_require__(48);
+var BigNumber = __webpack_require__(49);
 
 
 
@@ -47731,7 +47800,7 @@ module.exports = Web3;
 var Jsonrpc = __webpack_require__(132);
 var utils = __webpack_require__(8);
 var c = __webpack_require__(63);
-var errors = __webpack_require__(38);
+var errors = __webpack_require__(39);
 
 /**
  * It's responsible for passing messages to providers
@@ -51055,7 +51124,7 @@ module.exports = RequestManager;
 var formatters = __webpack_require__(24);
 var utils = __webpack_require__(8);
 var Method = __webpack_require__(29);
-var Property = __webpack_require__(39);
+var Property = __webpack_require__(40);
 var c = __webpack_require__(63);
 var Contract = __webpack_require__(294);
 var watches = __webpack_require__(66);
@@ -52030,9 +52099,9 @@ module.exports = SolidityTypeBytes;
 
 var coder = __webpack_require__(94);
 var utils = __webpack_require__(8);
-var errors = __webpack_require__(38);
+var errors = __webpack_require__(39);
 var formatters = __webpack_require__(24);
-var sha3 = __webpack_require__(49);
+var sha3 = __webpack_require__(50);
 
 /**
  * This prototype should be used to call/sendTransaction to solidity functions
@@ -52317,7 +52386,7 @@ module.exports = SolidityFunction;
  * @date 2014
  */
 
-var sha3 = __webpack_require__(49);
+var sha3 = __webpack_require__(50);
 var SolidityEvent = __webpack_require__(138);
 var formatters = __webpack_require__(24);
 var utils = __webpack_require__(8);
@@ -52893,7 +52962,7 @@ module.exports = Shh;
  */
 
 var utils = __webpack_require__(8);
-var Property = __webpack_require__(39);
+var Property = __webpack_require__(40);
 
 var Net = function (web3) {
     this._requestManager = web3._requestManager;
@@ -52955,7 +53024,7 @@ module.exports = Net;
 
 
 var Method = __webpack_require__(29);
-var Property = __webpack_require__(39);
+var Property = __webpack_require__(40);
 var formatters = __webpack_require__(24);
 
 function Personal(web3) {
@@ -53078,7 +53147,7 @@ module.exports = Personal;
 
 
 var Method = __webpack_require__(29);
-var Property = __webpack_require__(39);
+var Property = __webpack_require__(40);
 
 function Swarm(web3) {
     this._requestManager = web3._requestManager;
@@ -53226,7 +53295,7 @@ module.exports = {"version":"0.20.7"}
 var formatters = __webpack_require__(24);
 var utils = __webpack_require__(8);
 var Method = __webpack_require__(29);
-var Property = __webpack_require__(39);
+var Property = __webpack_require__(40);
 
 // TODO: refactor, so the input params are not altered.
 // it's necessary to make same 'extension' work with multiple providers
@@ -53300,7 +53369,7 @@ module.exports = extend;
  */
 
 var Jsonrpc = __webpack_require__(132);
-var errors = __webpack_require__(38);
+var errors = __webpack_require__(39);
 
 var Batch = function (web3) {
     this.requestManager = web3._requestManager;
@@ -53373,7 +53442,7 @@ module.exports = Batch;
  * @date 2015
  */
 
-var errors = __webpack_require__(38);
+var errors = __webpack_require__(39);
 
 // workaround to use httpprovider in different envs
 
@@ -55735,7 +55804,7 @@ module.exports = {
 
 }(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(50)(module), __webpack_require__(11)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(38)(module), __webpack_require__(11)))
 
 /***/ }),
 /* 339 */
@@ -56515,7 +56584,7 @@ exports.XMLHttpRequestUpload = XMLHttpRequestUpload;
 
 
 var utils = __webpack_require__(8);
-var errors = __webpack_require__(38);
+var errors = __webpack_require__(39);
 
 
 var IpcProvider = function (path, net) {
@@ -56703,10 +56772,1710 @@ module.exports = IpcProvider;
 /* 350 */
 /***/ (function(module, exports, __webpack_require__) {
 
+/* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.9.1
+//     http://underscorejs.org
+//     (c) 2009-2018 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+//     Underscore may be freely distributed under the MIT license.
+
+(function() {
+
+  // Baseline setup
+  // --------------
+
+  // Establish the root object, `window` (`self`) in the browser, `global`
+  // on the server, or `this` in some virtual machines. We use `self`
+  // instead of `window` for `WebWorker` support.
+  var root = typeof self == 'object' && self.self === self && self ||
+            typeof global == 'object' && global.global === global && global ||
+            this ||
+            {};
+
+  // Save the previous value of the `_` variable.
+  var previousUnderscore = root._;
+
+  // Save bytes in the minified (but not gzipped) version:
+  var ArrayProto = Array.prototype, ObjProto = Object.prototype;
+  var SymbolProto = typeof Symbol !== 'undefined' ? Symbol.prototype : null;
+
+  // Create quick reference variables for speed access to core prototypes.
+  var push = ArrayProto.push,
+      slice = ArrayProto.slice,
+      toString = ObjProto.toString,
+      hasOwnProperty = ObjProto.hasOwnProperty;
+
+  // All **ECMAScript 5** native function implementations that we hope to use
+  // are declared here.
+  var nativeIsArray = Array.isArray,
+      nativeKeys = Object.keys,
+      nativeCreate = Object.create;
+
+  // Naked function reference for surrogate-prototype-swapping.
+  var Ctor = function(){};
+
+  // Create a safe reference to the Underscore object for use below.
+  var _ = function(obj) {
+    if (obj instanceof _) return obj;
+    if (!(this instanceof _)) return new _(obj);
+    this._wrapped = obj;
+  };
+
+  // Export the Underscore object for **Node.js**, with
+  // backwards-compatibility for their old module API. If we're in
+  // the browser, add `_` as a global object.
+  // (`nodeType` is checked to ensure that `module`
+  // and `exports` are not HTML elements.)
+  if (typeof exports != 'undefined' && !exports.nodeType) {
+    if (typeof module != 'undefined' && !module.nodeType && module.exports) {
+      exports = module.exports = _;
+    }
+    exports._ = _;
+  } else {
+    root._ = _;
+  }
+
+  // Current version.
+  _.VERSION = '1.9.1';
+
+  // Internal function that returns an efficient (for current engines) version
+  // of the passed-in callback, to be repeatedly applied in other Underscore
+  // functions.
+  var optimizeCb = function(func, context, argCount) {
+    if (context === void 0) return func;
+    switch (argCount == null ? 3 : argCount) {
+      case 1: return function(value) {
+        return func.call(context, value);
+      };
+      // The 2-argument case is omitted because we’re not using it.
+      case 3: return function(value, index, collection) {
+        return func.call(context, value, index, collection);
+      };
+      case 4: return function(accumulator, value, index, collection) {
+        return func.call(context, accumulator, value, index, collection);
+      };
+    }
+    return function() {
+      return func.apply(context, arguments);
+    };
+  };
+
+  var builtinIteratee;
+
+  // An internal function to generate callbacks that can be applied to each
+  // element in a collection, returning the desired result — either `identity`,
+  // an arbitrary callback, a property matcher, or a property accessor.
+  var cb = function(value, context, argCount) {
+    if (_.iteratee !== builtinIteratee) return _.iteratee(value, context);
+    if (value == null) return _.identity;
+    if (_.isFunction(value)) return optimizeCb(value, context, argCount);
+    if (_.isObject(value) && !_.isArray(value)) return _.matcher(value);
+    return _.property(value);
+  };
+
+  // External wrapper for our callback generator. Users may customize
+  // `_.iteratee` if they want additional predicate/iteratee shorthand styles.
+  // This abstraction hides the internal-only argCount argument.
+  _.iteratee = builtinIteratee = function(value, context) {
+    return cb(value, context, Infinity);
+  };
+
+  // Some functions take a variable number of arguments, or a few expected
+  // arguments at the beginning and then a variable number of values to operate
+  // on. This helper accumulates all remaining arguments past the function’s
+  // argument length (or an explicit `startIndex`), into an array that becomes
+  // the last argument. Similar to ES6’s "rest parameter".
+  var restArguments = function(func, startIndex) {
+    startIndex = startIndex == null ? func.length - 1 : +startIndex;
+    return function() {
+      var length = Math.max(arguments.length - startIndex, 0),
+          rest = Array(length),
+          index = 0;
+      for (; index < length; index++) {
+        rest[index] = arguments[index + startIndex];
+      }
+      switch (startIndex) {
+        case 0: return func.call(this, rest);
+        case 1: return func.call(this, arguments[0], rest);
+        case 2: return func.call(this, arguments[0], arguments[1], rest);
+      }
+      var args = Array(startIndex + 1);
+      for (index = 0; index < startIndex; index++) {
+        args[index] = arguments[index];
+      }
+      args[startIndex] = rest;
+      return func.apply(this, args);
+    };
+  };
+
+  // An internal function for creating a new object that inherits from another.
+  var baseCreate = function(prototype) {
+    if (!_.isObject(prototype)) return {};
+    if (nativeCreate) return nativeCreate(prototype);
+    Ctor.prototype = prototype;
+    var result = new Ctor;
+    Ctor.prototype = null;
+    return result;
+  };
+
+  var shallowProperty = function(key) {
+    return function(obj) {
+      return obj == null ? void 0 : obj[key];
+    };
+  };
+
+  var has = function(obj, path) {
+    return obj != null && hasOwnProperty.call(obj, path);
+  }
+
+  var deepGet = function(obj, path) {
+    var length = path.length;
+    for (var i = 0; i < length; i++) {
+      if (obj == null) return void 0;
+      obj = obj[path[i]];
+    }
+    return length ? obj : void 0;
+  };
+
+  // Helper for collection methods to determine whether a collection
+  // should be iterated as an array or as an object.
+  // Related: http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength
+  // Avoids a very nasty iOS 8 JIT bug on ARM-64. #2094
+  var MAX_ARRAY_INDEX = Math.pow(2, 53) - 1;
+  var getLength = shallowProperty('length');
+  var isArrayLike = function(collection) {
+    var length = getLength(collection);
+    return typeof length == 'number' && length >= 0 && length <= MAX_ARRAY_INDEX;
+  };
+
+  // Collection Functions
+  // --------------------
+
+  // The cornerstone, an `each` implementation, aka `forEach`.
+  // Handles raw objects in addition to array-likes. Treats all
+  // sparse array-likes as if they were dense.
+  _.each = _.forEach = function(obj, iteratee, context) {
+    iteratee = optimizeCb(iteratee, context);
+    var i, length;
+    if (isArrayLike(obj)) {
+      for (i = 0, length = obj.length; i < length; i++) {
+        iteratee(obj[i], i, obj);
+      }
+    } else {
+      var keys = _.keys(obj);
+      for (i = 0, length = keys.length; i < length; i++) {
+        iteratee(obj[keys[i]], keys[i], obj);
+      }
+    }
+    return obj;
+  };
+
+  // Return the results of applying the iteratee to each element.
+  _.map = _.collect = function(obj, iteratee, context) {
+    iteratee = cb(iteratee, context);
+    var keys = !isArrayLike(obj) && _.keys(obj),
+        length = (keys || obj).length,
+        results = Array(length);
+    for (var index = 0; index < length; index++) {
+      var currentKey = keys ? keys[index] : index;
+      results[index] = iteratee(obj[currentKey], currentKey, obj);
+    }
+    return results;
+  };
+
+  // Create a reducing function iterating left or right.
+  var createReduce = function(dir) {
+    // Wrap code that reassigns argument variables in a separate function than
+    // the one that accesses `arguments.length` to avoid a perf hit. (#1991)
+    var reducer = function(obj, iteratee, memo, initial) {
+      var keys = !isArrayLike(obj) && _.keys(obj),
+          length = (keys || obj).length,
+          index = dir > 0 ? 0 : length - 1;
+      if (!initial) {
+        memo = obj[keys ? keys[index] : index];
+        index += dir;
+      }
+      for (; index >= 0 && index < length; index += dir) {
+        var currentKey = keys ? keys[index] : index;
+        memo = iteratee(memo, obj[currentKey], currentKey, obj);
+      }
+      return memo;
+    };
+
+    return function(obj, iteratee, memo, context) {
+      var initial = arguments.length >= 3;
+      return reducer(obj, optimizeCb(iteratee, context, 4), memo, initial);
+    };
+  };
+
+  // **Reduce** builds up a single result from a list of values, aka `inject`,
+  // or `foldl`.
+  _.reduce = _.foldl = _.inject = createReduce(1);
+
+  // The right-associative version of reduce, also known as `foldr`.
+  _.reduceRight = _.foldr = createReduce(-1);
+
+  // Return the first value which passes a truth test. Aliased as `detect`.
+  _.find = _.detect = function(obj, predicate, context) {
+    var keyFinder = isArrayLike(obj) ? _.findIndex : _.findKey;
+    var key = keyFinder(obj, predicate, context);
+    if (key !== void 0 && key !== -1) return obj[key];
+  };
+
+  // Return all the elements that pass a truth test.
+  // Aliased as `select`.
+  _.filter = _.select = function(obj, predicate, context) {
+    var results = [];
+    predicate = cb(predicate, context);
+    _.each(obj, function(value, index, list) {
+      if (predicate(value, index, list)) results.push(value);
+    });
+    return results;
+  };
+
+  // Return all the elements for which a truth test fails.
+  _.reject = function(obj, predicate, context) {
+    return _.filter(obj, _.negate(cb(predicate)), context);
+  };
+
+  // Determine whether all of the elements match a truth test.
+  // Aliased as `all`.
+  _.every = _.all = function(obj, predicate, context) {
+    predicate = cb(predicate, context);
+    var keys = !isArrayLike(obj) && _.keys(obj),
+        length = (keys || obj).length;
+    for (var index = 0; index < length; index++) {
+      var currentKey = keys ? keys[index] : index;
+      if (!predicate(obj[currentKey], currentKey, obj)) return false;
+    }
+    return true;
+  };
+
+  // Determine if at least one element in the object matches a truth test.
+  // Aliased as `any`.
+  _.some = _.any = function(obj, predicate, context) {
+    predicate = cb(predicate, context);
+    var keys = !isArrayLike(obj) && _.keys(obj),
+        length = (keys || obj).length;
+    for (var index = 0; index < length; index++) {
+      var currentKey = keys ? keys[index] : index;
+      if (predicate(obj[currentKey], currentKey, obj)) return true;
+    }
+    return false;
+  };
+
+  // Determine if the array or object contains a given item (using `===`).
+  // Aliased as `includes` and `include`.
+  _.contains = _.includes = _.include = function(obj, item, fromIndex, guard) {
+    if (!isArrayLike(obj)) obj = _.values(obj);
+    if (typeof fromIndex != 'number' || guard) fromIndex = 0;
+    return _.indexOf(obj, item, fromIndex) >= 0;
+  };
+
+  // Invoke a method (with arguments) on every item in a collection.
+  _.invoke = restArguments(function(obj, path, args) {
+    var contextPath, func;
+    if (_.isFunction(path)) {
+      func = path;
+    } else if (_.isArray(path)) {
+      contextPath = path.slice(0, -1);
+      path = path[path.length - 1];
+    }
+    return _.map(obj, function(context) {
+      var method = func;
+      if (!method) {
+        if (contextPath && contextPath.length) {
+          context = deepGet(context, contextPath);
+        }
+        if (context == null) return void 0;
+        method = context[path];
+      }
+      return method == null ? method : method.apply(context, args);
+    });
+  });
+
+  // Convenience version of a common use case of `map`: fetching a property.
+  _.pluck = function(obj, key) {
+    return _.map(obj, _.property(key));
+  };
+
+  // Convenience version of a common use case of `filter`: selecting only objects
+  // containing specific `key:value` pairs.
+  _.where = function(obj, attrs) {
+    return _.filter(obj, _.matcher(attrs));
+  };
+
+  // Convenience version of a common use case of `find`: getting the first object
+  // containing specific `key:value` pairs.
+  _.findWhere = function(obj, attrs) {
+    return _.find(obj, _.matcher(attrs));
+  };
+
+  // Return the maximum element (or element-based computation).
+  _.max = function(obj, iteratee, context) {
+    var result = -Infinity, lastComputed = -Infinity,
+        value, computed;
+    if (iteratee == null || typeof iteratee == 'number' && typeof obj[0] != 'object' && obj != null) {
+      obj = isArrayLike(obj) ? obj : _.values(obj);
+      for (var i = 0, length = obj.length; i < length; i++) {
+        value = obj[i];
+        if (value != null && value > result) {
+          result = value;
+        }
+      }
+    } else {
+      iteratee = cb(iteratee, context);
+      _.each(obj, function(v, index, list) {
+        computed = iteratee(v, index, list);
+        if (computed > lastComputed || computed === -Infinity && result === -Infinity) {
+          result = v;
+          lastComputed = computed;
+        }
+      });
+    }
+    return result;
+  };
+
+  // Return the minimum element (or element-based computation).
+  _.min = function(obj, iteratee, context) {
+    var result = Infinity, lastComputed = Infinity,
+        value, computed;
+    if (iteratee == null || typeof iteratee == 'number' && typeof obj[0] != 'object' && obj != null) {
+      obj = isArrayLike(obj) ? obj : _.values(obj);
+      for (var i = 0, length = obj.length; i < length; i++) {
+        value = obj[i];
+        if (value != null && value < result) {
+          result = value;
+        }
+      }
+    } else {
+      iteratee = cb(iteratee, context);
+      _.each(obj, function(v, index, list) {
+        computed = iteratee(v, index, list);
+        if (computed < lastComputed || computed === Infinity && result === Infinity) {
+          result = v;
+          lastComputed = computed;
+        }
+      });
+    }
+    return result;
+  };
+
+  // Shuffle a collection.
+  _.shuffle = function(obj) {
+    return _.sample(obj, Infinity);
+  };
+
+  // Sample **n** random values from a collection using the modern version of the
+  // [Fisher-Yates shuffle](http://en.wikipedia.org/wiki/Fisher–Yates_shuffle).
+  // If **n** is not specified, returns a single random element.
+  // The internal `guard` argument allows it to work with `map`.
+  _.sample = function(obj, n, guard) {
+    if (n == null || guard) {
+      if (!isArrayLike(obj)) obj = _.values(obj);
+      return obj[_.random(obj.length - 1)];
+    }
+    var sample = isArrayLike(obj) ? _.clone(obj) : _.values(obj);
+    var length = getLength(sample);
+    n = Math.max(Math.min(n, length), 0);
+    var last = length - 1;
+    for (var index = 0; index < n; index++) {
+      var rand = _.random(index, last);
+      var temp = sample[index];
+      sample[index] = sample[rand];
+      sample[rand] = temp;
+    }
+    return sample.slice(0, n);
+  };
+
+  // Sort the object's values by a criterion produced by an iteratee.
+  _.sortBy = function(obj, iteratee, context) {
+    var index = 0;
+    iteratee = cb(iteratee, context);
+    return _.pluck(_.map(obj, function(value, key, list) {
+      return {
+        value: value,
+        index: index++,
+        criteria: iteratee(value, key, list)
+      };
+    }).sort(function(left, right) {
+      var a = left.criteria;
+      var b = right.criteria;
+      if (a !== b) {
+        if (a > b || a === void 0) return 1;
+        if (a < b || b === void 0) return -1;
+      }
+      return left.index - right.index;
+    }), 'value');
+  };
+
+  // An internal function used for aggregate "group by" operations.
+  var group = function(behavior, partition) {
+    return function(obj, iteratee, context) {
+      var result = partition ? [[], []] : {};
+      iteratee = cb(iteratee, context);
+      _.each(obj, function(value, index) {
+        var key = iteratee(value, index, obj);
+        behavior(result, value, key);
+      });
+      return result;
+    };
+  };
+
+  // Groups the object's values by a criterion. Pass either a string attribute
+  // to group by, or a function that returns the criterion.
+  _.groupBy = group(function(result, value, key) {
+    if (has(result, key)) result[key].push(value); else result[key] = [value];
+  });
+
+  // Indexes the object's values by a criterion, similar to `groupBy`, but for
+  // when you know that your index values will be unique.
+  _.indexBy = group(function(result, value, key) {
+    result[key] = value;
+  });
+
+  // Counts instances of an object that group by a certain criterion. Pass
+  // either a string attribute to count by, or a function that returns the
+  // criterion.
+  _.countBy = group(function(result, value, key) {
+    if (has(result, key)) result[key]++; else result[key] = 1;
+  });
+
+  var reStrSymbol = /[^\ud800-\udfff]|[\ud800-\udbff][\udc00-\udfff]|[\ud800-\udfff]/g;
+  // Safely create a real, live array from anything iterable.
+  _.toArray = function(obj) {
+    if (!obj) return [];
+    if (_.isArray(obj)) return slice.call(obj);
+    if (_.isString(obj)) {
+      // Keep surrogate pair characters together
+      return obj.match(reStrSymbol);
+    }
+    if (isArrayLike(obj)) return _.map(obj, _.identity);
+    return _.values(obj);
+  };
+
+  // Return the number of elements in an object.
+  _.size = function(obj) {
+    if (obj == null) return 0;
+    return isArrayLike(obj) ? obj.length : _.keys(obj).length;
+  };
+
+  // Split a collection into two arrays: one whose elements all satisfy the given
+  // predicate, and one whose elements all do not satisfy the predicate.
+  _.partition = group(function(result, value, pass) {
+    result[pass ? 0 : 1].push(value);
+  }, true);
+
+  // Array Functions
+  // ---------------
+
+  // Get the first element of an array. Passing **n** will return the first N
+  // values in the array. Aliased as `head` and `take`. The **guard** check
+  // allows it to work with `_.map`.
+  _.first = _.head = _.take = function(array, n, guard) {
+    if (array == null || array.length < 1) return n == null ? void 0 : [];
+    if (n == null || guard) return array[0];
+    return _.initial(array, array.length - n);
+  };
+
+  // Returns everything but the last entry of the array. Especially useful on
+  // the arguments object. Passing **n** will return all the values in
+  // the array, excluding the last N.
+  _.initial = function(array, n, guard) {
+    return slice.call(array, 0, Math.max(0, array.length - (n == null || guard ? 1 : n)));
+  };
+
+  // Get the last element of an array. Passing **n** will return the last N
+  // values in the array.
+  _.last = function(array, n, guard) {
+    if (array == null || array.length < 1) return n == null ? void 0 : [];
+    if (n == null || guard) return array[array.length - 1];
+    return _.rest(array, Math.max(0, array.length - n));
+  };
+
+  // Returns everything but the first entry of the array. Aliased as `tail` and `drop`.
+  // Especially useful on the arguments object. Passing an **n** will return
+  // the rest N values in the array.
+  _.rest = _.tail = _.drop = function(array, n, guard) {
+    return slice.call(array, n == null || guard ? 1 : n);
+  };
+
+  // Trim out all falsy values from an array.
+  _.compact = function(array) {
+    return _.filter(array, Boolean);
+  };
+
+  // Internal implementation of a recursive `flatten` function.
+  var flatten = function(input, shallow, strict, output) {
+    output = output || [];
+    var idx = output.length;
+    for (var i = 0, length = getLength(input); i < length; i++) {
+      var value = input[i];
+      if (isArrayLike(value) && (_.isArray(value) || _.isArguments(value))) {
+        // Flatten current level of array or arguments object.
+        if (shallow) {
+          var j = 0, len = value.length;
+          while (j < len) output[idx++] = value[j++];
+        } else {
+          flatten(value, shallow, strict, output);
+          idx = output.length;
+        }
+      } else if (!strict) {
+        output[idx++] = value;
+      }
+    }
+    return output;
+  };
+
+  // Flatten out an array, either recursively (by default), or just one level.
+  _.flatten = function(array, shallow) {
+    return flatten(array, shallow, false);
+  };
+
+  // Return a version of the array that does not contain the specified value(s).
+  _.without = restArguments(function(array, otherArrays) {
+    return _.difference(array, otherArrays);
+  });
+
+  // Produce a duplicate-free version of the array. If the array has already
+  // been sorted, you have the option of using a faster algorithm.
+  // The faster algorithm will not work with an iteratee if the iteratee
+  // is not a one-to-one function, so providing an iteratee will disable
+  // the faster algorithm.
+  // Aliased as `unique`.
+  _.uniq = _.unique = function(array, isSorted, iteratee, context) {
+    if (!_.isBoolean(isSorted)) {
+      context = iteratee;
+      iteratee = isSorted;
+      isSorted = false;
+    }
+    if (iteratee != null) iteratee = cb(iteratee, context);
+    var result = [];
+    var seen = [];
+    for (var i = 0, length = getLength(array); i < length; i++) {
+      var value = array[i],
+          computed = iteratee ? iteratee(value, i, array) : value;
+      if (isSorted && !iteratee) {
+        if (!i || seen !== computed) result.push(value);
+        seen = computed;
+      } else if (iteratee) {
+        if (!_.contains(seen, computed)) {
+          seen.push(computed);
+          result.push(value);
+        }
+      } else if (!_.contains(result, value)) {
+        result.push(value);
+      }
+    }
+    return result;
+  };
+
+  // Produce an array that contains the union: each distinct element from all of
+  // the passed-in arrays.
+  _.union = restArguments(function(arrays) {
+    return _.uniq(flatten(arrays, true, true));
+  });
+
+  // Produce an array that contains every item shared between all the
+  // passed-in arrays.
+  _.intersection = function(array) {
+    var result = [];
+    var argsLength = arguments.length;
+    for (var i = 0, length = getLength(array); i < length; i++) {
+      var item = array[i];
+      if (_.contains(result, item)) continue;
+      var j;
+      for (j = 1; j < argsLength; j++) {
+        if (!_.contains(arguments[j], item)) break;
+      }
+      if (j === argsLength) result.push(item);
+    }
+    return result;
+  };
+
+  // Take the difference between one array and a number of other arrays.
+  // Only the elements present in just the first array will remain.
+  _.difference = restArguments(function(array, rest) {
+    rest = flatten(rest, true, true);
+    return _.filter(array, function(value){
+      return !_.contains(rest, value);
+    });
+  });
+
+  // Complement of _.zip. Unzip accepts an array of arrays and groups
+  // each array's elements on shared indices.
+  _.unzip = function(array) {
+    var length = array && _.max(array, getLength).length || 0;
+    var result = Array(length);
+
+    for (var index = 0; index < length; index++) {
+      result[index] = _.pluck(array, index);
+    }
+    return result;
+  };
+
+  // Zip together multiple lists into a single array -- elements that share
+  // an index go together.
+  _.zip = restArguments(_.unzip);
+
+  // Converts lists into objects. Pass either a single array of `[key, value]`
+  // pairs, or two parallel arrays of the same length -- one of keys, and one of
+  // the corresponding values. Passing by pairs is the reverse of _.pairs.
+  _.object = function(list, values) {
+    var result = {};
+    for (var i = 0, length = getLength(list); i < length; i++) {
+      if (values) {
+        result[list[i]] = values[i];
+      } else {
+        result[list[i][0]] = list[i][1];
+      }
+    }
+    return result;
+  };
+
+  // Generator function to create the findIndex and findLastIndex functions.
+  var createPredicateIndexFinder = function(dir) {
+    return function(array, predicate, context) {
+      predicate = cb(predicate, context);
+      var length = getLength(array);
+      var index = dir > 0 ? 0 : length - 1;
+      for (; index >= 0 && index < length; index += dir) {
+        if (predicate(array[index], index, array)) return index;
+      }
+      return -1;
+    };
+  };
+
+  // Returns the first index on an array-like that passes a predicate test.
+  _.findIndex = createPredicateIndexFinder(1);
+  _.findLastIndex = createPredicateIndexFinder(-1);
+
+  // Use a comparator function to figure out the smallest index at which
+  // an object should be inserted so as to maintain order. Uses binary search.
+  _.sortedIndex = function(array, obj, iteratee, context) {
+    iteratee = cb(iteratee, context, 1);
+    var value = iteratee(obj);
+    var low = 0, high = getLength(array);
+    while (low < high) {
+      var mid = Math.floor((low + high) / 2);
+      if (iteratee(array[mid]) < value) low = mid + 1; else high = mid;
+    }
+    return low;
+  };
+
+  // Generator function to create the indexOf and lastIndexOf functions.
+  var createIndexFinder = function(dir, predicateFind, sortedIndex) {
+    return function(array, item, idx) {
+      var i = 0, length = getLength(array);
+      if (typeof idx == 'number') {
+        if (dir > 0) {
+          i = idx >= 0 ? idx : Math.max(idx + length, i);
+        } else {
+          length = idx >= 0 ? Math.min(idx + 1, length) : idx + length + 1;
+        }
+      } else if (sortedIndex && idx && length) {
+        idx = sortedIndex(array, item);
+        return array[idx] === item ? idx : -1;
+      }
+      if (item !== item) {
+        idx = predicateFind(slice.call(array, i, length), _.isNaN);
+        return idx >= 0 ? idx + i : -1;
+      }
+      for (idx = dir > 0 ? i : length - 1; idx >= 0 && idx < length; idx += dir) {
+        if (array[idx] === item) return idx;
+      }
+      return -1;
+    };
+  };
+
+  // Return the position of the first occurrence of an item in an array,
+  // or -1 if the item is not included in the array.
+  // If the array is large and already in sort order, pass `true`
+  // for **isSorted** to use binary search.
+  _.indexOf = createIndexFinder(1, _.findIndex, _.sortedIndex);
+  _.lastIndexOf = createIndexFinder(-1, _.findLastIndex);
+
+  // Generate an integer Array containing an arithmetic progression. A port of
+  // the native Python `range()` function. See
+  // [the Python documentation](http://docs.python.org/library/functions.html#range).
+  _.range = function(start, stop, step) {
+    if (stop == null) {
+      stop = start || 0;
+      start = 0;
+    }
+    if (!step) {
+      step = stop < start ? -1 : 1;
+    }
+
+    var length = Math.max(Math.ceil((stop - start) / step), 0);
+    var range = Array(length);
+
+    for (var idx = 0; idx < length; idx++, start += step) {
+      range[idx] = start;
+    }
+
+    return range;
+  };
+
+  // Chunk a single array into multiple arrays, each containing `count` or fewer
+  // items.
+  _.chunk = function(array, count) {
+    if (count == null || count < 1) return [];
+    var result = [];
+    var i = 0, length = array.length;
+    while (i < length) {
+      result.push(slice.call(array, i, i += count));
+    }
+    return result;
+  };
+
+  // Function (ahem) Functions
+  // ------------------
+
+  // Determines whether to execute a function as a constructor
+  // or a normal function with the provided arguments.
+  var executeBound = function(sourceFunc, boundFunc, context, callingContext, args) {
+    if (!(callingContext instanceof boundFunc)) return sourceFunc.apply(context, args);
+    var self = baseCreate(sourceFunc.prototype);
+    var result = sourceFunc.apply(self, args);
+    if (_.isObject(result)) return result;
+    return self;
+  };
+
+  // Create a function bound to a given object (assigning `this`, and arguments,
+  // optionally). Delegates to **ECMAScript 5**'s native `Function.bind` if
+  // available.
+  _.bind = restArguments(function(func, context, args) {
+    if (!_.isFunction(func)) throw new TypeError('Bind must be called on a function');
+    var bound = restArguments(function(callArgs) {
+      return executeBound(func, bound, context, this, args.concat(callArgs));
+    });
+    return bound;
+  });
+
+  // Partially apply a function by creating a version that has had some of its
+  // arguments pre-filled, without changing its dynamic `this` context. _ acts
+  // as a placeholder by default, allowing any combination of arguments to be
+  // pre-filled. Set `_.partial.placeholder` for a custom placeholder argument.
+  _.partial = restArguments(function(func, boundArgs) {
+    var placeholder = _.partial.placeholder;
+    var bound = function() {
+      var position = 0, length = boundArgs.length;
+      var args = Array(length);
+      for (var i = 0; i < length; i++) {
+        args[i] = boundArgs[i] === placeholder ? arguments[position++] : boundArgs[i];
+      }
+      while (position < arguments.length) args.push(arguments[position++]);
+      return executeBound(func, bound, this, this, args);
+    };
+    return bound;
+  });
+
+  _.partial.placeholder = _;
+
+  // Bind a number of an object's methods to that object. Remaining arguments
+  // are the method names to be bound. Useful for ensuring that all callbacks
+  // defined on an object belong to it.
+  _.bindAll = restArguments(function(obj, keys) {
+    keys = flatten(keys, false, false);
+    var index = keys.length;
+    if (index < 1) throw new Error('bindAll must be passed function names');
+    while (index--) {
+      var key = keys[index];
+      obj[key] = _.bind(obj[key], obj);
+    }
+  });
+
+  // Memoize an expensive function by storing its results.
+  _.memoize = function(func, hasher) {
+    var memoize = function(key) {
+      var cache = memoize.cache;
+      var address = '' + (hasher ? hasher.apply(this, arguments) : key);
+      if (!has(cache, address)) cache[address] = func.apply(this, arguments);
+      return cache[address];
+    };
+    memoize.cache = {};
+    return memoize;
+  };
+
+  // Delays a function for the given number of milliseconds, and then calls
+  // it with the arguments supplied.
+  _.delay = restArguments(function(func, wait, args) {
+    return setTimeout(function() {
+      return func.apply(null, args);
+    }, wait);
+  });
+
+  // Defers a function, scheduling it to run after the current call stack has
+  // cleared.
+  _.defer = _.partial(_.delay, _, 1);
+
+  // Returns a function, that, when invoked, will only be triggered at most once
+  // during a given window of time. Normally, the throttled function will run
+  // as much as it can, without ever going more than once per `wait` duration;
+  // but if you'd like to disable the execution on the leading edge, pass
+  // `{leading: false}`. To disable execution on the trailing edge, ditto.
+  _.throttle = function(func, wait, options) {
+    var timeout, context, args, result;
+    var previous = 0;
+    if (!options) options = {};
+
+    var later = function() {
+      previous = options.leading === false ? 0 : _.now();
+      timeout = null;
+      result = func.apply(context, args);
+      if (!timeout) context = args = null;
+    };
+
+    var throttled = function() {
+      var now = _.now();
+      if (!previous && options.leading === false) previous = now;
+      var remaining = wait - (now - previous);
+      context = this;
+      args = arguments;
+      if (remaining <= 0 || remaining > wait) {
+        if (timeout) {
+          clearTimeout(timeout);
+          timeout = null;
+        }
+        previous = now;
+        result = func.apply(context, args);
+        if (!timeout) context = args = null;
+      } else if (!timeout && options.trailing !== false) {
+        timeout = setTimeout(later, remaining);
+      }
+      return result;
+    };
+
+    throttled.cancel = function() {
+      clearTimeout(timeout);
+      previous = 0;
+      timeout = context = args = null;
+    };
+
+    return throttled;
+  };
+
+  // Returns a function, that, as long as it continues to be invoked, will not
+  // be triggered. The function will be called after it stops being called for
+  // N milliseconds. If `immediate` is passed, trigger the function on the
+  // leading edge, instead of the trailing.
+  _.debounce = function(func, wait, immediate) {
+    var timeout, result;
+
+    var later = function(context, args) {
+      timeout = null;
+      if (args) result = func.apply(context, args);
+    };
+
+    var debounced = restArguments(function(args) {
+      if (timeout) clearTimeout(timeout);
+      if (immediate) {
+        var callNow = !timeout;
+        timeout = setTimeout(later, wait);
+        if (callNow) result = func.apply(this, args);
+      } else {
+        timeout = _.delay(later, wait, this, args);
+      }
+
+      return result;
+    });
+
+    debounced.cancel = function() {
+      clearTimeout(timeout);
+      timeout = null;
+    };
+
+    return debounced;
+  };
+
+  // Returns the first function passed as an argument to the second,
+  // allowing you to adjust arguments, run code before and after, and
+  // conditionally execute the original function.
+  _.wrap = function(func, wrapper) {
+    return _.partial(wrapper, func);
+  };
+
+  // Returns a negated version of the passed-in predicate.
+  _.negate = function(predicate) {
+    return function() {
+      return !predicate.apply(this, arguments);
+    };
+  };
+
+  // Returns a function that is the composition of a list of functions, each
+  // consuming the return value of the function that follows.
+  _.compose = function() {
+    var args = arguments;
+    var start = args.length - 1;
+    return function() {
+      var i = start;
+      var result = args[start].apply(this, arguments);
+      while (i--) result = args[i].call(this, result);
+      return result;
+    };
+  };
+
+  // Returns a function that will only be executed on and after the Nth call.
+  _.after = function(times, func) {
+    return function() {
+      if (--times < 1) {
+        return func.apply(this, arguments);
+      }
+    };
+  };
+
+  // Returns a function that will only be executed up to (but not including) the Nth call.
+  _.before = function(times, func) {
+    var memo;
+    return function() {
+      if (--times > 0) {
+        memo = func.apply(this, arguments);
+      }
+      if (times <= 1) func = null;
+      return memo;
+    };
+  };
+
+  // Returns a function that will be executed at most one time, no matter how
+  // often you call it. Useful for lazy initialization.
+  _.once = _.partial(_.before, 2);
+
+  _.restArguments = restArguments;
+
+  // Object Functions
+  // ----------------
+
+  // Keys in IE < 9 that won't be iterated by `for key in ...` and thus missed.
+  var hasEnumBug = !{toString: null}.propertyIsEnumerable('toString');
+  var nonEnumerableProps = ['valueOf', 'isPrototypeOf', 'toString',
+    'propertyIsEnumerable', 'hasOwnProperty', 'toLocaleString'];
+
+  var collectNonEnumProps = function(obj, keys) {
+    var nonEnumIdx = nonEnumerableProps.length;
+    var constructor = obj.constructor;
+    var proto = _.isFunction(constructor) && constructor.prototype || ObjProto;
+
+    // Constructor is a special case.
+    var prop = 'constructor';
+    if (has(obj, prop) && !_.contains(keys, prop)) keys.push(prop);
+
+    while (nonEnumIdx--) {
+      prop = nonEnumerableProps[nonEnumIdx];
+      if (prop in obj && obj[prop] !== proto[prop] && !_.contains(keys, prop)) {
+        keys.push(prop);
+      }
+    }
+  };
+
+  // Retrieve the names of an object's own properties.
+  // Delegates to **ECMAScript 5**'s native `Object.keys`.
+  _.keys = function(obj) {
+    if (!_.isObject(obj)) return [];
+    if (nativeKeys) return nativeKeys(obj);
+    var keys = [];
+    for (var key in obj) if (has(obj, key)) keys.push(key);
+    // Ahem, IE < 9.
+    if (hasEnumBug) collectNonEnumProps(obj, keys);
+    return keys;
+  };
+
+  // Retrieve all the property names of an object.
+  _.allKeys = function(obj) {
+    if (!_.isObject(obj)) return [];
+    var keys = [];
+    for (var key in obj) keys.push(key);
+    // Ahem, IE < 9.
+    if (hasEnumBug) collectNonEnumProps(obj, keys);
+    return keys;
+  };
+
+  // Retrieve the values of an object's properties.
+  _.values = function(obj) {
+    var keys = _.keys(obj);
+    var length = keys.length;
+    var values = Array(length);
+    for (var i = 0; i < length; i++) {
+      values[i] = obj[keys[i]];
+    }
+    return values;
+  };
+
+  // Returns the results of applying the iteratee to each element of the object.
+  // In contrast to _.map it returns an object.
+  _.mapObject = function(obj, iteratee, context) {
+    iteratee = cb(iteratee, context);
+    var keys = _.keys(obj),
+        length = keys.length,
+        results = {};
+    for (var index = 0; index < length; index++) {
+      var currentKey = keys[index];
+      results[currentKey] = iteratee(obj[currentKey], currentKey, obj);
+    }
+    return results;
+  };
+
+  // Convert an object into a list of `[key, value]` pairs.
+  // The opposite of _.object.
+  _.pairs = function(obj) {
+    var keys = _.keys(obj);
+    var length = keys.length;
+    var pairs = Array(length);
+    for (var i = 0; i < length; i++) {
+      pairs[i] = [keys[i], obj[keys[i]]];
+    }
+    return pairs;
+  };
+
+  // Invert the keys and values of an object. The values must be serializable.
+  _.invert = function(obj) {
+    var result = {};
+    var keys = _.keys(obj);
+    for (var i = 0, length = keys.length; i < length; i++) {
+      result[obj[keys[i]]] = keys[i];
+    }
+    return result;
+  };
+
+  // Return a sorted list of the function names available on the object.
+  // Aliased as `methods`.
+  _.functions = _.methods = function(obj) {
+    var names = [];
+    for (var key in obj) {
+      if (_.isFunction(obj[key])) names.push(key);
+    }
+    return names.sort();
+  };
+
+  // An internal function for creating assigner functions.
+  var createAssigner = function(keysFunc, defaults) {
+    return function(obj) {
+      var length = arguments.length;
+      if (defaults) obj = Object(obj);
+      if (length < 2 || obj == null) return obj;
+      for (var index = 1; index < length; index++) {
+        var source = arguments[index],
+            keys = keysFunc(source),
+            l = keys.length;
+        for (var i = 0; i < l; i++) {
+          var key = keys[i];
+          if (!defaults || obj[key] === void 0) obj[key] = source[key];
+        }
+      }
+      return obj;
+    };
+  };
+
+  // Extend a given object with all the properties in passed-in object(s).
+  _.extend = createAssigner(_.allKeys);
+
+  // Assigns a given object with all the own properties in the passed-in object(s).
+  // (https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)
+  _.extendOwn = _.assign = createAssigner(_.keys);
+
+  // Returns the first key on an object that passes a predicate test.
+  _.findKey = function(obj, predicate, context) {
+    predicate = cb(predicate, context);
+    var keys = _.keys(obj), key;
+    for (var i = 0, length = keys.length; i < length; i++) {
+      key = keys[i];
+      if (predicate(obj[key], key, obj)) return key;
+    }
+  };
+
+  // Internal pick helper function to determine if `obj` has key `key`.
+  var keyInObj = function(value, key, obj) {
+    return key in obj;
+  };
+
+  // Return a copy of the object only containing the whitelisted properties.
+  _.pick = restArguments(function(obj, keys) {
+    var result = {}, iteratee = keys[0];
+    if (obj == null) return result;
+    if (_.isFunction(iteratee)) {
+      if (keys.length > 1) iteratee = optimizeCb(iteratee, keys[1]);
+      keys = _.allKeys(obj);
+    } else {
+      iteratee = keyInObj;
+      keys = flatten(keys, false, false);
+      obj = Object(obj);
+    }
+    for (var i = 0, length = keys.length; i < length; i++) {
+      var key = keys[i];
+      var value = obj[key];
+      if (iteratee(value, key, obj)) result[key] = value;
+    }
+    return result;
+  });
+
+  // Return a copy of the object without the blacklisted properties.
+  _.omit = restArguments(function(obj, keys) {
+    var iteratee = keys[0], context;
+    if (_.isFunction(iteratee)) {
+      iteratee = _.negate(iteratee);
+      if (keys.length > 1) context = keys[1];
+    } else {
+      keys = _.map(flatten(keys, false, false), String);
+      iteratee = function(value, key) {
+        return !_.contains(keys, key);
+      };
+    }
+    return _.pick(obj, iteratee, context);
+  });
+
+  // Fill in a given object with default properties.
+  _.defaults = createAssigner(_.allKeys, true);
+
+  // Creates an object that inherits from the given prototype object.
+  // If additional properties are provided then they will be added to the
+  // created object.
+  _.create = function(prototype, props) {
+    var result = baseCreate(prototype);
+    if (props) _.extendOwn(result, props);
+    return result;
+  };
+
+  // Create a (shallow-cloned) duplicate of an object.
+  _.clone = function(obj) {
+    if (!_.isObject(obj)) return obj;
+    return _.isArray(obj) ? obj.slice() : _.extend({}, obj);
+  };
+
+  // Invokes interceptor with the obj, and then returns obj.
+  // The primary purpose of this method is to "tap into" a method chain, in
+  // order to perform operations on intermediate results within the chain.
+  _.tap = function(obj, interceptor) {
+    interceptor(obj);
+    return obj;
+  };
+
+  // Returns whether an object has a given set of `key:value` pairs.
+  _.isMatch = function(object, attrs) {
+    var keys = _.keys(attrs), length = keys.length;
+    if (object == null) return !length;
+    var obj = Object(object);
+    for (var i = 0; i < length; i++) {
+      var key = keys[i];
+      if (attrs[key] !== obj[key] || !(key in obj)) return false;
+    }
+    return true;
+  };
+
+
+  // Internal recursive comparison function for `isEqual`.
+  var eq, deepEq;
+  eq = function(a, b, aStack, bStack) {
+    // Identical objects are equal. `0 === -0`, but they aren't identical.
+    // See the [Harmony `egal` proposal](http://wiki.ecmascript.org/doku.php?id=harmony:egal).
+    if (a === b) return a !== 0 || 1 / a === 1 / b;
+    // `null` or `undefined` only equal to itself (strict comparison).
+    if (a == null || b == null) return false;
+    // `NaN`s are equivalent, but non-reflexive.
+    if (a !== a) return b !== b;
+    // Exhaust primitive checks
+    var type = typeof a;
+    if (type !== 'function' && type !== 'object' && typeof b != 'object') return false;
+    return deepEq(a, b, aStack, bStack);
+  };
+
+  // Internal recursive comparison function for `isEqual`.
+  deepEq = function(a, b, aStack, bStack) {
+    // Unwrap any wrapped objects.
+    if (a instanceof _) a = a._wrapped;
+    if (b instanceof _) b = b._wrapped;
+    // Compare `[[Class]]` names.
+    var className = toString.call(a);
+    if (className !== toString.call(b)) return false;
+    switch (className) {
+      // Strings, numbers, regular expressions, dates, and booleans are compared by value.
+      case '[object RegExp]':
+      // RegExps are coerced to strings for comparison (Note: '' + /a/i === '/a/i')
+      case '[object String]':
+        // Primitives and their corresponding object wrappers are equivalent; thus, `"5"` is
+        // equivalent to `new String("5")`.
+        return '' + a === '' + b;
+      case '[object Number]':
+        // `NaN`s are equivalent, but non-reflexive.
+        // Object(NaN) is equivalent to NaN.
+        if (+a !== +a) return +b !== +b;
+        // An `egal` comparison is performed for other numeric values.
+        return +a === 0 ? 1 / +a === 1 / b : +a === +b;
+      case '[object Date]':
+      case '[object Boolean]':
+        // Coerce dates and booleans to numeric primitive values. Dates are compared by their
+        // millisecond representations. Note that invalid dates with millisecond representations
+        // of `NaN` are not equivalent.
+        return +a === +b;
+      case '[object Symbol]':
+        return SymbolProto.valueOf.call(a) === SymbolProto.valueOf.call(b);
+    }
+
+    var areArrays = className === '[object Array]';
+    if (!areArrays) {
+      if (typeof a != 'object' || typeof b != 'object') return false;
+
+      // Objects with different constructors are not equivalent, but `Object`s or `Array`s
+      // from different frames are.
+      var aCtor = a.constructor, bCtor = b.constructor;
+      if (aCtor !== bCtor && !(_.isFunction(aCtor) && aCtor instanceof aCtor &&
+                               _.isFunction(bCtor) && bCtor instanceof bCtor)
+                          && ('constructor' in a && 'constructor' in b)) {
+        return false;
+      }
+    }
+    // Assume equality for cyclic structures. The algorithm for detecting cyclic
+    // structures is adapted from ES 5.1 section 15.12.3, abstract operation `JO`.
+
+    // Initializing stack of traversed objects.
+    // It's done here since we only need them for objects and arrays comparison.
+    aStack = aStack || [];
+    bStack = bStack || [];
+    var length = aStack.length;
+    while (length--) {
+      // Linear search. Performance is inversely proportional to the number of
+      // unique nested structures.
+      if (aStack[length] === a) return bStack[length] === b;
+    }
+
+    // Add the first object to the stack of traversed objects.
+    aStack.push(a);
+    bStack.push(b);
+
+    // Recursively compare objects and arrays.
+    if (areArrays) {
+      // Compare array lengths to determine if a deep comparison is necessary.
+      length = a.length;
+      if (length !== b.length) return false;
+      // Deep compare the contents, ignoring non-numeric properties.
+      while (length--) {
+        if (!eq(a[length], b[length], aStack, bStack)) return false;
+      }
+    } else {
+      // Deep compare objects.
+      var keys = _.keys(a), key;
+      length = keys.length;
+      // Ensure that both objects contain the same number of properties before comparing deep equality.
+      if (_.keys(b).length !== length) return false;
+      while (length--) {
+        // Deep compare each member
+        key = keys[length];
+        if (!(has(b, key) && eq(a[key], b[key], aStack, bStack))) return false;
+      }
+    }
+    // Remove the first object from the stack of traversed objects.
+    aStack.pop();
+    bStack.pop();
+    return true;
+  };
+
+  // Perform a deep comparison to check if two objects are equal.
+  _.isEqual = function(a, b) {
+    return eq(a, b);
+  };
+
+  // Is a given array, string, or object empty?
+  // An "empty" object has no enumerable own-properties.
+  _.isEmpty = function(obj) {
+    if (obj == null) return true;
+    if (isArrayLike(obj) && (_.isArray(obj) || _.isString(obj) || _.isArguments(obj))) return obj.length === 0;
+    return _.keys(obj).length === 0;
+  };
+
+  // Is a given value a DOM element?
+  _.isElement = function(obj) {
+    return !!(obj && obj.nodeType === 1);
+  };
+
+  // Is a given value an array?
+  // Delegates to ECMA5's native Array.isArray
+  _.isArray = nativeIsArray || function(obj) {
+    return toString.call(obj) === '[object Array]';
+  };
+
+  // Is a given variable an object?
+  _.isObject = function(obj) {
+    var type = typeof obj;
+    return type === 'function' || type === 'object' && !!obj;
+  };
+
+  // Add some isType methods: isArguments, isFunction, isString, isNumber, isDate, isRegExp, isError, isMap, isWeakMap, isSet, isWeakSet.
+  _.each(['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp', 'Error', 'Symbol', 'Map', 'WeakMap', 'Set', 'WeakSet'], function(name) {
+    _['is' + name] = function(obj) {
+      return toString.call(obj) === '[object ' + name + ']';
+    };
+  });
+
+  // Define a fallback version of the method in browsers (ahem, IE < 9), where
+  // there isn't any inspectable "Arguments" type.
+  if (!_.isArguments(arguments)) {
+    _.isArguments = function(obj) {
+      return has(obj, 'callee');
+    };
+  }
+
+  // Optimize `isFunction` if appropriate. Work around some typeof bugs in old v8,
+  // IE 11 (#1621), Safari 8 (#1929), and PhantomJS (#2236).
+  var nodelist = root.document && root.document.childNodes;
+  if (typeof /./ != 'function' && typeof Int8Array != 'object' && typeof nodelist != 'function') {
+    _.isFunction = function(obj) {
+      return typeof obj == 'function' || false;
+    };
+  }
+
+  // Is a given object a finite number?
+  _.isFinite = function(obj) {
+    return !_.isSymbol(obj) && isFinite(obj) && !isNaN(parseFloat(obj));
+  };
+
+  // Is the given value `NaN`?
+  _.isNaN = function(obj) {
+    return _.isNumber(obj) && isNaN(obj);
+  };
+
+  // Is a given value a boolean?
+  _.isBoolean = function(obj) {
+    return obj === true || obj === false || toString.call(obj) === '[object Boolean]';
+  };
+
+  // Is a given value equal to null?
+  _.isNull = function(obj) {
+    return obj === null;
+  };
+
+  // Is a given variable undefined?
+  _.isUndefined = function(obj) {
+    return obj === void 0;
+  };
+
+  // Shortcut function for checking if an object has a given property directly
+  // on itself (in other words, not on a prototype).
+  _.has = function(obj, path) {
+    if (!_.isArray(path)) {
+      return has(obj, path);
+    }
+    var length = path.length;
+    for (var i = 0; i < length; i++) {
+      var key = path[i];
+      if (obj == null || !hasOwnProperty.call(obj, key)) {
+        return false;
+      }
+      obj = obj[key];
+    }
+    return !!length;
+  };
+
+  // Utility Functions
+  // -----------------
+
+  // Run Underscore.js in *noConflict* mode, returning the `_` variable to its
+  // previous owner. Returns a reference to the Underscore object.
+  _.noConflict = function() {
+    root._ = previousUnderscore;
+    return this;
+  };
+
+  // Keep the identity function around for default iteratees.
+  _.identity = function(value) {
+    return value;
+  };
+
+  // Predicate-generating functions. Often useful outside of Underscore.
+  _.constant = function(value) {
+    return function() {
+      return value;
+    };
+  };
+
+  _.noop = function(){};
+
+  // Creates a function that, when passed an object, will traverse that object’s
+  // properties down the given `path`, specified as an array of keys or indexes.
+  _.property = function(path) {
+    if (!_.isArray(path)) {
+      return shallowProperty(path);
+    }
+    return function(obj) {
+      return deepGet(obj, path);
+    };
+  };
+
+  // Generates a function for a given object that returns a given property.
+  _.propertyOf = function(obj) {
+    if (obj == null) {
+      return function(){};
+    }
+    return function(path) {
+      return !_.isArray(path) ? obj[path] : deepGet(obj, path);
+    };
+  };
+
+  // Returns a predicate for checking whether an object has a given set of
+  // `key:value` pairs.
+  _.matcher = _.matches = function(attrs) {
+    attrs = _.extendOwn({}, attrs);
+    return function(obj) {
+      return _.isMatch(obj, attrs);
+    };
+  };
+
+  // Run a function **n** times.
+  _.times = function(n, iteratee, context) {
+    var accum = Array(Math.max(0, n));
+    iteratee = optimizeCb(iteratee, context, 1);
+    for (var i = 0; i < n; i++) accum[i] = iteratee(i);
+    return accum;
+  };
+
+  // Return a random integer between min and max (inclusive).
+  _.random = function(min, max) {
+    if (max == null) {
+      max = min;
+      min = 0;
+    }
+    return min + Math.floor(Math.random() * (max - min + 1));
+  };
+
+  // A (possibly faster) way to get the current timestamp as an integer.
+  _.now = Date.now || function() {
+    return new Date().getTime();
+  };
+
+  // List of HTML entities for escaping.
+  var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;',
+    '`': '&#x60;'
+  };
+  var unescapeMap = _.invert(escapeMap);
+
+  // Functions for escaping and unescaping strings to/from HTML interpolation.
+  var createEscaper = function(map) {
+    var escaper = function(match) {
+      return map[match];
+    };
+    // Regexes for identifying a key that needs to be escaped.
+    var source = '(?:' + _.keys(map).join('|') + ')';
+    var testRegexp = RegExp(source);
+    var replaceRegexp = RegExp(source, 'g');
+    return function(string) {
+      string = string == null ? '' : '' + string;
+      return testRegexp.test(string) ? string.replace(replaceRegexp, escaper) : string;
+    };
+  };
+  _.escape = createEscaper(escapeMap);
+  _.unescape = createEscaper(unescapeMap);
+
+  // Traverses the children of `obj` along `path`. If a child is a function, it
+  // is invoked with its parent as context. Returns the value of the final
+  // child, or `fallback` if any child is undefined.
+  _.result = function(obj, path, fallback) {
+    if (!_.isArray(path)) path = [path];
+    var length = path.length;
+    if (!length) {
+      return _.isFunction(fallback) ? fallback.call(obj) : fallback;
+    }
+    for (var i = 0; i < length; i++) {
+      var prop = obj == null ? void 0 : obj[path[i]];
+      if (prop === void 0) {
+        prop = fallback;
+        i = length; // Ensure we don't continue iterating.
+      }
+      obj = _.isFunction(prop) ? prop.call(obj) : prop;
+    }
+    return obj;
+  };
+
+  // Generate a unique integer id (unique within the entire client session).
+  // Useful for temporary DOM ids.
+  var idCounter = 0;
+  _.uniqueId = function(prefix) {
+    var id = ++idCounter + '';
+    return prefix ? prefix + id : id;
+  };
+
+  // By default, Underscore uses ERB-style template delimiters, change the
+  // following template settings to use alternative delimiters.
+  _.templateSettings = {
+    evaluate: /<%([\s\S]+?)%>/g,
+    interpolate: /<%=([\s\S]+?)%>/g,
+    escape: /<%-([\s\S]+?)%>/g
+  };
+
+  // When customizing `templateSettings`, if you don't want to define an
+  // interpolation, evaluation or escaping regex, we need one that is
+  // guaranteed not to match.
+  var noMatch = /(.)^/;
+
+  // Certain characters need to be escaped so that they can be put into a
+  // string literal.
+  var escapes = {
+    "'": "'",
+    '\\': '\\',
+    '\r': 'r',
+    '\n': 'n',
+    '\u2028': 'u2028',
+    '\u2029': 'u2029'
+  };
+
+  var escapeRegExp = /\\|'|\r|\n|\u2028|\u2029/g;
+
+  var escapeChar = function(match) {
+    return '\\' + escapes[match];
+  };
+
+  // JavaScript micro-templating, similar to John Resig's implementation.
+  // Underscore templating handles arbitrary delimiters, preserves whitespace,
+  // and correctly escapes quotes within interpolated code.
+  // NB: `oldSettings` only exists for backwards compatibility.
+  _.template = function(text, settings, oldSettings) {
+    if (!settings && oldSettings) settings = oldSettings;
+    settings = _.defaults({}, settings, _.templateSettings);
+
+    // Combine delimiters into one regular expression via alternation.
+    var matcher = RegExp([
+      (settings.escape || noMatch).source,
+      (settings.interpolate || noMatch).source,
+      (settings.evaluate || noMatch).source
+    ].join('|') + '|$', 'g');
+
+    // Compile the template source, escaping string literals appropriately.
+    var index = 0;
+    var source = "__p+='";
+    text.replace(matcher, function(match, escape, interpolate, evaluate, offset) {
+      source += text.slice(index, offset).replace(escapeRegExp, escapeChar);
+      index = offset + match.length;
+
+      if (escape) {
+        source += "'+\n((__t=(" + escape + "))==null?'':_.escape(__t))+\n'";
+      } else if (interpolate) {
+        source += "'+\n((__t=(" + interpolate + "))==null?'':__t)+\n'";
+      } else if (evaluate) {
+        source += "';\n" + evaluate + "\n__p+='";
+      }
+
+      // Adobe VMs need the match returned to produce the correct offset.
+      return match;
+    });
+    source += "';\n";
+
+    // If a variable is not specified, place data values in local scope.
+    if (!settings.variable) source = 'with(obj||{}){\n' + source + '}\n';
+
+    source = "var __t,__p='',__j=Array.prototype.join," +
+      "print=function(){__p+=__j.call(arguments,'');};\n" +
+      source + 'return __p;\n';
+
+    var render;
+    try {
+      render = new Function(settings.variable || 'obj', '_', source);
+    } catch (e) {
+      e.source = source;
+      throw e;
+    }
+
+    var template = function(data) {
+      return render.call(this, data, _);
+    };
+
+    // Provide the compiled source as a convenience for precompilation.
+    var argument = settings.variable || 'obj';
+    template.source = 'function(' + argument + '){\n' + source + '}';
+
+    return template;
+  };
+
+  // Add a "chain" function. Start chaining a wrapped Underscore object.
+  _.chain = function(obj) {
+    var instance = _(obj);
+    instance._chain = true;
+    return instance;
+  };
+
+  // OOP
+  // ---------------
+  // If Underscore is called as a function, it returns a wrapped object that
+  // can be used OO-style. This wrapper holds altered versions of all the
+  // underscore functions. Wrapped objects may be chained.
+
+  // Helper function to continue chaining intermediate results.
+  var chainResult = function(instance, obj) {
+    return instance._chain ? _(obj).chain() : obj;
+  };
+
+  // Add your own custom functions to the Underscore object.
+  _.mixin = function(obj) {
+    _.each(_.functions(obj), function(name) {
+      var func = _[name] = obj[name];
+      _.prototype[name] = function() {
+        var args = [this._wrapped];
+        push.apply(args, arguments);
+        return chainResult(this, func.apply(_, args));
+      };
+    });
+    return _;
+  };
+
+  // Add all of the Underscore functions to the wrapper object.
+  _.mixin(_);
+
+  // Add all mutator Array functions to the wrapper.
+  _.each(['pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift'], function(name) {
+    var method = ArrayProto[name];
+    _.prototype[name] = function() {
+      var obj = this._wrapped;
+      method.apply(obj, arguments);
+      if ((name === 'shift' || name === 'splice') && obj.length === 0) delete obj[0];
+      return chainResult(this, obj);
+    };
+  });
+
+  // Add all accessor Array functions to the wrapper.
+  _.each(['concat', 'join', 'slice'], function(name) {
+    var method = ArrayProto[name];
+    _.prototype[name] = function() {
+      return chainResult(this, method.apply(this._wrapped, arguments));
+    };
+  });
+
+  // Extracts the result from a wrapped and chained object.
+  _.prototype.value = function() {
+    return this._wrapped;
+  };
+
+  // Provide unwrapping proxy for some methods used in engine operations
+  // such as arithmetic and JSON stringification.
+  _.prototype.valueOf = _.prototype.toJSON = _.prototype.value;
+
+  _.prototype.toString = function() {
+    return String(this._wrapped);
+  };
+
+  // AMD registration happens at the end for compatibility with AMD loaders
+  // that may not enforce next-turn semantics on modules. Even though general
+  // practice for AMD registration is to be anonymous, underscore registers
+  // as a named module because, like jQuery, it is a base library that is
+  // popular enough to be bundled in a third party lib, but not be part of
+  // an AMD load request. Those cases could generate an error when an
+  // anonymous define() is called outside of a loader request.
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function() {
+      return _;
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  }
+}());
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11), __webpack_require__(38)(module)))
+
+/***/ }),
+/* 351 */
+/***/ (function(module, exports, __webpack_require__) {
+
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(351);
+var content = __webpack_require__(352);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -56714,7 +58483,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(353)(content, options);
+var update = __webpack_require__(354)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -56731,10 +58500,10 @@ if(false) {
 }
 
 /***/ }),
-/* 351 */
+/* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(352)(false);
+exports = module.exports = __webpack_require__(353)(false);
 // imports
 
 
@@ -56745,7 +58514,7 @@ exports.push([module.i, "body{\n    font-family: 'open sans';\n    font-size: 16
 
 
 /***/ }),
-/* 352 */
+/* 353 */
 /***/ (function(module, exports) {
 
 /*
@@ -56827,7 +58596,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 353 */
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -56873,7 +58642,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(354);
+var	fixUrls = __webpack_require__(355);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -57186,7 +58955,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 354 */
+/* 355 */
 /***/ (function(module, exports) {
 
 
@@ -57281,17 +59050,17 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 355 */
+/* 356 */
 /***/ (function(module, exports) {
 
-module.exports = {"contractName":"CoinPledge","abi":[{"constant":false,"inputs":[{"name":"token","type":"address"}],"name":"reclaimToken","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"challengeToOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"bonusFund","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"withdrawPayments","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"renounceOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"challenges","outputs":[{"name":"name","type":"string"},{"name":"value","type":"uint256"},{"name":"judge","type":"address"},{"name":"startDate","type":"uint256"},{"name":"time","type":"uint256"},{"name":"successed","type":"bool"},{"name":"resolved","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_dest","type":"address"}],"name":"payments","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"ownerToChallengeCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"anonymous":false,"inputs":[{"indexed":false,"name":"challengeId","type":"uint256"},{"indexed":false,"name":"name","type":"string"},{"indexed":false,"name":"value","type":"uint256"},{"indexed":false,"name":"judge","type":"address"},{"indexed":false,"name":"startDate","type":"uint256"},{"indexed":false,"name":"time","type":"uint256"}],"name":"NewChallenge","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"challengeId","type":"uint256"},{"indexed":false,"name":"decision","type":"bool"}],"name":"ChallengeResolved","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"previousOwner","type":"address"}],"name":"OwnershipRenounced","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"previousOwner","type":"address"},{"indexed":true,"name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"constant":true,"inputs":[{"name":"owner","type":"address"}],"name":"getChallenges","outputs":[{"name":"","type":"uint256[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"name","type":"string"},{"name":"judge","type":"address"},{"name":"time","type":"uint256"}],"name":"createChallenge","outputs":[{"name":"retId","type":"uint256"}],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"challengeId","type":"uint256"},{"name":"decision","type":"bool"}],"name":"resolveChallenge","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}],"bytecode":"0x6080604052336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555061004c6100ae565b604051809103906000f080158015610068573d6000803e3d6000fd5b50600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506100be565b60405161085180611b2f83390190565b611a62806100cd6000396000f3006080604052600436106100c5576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806317ffc320146100ca5780631c8621fb1461010d5780633a1659821461017a57806341c9028c146101e65780636103d70b1461023d578063715018a6146102545780638da5cb5b1461026b5780638f1d3776146102c257806394a754e0146103c6578063de88d6c5146103ff578063e2982c2114610497578063ebed0f94146104ee578063f2fde38b14610545575b600080fd5b3480156100d657600080fd5b5061010b600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610588565b005b34801561011957600080fd5b506101386004803603810190808035906020019092919050505061070d565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6101d0600480360381019080803590602001908201803590602001919091929391929390803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610740565b6040518082815260200191505060405180910390f35b3480156101f257600080fd5b50610227600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610a69565b6040518082815260200191505060405180910390f35b34801561024957600080fd5b50610252610a81565b005b34801561026057600080fd5b50610269610b5e565b005b34801561027757600080fd5b50610280610c60565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156102ce57600080fd5b506102ed60048036038101908080359060200190929190505050610c85565b60405180806020018881526020018773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018681526020018581526020018415151515815260200183151515158152602001828103825289818151815260200191508051906020019080838360005b8381101561038557808201518184015260208101905061036a565b50505050905090810190601f1680156103b25780820380516001836020036101000a031916815260200191505b509850505050505050505060405180910390f35b3480156103d257600080fd5b506103fd60048036038101908080359060200190929190803515159060200190929190505050610da8565b005b34801561040b57600080fd5b50610440600480360381019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506113b6565b6040518080602001828103825283818151815260200191508051906020019060200280838360005b83811015610483578082015181840152602081019050610468565b505050509050019250505060405180910390f35b3480156104a357600080fd5b506104d8600480360381019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506114e8565b6040518082815260200191505060405180910390f35b3480156104fa57600080fd5b5061052f600480360381019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506115e9565b6040518082815260200191505060405180910390f35b34801561055157600080fd5b50610586600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050611601565b005b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156105e557600080fd5b8173ffffffffffffffffffffffffffffffffffffffff166370a08231306040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001915050602060405180830381600087803b15801561068057600080fd5b505af1158015610694573d6000803e3d6000fd5b505050506040513d60208110156106aa57600080fd5b810190808051906020019092919050505090506107096000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff16828473ffffffffffffffffffffffffffffffffffffffff166116689092919063ffffffff16565b5050565b60036020528060005260406000206000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000806000662386f26fc1000034101515156107ea576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260218152602001807f48617320746f207374616b65206d6f7265207468616e20302e3031206574686581526020017f720000000000000000000000000000000000000000000000000000000000000081525060400191505060405180910390fd5b4291506001600260e0604051908101604052808a8a8080601f01602080910402602001604051908101604052809392919081815260200183838082843782019150505050505081526020013481526020018873ffffffffffffffffffffffffffffffffffffffff168152602001858152602001878152602001600015158152602001600015158152509080600181540180825580915050906001820390600052602060002090600602016000909192909190915060008201518160000190805190602001906108ba929190611991565b506020820151816001015560408201518160020160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550606082015181600301556080820151816004015560a08201518160050160006101000a81548160ff02191690831515021790555060c08201518160050160016101000a81548160ff0219169083151502179055505050039050336003600083815260200190815260200160002060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055507f496dbc192d5e5ebff5f41294ea8388e90078fee4bbdd2820652b265ebdeb333c8188883489878a60405180888152602001806020018681526020018573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001848152602001838152602001828103825288888281815260200192508082843782019150509850505050505050505060405180910390a18092505050949350505050565b60056020528060005260406000206000915090505481565b6000339050600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166351cff8d9826040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001915050600060405180830381600087803b158015610b4357600080fd5b505af1158015610b57573d6000803e3d6000fd5b5050505050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16141515610bb957600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167ff8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c6482060405160405180910390a260008060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600281815481101515610c9457fe5b9060005260206000209060060201600091509050806000018054600181600116156101000203166002900480601f016020809104026020016040519081016040528092919081815260200182805460018160011615610100020316600290048015610d405780601f10610d1557610100808354040283529160200191610d40565b820191906000526020600020905b815481529060010190602001808311610d2357829003601f168201915b5050505050908060010154908060020160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16908060030154908060040154908060050160009054906101000a900460ff16908060050160019054906101000a900460ff16905087565b600080600080600080600288815481101515610dc057fe5b906000526020600020906006020195506003600089815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff169450600015158660050160019054906101000a900460ff161515141515610e93576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601b8152602001807f4368616c6c656e676520616c7265616479207265736f6c7665642e000000000081525060200191505060405180910390fd5b856004015486600301540142111515610f14576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601c8152602001807f4974206973206e6f742074696d652079657420746f206a756467652e0000000081525060200191505060405180910390fd5b62093a80866004015487600301540101421115611053573373ffffffffffffffffffffffffffffffffffffffff168660020160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff161480610fb457503373ffffffffffffffffffffffffffffffffffffffff168573ffffffffffffffffffffffffffffffffffffffff16145b151561104e576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260298152602001807f596f7520617265206e6f7420746865206a7564676520666f722074686973206381526020017f68616c6c656e67652e000000000000000000000000000000000000000000000081525060400191505060405180910390fd5b611141565b3373ffffffffffffffffffffffffffffffffffffffff168660020160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16141515611140576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260298152602001807f596f7520617265206e6f7420746865206a7564676520666f722074686973206381526020017f68616c6c656e67652e000000000000000000000000000000000000000000000081525060400191505060405180910390fd5b5b868660050160006101000a81548160ff02191690831515021790555060018660050160016101000a81548160ff02191690831515021790555061119361118c87600101546064611756565b600161176c565b93506111c06000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff16856117a4565b6111ce86600101548561187e565b925086156112ca578291506000600560008773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205411156112c55761127561126e600560008873ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020546064611756565b603261176c565b905080600560008773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825403925050819055505b611318565b82600560008773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825401925050819055505b6000821115611369578473ffffffffffffffffffffffffffffffffffffffff166108fc839081150290604051600060405180830381858888f19350505050158015611367573d6000803e3d6000fd5b505b7f1c13286911ea61ab9e07cf462b69b2c12954593a03380a618afdf62d227021ae888860405180838152602001821515151581526020019250505060405180910390a15050505050505050565b606080600080600460008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205460405190808252806020026020018201604052801561142a5781602001602082028038833980820191505090505b50925060009150600090505b6002805490508110156114dd578473ffffffffffffffffffffffffffffffffffffffff166003600083815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1614156114d0578083838151811015156114b957fe5b906020019060200201818152505081806001019250505b8080600101915050611436565b829350505050919050565b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663e3a9db1a836040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001915050602060405180830381600087803b1580156115a757600080fd5b505af11580156115bb573d6000803e3d6000fd5b505050506040513d60208110156115d157600080fd5b81019080805190602001909291905050509050919050565b60046020528060005260406000206000915090505481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561165c57600080fd5b61166581611897565b50565b8273ffffffffffffffffffffffffffffffffffffffff1663a9059cbb83836040518363ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200182815260200192505050602060405180830381600087803b15801561170b57600080fd5b505af115801561171f573d6000803e3d6000fd5b505050506040513d602081101561173557600080fd5b8101908080519060200190929190505050151561175157600080fd5b505050565b6000818381151561176357fe5b04905092915050565b60008083141561177f576000905061179e565b818302905081838281151561179057fe5b0414151561179a57fe5b8090505b92915050565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663f340fa0182846040518363ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019150506000604051808303818588803b15801561186157600080fd5b505af1158015611875573d6000803e3d6000fd5b50505050505050565b600082821115151561188c57fe5b818303905092915050565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141515156118d357600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106119d257805160ff1916838001178555611a00565b82800160010185558215611a00579182015b828111156119ff5782518255916020019190600101906119e4565b5b509050611a0d9190611a11565b5090565b611a3391905b80821115611a2f576000816000905550600101611a17565b5090565b905600a165627a7a72305820b9aa25218b35ba957dfb3d2189d8b6ff99410a10463f9efd81b4aba7d631549100296080604052336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506107fe806100536000396000f300608060405260043610610078576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806351cff8d91461007d578063715018a6146100c05780638da5cb5b146100d7578063e3a9db1a1461012e578063f2fde38b14610185578063f340fa01146101c8575b600080fd5b34801561008957600080fd5b506100be600480360381019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506101fe565b005b3480156100cc57600080fd5b506100d561039e565b005b3480156100e357600080fd5b506100ec6104a0565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b34801561013a57600080fd5b5061016f600480360381019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506104c5565b6040518082815260200191505060405180910390f35b34801561019157600080fd5b506101c6600480360381019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061050e565b005b6101fc600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610575565b005b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561025b57600080fd5b600160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020549050803073ffffffffffffffffffffffffffffffffffffffff1631101515156102c057fe5b6000600160008473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055508173ffffffffffffffffffffffffffffffffffffffff166108fc829081150290604051600060405180830381858888f1935050505015801561034b573d6000803e3d6000fd5b508173ffffffffffffffffffffffffffffffffffffffff167f7084f5476618d8e60b11ef0d7d3f06914655adb8793e28ff7f018d4c76d505d5826040518082815260200191505060405180910390a25050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156103f957600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167ff8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c6482060405160405180910390a260008060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000600160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020549050919050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561056957600080fd5b610572816106bc565b50565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156105d257600080fd5b34905061062781600160008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020546107b690919063ffffffff16565b600160008473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055508173ffffffffffffffffffffffffffffffffffffffff167f2da466a7b24304f47e87fa2e1e5a81b9831ce54fec19055ce277ca2f39ba42c4826040518082815260200191505060405180910390a25050565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141515156106f857600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b600081830190508281101515156107c957fe5b809050929150505600a165627a7a723058208a99ed6403a6f0d3d3c993e80e3902332535cfdbef58d01a85e177fa308464750029","deployedBytecode":"0x6080604052600436106100c5576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806317ffc320146100ca5780631c8621fb1461010d5780633a1659821461017a57806341c9028c146101e65780636103d70b1461023d578063715018a6146102545780638da5cb5b1461026b5780638f1d3776146102c257806394a754e0146103c6578063de88d6c5146103ff578063e2982c2114610497578063ebed0f94146104ee578063f2fde38b14610545575b600080fd5b3480156100d657600080fd5b5061010b600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610588565b005b34801561011957600080fd5b506101386004803603810190808035906020019092919050505061070d565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6101d0600480360381019080803590602001908201803590602001919091929391929390803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610740565b6040518082815260200191505060405180910390f35b3480156101f257600080fd5b50610227600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610a69565b6040518082815260200191505060405180910390f35b34801561024957600080fd5b50610252610a81565b005b34801561026057600080fd5b50610269610b5e565b005b34801561027757600080fd5b50610280610c60565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156102ce57600080fd5b506102ed60048036038101908080359060200190929190505050610c85565b60405180806020018881526020018773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018681526020018581526020018415151515815260200183151515158152602001828103825289818151815260200191508051906020019080838360005b8381101561038557808201518184015260208101905061036a565b50505050905090810190601f1680156103b25780820380516001836020036101000a031916815260200191505b509850505050505050505060405180910390f35b3480156103d257600080fd5b506103fd60048036038101908080359060200190929190803515159060200190929190505050610da8565b005b34801561040b57600080fd5b50610440600480360381019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506113b6565b6040518080602001828103825283818151815260200191508051906020019060200280838360005b83811015610483578082015181840152602081019050610468565b505050509050019250505060405180910390f35b3480156104a357600080fd5b506104d8600480360381019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506114e8565b6040518082815260200191505060405180910390f35b3480156104fa57600080fd5b5061052f600480360381019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506115e9565b6040518082815260200191505060405180910390f35b34801561055157600080fd5b50610586600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050611601565b005b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156105e557600080fd5b8173ffffffffffffffffffffffffffffffffffffffff166370a08231306040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001915050602060405180830381600087803b15801561068057600080fd5b505af1158015610694573d6000803e3d6000fd5b505050506040513d60208110156106aa57600080fd5b810190808051906020019092919050505090506107096000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff16828473ffffffffffffffffffffffffffffffffffffffff166116689092919063ffffffff16565b5050565b60036020528060005260406000206000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000806000662386f26fc1000034101515156107ea576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260218152602001807f48617320746f207374616b65206d6f7265207468616e20302e3031206574686581526020017f720000000000000000000000000000000000000000000000000000000000000081525060400191505060405180910390fd5b4291506001600260e0604051908101604052808a8a8080601f01602080910402602001604051908101604052809392919081815260200183838082843782019150505050505081526020013481526020018873ffffffffffffffffffffffffffffffffffffffff168152602001858152602001878152602001600015158152602001600015158152509080600181540180825580915050906001820390600052602060002090600602016000909192909190915060008201518160000190805190602001906108ba929190611991565b506020820151816001015560408201518160020160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550606082015181600301556080820151816004015560a08201518160050160006101000a81548160ff02191690831515021790555060c08201518160050160016101000a81548160ff0219169083151502179055505050039050336003600083815260200190815260200160002060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055507f496dbc192d5e5ebff5f41294ea8388e90078fee4bbdd2820652b265ebdeb333c8188883489878a60405180888152602001806020018681526020018573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001848152602001838152602001828103825288888281815260200192508082843782019150509850505050505050505060405180910390a18092505050949350505050565b60056020528060005260406000206000915090505481565b6000339050600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166351cff8d9826040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001915050600060405180830381600087803b158015610b4357600080fd5b505af1158015610b57573d6000803e3d6000fd5b5050505050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16141515610bb957600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167ff8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c6482060405160405180910390a260008060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600281815481101515610c9457fe5b9060005260206000209060060201600091509050806000018054600181600116156101000203166002900480601f016020809104026020016040519081016040528092919081815260200182805460018160011615610100020316600290048015610d405780601f10610d1557610100808354040283529160200191610d40565b820191906000526020600020905b815481529060010190602001808311610d2357829003601f168201915b5050505050908060010154908060020160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16908060030154908060040154908060050160009054906101000a900460ff16908060050160019054906101000a900460ff16905087565b600080600080600080600288815481101515610dc057fe5b906000526020600020906006020195506003600089815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff169450600015158660050160019054906101000a900460ff161515141515610e93576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601b8152602001807f4368616c6c656e676520616c7265616479207265736f6c7665642e000000000081525060200191505060405180910390fd5b856004015486600301540142111515610f14576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601c8152602001807f4974206973206e6f742074696d652079657420746f206a756467652e0000000081525060200191505060405180910390fd5b62093a80866004015487600301540101421115611053573373ffffffffffffffffffffffffffffffffffffffff168660020160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff161480610fb457503373ffffffffffffffffffffffffffffffffffffffff168573ffffffffffffffffffffffffffffffffffffffff16145b151561104e576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260298152602001807f596f7520617265206e6f7420746865206a7564676520666f722074686973206381526020017f68616c6c656e67652e000000000000000000000000000000000000000000000081525060400191505060405180910390fd5b611141565b3373ffffffffffffffffffffffffffffffffffffffff168660020160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16141515611140576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260298152602001807f596f7520617265206e6f7420746865206a7564676520666f722074686973206381526020017f68616c6c656e67652e000000000000000000000000000000000000000000000081525060400191505060405180910390fd5b5b868660050160006101000a81548160ff02191690831515021790555060018660050160016101000a81548160ff02191690831515021790555061119361118c87600101546064611756565b600161176c565b93506111c06000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff16856117a4565b6111ce86600101548561187e565b925086156112ca578291506000600560008773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205411156112c55761127561126e600560008873ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020546064611756565b603261176c565b905080600560008773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825403925050819055505b611318565b82600560008773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825401925050819055505b6000821115611369578473ffffffffffffffffffffffffffffffffffffffff166108fc839081150290604051600060405180830381858888f19350505050158015611367573d6000803e3d6000fd5b505b7f1c13286911ea61ab9e07cf462b69b2c12954593a03380a618afdf62d227021ae888860405180838152602001821515151581526020019250505060405180910390a15050505050505050565b606080600080600460008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205460405190808252806020026020018201604052801561142a5781602001602082028038833980820191505090505b50925060009150600090505b6002805490508110156114dd578473ffffffffffffffffffffffffffffffffffffffff166003600083815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1614156114d0578083838151811015156114b957fe5b906020019060200201818152505081806001019250505b8080600101915050611436565b829350505050919050565b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663e3a9db1a836040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001915050602060405180830381600087803b1580156115a757600080fd5b505af11580156115bb573d6000803e3d6000fd5b505050506040513d60208110156115d157600080fd5b81019080805190602001909291905050509050919050565b60046020528060005260406000206000915090505481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561165c57600080fd5b61166581611897565b50565b8273ffffffffffffffffffffffffffffffffffffffff1663a9059cbb83836040518363ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200182815260200192505050602060405180830381600087803b15801561170b57600080fd5b505af115801561171f573d6000803e3d6000fd5b505050506040513d602081101561173557600080fd5b8101908080519060200190929190505050151561175157600080fd5b505050565b6000818381151561176357fe5b04905092915050565b60008083141561177f576000905061179e565b818302905081838281151561179057fe5b0414151561179a57fe5b8090505b92915050565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663f340fa0182846040518363ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019150506000604051808303818588803b15801561186157600080fd5b505af1158015611875573d6000803e3d6000fd5b50505050505050565b600082821115151561188c57fe5b818303905092915050565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141515156118d357600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106119d257805160ff1916838001178555611a00565b82800160010185558215611a00579182015b828111156119ff5782518255916020019190600101906119e4565b5b509050611a0d9190611a11565b5090565b611a3391905b80821115611a2f576000816000905550600101611a17565b5090565b905600a165627a7a72305820b9aa25218b35ba957dfb3d2189d8b6ff99410a10463f9efd81b4aba7d63154910029","sourceMap":"679:3153:0:-;;;575:10:4;567:5;;:18;;;;;;;;;;;;;;;;;;312:12:6;;:::i;:::-;;;;;;;;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;312:12:6;303:6;;:21;;;;;;;;;;;;;;;;;;679:3153:0;;;;;;;;;;;;:::o;:::-;;;;;;;","deployedSourceMap":"679:3153:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;598:149:3;;8:9:-1;5:2;;;30:1;27;20:12;5:2;598:149:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;1212:48:0;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1212:48:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1716:448;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1321:41;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1321:41:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;400:100:6;;8:9:-1;5:2;;;30:1;27;20:12;5:2;400:100:6;;;;;;1001:111:4;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1001:111:4;;;;;;238:20;;8:9:-1;5:2;;;30:1;27;20:12;5:2;238:20:4;;;;;;;;;;;;;;;;;;;;;;;;;;;1178:29:0;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1178:29:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;1178:29:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2168:1661;;8:9:-1;5:2;;;30:1;27;20:12;5:2;2168:1661:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1367:344;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1367:344:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;1367:344:0;;;;;;;;;;;;;;;;;604:105:6;;8:9:-1;5:2;;;30:1;27;20:12;5:2;604:105:6;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1264:53:0;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1264:53:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1274:103:4;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1274:103:4;;;;;;;;;;;;;;;;;;;;;;;;;;;;598:149:3;663:15;719:5:4;;;;;;;;;;;705:19;;:10;:19;;;697:28;;;;;;;;681:5:3;:15;;;697:4;681:21;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;681:21:3;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;681:21:3;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;681:21:3;;;;;;;;;;;;;;;;663:39;;708:34;727:5;;;;;;;;;;;734:7;708:5;:18;;;;:34;;;;;:::i;:::-;598:149;;:::o;1212:48:0:-;;;;;;;;;;;;;;;;;;;;;;:::o;1716:448::-;1806:10;1902:14;1940:7;1847:10;1834:9;:23;;1826:69;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1919:15;1902:32;;2034:1;1950:10;1966:64;;;;;;;;;1976:4;;1966:64;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1982:9;1966:64;;;;1993:5;1966:64;;;;;;2000:9;1966:64;;;;2011:4;1966:64;;;;2017:5;1966:64;;;;;;2024:5;1966:64;;;;;1950:81;;39:1:-1;33:3;27:10;23:18;57:10;52:3;45:23;79:10;72:17;;0:93;1950:81:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:85;1940:95;;2064:10;2041:16;:20;2058:2;2041:20;;;;;;;;;;;;:33;;;;;;;;;;;;;;;;;;2086:57;2099:2;2103:4;;2109:9;2120:5;2127:9;2138:4;2086:57;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2157:2;2150:9;;1716:448;;;;;;;;:::o;1321:41::-;;;;;;;;;;;;;;;;;:::o;400:100:6:-;441:13;457:10;441:26;;473:6;;;;;;;;;;;:15;;;489:5;473:22;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;473:22:6;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;473:22:6;;;;400:100;:::o;1001:111:4:-;719:5;;;;;;;;;;;705:19;;:10;:19;;;697:28;;;;;;;;1077:5;;;;;;;;;;;1058:25;;;;;;;;;;;;1105:1;1089:5;;:18;;;;;;;;;;;;;;;;;;1001:111::o;238:20::-;;;;;;;;;;;;;:::o;1178:29:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;2168:1661::-;2244:27;2303:18;3035:8;3147:19;3210:15;3404;2274:10;2285:11;2274:23;;;;;;;;;;;;;;;;;;;;2244:53;;2324:16;:29;2341:11;2324:29;;;;;;;;;;;;;;;;;;;;;2303:50;;2390:5;2368:27;;:9;:18;;;;;;;;;;;;:27;;;2360:67;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2482:9;:14;;;2460:9;:19;;;:36;2441:15;:56;2433:97;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;773:6;2672:9;:14;;;2650:9;:19;;;:36;:50;2631:15;:70;2628:292;;;2736:10;2717:29;;:9;:15;;;;;;;;;;;;:29;;;:57;;;;2764:10;2750:24;;:10;:24;;;2717:57;2709:111;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2628:292;;;2864:10;2845:29;;:9;:15;;;;;;;;;;;;:29;;;2837:83;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2628:292;2971:8;2949:9;:19;;;:30;;;;;;;;;;;;;;;;;;3006:4;2985:9;:18;;;:25;;;;;;;;;;;;;;;;;;3046:63;3059:34;3072:9;:15;;;3089:3;3059:12;:34::i;:::-;851:1;3046:12;:63::i;:::-;3035:74;;3115:25;3129:5;;;;;;;;;;;3136:3;3115:13;:25::i;:::-;3169:34;3182:9;:15;;;3199:3;3169:12;:34::i;:::-;3147:56;;3235:8;3232:441;;;3307:14;3294:27;;3385:1;3361:9;:21;3371:10;3361:21;;;;;;;;;;;;;;;;:25;3358:189;;;3422:71;3435:40;3448:9;:21;3458:10;3448:21;;;;;;;;;;;;;;;;3471:3;3435:12;:40::i;:::-;815:2;3422:12;:71::i;:::-;3404:89;;3528:10;3503:9;:21;3513:10;3503:21;;;;;;;;;;;;;;;;:35;;;;;;;;;;;3358:189;3232:441;;;3659:14;3634:9;:21;3644:10;3634:21;;;;;;;;;;;;;;;;:39;;;;;;;;;;;3232:441;3730:1;3717:10;:14;3714:58;;;3741:10;:19;;:31;3761:10;3741:31;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;3741:31:0;3714:58;3784:40;3802:11;3815:8;3784:40;;;;;;;;;;;;;;;;;;;;;;;;;;;;2168:1661;;;;;;;;:::o;1367:344::-;1427:6;1441:20;1510:12;1537:6;1475:21;:28;1497:5;1475:28;;;;;;;;;;;;;;;;1464:40;;;;;;;;;;;;;;;;;;;;;;29:2:-1;21:6;17:15;117:4;105:10;97:6;88:34;148:4;140:6;136:17;126:27;;0:157;1464:40:0;;;;1441:63;;1525:1;1510:16;;1546:1;1537:10;;1532:156;1553:10;:17;;;;1549:1;:21;1532:156;;;1612:5;1589:28;;:16;:19;1606:1;1589:19;;;;;;;;;;;;;;;;;;;;;:28;;;1585:97;;;1653:1;1635:6;1642:7;1635:15;;;;;;;;;;;;;;;;;:19;;;;;1664:9;;;;;;;1585:97;1572:3;;;;;;;1532:156;;;1700:6;1693:13;;1367:344;;;;;;:::o;604:105:6:-;658:7;680:6;;;;;;;;;;;:17;;;698:5;680:24;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;680:24:6;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;680:24:6;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;680:24:6;;;;;;;;;;;;;;;;673:31;;604:105;;;:::o;1264:53:0:-;;;;;;;;;;;;;;;;;:::o;1274:103:4:-;719:5;;;;;;;;;;;705:19;;:10;:19;;;697:28;;;;;;;;1343:29;1362:9;1343:18;:29::i;:::-;1274:103;:::o;368:121:9:-;458:5;:14;;;473:2;477:5;458:25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;458:25:9;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;458:25:9;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;458:25:9;;;;;;;;;;;;;;;;450:34;;;;;;;;368:121;;;:::o;658:272:2:-;716:7;924:1;920;:5;;;;;;;;913:12;;658:272;;;;:::o;203:373::-;261:9;492:1;487;:6;483:35;;;510:1;503:8;;;;483:35;532:1;528;:5;524:9;;555:1;550;546;:5;;;;;;;;:10;539:18;;;;;;570:1;563:8;;203:373;;;;;:::o;900:111:6:-;970:6;;;;;;;;;;;:14;;;991:7;1000:5;970:36;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;970:36:6;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;970:36:6;;;;;900:111;;:::o;1042:110:2:-;1100:7;1127:1;1122;:6;;1115:14;;;;;;1146:1;1142;:5;1135:12;;1042:110;;;;:::o;1512:171:4:-;1603:1;1582:23;;:9;:23;;;;1574:32;;;;;;;;1645:9;1617:38;;1638:5;;;;;;;;;;;1617:38;;;;;;;;;;;;1669:9;1661:5;;:17;;;;;;;;;;;;;;;;;;1512:171;:::o;679:3153:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o","source":"// Author: Igor Yalovoy\n// Web: ylv.io\n// Email: to@ylv.io\n// GitHub: https://github.com/ylv-io/coinpledge/tree/master\n// Twitter: https://twitter.com/ylv_io\n\n// Coin Pledge\n// Archive your goals and have fun with friends. Powered by security of smart contracts.\n\n\n// Proofs:\n// Public commitment as a motivator for weight loss (https://onlinelibrary.wiley.com/doi/pdf/10.1002/mar.20316)\n\n\npragma solidity ^0.4.17;\n\nimport \"openzeppelin-solidity/contracts/math/SafeMath.sol\";\nimport \"openzeppelin-solidity/contracts/ownership/Ownable.sol\";\nimport \"openzeppelin-solidity/contracts/payment/PullPayment.sol\";\nimport \"openzeppelin-solidity/contracts/ownership/CanReclaimToken.sol\";\n\ncontract CoinPledge is Ownable, CanReclaimToken, PullPayment {\n\n  uint constant daysToJudge = 7 days;\n  uint constant bonusPercentage = 50;\n  uint constant feePercentage = 1;\n\n  struct Challenge {\n    string name;\n    uint value;\n    address judge;\n    uint startDate;\n    uint time;\n\n    bool successed;\n    bool resolved;\n  }\n\n  event NewChallenge(uint challengeId, string name, uint value, address judge, uint startDate, uint time);\n  event ChallengeResolved(uint challengeId, bool decision);\n\n  Challenge[] public challenges;\n\n  mapping(uint => address) public challengeToOwner;\n  mapping(address => uint) public ownerToChallengeCount;\n  mapping(address => uint) public bonusFund;\n\n  function getChallenges(address owner) external view returns(uint[]) {\n    uint[] memory result = new uint[](ownerToChallengeCount[owner]);\n    uint counter = 0;\n    for (uint i = 0; i < challenges.length; i++) {\n      if (challengeToOwner[i] == owner)\n      {\n        result[counter] = i;\n        counter++;\n      }\n    }\n    return result;\n  }\n\n\n  function createChallenge(string name, address judge, uint time) external payable returns (uint retId)\n  {\n    require(msg.value >= 0.01 ether, \"Has to stake more than 0.01 ether\");\n\n    uint startDate = block.timestamp;\n    uint id = challenges.push(Challenge(name, msg.value, judge, startDate, time, false, false)) - 1;\n    challengeToOwner[id] = msg.sender;\n\n    emit NewChallenge(id, name, msg.value, judge, startDate, time);\n\n    return id;\n  }\n\n  function resolveChallenge(uint challengeId, bool decision) external\n  {\n    Challenge storage challenge = challenges[challengeId];\n    address challenger = challengeToOwner[challengeId];\n\n    require(challenge.resolved == false, \"Challenge already resolved.\");\n    require(block.timestamp > (challenge.startDate + challenge.time), \"It is not time yet to judge.\");\n\n    // if more time passed than endDate + daysToJudge, then challenger can resolve himself\n    if(block.timestamp > (challenge.startDate + challenge.time + daysToJudge))\n      require(challenge.judge == msg.sender || challenger == msg.sender, \"You are not the judge for this challenge.\");\n    else\n      require(challenge.judge == msg.sender, \"You are not the judge for this challenge.\");\n\n    // write decision\n    challenge.successed = decision;\n    challenge.resolved = true;\n\n    // pay 1% fee\n    uint fee = SafeMath.mul(SafeMath.div(challenge.value, 100), feePercentage);\n    asyncTransfer(owner, fee);\n\n    uint remainingValue = SafeMath.sub(challenge.value, fee);\n\n    uint valueToPay;\n\n    if(decision) {\n      // value to pay back to challenger\n      valueToPay = remainingValue;\n      // credit bouns if any\n      if(bonusFund[challenger] > 0)\n      {\n        uint bonusValue = SafeMath.mul(SafeMath.div(bonusFund[challenger], 100), bonusPercentage);\n        bonusFund[challenger] -= bonusValue;\n      }\n    }\n    else \n        // if failed to archive goal, put money to bonus fund\n        bonusFund[challenger] += remainingValue;\n\n    // pay back to the challenger\n    if(valueToPay > 0)\n        challenger.transfer(valueToPay);\n\n    emit ChallengeResolved(challengeId, decision);\n  }\n\n}","sourcePath":"/Users/iYalovoy/Dropbox (Personal)/Development/coinpledge/contracts/CoinPledge.sol","ast":{"absolutePath":"/Users/iYalovoy/Dropbox (Personal)/Development/coinpledge/contracts/CoinPledge.sol","exportedSymbols":{"CoinPledge":[362]},"id":363,"nodeType":"SourceUnit","nodes":[{"id":1,"literals":["solidity","^","0.4",".17"],"nodeType":"PragmaDirective","src":"390:24:0"},{"absolutePath":"openzeppelin-solidity/contracts/math/SafeMath.sol","file":"openzeppelin-solidity/contracts/math/SafeMath.sol","id":2,"nodeType":"ImportDirective","scope":363,"sourceUnit":514,"src":"416:59:0","symbolAliases":[],"unitAlias":""},{"absolutePath":"openzeppelin-solidity/contracts/ownership/Ownable.sol","file":"openzeppelin-solidity/contracts/ownership/Ownable.sol","id":3,"nodeType":"ImportDirective","scope":363,"sourceUnit":633,"src":"476:63:0","symbolAliases":[],"unitAlias":""},{"absolutePath":"openzeppelin-solidity/contracts/payment/PullPayment.sol","file":"openzeppelin-solidity/contracts/payment/PullPayment.sol","id":4,"nodeType":"ImportDirective","scope":363,"sourceUnit":802,"src":"540:65:0","symbolAliases":[],"unitAlias":""},{"absolutePath":"openzeppelin-solidity/contracts/ownership/CanReclaimToken.sol","file":"openzeppelin-solidity/contracts/ownership/CanReclaimToken.sol","id":5,"nodeType":"ImportDirective","scope":363,"sourceUnit":547,"src":"606:71:0","symbolAliases":[],"unitAlias":""},{"baseContracts":[{"arguments":null,"baseName":{"contractScope":null,"id":6,"name":"Ownable","nodeType":"UserDefinedTypeName","referencedDeclaration":632,"src":"702:7:0","typeDescriptions":{"typeIdentifier":"t_contract$_Ownable_$632","typeString":"contract Ownable"}},"id":7,"nodeType":"InheritanceSpecifier","src":"702:7:0"},{"arguments":null,"baseName":{"contractScope":null,"id":8,"name":"CanReclaimToken","nodeType":"UserDefinedTypeName","referencedDeclaration":546,"src":"711:15:0","typeDescriptions":{"typeIdentifier":"t_contract$_CanReclaimToken_$546","typeString":"contract CanReclaimToken"}},"id":9,"nodeType":"InheritanceSpecifier","src":"711:15:0"},{"arguments":null,"baseName":{"contractScope":null,"id":10,"name":"PullPayment","nodeType":"UserDefinedTypeName","referencedDeclaration":801,"src":"728:11:0","typeDescriptions":{"typeIdentifier":"t_contract$_PullPayment_$801","typeString":"contract PullPayment"}},"id":11,"nodeType":"InheritanceSpecifier","src":"728:11:0"}],"contractDependencies":[546,632,801],"contractKind":"contract","documentation":null,"fullyImplemented":true,"id":362,"linearizedBaseContracts":[362,801,546,632],"name":"CoinPledge","nodeType":"ContractDefinition","nodes":[{"constant":true,"id":14,"name":"daysToJudge","nodeType":"VariableDeclaration","scope":362,"src":"745:34:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":12,"name":"uint","nodeType":"ElementaryTypeName","src":"745:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":{"argumentTypes":null,"hexValue":"37","id":13,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"773:6:0","subdenomination":"days","typeDescriptions":{"typeIdentifier":"t_rational_604800_by_1","typeString":"int_const 604800"},"value":"7"},"visibility":"internal"},{"constant":true,"id":17,"name":"bonusPercentage","nodeType":"VariableDeclaration","scope":362,"src":"783:34:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":15,"name":"uint","nodeType":"ElementaryTypeName","src":"783:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":{"argumentTypes":null,"hexValue":"3530","id":16,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"815:2:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_50_by_1","typeString":"int_const 50"},"value":"50"},"visibility":"internal"},{"constant":true,"id":20,"name":"feePercentage","nodeType":"VariableDeclaration","scope":362,"src":"821:31:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":18,"name":"uint","nodeType":"ElementaryTypeName","src":"821:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":{"argumentTypes":null,"hexValue":"31","id":19,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"851:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_1_by_1","typeString":"int_const 1"},"value":"1"},"visibility":"internal"},{"canonicalName":"CoinPledge.Challenge","id":35,"members":[{"constant":false,"id":22,"name":"name","nodeType":"VariableDeclaration","scope":35,"src":"880:11:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_string_storage_ptr","typeString":"string"},"typeName":{"id":21,"name":"string","nodeType":"ElementaryTypeName","src":"880:6:0","typeDescriptions":{"typeIdentifier":"t_string_storage_ptr","typeString":"string"}},"value":null,"visibility":"internal"},{"constant":false,"id":24,"name":"value","nodeType":"VariableDeclaration","scope":35,"src":"897:10:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":23,"name":"uint","nodeType":"ElementaryTypeName","src":"897:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":26,"name":"judge","nodeType":"VariableDeclaration","scope":35,"src":"913:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"},"typeName":{"id":25,"name":"address","nodeType":"ElementaryTypeName","src":"913:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"value":null,"visibility":"internal"},{"constant":false,"id":28,"name":"startDate","nodeType":"VariableDeclaration","scope":35,"src":"932:14:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":27,"name":"uint","nodeType":"ElementaryTypeName","src":"932:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":30,"name":"time","nodeType":"VariableDeclaration","scope":35,"src":"952:9:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":29,"name":"uint","nodeType":"ElementaryTypeName","src":"952:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":32,"name":"successed","nodeType":"VariableDeclaration","scope":35,"src":"968:14:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"typeName":{"id":31,"name":"bool","nodeType":"ElementaryTypeName","src":"968:4:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"value":null,"visibility":"internal"},{"constant":false,"id":34,"name":"resolved","nodeType":"VariableDeclaration","scope":35,"src":"988:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"typeName":{"id":33,"name":"bool","nodeType":"ElementaryTypeName","src":"988:4:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"value":null,"visibility":"internal"}],"name":"Challenge","nodeType":"StructDefinition","scope":362,"src":"857:149:0","visibility":"public"},{"anonymous":false,"documentation":null,"id":49,"name":"NewChallenge","nodeType":"EventDefinition","parameters":{"id":48,"nodeType":"ParameterList","parameters":[{"constant":false,"id":37,"indexed":false,"name":"challengeId","nodeType":"VariableDeclaration","scope":49,"src":"1029:16:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":36,"name":"uint","nodeType":"ElementaryTypeName","src":"1029:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":39,"indexed":false,"name":"name","nodeType":"VariableDeclaration","scope":49,"src":"1047:11:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_string_memory_ptr","typeString":"string"},"typeName":{"id":38,"name":"string","nodeType":"ElementaryTypeName","src":"1047:6:0","typeDescriptions":{"typeIdentifier":"t_string_storage_ptr","typeString":"string"}},"value":null,"visibility":"internal"},{"constant":false,"id":41,"indexed":false,"name":"value","nodeType":"VariableDeclaration","scope":49,"src":"1060:10:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":40,"name":"uint","nodeType":"ElementaryTypeName","src":"1060:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":43,"indexed":false,"name":"judge","nodeType":"VariableDeclaration","scope":49,"src":"1072:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"},"typeName":{"id":42,"name":"address","nodeType":"ElementaryTypeName","src":"1072:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"value":null,"visibility":"internal"},{"constant":false,"id":45,"indexed":false,"name":"startDate","nodeType":"VariableDeclaration","scope":49,"src":"1087:14:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":44,"name":"uint","nodeType":"ElementaryTypeName","src":"1087:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":47,"indexed":false,"name":"time","nodeType":"VariableDeclaration","scope":49,"src":"1103:9:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":46,"name":"uint","nodeType":"ElementaryTypeName","src":"1103:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"src":"1028:85:0"},"src":"1010:104:0"},{"anonymous":false,"documentation":null,"id":55,"name":"ChallengeResolved","nodeType":"EventDefinition","parameters":{"id":54,"nodeType":"ParameterList","parameters":[{"constant":false,"id":51,"indexed":false,"name":"challengeId","nodeType":"VariableDeclaration","scope":55,"src":"1141:16:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":50,"name":"uint","nodeType":"ElementaryTypeName","src":"1141:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":53,"indexed":false,"name":"decision","nodeType":"VariableDeclaration","scope":55,"src":"1159:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"typeName":{"id":52,"name":"bool","nodeType":"ElementaryTypeName","src":"1159:4:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"value":null,"visibility":"internal"}],"src":"1140:33:0"},"src":"1117:57:0"},{"constant":false,"id":58,"name":"challenges","nodeType":"VariableDeclaration","scope":362,"src":"1178:29:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_array$_t_struct$_Challenge_$35_storage_$dyn_storage","typeString":"struct CoinPledge.Challenge[]"},"typeName":{"baseType":{"contractScope":null,"id":56,"name":"Challenge","nodeType":"UserDefinedTypeName","referencedDeclaration":35,"src":"1178:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge"}},"id":57,"length":null,"nodeType":"ArrayTypeName","src":"1178:11:0","typeDescriptions":{"typeIdentifier":"t_array$_t_struct$_Challenge_$35_storage_$dyn_storage_ptr","typeString":"struct CoinPledge.Challenge[]"}},"value":null,"visibility":"public"},{"constant":false,"id":62,"name":"challengeToOwner","nodeType":"VariableDeclaration","scope":362,"src":"1212:48:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_mapping$_t_uint256_$_t_address_$","typeString":"mapping(uint256 => address)"},"typeName":{"id":61,"keyType":{"id":59,"name":"uint","nodeType":"ElementaryTypeName","src":"1220:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"Mapping","src":"1212:24:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_uint256_$_t_address_$","typeString":"mapping(uint256 => address)"},"valueType":{"id":60,"name":"address","nodeType":"ElementaryTypeName","src":"1228:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}}},"value":null,"visibility":"public"},{"constant":false,"id":66,"name":"ownerToChallengeCount","nodeType":"VariableDeclaration","scope":362,"src":"1264:53:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"},"typeName":{"id":65,"keyType":{"id":63,"name":"address","nodeType":"ElementaryTypeName","src":"1272:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"Mapping","src":"1264:24:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"},"valueType":{"id":64,"name":"uint","nodeType":"ElementaryTypeName","src":"1283:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}},"value":null,"visibility":"public"},{"constant":false,"id":70,"name":"bonusFund","nodeType":"VariableDeclaration","scope":362,"src":"1321:41:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"},"typeName":{"id":69,"keyType":{"id":67,"name":"address","nodeType":"ElementaryTypeName","src":"1329:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"Mapping","src":"1321:24:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"},"valueType":{"id":68,"name":"uint","nodeType":"ElementaryTypeName","src":"1340:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}},"value":null,"visibility":"public"},{"body":{"id":125,"nodeType":"Block","src":"1435:276:0","statements":[{"assignments":[81],"declarations":[{"constant":false,"id":81,"name":"result","nodeType":"VariableDeclaration","scope":126,"src":"1441:20:0","stateVariable":false,"storageLocation":"memory","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_memory_ptr","typeString":"uint256[]"},"typeName":{"baseType":{"id":79,"name":"uint","nodeType":"ElementaryTypeName","src":"1441:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":80,"length":null,"nodeType":"ArrayTypeName","src":"1441:6:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_storage_ptr","typeString":"uint256[]"}},"value":null,"visibility":"internal"}],"id":89,"initialValue":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":85,"name":"ownerToChallengeCount","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":66,"src":"1475:21:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":87,"indexExpression":{"argumentTypes":null,"id":86,"name":"owner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":72,"src":"1497:5:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"1475:28:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"}],"id":84,"isConstant":false,"isLValue":false,"isPure":true,"lValueRequested":false,"nodeType":"NewExpression","src":"1464:10:0","typeDescriptions":{"typeIdentifier":"t_function_objectcreation_pure$_t_uint256_$returns$_t_array$_t_uint256_$dyn_memory_$","typeString":"function (uint256) pure returns (uint256[] memory)"},"typeName":{"baseType":{"id":82,"name":"uint","nodeType":"ElementaryTypeName","src":"1468:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":83,"length":null,"nodeType":"ArrayTypeName","src":"1468:6:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_storage_ptr","typeString":"uint256[]"}}},"id":88,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"1464:40:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_memory","typeString":"uint256[] memory"}},"nodeType":"VariableDeclarationStatement","src":"1441:63:0"},{"assignments":[91],"declarations":[{"constant":false,"id":91,"name":"counter","nodeType":"VariableDeclaration","scope":126,"src":"1510:12:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":90,"name":"uint","nodeType":"ElementaryTypeName","src":"1510:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":93,"initialValue":{"argumentTypes":null,"hexValue":"30","id":92,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"1525:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_0_by_1","typeString":"int_const 0"},"value":"0"},"nodeType":"VariableDeclarationStatement","src":"1510:16:0"},{"body":{"id":121,"nodeType":"Block","src":"1577:111:0","statements":[{"condition":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_address","typeString":"address"},"id":109,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":105,"name":"challengeToOwner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":62,"src":"1589:16:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_uint256_$_t_address_$","typeString":"mapping(uint256 => address)"}},"id":107,"indexExpression":{"argumentTypes":null,"id":106,"name":"i","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":95,"src":"1606:1:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"1589:19:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"BinaryOperation","operator":"==","rightExpression":{"argumentTypes":null,"id":108,"name":"owner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":72,"src":"1612:5:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"src":"1589:28:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"falseBody":null,"id":120,"nodeType":"IfStatement","src":"1585:97:0","trueBody":{"id":119,"nodeType":"Block","src":"1625:57:0","statements":[{"expression":{"argumentTypes":null,"id":114,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":110,"name":"result","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":81,"src":"1635:6:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_memory_ptr","typeString":"uint256[] memory"}},"id":112,"indexExpression":{"argumentTypes":null,"id":111,"name":"counter","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":91,"src":"1642:7:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"nodeType":"IndexAccess","src":"1635:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"Assignment","operator":"=","rightHandSide":{"argumentTypes":null,"id":113,"name":"i","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":95,"src":"1653:1:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"1635:19:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":115,"nodeType":"ExpressionStatement","src":"1635:19:0"},{"expression":{"argumentTypes":null,"id":117,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"nodeType":"UnaryOperation","operator":"++","prefix":false,"src":"1664:9:0","subExpression":{"argumentTypes":null,"id":116,"name":"counter","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":91,"src":"1664:7:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":118,"nodeType":"ExpressionStatement","src":"1664:9:0"}]}}]},"condition":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":101,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"id":98,"name":"i","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":95,"src":"1549:1:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":"<","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":99,"name":"challenges","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":58,"src":"1553:10:0","typeDescriptions":{"typeIdentifier":"t_array$_t_struct$_Challenge_$35_storage_$dyn_storage","typeString":"struct CoinPledge.Challenge storage ref[] storage ref"}},"id":100,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"length","nodeType":"MemberAccess","referencedDeclaration":null,"src":"1553:17:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"1549:21:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"id":122,"initializationExpression":{"assignments":[95],"declarations":[{"constant":false,"id":95,"name":"i","nodeType":"VariableDeclaration","scope":126,"src":"1537:6:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":94,"name":"uint","nodeType":"ElementaryTypeName","src":"1537:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":97,"initialValue":{"argumentTypes":null,"hexValue":"30","id":96,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"1546:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_0_by_1","typeString":"int_const 0"},"value":"0"},"nodeType":"VariableDeclarationStatement","src":"1537:10:0"},"loopExpression":{"expression":{"argumentTypes":null,"id":103,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"nodeType":"UnaryOperation","operator":"++","prefix":false,"src":"1572:3:0","subExpression":{"argumentTypes":null,"id":102,"name":"i","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":95,"src":"1572:1:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":104,"nodeType":"ExpressionStatement","src":"1572:3:0"},"nodeType":"ForStatement","src":"1532:156:0"},{"expression":{"argumentTypes":null,"id":123,"name":"result","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":81,"src":"1700:6:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_memory_ptr","typeString":"uint256[] memory"}},"functionReturnParameters":77,"id":124,"nodeType":"Return","src":"1693:13:0"}]},"documentation":null,"id":126,"implemented":true,"isConstructor":false,"isDeclaredConst":true,"modifiers":[],"name":"getChallenges","nodeType":"FunctionDefinition","parameters":{"id":73,"nodeType":"ParameterList","parameters":[{"constant":false,"id":72,"name":"owner","nodeType":"VariableDeclaration","scope":126,"src":"1390:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"},"typeName":{"id":71,"name":"address","nodeType":"ElementaryTypeName","src":"1390:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"value":null,"visibility":"internal"}],"src":"1389:15:0"},"payable":false,"returnParameters":{"id":77,"nodeType":"ParameterList","parameters":[{"constant":false,"id":76,"name":"","nodeType":"VariableDeclaration","scope":126,"src":"1427:6:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_memory_ptr","typeString":"uint256[]"},"typeName":{"baseType":{"id":74,"name":"uint","nodeType":"ElementaryTypeName","src":"1427:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":75,"length":null,"nodeType":"ArrayTypeName","src":"1427:6:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_storage_ptr","typeString":"uint256[]"}},"value":null,"visibility":"internal"}],"src":"1426:8:0"},"scope":362,"src":"1367:344:0","stateMutability":"view","superFunction":null,"visibility":"external"},{"body":{"id":187,"nodeType":"Block","src":"1820:344:0","statements":[{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":141,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":138,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":953,"src":"1834:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":139,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"value","nodeType":"MemberAccess","referencedDeclaration":null,"src":"1834:9:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":">=","rightExpression":{"argumentTypes":null,"hexValue":"302e3031","id":140,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"1847:10:0","subdenomination":"ether","typeDescriptions":{"typeIdentifier":"t_rational_10000000000000000_by_1","typeString":"int_const 10000000000000000"},"value":"0.01"},"src":"1834:23:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},{"argumentTypes":null,"hexValue":"48617320746f207374616b65206d6f7265207468616e20302e3031206574686572","id":142,"isConstant":false,"isLValue":false,"isPure":true,"kind":"string","lValueRequested":false,"nodeType":"Literal","src":"1859:35:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_stringliteral_0ff5f852bf5cd8c2547c84b195ec3cb13d74f8cd2e22fd216845c5cebc7e54c6","typeString":"literal_string \"Has to stake more than 0.01 ether\""},"value":"Has to stake more than 0.01 ether"}],"expression":{"argumentTypes":[{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_stringliteral_0ff5f852bf5cd8c2547c84b195ec3cb13d74f8cd2e22fd216845c5cebc7e54c6","typeString":"literal_string \"Has to stake more than 0.01 ether\""}],"id":137,"name":"require","nodeType":"Identifier","overloadedDeclarations":[956,957],"referencedDeclaration":957,"src":"1826:7:0","typeDescriptions":{"typeIdentifier":"t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$","typeString":"function (bool,string memory) pure"}},"id":143,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"1826:69:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":144,"nodeType":"ExpressionStatement","src":"1826:69:0"},{"assignments":[146],"declarations":[{"constant":false,"id":146,"name":"startDate","nodeType":"VariableDeclaration","scope":188,"src":"1902:14:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":145,"name":"uint","nodeType":"ElementaryTypeName","src":"1902:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":149,"initialValue":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":147,"name":"block","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":943,"src":"1919:5:0","typeDescriptions":{"typeIdentifier":"t_magic_block","typeString":"block"}},"id":148,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"timestamp","nodeType":"MemberAccess","referencedDeclaration":null,"src":"1919:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"VariableDeclarationStatement","src":"1902:32:0"},{"assignments":[151],"declarations":[{"constant":false,"id":151,"name":"id","nodeType":"VariableDeclaration","scope":188,"src":"1940:7:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":150,"name":"uint","nodeType":"ElementaryTypeName","src":"1940:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":167,"initialValue":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":166,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"arguments":[{"argumentTypes":null,"id":155,"name":"name","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":128,"src":"1976:4:0","typeDescriptions":{"typeIdentifier":"t_string_calldata_ptr","typeString":"string calldata"}},{"argumentTypes":null,"expression":{"argumentTypes":null,"id":156,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":953,"src":"1982:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":157,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"value","nodeType":"MemberAccess","referencedDeclaration":null,"src":"1982:9:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":158,"name":"judge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":130,"src":"1993:5:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},{"argumentTypes":null,"id":159,"name":"startDate","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":146,"src":"2000:9:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":160,"name":"time","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":132,"src":"2011:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"hexValue":"66616c7365","id":161,"isConstant":false,"isLValue":false,"isPure":true,"kind":"bool","lValueRequested":false,"nodeType":"Literal","src":"2017:5:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"value":"false"},{"argumentTypes":null,"hexValue":"66616c7365","id":162,"isConstant":false,"isLValue":false,"isPure":true,"kind":"bool","lValueRequested":false,"nodeType":"Literal","src":"2024:5:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"value":"false"}],"expression":{"argumentTypes":[{"typeIdentifier":"t_string_calldata_ptr","typeString":"string calldata"},{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_address","typeString":"address"},{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_bool","typeString":"bool"}],"id":154,"name":"Challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":35,"src":"1966:9:0","typeDescriptions":{"typeIdentifier":"t_type$_t_struct$_Challenge_$35_storage_ptr_$","typeString":"type(struct CoinPledge.Challenge storage pointer)"}},"id":163,"isConstant":false,"isLValue":false,"isPure":false,"kind":"structConstructorCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"1966:64:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_memory","typeString":"struct CoinPledge.Challenge memory"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_struct$_Challenge_$35_memory","typeString":"struct CoinPledge.Challenge memory"}],"expression":{"argumentTypes":null,"id":152,"name":"challenges","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":58,"src":"1950:10:0","typeDescriptions":{"typeIdentifier":"t_array$_t_struct$_Challenge_$35_storage_$dyn_storage","typeString":"struct CoinPledge.Challenge storage ref[] storage ref"}},"id":153,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"push","nodeType":"MemberAccess","referencedDeclaration":null,"src":"1950:15:0","typeDescriptions":{"typeIdentifier":"t_function_arraypush_nonpayable$_t_struct$_Challenge_$35_storage_$returns$_t_uint256_$","typeString":"function (struct CoinPledge.Challenge storage ref) returns (uint256)"}},"id":164,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"1950:81:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":"-","rightExpression":{"argumentTypes":null,"hexValue":"31","id":165,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"2034:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_1_by_1","typeString":"int_const 1"},"value":"1"},"src":"1950:85:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"VariableDeclarationStatement","src":"1940:95:0"},{"expression":{"argumentTypes":null,"id":173,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":168,"name":"challengeToOwner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":62,"src":"2041:16:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_uint256_$_t_address_$","typeString":"mapping(uint256 => address)"}},"id":170,"indexExpression":{"argumentTypes":null,"id":169,"name":"id","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":151,"src":"2058:2:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"nodeType":"IndexAccess","src":"2041:20:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"Assignment","operator":"=","rightHandSide":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":171,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":953,"src":"2064:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":172,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"sender","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2064:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"src":"2041:33:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"id":174,"nodeType":"ExpressionStatement","src":"2041:33:0"},{"eventCall":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"id":176,"name":"id","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":151,"src":"2099:2:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":177,"name":"name","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":128,"src":"2103:4:0","typeDescriptions":{"typeIdentifier":"t_string_calldata_ptr","typeString":"string calldata"}},{"argumentTypes":null,"expression":{"argumentTypes":null,"id":178,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":953,"src":"2109:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":179,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"value","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2109:9:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":180,"name":"judge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":130,"src":"2120:5:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},{"argumentTypes":null,"id":181,"name":"startDate","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":146,"src":"2127:9:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":182,"name":"time","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":132,"src":"2138:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_string_calldata_ptr","typeString":"string calldata"},{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_address","typeString":"address"},{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_uint256","typeString":"uint256"}],"id":175,"name":"NewChallenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":49,"src":"2086:12:0","typeDescriptions":{"typeIdentifier":"t_function_event_nonpayable$_t_uint256_$_t_string_memory_ptr_$_t_uint256_$_t_address_$_t_uint256_$_t_uint256_$returns$__$","typeString":"function (uint256,string memory,uint256,address,uint256,uint256)"}},"id":183,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2086:57:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":184,"nodeType":"EmitStatement","src":"2081:62:0"},{"expression":{"argumentTypes":null,"id":185,"name":"id","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":151,"src":"2157:2:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"functionReturnParameters":136,"id":186,"nodeType":"Return","src":"2150:9:0"}]},"documentation":null,"id":188,"implemented":true,"isConstructor":false,"isDeclaredConst":false,"modifiers":[],"name":"createChallenge","nodeType":"FunctionDefinition","parameters":{"id":133,"nodeType":"ParameterList","parameters":[{"constant":false,"id":128,"name":"name","nodeType":"VariableDeclaration","scope":188,"src":"1741:11:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_string_calldata_ptr","typeString":"string"},"typeName":{"id":127,"name":"string","nodeType":"ElementaryTypeName","src":"1741:6:0","typeDescriptions":{"typeIdentifier":"t_string_storage_ptr","typeString":"string"}},"value":null,"visibility":"internal"},{"constant":false,"id":130,"name":"judge","nodeType":"VariableDeclaration","scope":188,"src":"1754:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"},"typeName":{"id":129,"name":"address","nodeType":"ElementaryTypeName","src":"1754:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"value":null,"visibility":"internal"},{"constant":false,"id":132,"name":"time","nodeType":"VariableDeclaration","scope":188,"src":"1769:9:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":131,"name":"uint","nodeType":"ElementaryTypeName","src":"1769:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"src":"1740:39:0"},"payable":true,"returnParameters":{"id":136,"nodeType":"ParameterList","parameters":[{"constant":false,"id":135,"name":"retId","nodeType":"VariableDeclaration","scope":188,"src":"1806:10:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":134,"name":"uint","nodeType":"ElementaryTypeName","src":"1806:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"src":"1805:12:0"},"scope":362,"src":"1716:448:0","stateMutability":"payable","superFunction":null,"visibility":"external"},{"body":{"id":360,"nodeType":"Block","src":"2238:1591:0","statements":[{"assignments":[196],"declarations":[{"constant":false,"id":196,"name":"challenge","nodeType":"VariableDeclaration","scope":361,"src":"2244:27:0","stateVariable":false,"storageLocation":"storage","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge"},"typeName":{"contractScope":null,"id":195,"name":"Challenge","nodeType":"UserDefinedTypeName","referencedDeclaration":35,"src":"2244:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge"}},"value":null,"visibility":"internal"}],"id":200,"initialValue":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":197,"name":"challenges","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":58,"src":"2274:10:0","typeDescriptions":{"typeIdentifier":"t_array$_t_struct$_Challenge_$35_storage_$dyn_storage","typeString":"struct CoinPledge.Challenge storage ref[] storage ref"}},"id":199,"indexExpression":{"argumentTypes":null,"id":198,"name":"challengeId","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":190,"src":"2285:11:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"2274:23:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage","typeString":"struct CoinPledge.Challenge storage ref"}},"nodeType":"VariableDeclarationStatement","src":"2244:53:0"},{"assignments":[202],"declarations":[{"constant":false,"id":202,"name":"challenger","nodeType":"VariableDeclaration","scope":361,"src":"2303:18:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"},"typeName":{"id":201,"name":"address","nodeType":"ElementaryTypeName","src":"2303:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"value":null,"visibility":"internal"}],"id":206,"initialValue":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":203,"name":"challengeToOwner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":62,"src":"2324:16:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_uint256_$_t_address_$","typeString":"mapping(uint256 => address)"}},"id":205,"indexExpression":{"argumentTypes":null,"id":204,"name":"challengeId","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":190,"src":"2341:11:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"2324:29:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"VariableDeclarationStatement","src":"2303:50:0"},{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_bool","typeString":"bool"},"id":211,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":208,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":196,"src":"2368:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":209,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"resolved","nodeType":"MemberAccess","referencedDeclaration":34,"src":"2368:18:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"nodeType":"BinaryOperation","operator":"==","rightExpression":{"argumentTypes":null,"hexValue":"66616c7365","id":210,"isConstant":false,"isLValue":false,"isPure":true,"kind":"bool","lValueRequested":false,"nodeType":"Literal","src":"2390:5:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"value":"false"},"src":"2368:27:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},{"argumentTypes":null,"hexValue":"4368616c6c656e676520616c7265616479207265736f6c7665642e","id":212,"isConstant":false,"isLValue":false,"isPure":true,"kind":"string","lValueRequested":false,"nodeType":"Literal","src":"2397:29:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_stringliteral_927df0c53bfb037f5071a20cfbcb8238b08359ff00dbbf9249387ccfe68dd4d4","typeString":"literal_string \"Challenge already resolved.\""},"value":"Challenge already resolved."}],"expression":{"argumentTypes":[{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_stringliteral_927df0c53bfb037f5071a20cfbcb8238b08359ff00dbbf9249387ccfe68dd4d4","typeString":"literal_string \"Challenge already resolved.\""}],"id":207,"name":"require","nodeType":"Identifier","overloadedDeclarations":[956,957],"referencedDeclaration":957,"src":"2360:7:0","typeDescriptions":{"typeIdentifier":"t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$","typeString":"function (bool,string memory) pure"}},"id":213,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2360:67:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":214,"nodeType":"ExpressionStatement","src":"2360:67:0"},{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":224,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":216,"name":"block","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":943,"src":"2441:5:0","typeDescriptions":{"typeIdentifier":"t_magic_block","typeString":"block"}},"id":217,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"timestamp","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2441:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":">","rightExpression":{"argumentTypes":null,"components":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":222,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":218,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":196,"src":"2460:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":219,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"startDate","nodeType":"MemberAccess","referencedDeclaration":28,"src":"2460:19:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":"+","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":220,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":196,"src":"2482:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":221,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"time","nodeType":"MemberAccess","referencedDeclaration":30,"src":"2482:14:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"2460:36:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"id":223,"isConstant":false,"isInlineArray":false,"isLValue":false,"isPure":false,"lValueRequested":false,"nodeType":"TupleExpression","src":"2459:38:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"2441:56:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},{"argumentTypes":null,"hexValue":"4974206973206e6f742074696d652079657420746f206a756467652e","id":225,"isConstant":false,"isLValue":false,"isPure":true,"kind":"string","lValueRequested":false,"nodeType":"Literal","src":"2499:30:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_stringliteral_c31a253449b20a8ae52122536796081eb31fc4c12f917131decfa909f9de3f48","typeString":"literal_string \"It is not time yet to judge.\""},"value":"It is not time yet to judge."}],"expression":{"argumentTypes":[{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_stringliteral_c31a253449b20a8ae52122536796081eb31fc4c12f917131decfa909f9de3f48","typeString":"literal_string \"It is not time yet to judge.\""}],"id":215,"name":"require","nodeType":"Identifier","overloadedDeclarations":[956,957],"referencedDeclaration":957,"src":"2433:7:0","typeDescriptions":{"typeIdentifier":"t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$","typeString":"function (bool,string memory) pure"}},"id":226,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2433:97:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":227,"nodeType":"ExpressionStatement","src":"2433:97:0"},{"condition":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":238,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":228,"name":"block","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":943,"src":"2631:5:0","typeDescriptions":{"typeIdentifier":"t_magic_block","typeString":"block"}},"id":229,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"timestamp","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2631:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":">","rightExpression":{"argumentTypes":null,"components":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":236,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":234,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":230,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":196,"src":"2650:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":231,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"startDate","nodeType":"MemberAccess","referencedDeclaration":28,"src":"2650:19:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":"+","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":232,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":196,"src":"2672:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":233,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"time","nodeType":"MemberAccess","referencedDeclaration":30,"src":"2672:14:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"2650:36:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":"+","rightExpression":{"argumentTypes":null,"id":235,"name":"daysToJudge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":14,"src":"2689:11:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"2650:50:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"id":237,"isConstant":false,"isInlineArray":false,"isLValue":false,"isPure":false,"lValueRequested":false,"nodeType":"TupleExpression","src":"2649:52:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"2631:70:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"falseBody":{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_address","typeString":"address"},"id":258,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":254,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":196,"src":"2845:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":255,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"judge","nodeType":"MemberAccess","referencedDeclaration":26,"src":"2845:15:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"BinaryOperation","operator":"==","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":256,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":953,"src":"2864:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":257,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"sender","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2864:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"src":"2845:29:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},{"argumentTypes":null,"hexValue":"596f7520617265206e6f7420746865206a7564676520666f722074686973206368616c6c656e67652e","id":259,"isConstant":false,"isLValue":false,"isPure":true,"kind":"string","lValueRequested":false,"nodeType":"Literal","src":"2876:43:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_stringliteral_e8f41c75e03622af330e2e43b017cfa8c26dd016135ce18a203a3e2d965d231a","typeString":"literal_string \"You are not the judge for this challenge.\""},"value":"You are not the judge for this challenge."}],"expression":{"argumentTypes":[{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_stringliteral_e8f41c75e03622af330e2e43b017cfa8c26dd016135ce18a203a3e2d965d231a","typeString":"literal_string \"You are not the judge for this challenge.\""}],"id":253,"name":"require","nodeType":"Identifier","overloadedDeclarations":[956,957],"referencedDeclaration":957,"src":"2837:7:0","typeDescriptions":{"typeIdentifier":"t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$","typeString":"function (bool,string memory) pure"}},"id":260,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2837:83:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":261,"nodeType":"ExpressionStatement","src":"2837:83:0"},"id":262,"nodeType":"IfStatement","src":"2628:292:0","trueBody":{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_bool","typeString":"bool"},"id":249,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_address","typeString":"address"},"id":244,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":240,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":196,"src":"2717:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":241,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"judge","nodeType":"MemberAccess","referencedDeclaration":26,"src":"2717:15:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"BinaryOperation","operator":"==","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":242,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":953,"src":"2736:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":243,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"sender","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2736:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"src":"2717:29:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"nodeType":"BinaryOperation","operator":"||","rightExpression":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_address","typeString":"address"},"id":248,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"id":245,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":202,"src":"2750:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"BinaryOperation","operator":"==","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":246,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":953,"src":"2764:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":247,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"sender","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2764:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"src":"2750:24:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"src":"2717:57:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},{"argumentTypes":null,"hexValue":"596f7520617265206e6f7420746865206a7564676520666f722074686973206368616c6c656e67652e","id":250,"isConstant":false,"isLValue":false,"isPure":true,"kind":"string","lValueRequested":false,"nodeType":"Literal","src":"2776:43:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_stringliteral_e8f41c75e03622af330e2e43b017cfa8c26dd016135ce18a203a3e2d965d231a","typeString":"literal_string \"You are not the judge for this challenge.\""},"value":"You are not the judge for this challenge."}],"expression":{"argumentTypes":[{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_stringliteral_e8f41c75e03622af330e2e43b017cfa8c26dd016135ce18a203a3e2d965d231a","typeString":"literal_string \"You are not the judge for this challenge.\""}],"id":239,"name":"require","nodeType":"Identifier","overloadedDeclarations":[956,957],"referencedDeclaration":957,"src":"2709:7:0","typeDescriptions":{"typeIdentifier":"t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$","typeString":"function (bool,string memory) pure"}},"id":251,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2709:111:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":252,"nodeType":"ExpressionStatement","src":"2709:111:0"}},{"expression":{"argumentTypes":null,"id":267,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":263,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":196,"src":"2949:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":265,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"memberName":"successed","nodeType":"MemberAccess","referencedDeclaration":32,"src":"2949:19:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"nodeType":"Assignment","operator":"=","rightHandSide":{"argumentTypes":null,"id":266,"name":"decision","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":192,"src":"2971:8:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"src":"2949:30:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"id":268,"nodeType":"ExpressionStatement","src":"2949:30:0"},{"expression":{"argumentTypes":null,"id":273,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":269,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":196,"src":"2985:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":271,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"memberName":"resolved","nodeType":"MemberAccess","referencedDeclaration":34,"src":"2985:18:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"nodeType":"Assignment","operator":"=","rightHandSide":{"argumentTypes":null,"hexValue":"74727565","id":272,"isConstant":false,"isLValue":false,"isPure":true,"kind":"bool","lValueRequested":false,"nodeType":"Literal","src":"3006:4:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"value":"true"},"src":"2985:25:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"id":274,"nodeType":"ExpressionStatement","src":"2985:25:0"},{"assignments":[276],"declarations":[{"constant":false,"id":276,"name":"fee","nodeType":"VariableDeclaration","scope":361,"src":"3035:8:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":275,"name":"uint","nodeType":"ElementaryTypeName","src":"3035:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":287,"initialValue":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"arguments":[{"argumentTypes":null,"expression":{"argumentTypes":null,"id":281,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":196,"src":"3072:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":282,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"value","nodeType":"MemberAccess","referencedDeclaration":24,"src":"3072:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"hexValue":"313030","id":283,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"3089:3:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_100_by_1","typeString":"int_const 100"},"value":"100"}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_rational_100_by_1","typeString":"int_const 100"}],"expression":{"argumentTypes":null,"id":279,"name":"SafeMath","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":513,"src":"3059:8:0","typeDescriptions":{"typeIdentifier":"t_type$_t_contract$_SafeMath_$513_$","typeString":"type(library SafeMath)"}},"id":280,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"div","nodeType":"MemberAccess","referencedDeclaration":468,"src":"3059:12:0","typeDescriptions":{"typeIdentifier":"t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$","typeString":"function (uint256,uint256) pure returns (uint256)"}},"id":284,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3059:34:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":285,"name":"feePercentage","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":20,"src":"3095:13:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_uint256","typeString":"uint256"}],"expression":{"argumentTypes":null,"id":277,"name":"SafeMath","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":513,"src":"3046:8:0","typeDescriptions":{"typeIdentifier":"t_type$_t_contract$_SafeMath_$513_$","typeString":"type(library SafeMath)"}},"id":278,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"mul","nodeType":"MemberAccess","referencedDeclaration":454,"src":"3046:12:0","typeDescriptions":{"typeIdentifier":"t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$","typeString":"function (uint256,uint256) pure returns (uint256)"}},"id":286,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3046:63:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"VariableDeclarationStatement","src":"3035:74:0"},{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"id":289,"name":"owner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":550,"src":"3129:5:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},{"argumentTypes":null,"id":290,"name":"fee","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":276,"src":"3136:3:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_address","typeString":"address"},{"typeIdentifier":"t_uint256","typeString":"uint256"}],"id":288,"name":"asyncTransfer","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":800,"src":"3115:13:0","typeDescriptions":{"typeIdentifier":"t_function_internal_nonpayable$_t_address_$_t_uint256_$returns$__$","typeString":"function (address,uint256)"}},"id":291,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3115:25:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":292,"nodeType":"ExpressionStatement","src":"3115:25:0"},{"assignments":[294],"declarations":[{"constant":false,"id":294,"name":"remainingValue","nodeType":"VariableDeclaration","scope":361,"src":"3147:19:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":293,"name":"uint","nodeType":"ElementaryTypeName","src":"3147:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":301,"initialValue":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"expression":{"argumentTypes":null,"id":297,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":196,"src":"3182:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":298,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"value","nodeType":"MemberAccess","referencedDeclaration":24,"src":"3182:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":299,"name":"fee","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":276,"src":"3199:3:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_uint256","typeString":"uint256"}],"expression":{"argumentTypes":null,"id":295,"name":"SafeMath","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":513,"src":"3169:8:0","typeDescriptions":{"typeIdentifier":"t_type$_t_contract$_SafeMath_$513_$","typeString":"type(library SafeMath)"}},"id":296,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"sub","nodeType":"MemberAccess","referencedDeclaration":488,"src":"3169:12:0","typeDescriptions":{"typeIdentifier":"t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$","typeString":"function (uint256,uint256) pure returns (uint256)"}},"id":300,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3169:34:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"VariableDeclarationStatement","src":"3147:56:0"},{"assignments":[],"declarations":[{"constant":false,"id":303,"name":"valueToPay","nodeType":"VariableDeclaration","scope":361,"src":"3210:15:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":302,"name":"uint","nodeType":"ElementaryTypeName","src":"3210:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":304,"initialValue":null,"nodeType":"VariableDeclarationStatement","src":"3210:15:0"},{"condition":{"argumentTypes":null,"id":305,"name":"decision","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":192,"src":"3235:8:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"falseBody":{"expression":{"argumentTypes":null,"id":342,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":338,"name":"bonusFund","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":70,"src":"3634:9:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":340,"indexExpression":{"argumentTypes":null,"id":339,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":202,"src":"3644:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"nodeType":"IndexAccess","src":"3634:21:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"Assignment","operator":"+=","rightHandSide":{"argumentTypes":null,"id":341,"name":"remainingValue","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":294,"src":"3659:14:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"3634:39:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":343,"nodeType":"ExpressionStatement","src":"3634:39:0"},"id":344,"nodeType":"IfStatement","src":"3232:441:0","trueBody":{"id":337,"nodeType":"Block","src":"3245:308:0","statements":[{"expression":{"argumentTypes":null,"id":308,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"id":306,"name":"valueToPay","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":303,"src":"3294:10:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"Assignment","operator":"=","rightHandSide":{"argumentTypes":null,"id":307,"name":"remainingValue","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":294,"src":"3307:14:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"3294:27:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":309,"nodeType":"ExpressionStatement","src":"3294:27:0"},{"condition":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":314,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":310,"name":"bonusFund","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":70,"src":"3361:9:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":312,"indexExpression":{"argumentTypes":null,"id":311,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":202,"src":"3371:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"3361:21:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":">","rightExpression":{"argumentTypes":null,"hexValue":"30","id":313,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"3385:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_0_by_1","typeString":"int_const 0"},"value":"0"},"src":"3361:25:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"falseBody":null,"id":336,"nodeType":"IfStatement","src":"3358:189:0","trueBody":{"id":335,"nodeType":"Block","src":"3394:153:0","statements":[{"assignments":[316],"declarations":[{"constant":false,"id":316,"name":"bonusValue","nodeType":"VariableDeclaration","scope":361,"src":"3404:15:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":315,"name":"uint","nodeType":"ElementaryTypeName","src":"3404:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":328,"initialValue":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"arguments":[{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":321,"name":"bonusFund","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":70,"src":"3448:9:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":323,"indexExpression":{"argumentTypes":null,"id":322,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":202,"src":"3458:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"3448:21:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"hexValue":"313030","id":324,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"3471:3:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_100_by_1","typeString":"int_const 100"},"value":"100"}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_rational_100_by_1","typeString":"int_const 100"}],"expression":{"argumentTypes":null,"id":319,"name":"SafeMath","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":513,"src":"3435:8:0","typeDescriptions":{"typeIdentifier":"t_type$_t_contract$_SafeMath_$513_$","typeString":"type(library SafeMath)"}},"id":320,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"div","nodeType":"MemberAccess","referencedDeclaration":468,"src":"3435:12:0","typeDescriptions":{"typeIdentifier":"t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$","typeString":"function (uint256,uint256) pure returns (uint256)"}},"id":325,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3435:40:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":326,"name":"bonusPercentage","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":17,"src":"3477:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_uint256","typeString":"uint256"}],"expression":{"argumentTypes":null,"id":317,"name":"SafeMath","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":513,"src":"3422:8:0","typeDescriptions":{"typeIdentifier":"t_type$_t_contract$_SafeMath_$513_$","typeString":"type(library SafeMath)"}},"id":318,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"mul","nodeType":"MemberAccess","referencedDeclaration":454,"src":"3422:12:0","typeDescriptions":{"typeIdentifier":"t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$","typeString":"function (uint256,uint256) pure returns (uint256)"}},"id":327,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3422:71:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"VariableDeclarationStatement","src":"3404:89:0"},{"expression":{"argumentTypes":null,"id":333,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":329,"name":"bonusFund","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":70,"src":"3503:9:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":331,"indexExpression":{"argumentTypes":null,"id":330,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":202,"src":"3513:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"nodeType":"IndexAccess","src":"3503:21:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"Assignment","operator":"-=","rightHandSide":{"argumentTypes":null,"id":332,"name":"bonusValue","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":316,"src":"3528:10:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"3503:35:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":334,"nodeType":"ExpressionStatement","src":"3503:35:0"}]}}]}},{"condition":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":347,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"id":345,"name":"valueToPay","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":303,"src":"3717:10:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":">","rightExpression":{"argumentTypes":null,"hexValue":"30","id":346,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"3730:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_0_by_1","typeString":"int_const 0"},"value":"0"},"src":"3717:14:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"falseBody":null,"id":354,"nodeType":"IfStatement","src":"3714:58:0","trueBody":{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"id":351,"name":"valueToPay","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":303,"src":"3761:10:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"}],"expression":{"argumentTypes":null,"id":348,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":202,"src":"3741:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"id":350,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"transfer","nodeType":"MemberAccess","referencedDeclaration":null,"src":"3741:19:0","typeDescriptions":{"typeIdentifier":"t_function_transfer_nonpayable$_t_uint256_$returns$__$","typeString":"function (uint256)"}},"id":352,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3741:31:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":353,"nodeType":"ExpressionStatement","src":"3741:31:0"}},{"eventCall":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"id":356,"name":"challengeId","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":190,"src":"3802:11:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":357,"name":"decision","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":192,"src":"3815:8:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_bool","typeString":"bool"}],"id":355,"name":"ChallengeResolved","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":55,"src":"3784:17:0","typeDescriptions":{"typeIdentifier":"t_function_event_nonpayable$_t_uint256_$_t_bool_$returns$__$","typeString":"function (uint256,bool)"}},"id":358,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3784:40:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":359,"nodeType":"EmitStatement","src":"3779:45:0"}]},"documentation":null,"id":361,"implemented":true,"isConstructor":false,"isDeclaredConst":false,"modifiers":[],"name":"resolveChallenge","nodeType":"FunctionDefinition","parameters":{"id":193,"nodeType":"ParameterList","parameters":[{"constant":false,"id":190,"name":"challengeId","nodeType":"VariableDeclaration","scope":361,"src":"2194:16:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":189,"name":"uint","nodeType":"ElementaryTypeName","src":"2194:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":192,"name":"decision","nodeType":"VariableDeclaration","scope":361,"src":"2212:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"typeName":{"id":191,"name":"bool","nodeType":"ElementaryTypeName","src":"2212:4:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"value":null,"visibility":"internal"}],"src":"2193:33:0"},"payable":false,"returnParameters":{"id":194,"nodeType":"ParameterList","parameters":[],"src":"2238:0:0"},"scope":362,"src":"2168:1661:0","stateMutability":"nonpayable","superFunction":null,"visibility":"external"}],"scope":363,"src":"679:3153:0"}],"src":"390:3442:0"},"legacyAST":{"absolutePath":"/Users/iYalovoy/Dropbox (Personal)/Development/coinpledge/contracts/CoinPledge.sol","exportedSymbols":{"CoinPledge":[362]},"id":363,"nodeType":"SourceUnit","nodes":[{"id":1,"literals":["solidity","^","0.4",".17"],"nodeType":"PragmaDirective","src":"390:24:0"},{"absolutePath":"openzeppelin-solidity/contracts/math/SafeMath.sol","file":"openzeppelin-solidity/contracts/math/SafeMath.sol","id":2,"nodeType":"ImportDirective","scope":363,"sourceUnit":514,"src":"416:59:0","symbolAliases":[],"unitAlias":""},{"absolutePath":"openzeppelin-solidity/contracts/ownership/Ownable.sol","file":"openzeppelin-solidity/contracts/ownership/Ownable.sol","id":3,"nodeType":"ImportDirective","scope":363,"sourceUnit":633,"src":"476:63:0","symbolAliases":[],"unitAlias":""},{"absolutePath":"openzeppelin-solidity/contracts/payment/PullPayment.sol","file":"openzeppelin-solidity/contracts/payment/PullPayment.sol","id":4,"nodeType":"ImportDirective","scope":363,"sourceUnit":802,"src":"540:65:0","symbolAliases":[],"unitAlias":""},{"absolutePath":"openzeppelin-solidity/contracts/ownership/CanReclaimToken.sol","file":"openzeppelin-solidity/contracts/ownership/CanReclaimToken.sol","id":5,"nodeType":"ImportDirective","scope":363,"sourceUnit":547,"src":"606:71:0","symbolAliases":[],"unitAlias":""},{"baseContracts":[{"arguments":null,"baseName":{"contractScope":null,"id":6,"name":"Ownable","nodeType":"UserDefinedTypeName","referencedDeclaration":632,"src":"702:7:0","typeDescriptions":{"typeIdentifier":"t_contract$_Ownable_$632","typeString":"contract Ownable"}},"id":7,"nodeType":"InheritanceSpecifier","src":"702:7:0"},{"arguments":null,"baseName":{"contractScope":null,"id":8,"name":"CanReclaimToken","nodeType":"UserDefinedTypeName","referencedDeclaration":546,"src":"711:15:0","typeDescriptions":{"typeIdentifier":"t_contract$_CanReclaimToken_$546","typeString":"contract CanReclaimToken"}},"id":9,"nodeType":"InheritanceSpecifier","src":"711:15:0"},{"arguments":null,"baseName":{"contractScope":null,"id":10,"name":"PullPayment","nodeType":"UserDefinedTypeName","referencedDeclaration":801,"src":"728:11:0","typeDescriptions":{"typeIdentifier":"t_contract$_PullPayment_$801","typeString":"contract PullPayment"}},"id":11,"nodeType":"InheritanceSpecifier","src":"728:11:0"}],"contractDependencies":[546,632,801],"contractKind":"contract","documentation":null,"fullyImplemented":true,"id":362,"linearizedBaseContracts":[362,801,546,632],"name":"CoinPledge","nodeType":"ContractDefinition","nodes":[{"constant":true,"id":14,"name":"daysToJudge","nodeType":"VariableDeclaration","scope":362,"src":"745:34:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":12,"name":"uint","nodeType":"ElementaryTypeName","src":"745:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":{"argumentTypes":null,"hexValue":"37","id":13,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"773:6:0","subdenomination":"days","typeDescriptions":{"typeIdentifier":"t_rational_604800_by_1","typeString":"int_const 604800"},"value":"7"},"visibility":"internal"},{"constant":true,"id":17,"name":"bonusPercentage","nodeType":"VariableDeclaration","scope":362,"src":"783:34:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":15,"name":"uint","nodeType":"ElementaryTypeName","src":"783:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":{"argumentTypes":null,"hexValue":"3530","id":16,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"815:2:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_50_by_1","typeString":"int_const 50"},"value":"50"},"visibility":"internal"},{"constant":true,"id":20,"name":"feePercentage","nodeType":"VariableDeclaration","scope":362,"src":"821:31:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":18,"name":"uint","nodeType":"ElementaryTypeName","src":"821:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":{"argumentTypes":null,"hexValue":"31","id":19,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"851:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_1_by_1","typeString":"int_const 1"},"value":"1"},"visibility":"internal"},{"canonicalName":"CoinPledge.Challenge","id":35,"members":[{"constant":false,"id":22,"name":"name","nodeType":"VariableDeclaration","scope":35,"src":"880:11:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_string_storage_ptr","typeString":"string"},"typeName":{"id":21,"name":"string","nodeType":"ElementaryTypeName","src":"880:6:0","typeDescriptions":{"typeIdentifier":"t_string_storage_ptr","typeString":"string"}},"value":null,"visibility":"internal"},{"constant":false,"id":24,"name":"value","nodeType":"VariableDeclaration","scope":35,"src":"897:10:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":23,"name":"uint","nodeType":"ElementaryTypeName","src":"897:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":26,"name":"judge","nodeType":"VariableDeclaration","scope":35,"src":"913:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"},"typeName":{"id":25,"name":"address","nodeType":"ElementaryTypeName","src":"913:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"value":null,"visibility":"internal"},{"constant":false,"id":28,"name":"startDate","nodeType":"VariableDeclaration","scope":35,"src":"932:14:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":27,"name":"uint","nodeType":"ElementaryTypeName","src":"932:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":30,"name":"time","nodeType":"VariableDeclaration","scope":35,"src":"952:9:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":29,"name":"uint","nodeType":"ElementaryTypeName","src":"952:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":32,"name":"successed","nodeType":"VariableDeclaration","scope":35,"src":"968:14:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"typeName":{"id":31,"name":"bool","nodeType":"ElementaryTypeName","src":"968:4:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"value":null,"visibility":"internal"},{"constant":false,"id":34,"name":"resolved","nodeType":"VariableDeclaration","scope":35,"src":"988:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"typeName":{"id":33,"name":"bool","nodeType":"ElementaryTypeName","src":"988:4:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"value":null,"visibility":"internal"}],"name":"Challenge","nodeType":"StructDefinition","scope":362,"src":"857:149:0","visibility":"public"},{"anonymous":false,"documentation":null,"id":49,"name":"NewChallenge","nodeType":"EventDefinition","parameters":{"id":48,"nodeType":"ParameterList","parameters":[{"constant":false,"id":37,"indexed":false,"name":"challengeId","nodeType":"VariableDeclaration","scope":49,"src":"1029:16:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":36,"name":"uint","nodeType":"ElementaryTypeName","src":"1029:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":39,"indexed":false,"name":"name","nodeType":"VariableDeclaration","scope":49,"src":"1047:11:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_string_memory_ptr","typeString":"string"},"typeName":{"id":38,"name":"string","nodeType":"ElementaryTypeName","src":"1047:6:0","typeDescriptions":{"typeIdentifier":"t_string_storage_ptr","typeString":"string"}},"value":null,"visibility":"internal"},{"constant":false,"id":41,"indexed":false,"name":"value","nodeType":"VariableDeclaration","scope":49,"src":"1060:10:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":40,"name":"uint","nodeType":"ElementaryTypeName","src":"1060:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":43,"indexed":false,"name":"judge","nodeType":"VariableDeclaration","scope":49,"src":"1072:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"},"typeName":{"id":42,"name":"address","nodeType":"ElementaryTypeName","src":"1072:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"value":null,"visibility":"internal"},{"constant":false,"id":45,"indexed":false,"name":"startDate","nodeType":"VariableDeclaration","scope":49,"src":"1087:14:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":44,"name":"uint","nodeType":"ElementaryTypeName","src":"1087:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":47,"indexed":false,"name":"time","nodeType":"VariableDeclaration","scope":49,"src":"1103:9:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":46,"name":"uint","nodeType":"ElementaryTypeName","src":"1103:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"src":"1028:85:0"},"src":"1010:104:0"},{"anonymous":false,"documentation":null,"id":55,"name":"ChallengeResolved","nodeType":"EventDefinition","parameters":{"id":54,"nodeType":"ParameterList","parameters":[{"constant":false,"id":51,"indexed":false,"name":"challengeId","nodeType":"VariableDeclaration","scope":55,"src":"1141:16:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":50,"name":"uint","nodeType":"ElementaryTypeName","src":"1141:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":53,"indexed":false,"name":"decision","nodeType":"VariableDeclaration","scope":55,"src":"1159:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"typeName":{"id":52,"name":"bool","nodeType":"ElementaryTypeName","src":"1159:4:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"value":null,"visibility":"internal"}],"src":"1140:33:0"},"src":"1117:57:0"},{"constant":false,"id":58,"name":"challenges","nodeType":"VariableDeclaration","scope":362,"src":"1178:29:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_array$_t_struct$_Challenge_$35_storage_$dyn_storage","typeString":"struct CoinPledge.Challenge[]"},"typeName":{"baseType":{"contractScope":null,"id":56,"name":"Challenge","nodeType":"UserDefinedTypeName","referencedDeclaration":35,"src":"1178:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge"}},"id":57,"length":null,"nodeType":"ArrayTypeName","src":"1178:11:0","typeDescriptions":{"typeIdentifier":"t_array$_t_struct$_Challenge_$35_storage_$dyn_storage_ptr","typeString":"struct CoinPledge.Challenge[]"}},"value":null,"visibility":"public"},{"constant":false,"id":62,"name":"challengeToOwner","nodeType":"VariableDeclaration","scope":362,"src":"1212:48:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_mapping$_t_uint256_$_t_address_$","typeString":"mapping(uint256 => address)"},"typeName":{"id":61,"keyType":{"id":59,"name":"uint","nodeType":"ElementaryTypeName","src":"1220:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"Mapping","src":"1212:24:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_uint256_$_t_address_$","typeString":"mapping(uint256 => address)"},"valueType":{"id":60,"name":"address","nodeType":"ElementaryTypeName","src":"1228:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}}},"value":null,"visibility":"public"},{"constant":false,"id":66,"name":"ownerToChallengeCount","nodeType":"VariableDeclaration","scope":362,"src":"1264:53:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"},"typeName":{"id":65,"keyType":{"id":63,"name":"address","nodeType":"ElementaryTypeName","src":"1272:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"Mapping","src":"1264:24:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"},"valueType":{"id":64,"name":"uint","nodeType":"ElementaryTypeName","src":"1283:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}},"value":null,"visibility":"public"},{"constant":false,"id":70,"name":"bonusFund","nodeType":"VariableDeclaration","scope":362,"src":"1321:41:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"},"typeName":{"id":69,"keyType":{"id":67,"name":"address","nodeType":"ElementaryTypeName","src":"1329:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"Mapping","src":"1321:24:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"},"valueType":{"id":68,"name":"uint","nodeType":"ElementaryTypeName","src":"1340:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}},"value":null,"visibility":"public"},{"body":{"id":125,"nodeType":"Block","src":"1435:276:0","statements":[{"assignments":[81],"declarations":[{"constant":false,"id":81,"name":"result","nodeType":"VariableDeclaration","scope":126,"src":"1441:20:0","stateVariable":false,"storageLocation":"memory","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_memory_ptr","typeString":"uint256[]"},"typeName":{"baseType":{"id":79,"name":"uint","nodeType":"ElementaryTypeName","src":"1441:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":80,"length":null,"nodeType":"ArrayTypeName","src":"1441:6:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_storage_ptr","typeString":"uint256[]"}},"value":null,"visibility":"internal"}],"id":89,"initialValue":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":85,"name":"ownerToChallengeCount","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":66,"src":"1475:21:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":87,"indexExpression":{"argumentTypes":null,"id":86,"name":"owner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":72,"src":"1497:5:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"1475:28:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"}],"id":84,"isConstant":false,"isLValue":false,"isPure":true,"lValueRequested":false,"nodeType":"NewExpression","src":"1464:10:0","typeDescriptions":{"typeIdentifier":"t_function_objectcreation_pure$_t_uint256_$returns$_t_array$_t_uint256_$dyn_memory_$","typeString":"function (uint256) pure returns (uint256[] memory)"},"typeName":{"baseType":{"id":82,"name":"uint","nodeType":"ElementaryTypeName","src":"1468:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":83,"length":null,"nodeType":"ArrayTypeName","src":"1468:6:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_storage_ptr","typeString":"uint256[]"}}},"id":88,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"1464:40:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_memory","typeString":"uint256[] memory"}},"nodeType":"VariableDeclarationStatement","src":"1441:63:0"},{"assignments":[91],"declarations":[{"constant":false,"id":91,"name":"counter","nodeType":"VariableDeclaration","scope":126,"src":"1510:12:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":90,"name":"uint","nodeType":"ElementaryTypeName","src":"1510:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":93,"initialValue":{"argumentTypes":null,"hexValue":"30","id":92,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"1525:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_0_by_1","typeString":"int_const 0"},"value":"0"},"nodeType":"VariableDeclarationStatement","src":"1510:16:0"},{"body":{"id":121,"nodeType":"Block","src":"1577:111:0","statements":[{"condition":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_address","typeString":"address"},"id":109,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":105,"name":"challengeToOwner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":62,"src":"1589:16:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_uint256_$_t_address_$","typeString":"mapping(uint256 => address)"}},"id":107,"indexExpression":{"argumentTypes":null,"id":106,"name":"i","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":95,"src":"1606:1:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"1589:19:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"BinaryOperation","operator":"==","rightExpression":{"argumentTypes":null,"id":108,"name":"owner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":72,"src":"1612:5:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"src":"1589:28:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"falseBody":null,"id":120,"nodeType":"IfStatement","src":"1585:97:0","trueBody":{"id":119,"nodeType":"Block","src":"1625:57:0","statements":[{"expression":{"argumentTypes":null,"id":114,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":110,"name":"result","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":81,"src":"1635:6:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_memory_ptr","typeString":"uint256[] memory"}},"id":112,"indexExpression":{"argumentTypes":null,"id":111,"name":"counter","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":91,"src":"1642:7:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"nodeType":"IndexAccess","src":"1635:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"Assignment","operator":"=","rightHandSide":{"argumentTypes":null,"id":113,"name":"i","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":95,"src":"1653:1:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"1635:19:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":115,"nodeType":"ExpressionStatement","src":"1635:19:0"},{"expression":{"argumentTypes":null,"id":117,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"nodeType":"UnaryOperation","operator":"++","prefix":false,"src":"1664:9:0","subExpression":{"argumentTypes":null,"id":116,"name":"counter","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":91,"src":"1664:7:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":118,"nodeType":"ExpressionStatement","src":"1664:9:0"}]}}]},"condition":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":101,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"id":98,"name":"i","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":95,"src":"1549:1:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":"<","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":99,"name":"challenges","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":58,"src":"1553:10:0","typeDescriptions":{"typeIdentifier":"t_array$_t_struct$_Challenge_$35_storage_$dyn_storage","typeString":"struct CoinPledge.Challenge storage ref[] storage ref"}},"id":100,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"length","nodeType":"MemberAccess","referencedDeclaration":null,"src":"1553:17:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"1549:21:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"id":122,"initializationExpression":{"assignments":[95],"declarations":[{"constant":false,"id":95,"name":"i","nodeType":"VariableDeclaration","scope":126,"src":"1537:6:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":94,"name":"uint","nodeType":"ElementaryTypeName","src":"1537:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":97,"initialValue":{"argumentTypes":null,"hexValue":"30","id":96,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"1546:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_0_by_1","typeString":"int_const 0"},"value":"0"},"nodeType":"VariableDeclarationStatement","src":"1537:10:0"},"loopExpression":{"expression":{"argumentTypes":null,"id":103,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"nodeType":"UnaryOperation","operator":"++","prefix":false,"src":"1572:3:0","subExpression":{"argumentTypes":null,"id":102,"name":"i","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":95,"src":"1572:1:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":104,"nodeType":"ExpressionStatement","src":"1572:3:0"},"nodeType":"ForStatement","src":"1532:156:0"},{"expression":{"argumentTypes":null,"id":123,"name":"result","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":81,"src":"1700:6:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_memory_ptr","typeString":"uint256[] memory"}},"functionReturnParameters":77,"id":124,"nodeType":"Return","src":"1693:13:0"}]},"documentation":null,"id":126,"implemented":true,"isConstructor":false,"isDeclaredConst":true,"modifiers":[],"name":"getChallenges","nodeType":"FunctionDefinition","parameters":{"id":73,"nodeType":"ParameterList","parameters":[{"constant":false,"id":72,"name":"owner","nodeType":"VariableDeclaration","scope":126,"src":"1390:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"},"typeName":{"id":71,"name":"address","nodeType":"ElementaryTypeName","src":"1390:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"value":null,"visibility":"internal"}],"src":"1389:15:0"},"payable":false,"returnParameters":{"id":77,"nodeType":"ParameterList","parameters":[{"constant":false,"id":76,"name":"","nodeType":"VariableDeclaration","scope":126,"src":"1427:6:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_memory_ptr","typeString":"uint256[]"},"typeName":{"baseType":{"id":74,"name":"uint","nodeType":"ElementaryTypeName","src":"1427:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":75,"length":null,"nodeType":"ArrayTypeName","src":"1427:6:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_storage_ptr","typeString":"uint256[]"}},"value":null,"visibility":"internal"}],"src":"1426:8:0"},"scope":362,"src":"1367:344:0","stateMutability":"view","superFunction":null,"visibility":"external"},{"body":{"id":187,"nodeType":"Block","src":"1820:344:0","statements":[{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":141,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":138,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":953,"src":"1834:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":139,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"value","nodeType":"MemberAccess","referencedDeclaration":null,"src":"1834:9:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":">=","rightExpression":{"argumentTypes":null,"hexValue":"302e3031","id":140,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"1847:10:0","subdenomination":"ether","typeDescriptions":{"typeIdentifier":"t_rational_10000000000000000_by_1","typeString":"int_const 10000000000000000"},"value":"0.01"},"src":"1834:23:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},{"argumentTypes":null,"hexValue":"48617320746f207374616b65206d6f7265207468616e20302e3031206574686572","id":142,"isConstant":false,"isLValue":false,"isPure":true,"kind":"string","lValueRequested":false,"nodeType":"Literal","src":"1859:35:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_stringliteral_0ff5f852bf5cd8c2547c84b195ec3cb13d74f8cd2e22fd216845c5cebc7e54c6","typeString":"literal_string \"Has to stake more than 0.01 ether\""},"value":"Has to stake more than 0.01 ether"}],"expression":{"argumentTypes":[{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_stringliteral_0ff5f852bf5cd8c2547c84b195ec3cb13d74f8cd2e22fd216845c5cebc7e54c6","typeString":"literal_string \"Has to stake more than 0.01 ether\""}],"id":137,"name":"require","nodeType":"Identifier","overloadedDeclarations":[956,957],"referencedDeclaration":957,"src":"1826:7:0","typeDescriptions":{"typeIdentifier":"t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$","typeString":"function (bool,string memory) pure"}},"id":143,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"1826:69:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":144,"nodeType":"ExpressionStatement","src":"1826:69:0"},{"assignments":[146],"declarations":[{"constant":false,"id":146,"name":"startDate","nodeType":"VariableDeclaration","scope":188,"src":"1902:14:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":145,"name":"uint","nodeType":"ElementaryTypeName","src":"1902:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":149,"initialValue":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":147,"name":"block","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":943,"src":"1919:5:0","typeDescriptions":{"typeIdentifier":"t_magic_block","typeString":"block"}},"id":148,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"timestamp","nodeType":"MemberAccess","referencedDeclaration":null,"src":"1919:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"VariableDeclarationStatement","src":"1902:32:0"},{"assignments":[151],"declarations":[{"constant":false,"id":151,"name":"id","nodeType":"VariableDeclaration","scope":188,"src":"1940:7:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":150,"name":"uint","nodeType":"ElementaryTypeName","src":"1940:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":167,"initialValue":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":166,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"arguments":[{"argumentTypes":null,"id":155,"name":"name","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":128,"src":"1976:4:0","typeDescriptions":{"typeIdentifier":"t_string_calldata_ptr","typeString":"string calldata"}},{"argumentTypes":null,"expression":{"argumentTypes":null,"id":156,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":953,"src":"1982:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":157,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"value","nodeType":"MemberAccess","referencedDeclaration":null,"src":"1982:9:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":158,"name":"judge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":130,"src":"1993:5:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},{"argumentTypes":null,"id":159,"name":"startDate","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":146,"src":"2000:9:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":160,"name":"time","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":132,"src":"2011:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"hexValue":"66616c7365","id":161,"isConstant":false,"isLValue":false,"isPure":true,"kind":"bool","lValueRequested":false,"nodeType":"Literal","src":"2017:5:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"value":"false"},{"argumentTypes":null,"hexValue":"66616c7365","id":162,"isConstant":false,"isLValue":false,"isPure":true,"kind":"bool","lValueRequested":false,"nodeType":"Literal","src":"2024:5:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"value":"false"}],"expression":{"argumentTypes":[{"typeIdentifier":"t_string_calldata_ptr","typeString":"string calldata"},{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_address","typeString":"address"},{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_bool","typeString":"bool"}],"id":154,"name":"Challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":35,"src":"1966:9:0","typeDescriptions":{"typeIdentifier":"t_type$_t_struct$_Challenge_$35_storage_ptr_$","typeString":"type(struct CoinPledge.Challenge storage pointer)"}},"id":163,"isConstant":false,"isLValue":false,"isPure":false,"kind":"structConstructorCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"1966:64:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_memory","typeString":"struct CoinPledge.Challenge memory"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_struct$_Challenge_$35_memory","typeString":"struct CoinPledge.Challenge memory"}],"expression":{"argumentTypes":null,"id":152,"name":"challenges","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":58,"src":"1950:10:0","typeDescriptions":{"typeIdentifier":"t_array$_t_struct$_Challenge_$35_storage_$dyn_storage","typeString":"struct CoinPledge.Challenge storage ref[] storage ref"}},"id":153,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"push","nodeType":"MemberAccess","referencedDeclaration":null,"src":"1950:15:0","typeDescriptions":{"typeIdentifier":"t_function_arraypush_nonpayable$_t_struct$_Challenge_$35_storage_$returns$_t_uint256_$","typeString":"function (struct CoinPledge.Challenge storage ref) returns (uint256)"}},"id":164,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"1950:81:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":"-","rightExpression":{"argumentTypes":null,"hexValue":"31","id":165,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"2034:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_1_by_1","typeString":"int_const 1"},"value":"1"},"src":"1950:85:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"VariableDeclarationStatement","src":"1940:95:0"},{"expression":{"argumentTypes":null,"id":173,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":168,"name":"challengeToOwner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":62,"src":"2041:16:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_uint256_$_t_address_$","typeString":"mapping(uint256 => address)"}},"id":170,"indexExpression":{"argumentTypes":null,"id":169,"name":"id","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":151,"src":"2058:2:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"nodeType":"IndexAccess","src":"2041:20:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"Assignment","operator":"=","rightHandSide":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":171,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":953,"src":"2064:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":172,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"sender","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2064:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"src":"2041:33:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"id":174,"nodeType":"ExpressionStatement","src":"2041:33:0"},{"eventCall":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"id":176,"name":"id","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":151,"src":"2099:2:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":177,"name":"name","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":128,"src":"2103:4:0","typeDescriptions":{"typeIdentifier":"t_string_calldata_ptr","typeString":"string calldata"}},{"argumentTypes":null,"expression":{"argumentTypes":null,"id":178,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":953,"src":"2109:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":179,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"value","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2109:9:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":180,"name":"judge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":130,"src":"2120:5:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},{"argumentTypes":null,"id":181,"name":"startDate","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":146,"src":"2127:9:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":182,"name":"time","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":132,"src":"2138:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_string_calldata_ptr","typeString":"string calldata"},{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_address","typeString":"address"},{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_uint256","typeString":"uint256"}],"id":175,"name":"NewChallenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":49,"src":"2086:12:0","typeDescriptions":{"typeIdentifier":"t_function_event_nonpayable$_t_uint256_$_t_string_memory_ptr_$_t_uint256_$_t_address_$_t_uint256_$_t_uint256_$returns$__$","typeString":"function (uint256,string memory,uint256,address,uint256,uint256)"}},"id":183,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2086:57:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":184,"nodeType":"EmitStatement","src":"2081:62:0"},{"expression":{"argumentTypes":null,"id":185,"name":"id","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":151,"src":"2157:2:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"functionReturnParameters":136,"id":186,"nodeType":"Return","src":"2150:9:0"}]},"documentation":null,"id":188,"implemented":true,"isConstructor":false,"isDeclaredConst":false,"modifiers":[],"name":"createChallenge","nodeType":"FunctionDefinition","parameters":{"id":133,"nodeType":"ParameterList","parameters":[{"constant":false,"id":128,"name":"name","nodeType":"VariableDeclaration","scope":188,"src":"1741:11:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_string_calldata_ptr","typeString":"string"},"typeName":{"id":127,"name":"string","nodeType":"ElementaryTypeName","src":"1741:6:0","typeDescriptions":{"typeIdentifier":"t_string_storage_ptr","typeString":"string"}},"value":null,"visibility":"internal"},{"constant":false,"id":130,"name":"judge","nodeType":"VariableDeclaration","scope":188,"src":"1754:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"},"typeName":{"id":129,"name":"address","nodeType":"ElementaryTypeName","src":"1754:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"value":null,"visibility":"internal"},{"constant":false,"id":132,"name":"time","nodeType":"VariableDeclaration","scope":188,"src":"1769:9:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":131,"name":"uint","nodeType":"ElementaryTypeName","src":"1769:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"src":"1740:39:0"},"payable":true,"returnParameters":{"id":136,"nodeType":"ParameterList","parameters":[{"constant":false,"id":135,"name":"retId","nodeType":"VariableDeclaration","scope":188,"src":"1806:10:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":134,"name":"uint","nodeType":"ElementaryTypeName","src":"1806:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"src":"1805:12:0"},"scope":362,"src":"1716:448:0","stateMutability":"payable","superFunction":null,"visibility":"external"},{"body":{"id":360,"nodeType":"Block","src":"2238:1591:0","statements":[{"assignments":[196],"declarations":[{"constant":false,"id":196,"name":"challenge","nodeType":"VariableDeclaration","scope":361,"src":"2244:27:0","stateVariable":false,"storageLocation":"storage","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge"},"typeName":{"contractScope":null,"id":195,"name":"Challenge","nodeType":"UserDefinedTypeName","referencedDeclaration":35,"src":"2244:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge"}},"value":null,"visibility":"internal"}],"id":200,"initialValue":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":197,"name":"challenges","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":58,"src":"2274:10:0","typeDescriptions":{"typeIdentifier":"t_array$_t_struct$_Challenge_$35_storage_$dyn_storage","typeString":"struct CoinPledge.Challenge storage ref[] storage ref"}},"id":199,"indexExpression":{"argumentTypes":null,"id":198,"name":"challengeId","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":190,"src":"2285:11:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"2274:23:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage","typeString":"struct CoinPledge.Challenge storage ref"}},"nodeType":"VariableDeclarationStatement","src":"2244:53:0"},{"assignments":[202],"declarations":[{"constant":false,"id":202,"name":"challenger","nodeType":"VariableDeclaration","scope":361,"src":"2303:18:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"},"typeName":{"id":201,"name":"address","nodeType":"ElementaryTypeName","src":"2303:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"value":null,"visibility":"internal"}],"id":206,"initialValue":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":203,"name":"challengeToOwner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":62,"src":"2324:16:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_uint256_$_t_address_$","typeString":"mapping(uint256 => address)"}},"id":205,"indexExpression":{"argumentTypes":null,"id":204,"name":"challengeId","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":190,"src":"2341:11:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"2324:29:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"VariableDeclarationStatement","src":"2303:50:0"},{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_bool","typeString":"bool"},"id":211,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":208,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":196,"src":"2368:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":209,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"resolved","nodeType":"MemberAccess","referencedDeclaration":34,"src":"2368:18:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"nodeType":"BinaryOperation","operator":"==","rightExpression":{"argumentTypes":null,"hexValue":"66616c7365","id":210,"isConstant":false,"isLValue":false,"isPure":true,"kind":"bool","lValueRequested":false,"nodeType":"Literal","src":"2390:5:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"value":"false"},"src":"2368:27:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},{"argumentTypes":null,"hexValue":"4368616c6c656e676520616c7265616479207265736f6c7665642e","id":212,"isConstant":false,"isLValue":false,"isPure":true,"kind":"string","lValueRequested":false,"nodeType":"Literal","src":"2397:29:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_stringliteral_927df0c53bfb037f5071a20cfbcb8238b08359ff00dbbf9249387ccfe68dd4d4","typeString":"literal_string \"Challenge already resolved.\""},"value":"Challenge already resolved."}],"expression":{"argumentTypes":[{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_stringliteral_927df0c53bfb037f5071a20cfbcb8238b08359ff00dbbf9249387ccfe68dd4d4","typeString":"literal_string \"Challenge already resolved.\""}],"id":207,"name":"require","nodeType":"Identifier","overloadedDeclarations":[956,957],"referencedDeclaration":957,"src":"2360:7:0","typeDescriptions":{"typeIdentifier":"t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$","typeString":"function (bool,string memory) pure"}},"id":213,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2360:67:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":214,"nodeType":"ExpressionStatement","src":"2360:67:0"},{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":224,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":216,"name":"block","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":943,"src":"2441:5:0","typeDescriptions":{"typeIdentifier":"t_magic_block","typeString":"block"}},"id":217,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"timestamp","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2441:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":">","rightExpression":{"argumentTypes":null,"components":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":222,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":218,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":196,"src":"2460:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":219,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"startDate","nodeType":"MemberAccess","referencedDeclaration":28,"src":"2460:19:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":"+","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":220,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":196,"src":"2482:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":221,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"time","nodeType":"MemberAccess","referencedDeclaration":30,"src":"2482:14:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"2460:36:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"id":223,"isConstant":false,"isInlineArray":false,"isLValue":false,"isPure":false,"lValueRequested":false,"nodeType":"TupleExpression","src":"2459:38:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"2441:56:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},{"argumentTypes":null,"hexValue":"4974206973206e6f742074696d652079657420746f206a756467652e","id":225,"isConstant":false,"isLValue":false,"isPure":true,"kind":"string","lValueRequested":false,"nodeType":"Literal","src":"2499:30:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_stringliteral_c31a253449b20a8ae52122536796081eb31fc4c12f917131decfa909f9de3f48","typeString":"literal_string \"It is not time yet to judge.\""},"value":"It is not time yet to judge."}],"expression":{"argumentTypes":[{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_stringliteral_c31a253449b20a8ae52122536796081eb31fc4c12f917131decfa909f9de3f48","typeString":"literal_string \"It is not time yet to judge.\""}],"id":215,"name":"require","nodeType":"Identifier","overloadedDeclarations":[956,957],"referencedDeclaration":957,"src":"2433:7:0","typeDescriptions":{"typeIdentifier":"t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$","typeString":"function (bool,string memory) pure"}},"id":226,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2433:97:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":227,"nodeType":"ExpressionStatement","src":"2433:97:0"},{"condition":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":238,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":228,"name":"block","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":943,"src":"2631:5:0","typeDescriptions":{"typeIdentifier":"t_magic_block","typeString":"block"}},"id":229,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"timestamp","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2631:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":">","rightExpression":{"argumentTypes":null,"components":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":236,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":234,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":230,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":196,"src":"2650:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":231,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"startDate","nodeType":"MemberAccess","referencedDeclaration":28,"src":"2650:19:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":"+","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":232,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":196,"src":"2672:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":233,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"time","nodeType":"MemberAccess","referencedDeclaration":30,"src":"2672:14:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"2650:36:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":"+","rightExpression":{"argumentTypes":null,"id":235,"name":"daysToJudge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":14,"src":"2689:11:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"2650:50:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"id":237,"isConstant":false,"isInlineArray":false,"isLValue":false,"isPure":false,"lValueRequested":false,"nodeType":"TupleExpression","src":"2649:52:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"2631:70:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"falseBody":{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_address","typeString":"address"},"id":258,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":254,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":196,"src":"2845:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":255,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"judge","nodeType":"MemberAccess","referencedDeclaration":26,"src":"2845:15:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"BinaryOperation","operator":"==","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":256,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":953,"src":"2864:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":257,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"sender","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2864:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"src":"2845:29:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},{"argumentTypes":null,"hexValue":"596f7520617265206e6f7420746865206a7564676520666f722074686973206368616c6c656e67652e","id":259,"isConstant":false,"isLValue":false,"isPure":true,"kind":"string","lValueRequested":false,"nodeType":"Literal","src":"2876:43:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_stringliteral_e8f41c75e03622af330e2e43b017cfa8c26dd016135ce18a203a3e2d965d231a","typeString":"literal_string \"You are not the judge for this challenge.\""},"value":"You are not the judge for this challenge."}],"expression":{"argumentTypes":[{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_stringliteral_e8f41c75e03622af330e2e43b017cfa8c26dd016135ce18a203a3e2d965d231a","typeString":"literal_string \"You are not the judge for this challenge.\""}],"id":253,"name":"require","nodeType":"Identifier","overloadedDeclarations":[956,957],"referencedDeclaration":957,"src":"2837:7:0","typeDescriptions":{"typeIdentifier":"t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$","typeString":"function (bool,string memory) pure"}},"id":260,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2837:83:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":261,"nodeType":"ExpressionStatement","src":"2837:83:0"},"id":262,"nodeType":"IfStatement","src":"2628:292:0","trueBody":{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_bool","typeString":"bool"},"id":249,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_address","typeString":"address"},"id":244,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":240,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":196,"src":"2717:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":241,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"judge","nodeType":"MemberAccess","referencedDeclaration":26,"src":"2717:15:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"BinaryOperation","operator":"==","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":242,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":953,"src":"2736:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":243,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"sender","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2736:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"src":"2717:29:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"nodeType":"BinaryOperation","operator":"||","rightExpression":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_address","typeString":"address"},"id":248,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"id":245,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":202,"src":"2750:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"BinaryOperation","operator":"==","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":246,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":953,"src":"2764:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":247,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"sender","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2764:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"src":"2750:24:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"src":"2717:57:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},{"argumentTypes":null,"hexValue":"596f7520617265206e6f7420746865206a7564676520666f722074686973206368616c6c656e67652e","id":250,"isConstant":false,"isLValue":false,"isPure":true,"kind":"string","lValueRequested":false,"nodeType":"Literal","src":"2776:43:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_stringliteral_e8f41c75e03622af330e2e43b017cfa8c26dd016135ce18a203a3e2d965d231a","typeString":"literal_string \"You are not the judge for this challenge.\""},"value":"You are not the judge for this challenge."}],"expression":{"argumentTypes":[{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_stringliteral_e8f41c75e03622af330e2e43b017cfa8c26dd016135ce18a203a3e2d965d231a","typeString":"literal_string \"You are not the judge for this challenge.\""}],"id":239,"name":"require","nodeType":"Identifier","overloadedDeclarations":[956,957],"referencedDeclaration":957,"src":"2709:7:0","typeDescriptions":{"typeIdentifier":"t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$","typeString":"function (bool,string memory) pure"}},"id":251,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2709:111:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":252,"nodeType":"ExpressionStatement","src":"2709:111:0"}},{"expression":{"argumentTypes":null,"id":267,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":263,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":196,"src":"2949:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":265,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"memberName":"successed","nodeType":"MemberAccess","referencedDeclaration":32,"src":"2949:19:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"nodeType":"Assignment","operator":"=","rightHandSide":{"argumentTypes":null,"id":266,"name":"decision","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":192,"src":"2971:8:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"src":"2949:30:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"id":268,"nodeType":"ExpressionStatement","src":"2949:30:0"},{"expression":{"argumentTypes":null,"id":273,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":269,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":196,"src":"2985:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":271,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"memberName":"resolved","nodeType":"MemberAccess","referencedDeclaration":34,"src":"2985:18:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"nodeType":"Assignment","operator":"=","rightHandSide":{"argumentTypes":null,"hexValue":"74727565","id":272,"isConstant":false,"isLValue":false,"isPure":true,"kind":"bool","lValueRequested":false,"nodeType":"Literal","src":"3006:4:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"value":"true"},"src":"2985:25:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"id":274,"nodeType":"ExpressionStatement","src":"2985:25:0"},{"assignments":[276],"declarations":[{"constant":false,"id":276,"name":"fee","nodeType":"VariableDeclaration","scope":361,"src":"3035:8:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":275,"name":"uint","nodeType":"ElementaryTypeName","src":"3035:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":287,"initialValue":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"arguments":[{"argumentTypes":null,"expression":{"argumentTypes":null,"id":281,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":196,"src":"3072:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":282,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"value","nodeType":"MemberAccess","referencedDeclaration":24,"src":"3072:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"hexValue":"313030","id":283,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"3089:3:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_100_by_1","typeString":"int_const 100"},"value":"100"}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_rational_100_by_1","typeString":"int_const 100"}],"expression":{"argumentTypes":null,"id":279,"name":"SafeMath","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":513,"src":"3059:8:0","typeDescriptions":{"typeIdentifier":"t_type$_t_contract$_SafeMath_$513_$","typeString":"type(library SafeMath)"}},"id":280,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"div","nodeType":"MemberAccess","referencedDeclaration":468,"src":"3059:12:0","typeDescriptions":{"typeIdentifier":"t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$","typeString":"function (uint256,uint256) pure returns (uint256)"}},"id":284,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3059:34:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":285,"name":"feePercentage","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":20,"src":"3095:13:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_uint256","typeString":"uint256"}],"expression":{"argumentTypes":null,"id":277,"name":"SafeMath","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":513,"src":"3046:8:0","typeDescriptions":{"typeIdentifier":"t_type$_t_contract$_SafeMath_$513_$","typeString":"type(library SafeMath)"}},"id":278,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"mul","nodeType":"MemberAccess","referencedDeclaration":454,"src":"3046:12:0","typeDescriptions":{"typeIdentifier":"t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$","typeString":"function (uint256,uint256) pure returns (uint256)"}},"id":286,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3046:63:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"VariableDeclarationStatement","src":"3035:74:0"},{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"id":289,"name":"owner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":550,"src":"3129:5:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},{"argumentTypes":null,"id":290,"name":"fee","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":276,"src":"3136:3:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_address","typeString":"address"},{"typeIdentifier":"t_uint256","typeString":"uint256"}],"id":288,"name":"asyncTransfer","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":800,"src":"3115:13:0","typeDescriptions":{"typeIdentifier":"t_function_internal_nonpayable$_t_address_$_t_uint256_$returns$__$","typeString":"function (address,uint256)"}},"id":291,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3115:25:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":292,"nodeType":"ExpressionStatement","src":"3115:25:0"},{"assignments":[294],"declarations":[{"constant":false,"id":294,"name":"remainingValue","nodeType":"VariableDeclaration","scope":361,"src":"3147:19:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":293,"name":"uint","nodeType":"ElementaryTypeName","src":"3147:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":301,"initialValue":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"expression":{"argumentTypes":null,"id":297,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":196,"src":"3182:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":298,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"value","nodeType":"MemberAccess","referencedDeclaration":24,"src":"3182:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":299,"name":"fee","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":276,"src":"3199:3:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_uint256","typeString":"uint256"}],"expression":{"argumentTypes":null,"id":295,"name":"SafeMath","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":513,"src":"3169:8:0","typeDescriptions":{"typeIdentifier":"t_type$_t_contract$_SafeMath_$513_$","typeString":"type(library SafeMath)"}},"id":296,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"sub","nodeType":"MemberAccess","referencedDeclaration":488,"src":"3169:12:0","typeDescriptions":{"typeIdentifier":"t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$","typeString":"function (uint256,uint256) pure returns (uint256)"}},"id":300,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3169:34:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"VariableDeclarationStatement","src":"3147:56:0"},{"assignments":[],"declarations":[{"constant":false,"id":303,"name":"valueToPay","nodeType":"VariableDeclaration","scope":361,"src":"3210:15:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":302,"name":"uint","nodeType":"ElementaryTypeName","src":"3210:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":304,"initialValue":null,"nodeType":"VariableDeclarationStatement","src":"3210:15:0"},{"condition":{"argumentTypes":null,"id":305,"name":"decision","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":192,"src":"3235:8:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"falseBody":{"expression":{"argumentTypes":null,"id":342,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":338,"name":"bonusFund","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":70,"src":"3634:9:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":340,"indexExpression":{"argumentTypes":null,"id":339,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":202,"src":"3644:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"nodeType":"IndexAccess","src":"3634:21:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"Assignment","operator":"+=","rightHandSide":{"argumentTypes":null,"id":341,"name":"remainingValue","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":294,"src":"3659:14:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"3634:39:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":343,"nodeType":"ExpressionStatement","src":"3634:39:0"},"id":344,"nodeType":"IfStatement","src":"3232:441:0","trueBody":{"id":337,"nodeType":"Block","src":"3245:308:0","statements":[{"expression":{"argumentTypes":null,"id":308,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"id":306,"name":"valueToPay","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":303,"src":"3294:10:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"Assignment","operator":"=","rightHandSide":{"argumentTypes":null,"id":307,"name":"remainingValue","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":294,"src":"3307:14:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"3294:27:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":309,"nodeType":"ExpressionStatement","src":"3294:27:0"},{"condition":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":314,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":310,"name":"bonusFund","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":70,"src":"3361:9:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":312,"indexExpression":{"argumentTypes":null,"id":311,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":202,"src":"3371:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"3361:21:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":">","rightExpression":{"argumentTypes":null,"hexValue":"30","id":313,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"3385:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_0_by_1","typeString":"int_const 0"},"value":"0"},"src":"3361:25:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"falseBody":null,"id":336,"nodeType":"IfStatement","src":"3358:189:0","trueBody":{"id":335,"nodeType":"Block","src":"3394:153:0","statements":[{"assignments":[316],"declarations":[{"constant":false,"id":316,"name":"bonusValue","nodeType":"VariableDeclaration","scope":361,"src":"3404:15:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":315,"name":"uint","nodeType":"ElementaryTypeName","src":"3404:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":328,"initialValue":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"arguments":[{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":321,"name":"bonusFund","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":70,"src":"3448:9:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":323,"indexExpression":{"argumentTypes":null,"id":322,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":202,"src":"3458:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"3448:21:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"hexValue":"313030","id":324,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"3471:3:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_100_by_1","typeString":"int_const 100"},"value":"100"}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_rational_100_by_1","typeString":"int_const 100"}],"expression":{"argumentTypes":null,"id":319,"name":"SafeMath","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":513,"src":"3435:8:0","typeDescriptions":{"typeIdentifier":"t_type$_t_contract$_SafeMath_$513_$","typeString":"type(library SafeMath)"}},"id":320,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"div","nodeType":"MemberAccess","referencedDeclaration":468,"src":"3435:12:0","typeDescriptions":{"typeIdentifier":"t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$","typeString":"function (uint256,uint256) pure returns (uint256)"}},"id":325,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3435:40:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":326,"name":"bonusPercentage","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":17,"src":"3477:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_uint256","typeString":"uint256"}],"expression":{"argumentTypes":null,"id":317,"name":"SafeMath","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":513,"src":"3422:8:0","typeDescriptions":{"typeIdentifier":"t_type$_t_contract$_SafeMath_$513_$","typeString":"type(library SafeMath)"}},"id":318,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"mul","nodeType":"MemberAccess","referencedDeclaration":454,"src":"3422:12:0","typeDescriptions":{"typeIdentifier":"t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$","typeString":"function (uint256,uint256) pure returns (uint256)"}},"id":327,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3422:71:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"VariableDeclarationStatement","src":"3404:89:0"},{"expression":{"argumentTypes":null,"id":333,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":329,"name":"bonusFund","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":70,"src":"3503:9:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":331,"indexExpression":{"argumentTypes":null,"id":330,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":202,"src":"3513:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"nodeType":"IndexAccess","src":"3503:21:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"Assignment","operator":"-=","rightHandSide":{"argumentTypes":null,"id":332,"name":"bonusValue","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":316,"src":"3528:10:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"3503:35:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":334,"nodeType":"ExpressionStatement","src":"3503:35:0"}]}}]}},{"condition":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":347,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"id":345,"name":"valueToPay","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":303,"src":"3717:10:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":">","rightExpression":{"argumentTypes":null,"hexValue":"30","id":346,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"3730:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_0_by_1","typeString":"int_const 0"},"value":"0"},"src":"3717:14:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"falseBody":null,"id":354,"nodeType":"IfStatement","src":"3714:58:0","trueBody":{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"id":351,"name":"valueToPay","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":303,"src":"3761:10:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"}],"expression":{"argumentTypes":null,"id":348,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":202,"src":"3741:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"id":350,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"transfer","nodeType":"MemberAccess","referencedDeclaration":null,"src":"3741:19:0","typeDescriptions":{"typeIdentifier":"t_function_transfer_nonpayable$_t_uint256_$returns$__$","typeString":"function (uint256)"}},"id":352,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3741:31:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":353,"nodeType":"ExpressionStatement","src":"3741:31:0"}},{"eventCall":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"id":356,"name":"challengeId","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":190,"src":"3802:11:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":357,"name":"decision","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":192,"src":"3815:8:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_bool","typeString":"bool"}],"id":355,"name":"ChallengeResolved","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":55,"src":"3784:17:0","typeDescriptions":{"typeIdentifier":"t_function_event_nonpayable$_t_uint256_$_t_bool_$returns$__$","typeString":"function (uint256,bool)"}},"id":358,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3784:40:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":359,"nodeType":"EmitStatement","src":"3779:45:0"}]},"documentation":null,"id":361,"implemented":true,"isConstructor":false,"isDeclaredConst":false,"modifiers":[],"name":"resolveChallenge","nodeType":"FunctionDefinition","parameters":{"id":193,"nodeType":"ParameterList","parameters":[{"constant":false,"id":190,"name":"challengeId","nodeType":"VariableDeclaration","scope":361,"src":"2194:16:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":189,"name":"uint","nodeType":"ElementaryTypeName","src":"2194:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":192,"name":"decision","nodeType":"VariableDeclaration","scope":361,"src":"2212:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"typeName":{"id":191,"name":"bool","nodeType":"ElementaryTypeName","src":"2212:4:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"value":null,"visibility":"internal"}],"src":"2193:33:0"},"payable":false,"returnParameters":{"id":194,"nodeType":"ParameterList","parameters":[],"src":"2238:0:0"},"scope":362,"src":"2168:1661:0","stateMutability":"nonpayable","superFunction":null,"visibility":"external"}],"scope":363,"src":"679:3153:0"}],"src":"390:3442:0"},"compiler":{"name":"solc","version":"0.4.24+commit.e67f0147.Emscripten.clang"},"networks":{"4447":{"events":{},"links":{},"address":"0x345ca3e014aaf5dca488057592ee47305d9b3e10","transactionHash":"0x9698417334c54cae47615b6f1917297b5b578a3c9cdc286f9852fcb42e7bc84d"}},"schemaVersion":"2.0.1","updatedAt":"2018-08-09T19:37:21.154Z"}
+module.exports = {"contractName":"CoinPledge","abi":[{"constant":false,"inputs":[{"name":"token","type":"address"}],"name":"reclaimToken","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"challengeToOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"bonusFund","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"withdrawPayments","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"renounceOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"challenges","outputs":[{"name":"name","type":"string"},{"name":"value","type":"uint256"},{"name":"judge","type":"address"},{"name":"startDate","type":"uint256"},{"name":"time","type":"uint256"},{"name":"successed","type":"bool"},{"name":"resolved","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_dest","type":"address"}],"name":"payments","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"ownerToChallengeCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"anonymous":false,"inputs":[{"indexed":false,"name":"challengeId","type":"uint256"},{"indexed":false,"name":"name","type":"string"},{"indexed":false,"name":"value","type":"uint256"},{"indexed":false,"name":"judge","type":"address"},{"indexed":false,"name":"startDate","type":"uint256"},{"indexed":false,"name":"time","type":"uint256"}],"name":"NewChallenge","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"challengeId","type":"uint256"},{"indexed":false,"name":"decision","type":"bool"}],"name":"ChallengeResolved","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"previousOwner","type":"address"}],"name":"OwnershipRenounced","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"previousOwner","type":"address"},{"indexed":true,"name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"constant":true,"inputs":[{"name":"owner","type":"address"}],"name":"getChallenges","outputs":[{"name":"","type":"uint256[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"name","type":"string"},{"name":"judge","type":"address"},{"name":"time","type":"uint256"}],"name":"createChallenge","outputs":[{"name":"retId","type":"uint256"}],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"challengeId","type":"uint256"},{"name":"decision","type":"bool"}],"name":"resolveChallenge","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}],"bytecode":"0x6080604052336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555061004c6100ae565b604051809103906000f080158015610068573d6000803e3d6000fd5b50600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506100be565b60405161085180611c3583390190565b611b68806100cd6000396000f3006080604052600436106100c5576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806317ffc320146100ca5780631c8621fb1461010d5780633a1659821461017a57806341c9028c146101e65780636103d70b1461023d578063715018a6146102545780638da5cb5b1461026b5780638f1d3776146102c257806394a754e0146103c6578063de88d6c5146103ff578063e2982c2114610497578063ebed0f94146104ee578063f2fde38b14610545575b600080fd5b3480156100d657600080fd5b5061010b600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610588565b005b34801561011957600080fd5b506101386004803603810190808035906020019092919050505061070d565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6101d0600480360381019080803590602001908201803590602001919091929391929390803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610740565b6040518082815260200191505060405180910390f35b3480156101f257600080fd5b50610227600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610ab8565b6040518082815260200191505060405180910390f35b34801561024957600080fd5b50610252610ad0565b005b34801561026057600080fd5b50610269610bad565b005b34801561027757600080fd5b50610280610caf565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156102ce57600080fd5b506102ed60048036038101908080359060200190929190505050610cd4565b60405180806020018881526020018773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018681526020018581526020018415151515815260200183151515158152602001828103825289818151815260200191508051906020019080838360005b8381101561038557808201518184015260208101905061036a565b50505050905090810190601f1680156103b25780820380516001836020036101000a031916815260200191505b509850505050505050505060405180910390f35b3480156103d257600080fd5b506103fd60048036038101908080359060200190929190803515159060200190929190505050610df7565b005b34801561040b57600080fd5b50610440600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050611405565b6040518080602001828103825283818151815260200191508051906020019060200280838360005b83811015610483578082015181840152602081019050610468565b505050509050019250505060405180910390f35b3480156104a357600080fd5b506104d8600480360381019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506115ee565b6040518082815260200191505060405180910390f35b3480156104fa57600080fd5b5061052f600480360381019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506116ef565b6040518082815260200191505060405180910390f35b34801561055157600080fd5b50610586600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050611707565b005b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156105e557600080fd5b8173ffffffffffffffffffffffffffffffffffffffff166370a08231306040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001915050602060405180830381600087803b15801561068057600080fd5b505af1158015610694573d6000803e3d6000fd5b505050506040513d60208110156106aa57600080fd5b810190808051906020019092919050505090506107096000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff16828473ffffffffffffffffffffffffffffffffffffffff1661176e9092919063ffffffff16565b5050565b60036020528060005260406000206000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000806000662386f26fc1000034101515156107ea576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260218152602001807f48617320746f207374616b65206d6f7265207468616e20302e3031206574686581526020017f720000000000000000000000000000000000000000000000000000000000000081525060400191505060405180910390fd5b4291506001600260e0604051908101604052808a8a8080601f01602080910402602001604051908101604052809392919081815260200183838082843782019150505050505081526020013481526020018873ffffffffffffffffffffffffffffffffffffffff168152602001858152602001878152602001600015158152602001600015158152509080600181540180825580915050906001820390600052602060002090600602016000909192909190915060008201518160000190805190602001906108ba929190611a97565b506020820151816001015560408201518160020160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550606082015181600301556080820151816004015560a08201518160050160006101000a81548160ff02191690831515021790555060c08201518160050160016101000a81548160ff0219169083151502179055505050039050336003600083815260200190815260200160002060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550600460003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600081548092919060010191905055507f496dbc192d5e5ebff5f41294ea8388e90078fee4bbdd2820652b265ebdeb333c8188883489878a60405180888152602001806020018681526020018573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001848152602001838152602001828103825288888281815260200192508082843782019150509850505050505050505060405180910390a18092505050949350505050565b60056020528060005260406000206000915090505481565b6000339050600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166351cff8d9826040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001915050600060405180830381600087803b158015610b9257600080fd5b505af1158015610ba6573d6000803e3d6000fd5b5050505050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16141515610c0857600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167ff8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c6482060405160405180910390a260008060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600281815481101515610ce357fe5b9060005260206000209060060201600091509050806000018054600181600116156101000203166002900480601f016020809104026020016040519081016040528092919081815260200182805460018160011615610100020316600290048015610d8f5780601f10610d6457610100808354040283529160200191610d8f565b820191906000526020600020905b815481529060010190602001808311610d7257829003601f168201915b5050505050908060010154908060020160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16908060030154908060040154908060050160009054906101000a900460ff16908060050160019054906101000a900460ff16905087565b600080600080600080600288815481101515610e0f57fe5b906000526020600020906006020195506003600089815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff169450600015158660050160019054906101000a900460ff161515141515610ee2576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601b8152602001807f4368616c6c656e676520616c7265616479207265736f6c7665642e000000000081525060200191505060405180910390fd5b856004015486600301540142111515610f63576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601c8152602001807f4974206973206e6f742074696d652079657420746f206a756467652e0000000081525060200191505060405180910390fd5b62093a808660040154876003015401014211156110a2573373ffffffffffffffffffffffffffffffffffffffff168660020160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16148061100357503373ffffffffffffffffffffffffffffffffffffffff168573ffffffffffffffffffffffffffffffffffffffff16145b151561109d576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260298152602001807f596f7520617265206e6f7420746865206a7564676520666f722074686973206381526020017f68616c6c656e67652e000000000000000000000000000000000000000000000081525060400191505060405180910390fd5b611190565b3373ffffffffffffffffffffffffffffffffffffffff168660020160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1614151561118f576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260298152602001807f596f7520617265206e6f7420746865206a7564676520666f722074686973206381526020017f68616c6c656e67652e000000000000000000000000000000000000000000000081525060400191505060405180910390fd5b5b868660050160006101000a81548160ff02191690831515021790555060018660050160016101000a81548160ff0219169083151502179055506111e26111db8760010154606461185c565b6001611872565b935061120f6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff16856118aa565b61121d866001015485611984565b92508615611319578291506000600560008773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020541115611314576112c46112bd600560008873ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054606461185c565b6032611872565b905080600560008773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825403925050819055505b611367565b82600560008773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825401925050819055505b60008211156113b8578473ffffffffffffffffffffffffffffffffffffffff166108fc839081150290604051600060405180830381858888f193505050501580156113b6573d6000803e3d6000fd5b505b7f1c13286911ea61ab9e07cf462b69b2c12954593a03380a618afdf62d227021ae888860405180838152602001821515151581526020019250505060405180910390a15050505050505050565b6060806000806000600460008773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020541115156114c2576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260138152602001807f486173207a65726f206368616c6c656e6765730000000000000000000000000081525060200191505060405180910390fd5b600460008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020546040519080825280602002602001820160405280156115305781602001602082028038833980820191505090505b50925060009150600090505b6002805490508110156115e3578473ffffffffffffffffffffffffffffffffffffffff166003600083815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1614156115d6578083838151811015156115bf57fe5b906020019060200201818152505081806001019250505b808060010191505061153c565b829350505050919050565b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663e3a9db1a836040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001915050602060405180830381600087803b1580156116ad57600080fd5b505af11580156116c1573d6000803e3d6000fd5b505050506040513d60208110156116d757600080fd5b81019080805190602001909291905050509050919050565b60046020528060005260406000206000915090505481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561176257600080fd5b61176b8161199d565b50565b8273ffffffffffffffffffffffffffffffffffffffff1663a9059cbb83836040518363ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200182815260200192505050602060405180830381600087803b15801561181157600080fd5b505af1158015611825573d6000803e3d6000fd5b505050506040513d602081101561183b57600080fd5b8101908080519060200190929190505050151561185757600080fd5b505050565b6000818381151561186957fe5b04905092915050565b60008083141561188557600090506118a4565b818302905081838281151561189657fe5b041415156118a057fe5b8090505b92915050565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663f340fa0182846040518363ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019150506000604051808303818588803b15801561196757600080fd5b505af115801561197b573d6000803e3d6000fd5b50505050505050565b600082821115151561199257fe5b818303905092915050565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141515156119d957600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f10611ad857805160ff1916838001178555611b06565b82800160010185558215611b06579182015b82811115611b05578251825591602001919060010190611aea565b5b509050611b139190611b17565b5090565b611b3991905b80821115611b35576000816000905550600101611b1d565b5090565b905600a165627a7a72305820932ffb13e9c5c45f0c35f945ade436cf0a8b5c4a55427ce7435130308b9dda2000296080604052336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506107fe806100536000396000f300608060405260043610610078576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806351cff8d91461007d578063715018a6146100c05780638da5cb5b146100d7578063e3a9db1a1461012e578063f2fde38b14610185578063f340fa01146101c8575b600080fd5b34801561008957600080fd5b506100be600480360381019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506101fe565b005b3480156100cc57600080fd5b506100d561039e565b005b3480156100e357600080fd5b506100ec6104a0565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b34801561013a57600080fd5b5061016f600480360381019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506104c5565b6040518082815260200191505060405180910390f35b34801561019157600080fd5b506101c6600480360381019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061050e565b005b6101fc600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610575565b005b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561025b57600080fd5b600160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020549050803073ffffffffffffffffffffffffffffffffffffffff1631101515156102c057fe5b6000600160008473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055508173ffffffffffffffffffffffffffffffffffffffff166108fc829081150290604051600060405180830381858888f1935050505015801561034b573d6000803e3d6000fd5b508173ffffffffffffffffffffffffffffffffffffffff167f7084f5476618d8e60b11ef0d7d3f06914655adb8793e28ff7f018d4c76d505d5826040518082815260200191505060405180910390a25050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156103f957600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167ff8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c6482060405160405180910390a260008060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000600160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020549050919050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561056957600080fd5b610572816106bc565b50565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156105d257600080fd5b34905061062781600160008573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020546107b690919063ffffffff16565b600160008473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055508173ffffffffffffffffffffffffffffffffffffffff167f2da466a7b24304f47e87fa2e1e5a81b9831ce54fec19055ce277ca2f39ba42c4826040518082815260200191505060405180910390a25050565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141515156106f857600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b600081830190508281101515156107c957fe5b809050929150505600a165627a7a723058208a99ed6403a6f0d3d3c993e80e3902332535cfdbef58d01a85e177fa308464750029","deployedBytecode":"0x6080604052600436106100c5576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806317ffc320146100ca5780631c8621fb1461010d5780633a1659821461017a57806341c9028c146101e65780636103d70b1461023d578063715018a6146102545780638da5cb5b1461026b5780638f1d3776146102c257806394a754e0146103c6578063de88d6c5146103ff578063e2982c2114610497578063ebed0f94146104ee578063f2fde38b14610545575b600080fd5b3480156100d657600080fd5b5061010b600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610588565b005b34801561011957600080fd5b506101386004803603810190808035906020019092919050505061070d565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6101d0600480360381019080803590602001908201803590602001919091929391929390803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610740565b6040518082815260200191505060405180910390f35b3480156101f257600080fd5b50610227600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610ab8565b6040518082815260200191505060405180910390f35b34801561024957600080fd5b50610252610ad0565b005b34801561026057600080fd5b50610269610bad565b005b34801561027757600080fd5b50610280610caf565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156102ce57600080fd5b506102ed60048036038101908080359060200190929190505050610cd4565b60405180806020018881526020018773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018681526020018581526020018415151515815260200183151515158152602001828103825289818151815260200191508051906020019080838360005b8381101561038557808201518184015260208101905061036a565b50505050905090810190601f1680156103b25780820380516001836020036101000a031916815260200191505b509850505050505050505060405180910390f35b3480156103d257600080fd5b506103fd60048036038101908080359060200190929190803515159060200190929190505050610df7565b005b34801561040b57600080fd5b50610440600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050611405565b6040518080602001828103825283818151815260200191508051906020019060200280838360005b83811015610483578082015181840152602081019050610468565b505050509050019250505060405180910390f35b3480156104a357600080fd5b506104d8600480360381019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506115ee565b6040518082815260200191505060405180910390f35b3480156104fa57600080fd5b5061052f600480360381019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506116ef565b6040518082815260200191505060405180910390f35b34801561055157600080fd5b50610586600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050611707565b005b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156105e557600080fd5b8173ffffffffffffffffffffffffffffffffffffffff166370a08231306040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001915050602060405180830381600087803b15801561068057600080fd5b505af1158015610694573d6000803e3d6000fd5b505050506040513d60208110156106aa57600080fd5b810190808051906020019092919050505090506107096000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff16828473ffffffffffffffffffffffffffffffffffffffff1661176e9092919063ffffffff16565b5050565b60036020528060005260406000206000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000806000662386f26fc1000034101515156107ea576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260218152602001807f48617320746f207374616b65206d6f7265207468616e20302e3031206574686581526020017f720000000000000000000000000000000000000000000000000000000000000081525060400191505060405180910390fd5b4291506001600260e0604051908101604052808a8a8080601f01602080910402602001604051908101604052809392919081815260200183838082843782019150505050505081526020013481526020018873ffffffffffffffffffffffffffffffffffffffff168152602001858152602001878152602001600015158152602001600015158152509080600181540180825580915050906001820390600052602060002090600602016000909192909190915060008201518160000190805190602001906108ba929190611a97565b506020820151816001015560408201518160020160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550606082015181600301556080820151816004015560a08201518160050160006101000a81548160ff02191690831515021790555060c08201518160050160016101000a81548160ff0219169083151502179055505050039050336003600083815260200190815260200160002060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550600460003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600081548092919060010191905055507f496dbc192d5e5ebff5f41294ea8388e90078fee4bbdd2820652b265ebdeb333c8188883489878a60405180888152602001806020018681526020018573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001848152602001838152602001828103825288888281815260200192508082843782019150509850505050505050505060405180910390a18092505050949350505050565b60056020528060005260406000206000915090505481565b6000339050600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166351cff8d9826040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001915050600060405180830381600087803b158015610b9257600080fd5b505af1158015610ba6573d6000803e3d6000fd5b5050505050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16141515610c0857600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167ff8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c6482060405160405180910390a260008060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600281815481101515610ce357fe5b9060005260206000209060060201600091509050806000018054600181600116156101000203166002900480601f016020809104026020016040519081016040528092919081815260200182805460018160011615610100020316600290048015610d8f5780601f10610d6457610100808354040283529160200191610d8f565b820191906000526020600020905b815481529060010190602001808311610d7257829003601f168201915b5050505050908060010154908060020160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16908060030154908060040154908060050160009054906101000a900460ff16908060050160019054906101000a900460ff16905087565b600080600080600080600288815481101515610e0f57fe5b906000526020600020906006020195506003600089815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff169450600015158660050160019054906101000a900460ff161515141515610ee2576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601b8152602001807f4368616c6c656e676520616c7265616479207265736f6c7665642e000000000081525060200191505060405180910390fd5b856004015486600301540142111515610f63576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252601c8152602001807f4974206973206e6f742074696d652079657420746f206a756467652e0000000081525060200191505060405180910390fd5b62093a808660040154876003015401014211156110a2573373ffffffffffffffffffffffffffffffffffffffff168660020160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16148061100357503373ffffffffffffffffffffffffffffffffffffffff168573ffffffffffffffffffffffffffffffffffffffff16145b151561109d576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260298152602001807f596f7520617265206e6f7420746865206a7564676520666f722074686973206381526020017f68616c6c656e67652e000000000000000000000000000000000000000000000081525060400191505060405180910390fd5b611190565b3373ffffffffffffffffffffffffffffffffffffffff168660020160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1614151561118f576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260298152602001807f596f7520617265206e6f7420746865206a7564676520666f722074686973206381526020017f68616c6c656e67652e000000000000000000000000000000000000000000000081525060400191505060405180910390fd5b5b868660050160006101000a81548160ff02191690831515021790555060018660050160016101000a81548160ff0219169083151502179055506111e26111db8760010154606461185c565b6001611872565b935061120f6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff16856118aa565b61121d866001015485611984565b92508615611319578291506000600560008773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020541115611314576112c46112bd600560008873ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054606461185c565b6032611872565b905080600560008773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825403925050819055505b611367565b82600560008773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825401925050819055505b60008211156113b8578473ffffffffffffffffffffffffffffffffffffffff166108fc839081150290604051600060405180830381858888f193505050501580156113b6573d6000803e3d6000fd5b505b7f1c13286911ea61ab9e07cf462b69b2c12954593a03380a618afdf62d227021ae888860405180838152602001821515151581526020019250505060405180910390a15050505050505050565b6060806000806000600460008773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020541115156114c2576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260138152602001807f486173207a65726f206368616c6c656e6765730000000000000000000000000081525060200191505060405180910390fd5b600460008673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020546040519080825280602002602001820160405280156115305781602001602082028038833980820191505090505b50925060009150600090505b6002805490508110156115e3578473ffffffffffffffffffffffffffffffffffffffff166003600083815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1614156115d6578083838151811015156115bf57fe5b906020019060200201818152505081806001019250505b808060010191505061153c565b829350505050919050565b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663e3a9db1a836040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001915050602060405180830381600087803b1580156116ad57600080fd5b505af11580156116c1573d6000803e3d6000fd5b505050506040513d60208110156116d757600080fd5b81019080805190602001909291905050509050919050565b60046020528060005260406000206000915090505481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561176257600080fd5b61176b8161199d565b50565b8273ffffffffffffffffffffffffffffffffffffffff1663a9059cbb83836040518363ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200182815260200192505050602060405180830381600087803b15801561181157600080fd5b505af1158015611825573d6000803e3d6000fd5b505050506040513d602081101561183b57600080fd5b8101908080519060200190929190505050151561185757600080fd5b505050565b6000818381151561186957fe5b04905092915050565b60008083141561188557600090506118a4565b818302905081838281151561189657fe5b041415156118a057fe5b8090505b92915050565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663f340fa0182846040518363ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019150506000604051808303818588803b15801561196757600080fd5b505af115801561197b573d6000803e3d6000fd5b50505050505050565b600082821115151561199257fe5b818303905092915050565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141515156119d957600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f10611ad857805160ff1916838001178555611b06565b82800160010185558215611b06579182015b82811115611b05578251825591602001919060010190611aea565b5b509050611b139190611b17565b5090565b611b3991905b80821115611b35576000816000905550600101611b1d565b5090565b905600a165627a7a72305820932ffb13e9c5c45f0c35f945ade436cf0a8b5c4a55427ce7435130308b9dda200029","sourceMap":"679:3263:0:-;;;575:10:3;567:5;;:18;;;;;;;;;;;;;;;;;;312:12:5;;:::i;:::-;;;;;;;;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;312:12:5;303:6;;:21;;;;;;;;;;;;;;;;;;679:3263:0;;;;;;;;;;;;:::o;:::-;;;;;;;","deployedSourceMap":"679:3263:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;598:149:2;;8:9:-1;5:2;;;30:1;27;20:12;5:2;598:149:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;1212:48:0;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1212:48:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1787:487;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1321:41;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1321:41:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;400:100:5;;8:9:-1;5:2;;;30:1;27;20:12;5:2;400:100:5;;;;;;1001:111:3;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1001:111:3;;;;;;238:20;;8:9:-1;5:2;;;30:1;27;20:12;5:2;238:20:3;;;;;;;;;;;;;;;;;;;;;;;;;;;1178:29:0;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1178:29:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;1178:29:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2278:1661;;8:9:-1;5:2;;;30:1;27;20:12;5:2;2278:1661:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1367:415;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1367:415:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;1367:415:0;;;;;;;;;;;;;;;;;604:105:5;;8:9:-1;5:2;;;30:1;27;20:12;5:2;604:105:5;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1264:53:0;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1264:53:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1274:103:3;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1274:103:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;598:149:2;663:15;719:5:3;;;;;;;;;;;705:19;;:10;:19;;;697:28;;;;;;;;681:5:2;:15;;;697:4;681:21;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;681:21:2;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;681:21:2;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;681:21:2;;;;;;;;;;;;;;;;663:39;;708:34;727:5;;;;;;;;;;;734:7;708:5;:18;;;;:34;;;;;:::i;:::-;598:149;;:::o;1212:48:0:-;;;;;;;;;;;;;;;;;;;;;;:::o;1787:487::-;1877:10;1971:14;2009:7;1916:10;1903:9;:23;;1895:69;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1988:15;1971:32;;2103:1;2019:10;2035:64;;;;;;;;;2045:4;;2035:64;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2051:9;2035:64;;;;2062:5;2035:64;;;;;;2069:9;2035:64;;;;2080:4;2035:64;;;;2086:5;2035:64;;;;;;2093:5;2035:64;;;;;2019:81;;39:1:-1;33:3;27:10;23:18;57:10;52:3;45:23;79:10;72:17;;0:93;2019:81:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:85;2009:95;;2133:10;2110:16;:20;2127:2;2110:20;;;;;;;;;;;;:33;;;;;;;;;;;;;;;;;;2149:21;:33;2171:10;2149:33;;;;;;;;;;;;;;;;:35;;;;;;;;;;;;;2196:57;2209:2;2213:4;;2219:9;2230:5;2237:9;2248:4;2196:57;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2267:2;2260:9;;1787:487;;;;;;;;:::o;1321:41::-;;;;;;;;;;;;;;;;;:::o;400:100:5:-;441:13;457:10;441:26;;473:6;;;;;;;;;;;:15;;;489:5;473:22;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;473:22:5;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;473:22:5;;;;400:100;:::o;1001:111:3:-;719:5;;;;;;;;;;;705:19;;:10;:19;;;697:28;;;;;;;;1077:5;;;;;;;;;;;1058:25;;;;;;;;;;;;1105:1;1089:5;;:18;;;;;;;;;;;;;;;;;;1001:111::o;238:20::-;;;;;;;;;;;;;:::o;1178:29:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;2278:1661::-;2354:27;2413:18;3145:8;3257:19;3320:15;3514;2384:10;2395:11;2384:23;;;;;;;;;;;;;;;;;;;;2354:53;;2434:16;:29;2451:11;2434:29;;;;;;;;;;;;;;;;;;;;;2413:50;;2500:5;2478:27;;:9;:18;;;;;;;;;;;;:27;;;2470:67;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2592:9;:14;;;2570:9;:19;;;:36;2551:15;:56;2543:97;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;773:6;2782:9;:14;;;2760:9;:19;;;:36;:50;2741:15;:70;2738:292;;;2846:10;2827:29;;:9;:15;;;;;;;;;;;;:29;;;:57;;;;2874:10;2860:24;;:10;:24;;;2827:57;2819:111;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2738:292;;;2974:10;2955:29;;:9;:15;;;;;;;;;;;;:29;;;2947:83;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2738:292;3081:8;3059:9;:19;;;:30;;;;;;;;;;;;;;;;;;3116:4;3095:9;:18;;;:25;;;;;;;;;;;;;;;;;;3156:63;3169:34;3182:9;:15;;;3199:3;3169:12;:34::i;:::-;851:1;3156:12;:63::i;:::-;3145:74;;3225:25;3239:5;;;;;;;;;;;3246:3;3225:13;:25::i;:::-;3279:34;3292:9;:15;;;3309:3;3279:12;:34::i;:::-;3257:56;;3345:8;3342:441;;;3417:14;3404:27;;3495:1;3471:9;:21;3481:10;3471:21;;;;;;;;;;;;;;;;:25;3468:189;;;3532:71;3545:40;3558:9;:21;3568:10;3558:21;;;;;;;;;;;;;;;;3581:3;3545:12;:40::i;:::-;815:2;3532:12;:71::i;:::-;3514:89;;3638:10;3613:9;:21;3623:10;3613:21;;;;;;;;;;;;;;;;:35;;;;;;;;;;;3468:189;3342:441;;;3769:14;3744:9;:21;3754:10;3744:21;;;;;;;;;;;;;;;;:39;;;;;;;;;;;3342:441;3840:1;3827:10;:14;3824:58;;;3851:10;:19;;:31;3871:10;3851:31;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;3851:31:0;3824:58;3894:40;3912:11;3925:8;3894:40;;;;;;;;;;;;;;;;;;;;;;;;;;;;2278:1661;;;;;;;;:::o;1367:415::-;1427:6;1512:20;1581:12;1608:6;1480:1;1449:21;:28;1471:5;1449:28;;;;;;;;;;;;;;;;:32;1441:64;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1546:21;:28;1568:5;1546:28;;;;;;;;;;;;;;;;1535:40;;;;;;;;;;;;;;;;;;;;;;29:2:-1;21:6;17:15;117:4;105:10;97:6;88:34;148:4;140:6;136:17;126:27;;0:157;1535:40:0;;;;1512:63;;1596:1;1581:16;;1617:1;1608:10;;1603:156;1624:10;:17;;;;1620:1;:21;1603:156;;;1683:5;1660:28;;:16;:19;1677:1;1660:19;;;;;;;;;;;;;;;;;;;;;:28;;;1656:97;;;1724:1;1706:6;1713:7;1706:15;;;;;;;;;;;;;;;;;:19;;;;;1735:9;;;;;;;1656:97;1643:3;;;;;;;1603:156;;;1771:6;1764:13;;1367:415;;;;;;:::o;604:105:5:-;658:7;680:6;;;;;;;;;;;:17;;;698:5;680:24;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;680:24:5;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;680:24:5;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;680:24:5;;;;;;;;;;;;;;;;673:31;;604:105;;;:::o;1264:53:0:-;;;;;;;;;;;;;;;;;:::o;1274:103:3:-;719:5;;;;;;;;;;;705:19;;:10;:19;;;697:28;;;;;;;;1343:29;1362:9;1343:18;:29::i;:::-;1274:103;:::o;368:121:8:-;458:5;:14;;;473:2;477:5;458:25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;458:25:8;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;458:25:8;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;458:25:8;;;;;;;;;;;;;;;;450:34;;;;;;;;368:121;;;:::o;658:272:1:-;716:7;924:1;920;:5;;;;;;;;913:12;;658:272;;;;:::o;203:373::-;261:9;492:1;487;:6;483:35;;;510:1;503:8;;;;483:35;532:1;528;:5;524:9;;555:1;550;546;:5;;;;;;;;:10;539:18;;;;;;570:1;563:8;;203:373;;;;;:::o;900:111:5:-;970:6;;;;;;;;;;;:14;;;991:7;1000:5;970:36;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;970:36:5;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;970:36:5;;;;;900:111;;:::o;1042:110:1:-;1100:7;1127:1;1122;:6;;1115:14;;;;;;1146:1;1142;:5;1135:12;;1042:110;;;;:::o;1512:171:3:-;1603:1;1582:23;;:9;:23;;;;1574:32;;;;;;;;1645:9;1617:38;;1638:5;;;;;;;;;;;1617:38;;;;;;;;;;;;1669:9;1661:5;;:17;;;;;;;;;;;;;;;;;;1512:171;:::o;679:3263:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o","source":"// Author: Igor Yalovoy\n// Web: ylv.io\n// Email: to@ylv.io\n// GitHub: https://github.com/ylv-io/coinpledge/tree/master\n// Twitter: https://twitter.com/ylv_io\n\n// Coin Pledge\n// Archive your goals and have fun with friends. Powered by security of smart contracts.\n\n\n// Proofs:\n// Public commitment as a motivator for weight loss (https://onlinelibrary.wiley.com/doi/pdf/10.1002/mar.20316)\n\n\npragma solidity ^0.4.17;\n\nimport \"openzeppelin-solidity/contracts/math/SafeMath.sol\";\nimport \"openzeppelin-solidity/contracts/ownership/Ownable.sol\";\nimport \"openzeppelin-solidity/contracts/payment/PullPayment.sol\";\nimport \"openzeppelin-solidity/contracts/ownership/CanReclaimToken.sol\";\n\ncontract CoinPledge is Ownable, CanReclaimToken, PullPayment {\n\n  uint constant daysToJudge = 7 days;\n  uint constant bonusPercentage = 50;\n  uint constant feePercentage = 1;\n\n  struct Challenge {\n    string name;\n    uint value;\n    address judge;\n    uint startDate;\n    uint time;\n\n    bool successed;\n    bool resolved;\n  }\n\n  event NewChallenge(uint challengeId, string name, uint value, address judge, uint startDate, uint time);\n  event ChallengeResolved(uint challengeId, bool decision);\n\n  Challenge[] public challenges;\n\n  mapping(uint => address) public challengeToOwner;\n  mapping(address => uint) public ownerToChallengeCount;\n  mapping(address => uint) public bonusFund;\n\n  function getChallenges(address owner) external view returns(uint[]) {\n    require(ownerToChallengeCount[owner] > 0, \"Has zero challenges\");\n\n    uint[] memory result = new uint[](ownerToChallengeCount[owner]);\n    uint counter = 0;\n    for (uint i = 0; i < challenges.length; i++) {\n      if (challengeToOwner[i] == owner)\n      {\n        result[counter] = i;\n        counter++;\n      }\n    }\n    return result;\n  }\n\n\n  function createChallenge(string name, address judge, uint time) external payable returns (uint retId) {\n    require(msg.value >= 0.01 ether, \"Has to stake more than 0.01 ether\");\n\n    uint startDate = block.timestamp;\n    uint id = challenges.push(Challenge(name, msg.value, judge, startDate, time, false, false)) - 1;\n    challengeToOwner[id] = msg.sender;\n    ownerToChallengeCount[msg.sender]++;\n\n    emit NewChallenge(id, name, msg.value, judge, startDate, time);\n\n    return id;\n  }\n\n  function resolveChallenge(uint challengeId, bool decision) external\n  {\n    Challenge storage challenge = challenges[challengeId];\n    address challenger = challengeToOwner[challengeId];\n\n    require(challenge.resolved == false, \"Challenge already resolved.\");\n    require(block.timestamp > (challenge.startDate + challenge.time), \"It is not time yet to judge.\");\n\n    // if more time passed than endDate + daysToJudge, then challenger can resolve himself\n    if(block.timestamp > (challenge.startDate + challenge.time + daysToJudge))\n      require(challenge.judge == msg.sender || challenger == msg.sender, \"You are not the judge for this challenge.\");\n    else\n      require(challenge.judge == msg.sender, \"You are not the judge for this challenge.\");\n\n    // write decision\n    challenge.successed = decision;\n    challenge.resolved = true;\n\n    // pay 1% fee\n    uint fee = SafeMath.mul(SafeMath.div(challenge.value, 100), feePercentage);\n    asyncTransfer(owner, fee);\n\n    uint remainingValue = SafeMath.sub(challenge.value, fee);\n\n    uint valueToPay;\n\n    if(decision) {\n      // value to pay back to challenger\n      valueToPay = remainingValue;\n      // credit bouns if any\n      if(bonusFund[challenger] > 0)\n      {\n        uint bonusValue = SafeMath.mul(SafeMath.div(bonusFund[challenger], 100), bonusPercentage);\n        bonusFund[challenger] -= bonusValue;\n      }\n    }\n    else \n        // if failed to archive goal, put money to bonus fund\n        bonusFund[challenger] += remainingValue;\n\n    // pay back to the challenger\n    if(valueToPay > 0)\n        challenger.transfer(valueToPay);\n\n    emit ChallengeResolved(challengeId, decision);\n  }\n\n}","sourcePath":"/Users/iYalovoy/Dropbox (Personal)/Development/coinpledge/contracts/CoinPledge.sol","ast":{"absolutePath":"/Users/iYalovoy/Dropbox (Personal)/Development/coinpledge/contracts/CoinPledge.sol","exportedSymbols":{"CoinPledge":[377]},"id":378,"nodeType":"SourceUnit","nodes":[{"id":1,"literals":["solidity","^","0.4",".17"],"nodeType":"PragmaDirective","src":"390:24:0"},{"absolutePath":"openzeppelin-solidity/contracts/math/SafeMath.sol","file":"openzeppelin-solidity/contracts/math/SafeMath.sol","id":2,"nodeType":"ImportDirective","scope":378,"sourceUnit":472,"src":"416:59:0","symbolAliases":[],"unitAlias":""},{"absolutePath":"openzeppelin-solidity/contracts/ownership/Ownable.sol","file":"openzeppelin-solidity/contracts/ownership/Ownable.sol","id":3,"nodeType":"ImportDirective","scope":378,"sourceUnit":591,"src":"476:63:0","symbolAliases":[],"unitAlias":""},{"absolutePath":"openzeppelin-solidity/contracts/payment/PullPayment.sol","file":"openzeppelin-solidity/contracts/payment/PullPayment.sol","id":4,"nodeType":"ImportDirective","scope":378,"sourceUnit":760,"src":"540:65:0","symbolAliases":[],"unitAlias":""},{"absolutePath":"openzeppelin-solidity/contracts/ownership/CanReclaimToken.sol","file":"openzeppelin-solidity/contracts/ownership/CanReclaimToken.sol","id":5,"nodeType":"ImportDirective","scope":378,"sourceUnit":505,"src":"606:71:0","symbolAliases":[],"unitAlias":""},{"baseContracts":[{"arguments":null,"baseName":{"contractScope":null,"id":6,"name":"Ownable","nodeType":"UserDefinedTypeName","referencedDeclaration":590,"src":"702:7:0","typeDescriptions":{"typeIdentifier":"t_contract$_Ownable_$590","typeString":"contract Ownable"}},"id":7,"nodeType":"InheritanceSpecifier","src":"702:7:0"},{"arguments":null,"baseName":{"contractScope":null,"id":8,"name":"CanReclaimToken","nodeType":"UserDefinedTypeName","referencedDeclaration":504,"src":"711:15:0","typeDescriptions":{"typeIdentifier":"t_contract$_CanReclaimToken_$504","typeString":"contract CanReclaimToken"}},"id":9,"nodeType":"InheritanceSpecifier","src":"711:15:0"},{"arguments":null,"baseName":{"contractScope":null,"id":10,"name":"PullPayment","nodeType":"UserDefinedTypeName","referencedDeclaration":759,"src":"728:11:0","typeDescriptions":{"typeIdentifier":"t_contract$_PullPayment_$759","typeString":"contract PullPayment"}},"id":11,"nodeType":"InheritanceSpecifier","src":"728:11:0"}],"contractDependencies":[504,590,759],"contractKind":"contract","documentation":null,"fullyImplemented":true,"id":377,"linearizedBaseContracts":[377,759,504,590],"name":"CoinPledge","nodeType":"ContractDefinition","nodes":[{"constant":true,"id":14,"name":"daysToJudge","nodeType":"VariableDeclaration","scope":377,"src":"745:34:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":12,"name":"uint","nodeType":"ElementaryTypeName","src":"745:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":{"argumentTypes":null,"hexValue":"37","id":13,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"773:6:0","subdenomination":"days","typeDescriptions":{"typeIdentifier":"t_rational_604800_by_1","typeString":"int_const 604800"},"value":"7"},"visibility":"internal"},{"constant":true,"id":17,"name":"bonusPercentage","nodeType":"VariableDeclaration","scope":377,"src":"783:34:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":15,"name":"uint","nodeType":"ElementaryTypeName","src":"783:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":{"argumentTypes":null,"hexValue":"3530","id":16,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"815:2:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_50_by_1","typeString":"int_const 50"},"value":"50"},"visibility":"internal"},{"constant":true,"id":20,"name":"feePercentage","nodeType":"VariableDeclaration","scope":377,"src":"821:31:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":18,"name":"uint","nodeType":"ElementaryTypeName","src":"821:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":{"argumentTypes":null,"hexValue":"31","id":19,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"851:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_1_by_1","typeString":"int_const 1"},"value":"1"},"visibility":"internal"},{"canonicalName":"CoinPledge.Challenge","id":35,"members":[{"constant":false,"id":22,"name":"name","nodeType":"VariableDeclaration","scope":35,"src":"880:11:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_string_storage_ptr","typeString":"string"},"typeName":{"id":21,"name":"string","nodeType":"ElementaryTypeName","src":"880:6:0","typeDescriptions":{"typeIdentifier":"t_string_storage_ptr","typeString":"string"}},"value":null,"visibility":"internal"},{"constant":false,"id":24,"name":"value","nodeType":"VariableDeclaration","scope":35,"src":"897:10:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":23,"name":"uint","nodeType":"ElementaryTypeName","src":"897:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":26,"name":"judge","nodeType":"VariableDeclaration","scope":35,"src":"913:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"},"typeName":{"id":25,"name":"address","nodeType":"ElementaryTypeName","src":"913:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"value":null,"visibility":"internal"},{"constant":false,"id":28,"name":"startDate","nodeType":"VariableDeclaration","scope":35,"src":"932:14:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":27,"name":"uint","nodeType":"ElementaryTypeName","src":"932:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":30,"name":"time","nodeType":"VariableDeclaration","scope":35,"src":"952:9:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":29,"name":"uint","nodeType":"ElementaryTypeName","src":"952:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":32,"name":"successed","nodeType":"VariableDeclaration","scope":35,"src":"968:14:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"typeName":{"id":31,"name":"bool","nodeType":"ElementaryTypeName","src":"968:4:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"value":null,"visibility":"internal"},{"constant":false,"id":34,"name":"resolved","nodeType":"VariableDeclaration","scope":35,"src":"988:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"typeName":{"id":33,"name":"bool","nodeType":"ElementaryTypeName","src":"988:4:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"value":null,"visibility":"internal"}],"name":"Challenge","nodeType":"StructDefinition","scope":377,"src":"857:149:0","visibility":"public"},{"anonymous":false,"documentation":null,"id":49,"name":"NewChallenge","nodeType":"EventDefinition","parameters":{"id":48,"nodeType":"ParameterList","parameters":[{"constant":false,"id":37,"indexed":false,"name":"challengeId","nodeType":"VariableDeclaration","scope":49,"src":"1029:16:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":36,"name":"uint","nodeType":"ElementaryTypeName","src":"1029:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":39,"indexed":false,"name":"name","nodeType":"VariableDeclaration","scope":49,"src":"1047:11:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_string_memory_ptr","typeString":"string"},"typeName":{"id":38,"name":"string","nodeType":"ElementaryTypeName","src":"1047:6:0","typeDescriptions":{"typeIdentifier":"t_string_storage_ptr","typeString":"string"}},"value":null,"visibility":"internal"},{"constant":false,"id":41,"indexed":false,"name":"value","nodeType":"VariableDeclaration","scope":49,"src":"1060:10:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":40,"name":"uint","nodeType":"ElementaryTypeName","src":"1060:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":43,"indexed":false,"name":"judge","nodeType":"VariableDeclaration","scope":49,"src":"1072:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"},"typeName":{"id":42,"name":"address","nodeType":"ElementaryTypeName","src":"1072:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"value":null,"visibility":"internal"},{"constant":false,"id":45,"indexed":false,"name":"startDate","nodeType":"VariableDeclaration","scope":49,"src":"1087:14:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":44,"name":"uint","nodeType":"ElementaryTypeName","src":"1087:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":47,"indexed":false,"name":"time","nodeType":"VariableDeclaration","scope":49,"src":"1103:9:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":46,"name":"uint","nodeType":"ElementaryTypeName","src":"1103:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"src":"1028:85:0"},"src":"1010:104:0"},{"anonymous":false,"documentation":null,"id":55,"name":"ChallengeResolved","nodeType":"EventDefinition","parameters":{"id":54,"nodeType":"ParameterList","parameters":[{"constant":false,"id":51,"indexed":false,"name":"challengeId","nodeType":"VariableDeclaration","scope":55,"src":"1141:16:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":50,"name":"uint","nodeType":"ElementaryTypeName","src":"1141:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":53,"indexed":false,"name":"decision","nodeType":"VariableDeclaration","scope":55,"src":"1159:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"typeName":{"id":52,"name":"bool","nodeType":"ElementaryTypeName","src":"1159:4:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"value":null,"visibility":"internal"}],"src":"1140:33:0"},"src":"1117:57:0"},{"constant":false,"id":58,"name":"challenges","nodeType":"VariableDeclaration","scope":377,"src":"1178:29:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_array$_t_struct$_Challenge_$35_storage_$dyn_storage","typeString":"struct CoinPledge.Challenge[]"},"typeName":{"baseType":{"contractScope":null,"id":56,"name":"Challenge","nodeType":"UserDefinedTypeName","referencedDeclaration":35,"src":"1178:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge"}},"id":57,"length":null,"nodeType":"ArrayTypeName","src":"1178:11:0","typeDescriptions":{"typeIdentifier":"t_array$_t_struct$_Challenge_$35_storage_$dyn_storage_ptr","typeString":"struct CoinPledge.Challenge[]"}},"value":null,"visibility":"public"},{"constant":false,"id":62,"name":"challengeToOwner","nodeType":"VariableDeclaration","scope":377,"src":"1212:48:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_mapping$_t_uint256_$_t_address_$","typeString":"mapping(uint256 => address)"},"typeName":{"id":61,"keyType":{"id":59,"name":"uint","nodeType":"ElementaryTypeName","src":"1220:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"Mapping","src":"1212:24:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_uint256_$_t_address_$","typeString":"mapping(uint256 => address)"},"valueType":{"id":60,"name":"address","nodeType":"ElementaryTypeName","src":"1228:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}}},"value":null,"visibility":"public"},{"constant":false,"id":66,"name":"ownerToChallengeCount","nodeType":"VariableDeclaration","scope":377,"src":"1264:53:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"},"typeName":{"id":65,"keyType":{"id":63,"name":"address","nodeType":"ElementaryTypeName","src":"1272:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"Mapping","src":"1264:24:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"},"valueType":{"id":64,"name":"uint","nodeType":"ElementaryTypeName","src":"1283:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}},"value":null,"visibility":"public"},{"constant":false,"id":70,"name":"bonusFund","nodeType":"VariableDeclaration","scope":377,"src":"1321:41:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"},"typeName":{"id":69,"keyType":{"id":67,"name":"address","nodeType":"ElementaryTypeName","src":"1329:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"Mapping","src":"1321:24:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"},"valueType":{"id":68,"name":"uint","nodeType":"ElementaryTypeName","src":"1340:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}},"value":null,"visibility":"public"},{"body":{"id":134,"nodeType":"Block","src":"1435:347:0","statements":[{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":83,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":79,"name":"ownerToChallengeCount","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":66,"src":"1449:21:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":81,"indexExpression":{"argumentTypes":null,"id":80,"name":"owner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":72,"src":"1471:5:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"1449:28:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":">","rightExpression":{"argumentTypes":null,"hexValue":"30","id":82,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"1480:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_0_by_1","typeString":"int_const 0"},"value":"0"},"src":"1449:32:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},{"argumentTypes":null,"hexValue":"486173207a65726f206368616c6c656e676573","id":84,"isConstant":false,"isLValue":false,"isPure":true,"kind":"string","lValueRequested":false,"nodeType":"Literal","src":"1483:21:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_stringliteral_95495eb823f5d228899cc46212e7e321a5ffb5d0e1cf2fa809b1107c050636d4","typeString":"literal_string \"Has zero challenges\""},"value":"Has zero challenges"}],"expression":{"argumentTypes":[{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_stringliteral_95495eb823f5d228899cc46212e7e321a5ffb5d0e1cf2fa809b1107c050636d4","typeString":"literal_string \"Has zero challenges\""}],"id":78,"name":"require","nodeType":"Identifier","overloadedDeclarations":[914,915],"referencedDeclaration":915,"src":"1441:7:0","typeDescriptions":{"typeIdentifier":"t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$","typeString":"function (bool,string memory) pure"}},"id":85,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"1441:64:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":86,"nodeType":"ExpressionStatement","src":"1441:64:0"},{"assignments":[90],"declarations":[{"constant":false,"id":90,"name":"result","nodeType":"VariableDeclaration","scope":135,"src":"1512:20:0","stateVariable":false,"storageLocation":"memory","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_memory_ptr","typeString":"uint256[]"},"typeName":{"baseType":{"id":88,"name":"uint","nodeType":"ElementaryTypeName","src":"1512:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":89,"length":null,"nodeType":"ArrayTypeName","src":"1512:6:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_storage_ptr","typeString":"uint256[]"}},"value":null,"visibility":"internal"}],"id":98,"initialValue":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":94,"name":"ownerToChallengeCount","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":66,"src":"1546:21:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":96,"indexExpression":{"argumentTypes":null,"id":95,"name":"owner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":72,"src":"1568:5:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"1546:28:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"}],"id":93,"isConstant":false,"isLValue":false,"isPure":true,"lValueRequested":false,"nodeType":"NewExpression","src":"1535:10:0","typeDescriptions":{"typeIdentifier":"t_function_objectcreation_pure$_t_uint256_$returns$_t_array$_t_uint256_$dyn_memory_$","typeString":"function (uint256) pure returns (uint256[] memory)"},"typeName":{"baseType":{"id":91,"name":"uint","nodeType":"ElementaryTypeName","src":"1539:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":92,"length":null,"nodeType":"ArrayTypeName","src":"1539:6:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_storage_ptr","typeString":"uint256[]"}}},"id":97,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"1535:40:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_memory","typeString":"uint256[] memory"}},"nodeType":"VariableDeclarationStatement","src":"1512:63:0"},{"assignments":[100],"declarations":[{"constant":false,"id":100,"name":"counter","nodeType":"VariableDeclaration","scope":135,"src":"1581:12:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":99,"name":"uint","nodeType":"ElementaryTypeName","src":"1581:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":102,"initialValue":{"argumentTypes":null,"hexValue":"30","id":101,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"1596:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_0_by_1","typeString":"int_const 0"},"value":"0"},"nodeType":"VariableDeclarationStatement","src":"1581:16:0"},{"body":{"id":130,"nodeType":"Block","src":"1648:111:0","statements":[{"condition":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_address","typeString":"address"},"id":118,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":114,"name":"challengeToOwner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":62,"src":"1660:16:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_uint256_$_t_address_$","typeString":"mapping(uint256 => address)"}},"id":116,"indexExpression":{"argumentTypes":null,"id":115,"name":"i","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":104,"src":"1677:1:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"1660:19:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"BinaryOperation","operator":"==","rightExpression":{"argumentTypes":null,"id":117,"name":"owner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":72,"src":"1683:5:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"src":"1660:28:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"falseBody":null,"id":129,"nodeType":"IfStatement","src":"1656:97:0","trueBody":{"id":128,"nodeType":"Block","src":"1696:57:0","statements":[{"expression":{"argumentTypes":null,"id":123,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":119,"name":"result","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":90,"src":"1706:6:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_memory_ptr","typeString":"uint256[] memory"}},"id":121,"indexExpression":{"argumentTypes":null,"id":120,"name":"counter","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":100,"src":"1713:7:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"nodeType":"IndexAccess","src":"1706:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"Assignment","operator":"=","rightHandSide":{"argumentTypes":null,"id":122,"name":"i","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":104,"src":"1724:1:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"1706:19:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":124,"nodeType":"ExpressionStatement","src":"1706:19:0"},{"expression":{"argumentTypes":null,"id":126,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"nodeType":"UnaryOperation","operator":"++","prefix":false,"src":"1735:9:0","subExpression":{"argumentTypes":null,"id":125,"name":"counter","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":100,"src":"1735:7:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":127,"nodeType":"ExpressionStatement","src":"1735:9:0"}]}}]},"condition":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":110,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"id":107,"name":"i","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":104,"src":"1620:1:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":"<","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":108,"name":"challenges","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":58,"src":"1624:10:0","typeDescriptions":{"typeIdentifier":"t_array$_t_struct$_Challenge_$35_storage_$dyn_storage","typeString":"struct CoinPledge.Challenge storage ref[] storage ref"}},"id":109,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"length","nodeType":"MemberAccess","referencedDeclaration":null,"src":"1624:17:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"1620:21:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"id":131,"initializationExpression":{"assignments":[104],"declarations":[{"constant":false,"id":104,"name":"i","nodeType":"VariableDeclaration","scope":135,"src":"1608:6:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":103,"name":"uint","nodeType":"ElementaryTypeName","src":"1608:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":106,"initialValue":{"argumentTypes":null,"hexValue":"30","id":105,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"1617:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_0_by_1","typeString":"int_const 0"},"value":"0"},"nodeType":"VariableDeclarationStatement","src":"1608:10:0"},"loopExpression":{"expression":{"argumentTypes":null,"id":112,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"nodeType":"UnaryOperation","operator":"++","prefix":false,"src":"1643:3:0","subExpression":{"argumentTypes":null,"id":111,"name":"i","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":104,"src":"1643:1:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":113,"nodeType":"ExpressionStatement","src":"1643:3:0"},"nodeType":"ForStatement","src":"1603:156:0"},{"expression":{"argumentTypes":null,"id":132,"name":"result","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":90,"src":"1771:6:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_memory_ptr","typeString":"uint256[] memory"}},"functionReturnParameters":77,"id":133,"nodeType":"Return","src":"1764:13:0"}]},"documentation":null,"id":135,"implemented":true,"isConstructor":false,"isDeclaredConst":true,"modifiers":[],"name":"getChallenges","nodeType":"FunctionDefinition","parameters":{"id":73,"nodeType":"ParameterList","parameters":[{"constant":false,"id":72,"name":"owner","nodeType":"VariableDeclaration","scope":135,"src":"1390:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"},"typeName":{"id":71,"name":"address","nodeType":"ElementaryTypeName","src":"1390:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"value":null,"visibility":"internal"}],"src":"1389:15:0"},"payable":false,"returnParameters":{"id":77,"nodeType":"ParameterList","parameters":[{"constant":false,"id":76,"name":"","nodeType":"VariableDeclaration","scope":135,"src":"1427:6:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_memory_ptr","typeString":"uint256[]"},"typeName":{"baseType":{"id":74,"name":"uint","nodeType":"ElementaryTypeName","src":"1427:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":75,"length":null,"nodeType":"ArrayTypeName","src":"1427:6:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_storage_ptr","typeString":"uint256[]"}},"value":null,"visibility":"internal"}],"src":"1426:8:0"},"scope":377,"src":"1367:415:0","stateMutability":"view","superFunction":null,"visibility":"external"},{"body":{"id":202,"nodeType":"Block","src":"1889:385:0","statements":[{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":150,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":147,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":911,"src":"1903:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":148,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"value","nodeType":"MemberAccess","referencedDeclaration":null,"src":"1903:9:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":">=","rightExpression":{"argumentTypes":null,"hexValue":"302e3031","id":149,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"1916:10:0","subdenomination":"ether","typeDescriptions":{"typeIdentifier":"t_rational_10000000000000000_by_1","typeString":"int_const 10000000000000000"},"value":"0.01"},"src":"1903:23:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},{"argumentTypes":null,"hexValue":"48617320746f207374616b65206d6f7265207468616e20302e3031206574686572","id":151,"isConstant":false,"isLValue":false,"isPure":true,"kind":"string","lValueRequested":false,"nodeType":"Literal","src":"1928:35:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_stringliteral_0ff5f852bf5cd8c2547c84b195ec3cb13d74f8cd2e22fd216845c5cebc7e54c6","typeString":"literal_string \"Has to stake more than 0.01 ether\""},"value":"Has to stake more than 0.01 ether"}],"expression":{"argumentTypes":[{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_stringliteral_0ff5f852bf5cd8c2547c84b195ec3cb13d74f8cd2e22fd216845c5cebc7e54c6","typeString":"literal_string \"Has to stake more than 0.01 ether\""}],"id":146,"name":"require","nodeType":"Identifier","overloadedDeclarations":[914,915],"referencedDeclaration":915,"src":"1895:7:0","typeDescriptions":{"typeIdentifier":"t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$","typeString":"function (bool,string memory) pure"}},"id":152,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"1895:69:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":153,"nodeType":"ExpressionStatement","src":"1895:69:0"},{"assignments":[155],"declarations":[{"constant":false,"id":155,"name":"startDate","nodeType":"VariableDeclaration","scope":203,"src":"1971:14:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":154,"name":"uint","nodeType":"ElementaryTypeName","src":"1971:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":158,"initialValue":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":156,"name":"block","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":901,"src":"1988:5:0","typeDescriptions":{"typeIdentifier":"t_magic_block","typeString":"block"}},"id":157,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"timestamp","nodeType":"MemberAccess","referencedDeclaration":null,"src":"1988:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"VariableDeclarationStatement","src":"1971:32:0"},{"assignments":[160],"declarations":[{"constant":false,"id":160,"name":"id","nodeType":"VariableDeclaration","scope":203,"src":"2009:7:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":159,"name":"uint","nodeType":"ElementaryTypeName","src":"2009:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":176,"initialValue":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":175,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"arguments":[{"argumentTypes":null,"id":164,"name":"name","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":137,"src":"2045:4:0","typeDescriptions":{"typeIdentifier":"t_string_calldata_ptr","typeString":"string calldata"}},{"argumentTypes":null,"expression":{"argumentTypes":null,"id":165,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":911,"src":"2051:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":166,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"value","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2051:9:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":167,"name":"judge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":139,"src":"2062:5:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},{"argumentTypes":null,"id":168,"name":"startDate","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":155,"src":"2069:9:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":169,"name":"time","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":141,"src":"2080:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"hexValue":"66616c7365","id":170,"isConstant":false,"isLValue":false,"isPure":true,"kind":"bool","lValueRequested":false,"nodeType":"Literal","src":"2086:5:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"value":"false"},{"argumentTypes":null,"hexValue":"66616c7365","id":171,"isConstant":false,"isLValue":false,"isPure":true,"kind":"bool","lValueRequested":false,"nodeType":"Literal","src":"2093:5:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"value":"false"}],"expression":{"argumentTypes":[{"typeIdentifier":"t_string_calldata_ptr","typeString":"string calldata"},{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_address","typeString":"address"},{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_bool","typeString":"bool"}],"id":163,"name":"Challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":35,"src":"2035:9:0","typeDescriptions":{"typeIdentifier":"t_type$_t_struct$_Challenge_$35_storage_ptr_$","typeString":"type(struct CoinPledge.Challenge storage pointer)"}},"id":172,"isConstant":false,"isLValue":false,"isPure":false,"kind":"structConstructorCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2035:64:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_memory","typeString":"struct CoinPledge.Challenge memory"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_struct$_Challenge_$35_memory","typeString":"struct CoinPledge.Challenge memory"}],"expression":{"argumentTypes":null,"id":161,"name":"challenges","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":58,"src":"2019:10:0","typeDescriptions":{"typeIdentifier":"t_array$_t_struct$_Challenge_$35_storage_$dyn_storage","typeString":"struct CoinPledge.Challenge storage ref[] storage ref"}},"id":162,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"push","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2019:15:0","typeDescriptions":{"typeIdentifier":"t_function_arraypush_nonpayable$_t_struct$_Challenge_$35_storage_$returns$_t_uint256_$","typeString":"function (struct CoinPledge.Challenge storage ref) returns (uint256)"}},"id":173,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2019:81:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":"-","rightExpression":{"argumentTypes":null,"hexValue":"31","id":174,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"2103:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_1_by_1","typeString":"int_const 1"},"value":"1"},"src":"2019:85:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"VariableDeclarationStatement","src":"2009:95:0"},{"expression":{"argumentTypes":null,"id":182,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":177,"name":"challengeToOwner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":62,"src":"2110:16:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_uint256_$_t_address_$","typeString":"mapping(uint256 => address)"}},"id":179,"indexExpression":{"argumentTypes":null,"id":178,"name":"id","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":160,"src":"2127:2:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"nodeType":"IndexAccess","src":"2110:20:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"Assignment","operator":"=","rightHandSide":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":180,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":911,"src":"2133:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":181,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"sender","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2133:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"src":"2110:33:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"id":183,"nodeType":"ExpressionStatement","src":"2110:33:0"},{"expression":{"argumentTypes":null,"id":188,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"nodeType":"UnaryOperation","operator":"++","prefix":false,"src":"2149:35:0","subExpression":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":184,"name":"ownerToChallengeCount","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":66,"src":"2149:21:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":187,"indexExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":185,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":911,"src":"2171:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":186,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"sender","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2171:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"nodeType":"IndexAccess","src":"2149:33:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":189,"nodeType":"ExpressionStatement","src":"2149:35:0"},{"eventCall":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"id":191,"name":"id","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":160,"src":"2209:2:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":192,"name":"name","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":137,"src":"2213:4:0","typeDescriptions":{"typeIdentifier":"t_string_calldata_ptr","typeString":"string calldata"}},{"argumentTypes":null,"expression":{"argumentTypes":null,"id":193,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":911,"src":"2219:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":194,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"value","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2219:9:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":195,"name":"judge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":139,"src":"2230:5:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},{"argumentTypes":null,"id":196,"name":"startDate","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":155,"src":"2237:9:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":197,"name":"time","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":141,"src":"2248:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_string_calldata_ptr","typeString":"string calldata"},{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_address","typeString":"address"},{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_uint256","typeString":"uint256"}],"id":190,"name":"NewChallenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":49,"src":"2196:12:0","typeDescriptions":{"typeIdentifier":"t_function_event_nonpayable$_t_uint256_$_t_string_memory_ptr_$_t_uint256_$_t_address_$_t_uint256_$_t_uint256_$returns$__$","typeString":"function (uint256,string memory,uint256,address,uint256,uint256)"}},"id":198,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2196:57:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":199,"nodeType":"EmitStatement","src":"2191:62:0"},{"expression":{"argumentTypes":null,"id":200,"name":"id","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":160,"src":"2267:2:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"functionReturnParameters":145,"id":201,"nodeType":"Return","src":"2260:9:0"}]},"documentation":null,"id":203,"implemented":true,"isConstructor":false,"isDeclaredConst":false,"modifiers":[],"name":"createChallenge","nodeType":"FunctionDefinition","parameters":{"id":142,"nodeType":"ParameterList","parameters":[{"constant":false,"id":137,"name":"name","nodeType":"VariableDeclaration","scope":203,"src":"1812:11:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_string_calldata_ptr","typeString":"string"},"typeName":{"id":136,"name":"string","nodeType":"ElementaryTypeName","src":"1812:6:0","typeDescriptions":{"typeIdentifier":"t_string_storage_ptr","typeString":"string"}},"value":null,"visibility":"internal"},{"constant":false,"id":139,"name":"judge","nodeType":"VariableDeclaration","scope":203,"src":"1825:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"},"typeName":{"id":138,"name":"address","nodeType":"ElementaryTypeName","src":"1825:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"value":null,"visibility":"internal"},{"constant":false,"id":141,"name":"time","nodeType":"VariableDeclaration","scope":203,"src":"1840:9:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":140,"name":"uint","nodeType":"ElementaryTypeName","src":"1840:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"src":"1811:39:0"},"payable":true,"returnParameters":{"id":145,"nodeType":"ParameterList","parameters":[{"constant":false,"id":144,"name":"retId","nodeType":"VariableDeclaration","scope":203,"src":"1877:10:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":143,"name":"uint","nodeType":"ElementaryTypeName","src":"1877:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"src":"1876:12:0"},"scope":377,"src":"1787:487:0","stateMutability":"payable","superFunction":null,"visibility":"external"},{"body":{"id":375,"nodeType":"Block","src":"2348:1591:0","statements":[{"assignments":[211],"declarations":[{"constant":false,"id":211,"name":"challenge","nodeType":"VariableDeclaration","scope":376,"src":"2354:27:0","stateVariable":false,"storageLocation":"storage","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge"},"typeName":{"contractScope":null,"id":210,"name":"Challenge","nodeType":"UserDefinedTypeName","referencedDeclaration":35,"src":"2354:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge"}},"value":null,"visibility":"internal"}],"id":215,"initialValue":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":212,"name":"challenges","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":58,"src":"2384:10:0","typeDescriptions":{"typeIdentifier":"t_array$_t_struct$_Challenge_$35_storage_$dyn_storage","typeString":"struct CoinPledge.Challenge storage ref[] storage ref"}},"id":214,"indexExpression":{"argumentTypes":null,"id":213,"name":"challengeId","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":205,"src":"2395:11:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"2384:23:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage","typeString":"struct CoinPledge.Challenge storage ref"}},"nodeType":"VariableDeclarationStatement","src":"2354:53:0"},{"assignments":[217],"declarations":[{"constant":false,"id":217,"name":"challenger","nodeType":"VariableDeclaration","scope":376,"src":"2413:18:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"},"typeName":{"id":216,"name":"address","nodeType":"ElementaryTypeName","src":"2413:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"value":null,"visibility":"internal"}],"id":221,"initialValue":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":218,"name":"challengeToOwner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":62,"src":"2434:16:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_uint256_$_t_address_$","typeString":"mapping(uint256 => address)"}},"id":220,"indexExpression":{"argumentTypes":null,"id":219,"name":"challengeId","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":205,"src":"2451:11:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"2434:29:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"VariableDeclarationStatement","src":"2413:50:0"},{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_bool","typeString":"bool"},"id":226,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":223,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":211,"src":"2478:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":224,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"resolved","nodeType":"MemberAccess","referencedDeclaration":34,"src":"2478:18:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"nodeType":"BinaryOperation","operator":"==","rightExpression":{"argumentTypes":null,"hexValue":"66616c7365","id":225,"isConstant":false,"isLValue":false,"isPure":true,"kind":"bool","lValueRequested":false,"nodeType":"Literal","src":"2500:5:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"value":"false"},"src":"2478:27:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},{"argumentTypes":null,"hexValue":"4368616c6c656e676520616c7265616479207265736f6c7665642e","id":227,"isConstant":false,"isLValue":false,"isPure":true,"kind":"string","lValueRequested":false,"nodeType":"Literal","src":"2507:29:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_stringliteral_927df0c53bfb037f5071a20cfbcb8238b08359ff00dbbf9249387ccfe68dd4d4","typeString":"literal_string \"Challenge already resolved.\""},"value":"Challenge already resolved."}],"expression":{"argumentTypes":[{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_stringliteral_927df0c53bfb037f5071a20cfbcb8238b08359ff00dbbf9249387ccfe68dd4d4","typeString":"literal_string \"Challenge already resolved.\""}],"id":222,"name":"require","nodeType":"Identifier","overloadedDeclarations":[914,915],"referencedDeclaration":915,"src":"2470:7:0","typeDescriptions":{"typeIdentifier":"t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$","typeString":"function (bool,string memory) pure"}},"id":228,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2470:67:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":229,"nodeType":"ExpressionStatement","src":"2470:67:0"},{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":239,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":231,"name":"block","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":901,"src":"2551:5:0","typeDescriptions":{"typeIdentifier":"t_magic_block","typeString":"block"}},"id":232,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"timestamp","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2551:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":">","rightExpression":{"argumentTypes":null,"components":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":237,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":233,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":211,"src":"2570:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":234,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"startDate","nodeType":"MemberAccess","referencedDeclaration":28,"src":"2570:19:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":"+","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":235,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":211,"src":"2592:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":236,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"time","nodeType":"MemberAccess","referencedDeclaration":30,"src":"2592:14:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"2570:36:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"id":238,"isConstant":false,"isInlineArray":false,"isLValue":false,"isPure":false,"lValueRequested":false,"nodeType":"TupleExpression","src":"2569:38:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"2551:56:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},{"argumentTypes":null,"hexValue":"4974206973206e6f742074696d652079657420746f206a756467652e","id":240,"isConstant":false,"isLValue":false,"isPure":true,"kind":"string","lValueRequested":false,"nodeType":"Literal","src":"2609:30:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_stringliteral_c31a253449b20a8ae52122536796081eb31fc4c12f917131decfa909f9de3f48","typeString":"literal_string \"It is not time yet to judge.\""},"value":"It is not time yet to judge."}],"expression":{"argumentTypes":[{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_stringliteral_c31a253449b20a8ae52122536796081eb31fc4c12f917131decfa909f9de3f48","typeString":"literal_string \"It is not time yet to judge.\""}],"id":230,"name":"require","nodeType":"Identifier","overloadedDeclarations":[914,915],"referencedDeclaration":915,"src":"2543:7:0","typeDescriptions":{"typeIdentifier":"t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$","typeString":"function (bool,string memory) pure"}},"id":241,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2543:97:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":242,"nodeType":"ExpressionStatement","src":"2543:97:0"},{"condition":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":253,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":243,"name":"block","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":901,"src":"2741:5:0","typeDescriptions":{"typeIdentifier":"t_magic_block","typeString":"block"}},"id":244,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"timestamp","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2741:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":">","rightExpression":{"argumentTypes":null,"components":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":251,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":249,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":245,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":211,"src":"2760:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":246,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"startDate","nodeType":"MemberAccess","referencedDeclaration":28,"src":"2760:19:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":"+","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":247,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":211,"src":"2782:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":248,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"time","nodeType":"MemberAccess","referencedDeclaration":30,"src":"2782:14:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"2760:36:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":"+","rightExpression":{"argumentTypes":null,"id":250,"name":"daysToJudge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":14,"src":"2799:11:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"2760:50:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"id":252,"isConstant":false,"isInlineArray":false,"isLValue":false,"isPure":false,"lValueRequested":false,"nodeType":"TupleExpression","src":"2759:52:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"2741:70:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"falseBody":{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_address","typeString":"address"},"id":273,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":269,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":211,"src":"2955:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":270,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"judge","nodeType":"MemberAccess","referencedDeclaration":26,"src":"2955:15:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"BinaryOperation","operator":"==","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":271,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":911,"src":"2974:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":272,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"sender","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2974:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"src":"2955:29:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},{"argumentTypes":null,"hexValue":"596f7520617265206e6f7420746865206a7564676520666f722074686973206368616c6c656e67652e","id":274,"isConstant":false,"isLValue":false,"isPure":true,"kind":"string","lValueRequested":false,"nodeType":"Literal","src":"2986:43:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_stringliteral_e8f41c75e03622af330e2e43b017cfa8c26dd016135ce18a203a3e2d965d231a","typeString":"literal_string \"You are not the judge for this challenge.\""},"value":"You are not the judge for this challenge."}],"expression":{"argumentTypes":[{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_stringliteral_e8f41c75e03622af330e2e43b017cfa8c26dd016135ce18a203a3e2d965d231a","typeString":"literal_string \"You are not the judge for this challenge.\""}],"id":268,"name":"require","nodeType":"Identifier","overloadedDeclarations":[914,915],"referencedDeclaration":915,"src":"2947:7:0","typeDescriptions":{"typeIdentifier":"t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$","typeString":"function (bool,string memory) pure"}},"id":275,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2947:83:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":276,"nodeType":"ExpressionStatement","src":"2947:83:0"},"id":277,"nodeType":"IfStatement","src":"2738:292:0","trueBody":{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_bool","typeString":"bool"},"id":264,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_address","typeString":"address"},"id":259,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":255,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":211,"src":"2827:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":256,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"judge","nodeType":"MemberAccess","referencedDeclaration":26,"src":"2827:15:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"BinaryOperation","operator":"==","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":257,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":911,"src":"2846:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":258,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"sender","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2846:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"src":"2827:29:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"nodeType":"BinaryOperation","operator":"||","rightExpression":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_address","typeString":"address"},"id":263,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"id":260,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":217,"src":"2860:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"BinaryOperation","operator":"==","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":261,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":911,"src":"2874:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":262,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"sender","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2874:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"src":"2860:24:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"src":"2827:57:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},{"argumentTypes":null,"hexValue":"596f7520617265206e6f7420746865206a7564676520666f722074686973206368616c6c656e67652e","id":265,"isConstant":false,"isLValue":false,"isPure":true,"kind":"string","lValueRequested":false,"nodeType":"Literal","src":"2886:43:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_stringliteral_e8f41c75e03622af330e2e43b017cfa8c26dd016135ce18a203a3e2d965d231a","typeString":"literal_string \"You are not the judge for this challenge.\""},"value":"You are not the judge for this challenge."}],"expression":{"argumentTypes":[{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_stringliteral_e8f41c75e03622af330e2e43b017cfa8c26dd016135ce18a203a3e2d965d231a","typeString":"literal_string \"You are not the judge for this challenge.\""}],"id":254,"name":"require","nodeType":"Identifier","overloadedDeclarations":[914,915],"referencedDeclaration":915,"src":"2819:7:0","typeDescriptions":{"typeIdentifier":"t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$","typeString":"function (bool,string memory) pure"}},"id":266,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2819:111:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":267,"nodeType":"ExpressionStatement","src":"2819:111:0"}},{"expression":{"argumentTypes":null,"id":282,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":278,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":211,"src":"3059:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":280,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"memberName":"successed","nodeType":"MemberAccess","referencedDeclaration":32,"src":"3059:19:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"nodeType":"Assignment","operator":"=","rightHandSide":{"argumentTypes":null,"id":281,"name":"decision","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":207,"src":"3081:8:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"src":"3059:30:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"id":283,"nodeType":"ExpressionStatement","src":"3059:30:0"},{"expression":{"argumentTypes":null,"id":288,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":284,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":211,"src":"3095:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":286,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"memberName":"resolved","nodeType":"MemberAccess","referencedDeclaration":34,"src":"3095:18:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"nodeType":"Assignment","operator":"=","rightHandSide":{"argumentTypes":null,"hexValue":"74727565","id":287,"isConstant":false,"isLValue":false,"isPure":true,"kind":"bool","lValueRequested":false,"nodeType":"Literal","src":"3116:4:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"value":"true"},"src":"3095:25:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"id":289,"nodeType":"ExpressionStatement","src":"3095:25:0"},{"assignments":[291],"declarations":[{"constant":false,"id":291,"name":"fee","nodeType":"VariableDeclaration","scope":376,"src":"3145:8:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":290,"name":"uint","nodeType":"ElementaryTypeName","src":"3145:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":302,"initialValue":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"arguments":[{"argumentTypes":null,"expression":{"argumentTypes":null,"id":296,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":211,"src":"3182:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":297,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"value","nodeType":"MemberAccess","referencedDeclaration":24,"src":"3182:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"hexValue":"313030","id":298,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"3199:3:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_100_by_1","typeString":"int_const 100"},"value":"100"}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_rational_100_by_1","typeString":"int_const 100"}],"expression":{"argumentTypes":null,"id":294,"name":"SafeMath","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":471,"src":"3169:8:0","typeDescriptions":{"typeIdentifier":"t_type$_t_contract$_SafeMath_$471_$","typeString":"type(library SafeMath)"}},"id":295,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"div","nodeType":"MemberAccess","referencedDeclaration":426,"src":"3169:12:0","typeDescriptions":{"typeIdentifier":"t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$","typeString":"function (uint256,uint256) pure returns (uint256)"}},"id":299,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3169:34:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":300,"name":"feePercentage","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":20,"src":"3205:13:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_uint256","typeString":"uint256"}],"expression":{"argumentTypes":null,"id":292,"name":"SafeMath","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":471,"src":"3156:8:0","typeDescriptions":{"typeIdentifier":"t_type$_t_contract$_SafeMath_$471_$","typeString":"type(library SafeMath)"}},"id":293,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"mul","nodeType":"MemberAccess","referencedDeclaration":412,"src":"3156:12:0","typeDescriptions":{"typeIdentifier":"t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$","typeString":"function (uint256,uint256) pure returns (uint256)"}},"id":301,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3156:63:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"VariableDeclarationStatement","src":"3145:74:0"},{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"id":304,"name":"owner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":508,"src":"3239:5:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},{"argumentTypes":null,"id":305,"name":"fee","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":291,"src":"3246:3:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_address","typeString":"address"},{"typeIdentifier":"t_uint256","typeString":"uint256"}],"id":303,"name":"asyncTransfer","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":758,"src":"3225:13:0","typeDescriptions":{"typeIdentifier":"t_function_internal_nonpayable$_t_address_$_t_uint256_$returns$__$","typeString":"function (address,uint256)"}},"id":306,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3225:25:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":307,"nodeType":"ExpressionStatement","src":"3225:25:0"},{"assignments":[309],"declarations":[{"constant":false,"id":309,"name":"remainingValue","nodeType":"VariableDeclaration","scope":376,"src":"3257:19:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":308,"name":"uint","nodeType":"ElementaryTypeName","src":"3257:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":316,"initialValue":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"expression":{"argumentTypes":null,"id":312,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":211,"src":"3292:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":313,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"value","nodeType":"MemberAccess","referencedDeclaration":24,"src":"3292:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":314,"name":"fee","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":291,"src":"3309:3:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_uint256","typeString":"uint256"}],"expression":{"argumentTypes":null,"id":310,"name":"SafeMath","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":471,"src":"3279:8:0","typeDescriptions":{"typeIdentifier":"t_type$_t_contract$_SafeMath_$471_$","typeString":"type(library SafeMath)"}},"id":311,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"sub","nodeType":"MemberAccess","referencedDeclaration":446,"src":"3279:12:0","typeDescriptions":{"typeIdentifier":"t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$","typeString":"function (uint256,uint256) pure returns (uint256)"}},"id":315,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3279:34:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"VariableDeclarationStatement","src":"3257:56:0"},{"assignments":[],"declarations":[{"constant":false,"id":318,"name":"valueToPay","nodeType":"VariableDeclaration","scope":376,"src":"3320:15:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":317,"name":"uint","nodeType":"ElementaryTypeName","src":"3320:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":319,"initialValue":null,"nodeType":"VariableDeclarationStatement","src":"3320:15:0"},{"condition":{"argumentTypes":null,"id":320,"name":"decision","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":207,"src":"3345:8:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"falseBody":{"expression":{"argumentTypes":null,"id":357,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":353,"name":"bonusFund","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":70,"src":"3744:9:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":355,"indexExpression":{"argumentTypes":null,"id":354,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":217,"src":"3754:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"nodeType":"IndexAccess","src":"3744:21:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"Assignment","operator":"+=","rightHandSide":{"argumentTypes":null,"id":356,"name":"remainingValue","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":309,"src":"3769:14:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"3744:39:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":358,"nodeType":"ExpressionStatement","src":"3744:39:0"},"id":359,"nodeType":"IfStatement","src":"3342:441:0","trueBody":{"id":352,"nodeType":"Block","src":"3355:308:0","statements":[{"expression":{"argumentTypes":null,"id":323,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"id":321,"name":"valueToPay","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":318,"src":"3404:10:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"Assignment","operator":"=","rightHandSide":{"argumentTypes":null,"id":322,"name":"remainingValue","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":309,"src":"3417:14:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"3404:27:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":324,"nodeType":"ExpressionStatement","src":"3404:27:0"},{"condition":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":329,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":325,"name":"bonusFund","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":70,"src":"3471:9:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":327,"indexExpression":{"argumentTypes":null,"id":326,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":217,"src":"3481:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"3471:21:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":">","rightExpression":{"argumentTypes":null,"hexValue":"30","id":328,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"3495:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_0_by_1","typeString":"int_const 0"},"value":"0"},"src":"3471:25:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"falseBody":null,"id":351,"nodeType":"IfStatement","src":"3468:189:0","trueBody":{"id":350,"nodeType":"Block","src":"3504:153:0","statements":[{"assignments":[331],"declarations":[{"constant":false,"id":331,"name":"bonusValue","nodeType":"VariableDeclaration","scope":376,"src":"3514:15:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":330,"name":"uint","nodeType":"ElementaryTypeName","src":"3514:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":343,"initialValue":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"arguments":[{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":336,"name":"bonusFund","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":70,"src":"3558:9:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":338,"indexExpression":{"argumentTypes":null,"id":337,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":217,"src":"3568:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"3558:21:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"hexValue":"313030","id":339,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"3581:3:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_100_by_1","typeString":"int_const 100"},"value":"100"}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_rational_100_by_1","typeString":"int_const 100"}],"expression":{"argumentTypes":null,"id":334,"name":"SafeMath","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":471,"src":"3545:8:0","typeDescriptions":{"typeIdentifier":"t_type$_t_contract$_SafeMath_$471_$","typeString":"type(library SafeMath)"}},"id":335,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"div","nodeType":"MemberAccess","referencedDeclaration":426,"src":"3545:12:0","typeDescriptions":{"typeIdentifier":"t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$","typeString":"function (uint256,uint256) pure returns (uint256)"}},"id":340,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3545:40:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":341,"name":"bonusPercentage","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":17,"src":"3587:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_uint256","typeString":"uint256"}],"expression":{"argumentTypes":null,"id":332,"name":"SafeMath","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":471,"src":"3532:8:0","typeDescriptions":{"typeIdentifier":"t_type$_t_contract$_SafeMath_$471_$","typeString":"type(library SafeMath)"}},"id":333,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"mul","nodeType":"MemberAccess","referencedDeclaration":412,"src":"3532:12:0","typeDescriptions":{"typeIdentifier":"t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$","typeString":"function (uint256,uint256) pure returns (uint256)"}},"id":342,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3532:71:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"VariableDeclarationStatement","src":"3514:89:0"},{"expression":{"argumentTypes":null,"id":348,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":344,"name":"bonusFund","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":70,"src":"3613:9:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":346,"indexExpression":{"argumentTypes":null,"id":345,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":217,"src":"3623:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"nodeType":"IndexAccess","src":"3613:21:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"Assignment","operator":"-=","rightHandSide":{"argumentTypes":null,"id":347,"name":"bonusValue","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":331,"src":"3638:10:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"3613:35:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":349,"nodeType":"ExpressionStatement","src":"3613:35:0"}]}}]}},{"condition":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":362,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"id":360,"name":"valueToPay","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":318,"src":"3827:10:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":">","rightExpression":{"argumentTypes":null,"hexValue":"30","id":361,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"3840:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_0_by_1","typeString":"int_const 0"},"value":"0"},"src":"3827:14:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"falseBody":null,"id":369,"nodeType":"IfStatement","src":"3824:58:0","trueBody":{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"id":366,"name":"valueToPay","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":318,"src":"3871:10:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"}],"expression":{"argumentTypes":null,"id":363,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":217,"src":"3851:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"id":365,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"transfer","nodeType":"MemberAccess","referencedDeclaration":null,"src":"3851:19:0","typeDescriptions":{"typeIdentifier":"t_function_transfer_nonpayable$_t_uint256_$returns$__$","typeString":"function (uint256)"}},"id":367,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3851:31:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":368,"nodeType":"ExpressionStatement","src":"3851:31:0"}},{"eventCall":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"id":371,"name":"challengeId","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":205,"src":"3912:11:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":372,"name":"decision","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":207,"src":"3925:8:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_bool","typeString":"bool"}],"id":370,"name":"ChallengeResolved","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":55,"src":"3894:17:0","typeDescriptions":{"typeIdentifier":"t_function_event_nonpayable$_t_uint256_$_t_bool_$returns$__$","typeString":"function (uint256,bool)"}},"id":373,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3894:40:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":374,"nodeType":"EmitStatement","src":"3889:45:0"}]},"documentation":null,"id":376,"implemented":true,"isConstructor":false,"isDeclaredConst":false,"modifiers":[],"name":"resolveChallenge","nodeType":"FunctionDefinition","parameters":{"id":208,"nodeType":"ParameterList","parameters":[{"constant":false,"id":205,"name":"challengeId","nodeType":"VariableDeclaration","scope":376,"src":"2304:16:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":204,"name":"uint","nodeType":"ElementaryTypeName","src":"2304:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":207,"name":"decision","nodeType":"VariableDeclaration","scope":376,"src":"2322:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"typeName":{"id":206,"name":"bool","nodeType":"ElementaryTypeName","src":"2322:4:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"value":null,"visibility":"internal"}],"src":"2303:33:0"},"payable":false,"returnParameters":{"id":209,"nodeType":"ParameterList","parameters":[],"src":"2348:0:0"},"scope":377,"src":"2278:1661:0","stateMutability":"nonpayable","superFunction":null,"visibility":"external"}],"scope":378,"src":"679:3263:0"}],"src":"390:3552:0"},"legacyAST":{"absolutePath":"/Users/iYalovoy/Dropbox (Personal)/Development/coinpledge/contracts/CoinPledge.sol","exportedSymbols":{"CoinPledge":[377]},"id":378,"nodeType":"SourceUnit","nodes":[{"id":1,"literals":["solidity","^","0.4",".17"],"nodeType":"PragmaDirective","src":"390:24:0"},{"absolutePath":"openzeppelin-solidity/contracts/math/SafeMath.sol","file":"openzeppelin-solidity/contracts/math/SafeMath.sol","id":2,"nodeType":"ImportDirective","scope":378,"sourceUnit":472,"src":"416:59:0","symbolAliases":[],"unitAlias":""},{"absolutePath":"openzeppelin-solidity/contracts/ownership/Ownable.sol","file":"openzeppelin-solidity/contracts/ownership/Ownable.sol","id":3,"nodeType":"ImportDirective","scope":378,"sourceUnit":591,"src":"476:63:0","symbolAliases":[],"unitAlias":""},{"absolutePath":"openzeppelin-solidity/contracts/payment/PullPayment.sol","file":"openzeppelin-solidity/contracts/payment/PullPayment.sol","id":4,"nodeType":"ImportDirective","scope":378,"sourceUnit":760,"src":"540:65:0","symbolAliases":[],"unitAlias":""},{"absolutePath":"openzeppelin-solidity/contracts/ownership/CanReclaimToken.sol","file":"openzeppelin-solidity/contracts/ownership/CanReclaimToken.sol","id":5,"nodeType":"ImportDirective","scope":378,"sourceUnit":505,"src":"606:71:0","symbolAliases":[],"unitAlias":""},{"baseContracts":[{"arguments":null,"baseName":{"contractScope":null,"id":6,"name":"Ownable","nodeType":"UserDefinedTypeName","referencedDeclaration":590,"src":"702:7:0","typeDescriptions":{"typeIdentifier":"t_contract$_Ownable_$590","typeString":"contract Ownable"}},"id":7,"nodeType":"InheritanceSpecifier","src":"702:7:0"},{"arguments":null,"baseName":{"contractScope":null,"id":8,"name":"CanReclaimToken","nodeType":"UserDefinedTypeName","referencedDeclaration":504,"src":"711:15:0","typeDescriptions":{"typeIdentifier":"t_contract$_CanReclaimToken_$504","typeString":"contract CanReclaimToken"}},"id":9,"nodeType":"InheritanceSpecifier","src":"711:15:0"},{"arguments":null,"baseName":{"contractScope":null,"id":10,"name":"PullPayment","nodeType":"UserDefinedTypeName","referencedDeclaration":759,"src":"728:11:0","typeDescriptions":{"typeIdentifier":"t_contract$_PullPayment_$759","typeString":"contract PullPayment"}},"id":11,"nodeType":"InheritanceSpecifier","src":"728:11:0"}],"contractDependencies":[504,590,759],"contractKind":"contract","documentation":null,"fullyImplemented":true,"id":377,"linearizedBaseContracts":[377,759,504,590],"name":"CoinPledge","nodeType":"ContractDefinition","nodes":[{"constant":true,"id":14,"name":"daysToJudge","nodeType":"VariableDeclaration","scope":377,"src":"745:34:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":12,"name":"uint","nodeType":"ElementaryTypeName","src":"745:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":{"argumentTypes":null,"hexValue":"37","id":13,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"773:6:0","subdenomination":"days","typeDescriptions":{"typeIdentifier":"t_rational_604800_by_1","typeString":"int_const 604800"},"value":"7"},"visibility":"internal"},{"constant":true,"id":17,"name":"bonusPercentage","nodeType":"VariableDeclaration","scope":377,"src":"783:34:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":15,"name":"uint","nodeType":"ElementaryTypeName","src":"783:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":{"argumentTypes":null,"hexValue":"3530","id":16,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"815:2:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_50_by_1","typeString":"int_const 50"},"value":"50"},"visibility":"internal"},{"constant":true,"id":20,"name":"feePercentage","nodeType":"VariableDeclaration","scope":377,"src":"821:31:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":18,"name":"uint","nodeType":"ElementaryTypeName","src":"821:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":{"argumentTypes":null,"hexValue":"31","id":19,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"851:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_1_by_1","typeString":"int_const 1"},"value":"1"},"visibility":"internal"},{"canonicalName":"CoinPledge.Challenge","id":35,"members":[{"constant":false,"id":22,"name":"name","nodeType":"VariableDeclaration","scope":35,"src":"880:11:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_string_storage_ptr","typeString":"string"},"typeName":{"id":21,"name":"string","nodeType":"ElementaryTypeName","src":"880:6:0","typeDescriptions":{"typeIdentifier":"t_string_storage_ptr","typeString":"string"}},"value":null,"visibility":"internal"},{"constant":false,"id":24,"name":"value","nodeType":"VariableDeclaration","scope":35,"src":"897:10:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":23,"name":"uint","nodeType":"ElementaryTypeName","src":"897:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":26,"name":"judge","nodeType":"VariableDeclaration","scope":35,"src":"913:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"},"typeName":{"id":25,"name":"address","nodeType":"ElementaryTypeName","src":"913:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"value":null,"visibility":"internal"},{"constant":false,"id":28,"name":"startDate","nodeType":"VariableDeclaration","scope":35,"src":"932:14:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":27,"name":"uint","nodeType":"ElementaryTypeName","src":"932:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":30,"name":"time","nodeType":"VariableDeclaration","scope":35,"src":"952:9:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":29,"name":"uint","nodeType":"ElementaryTypeName","src":"952:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":32,"name":"successed","nodeType":"VariableDeclaration","scope":35,"src":"968:14:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"typeName":{"id":31,"name":"bool","nodeType":"ElementaryTypeName","src":"968:4:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"value":null,"visibility":"internal"},{"constant":false,"id":34,"name":"resolved","nodeType":"VariableDeclaration","scope":35,"src":"988:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"typeName":{"id":33,"name":"bool","nodeType":"ElementaryTypeName","src":"988:4:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"value":null,"visibility":"internal"}],"name":"Challenge","nodeType":"StructDefinition","scope":377,"src":"857:149:0","visibility":"public"},{"anonymous":false,"documentation":null,"id":49,"name":"NewChallenge","nodeType":"EventDefinition","parameters":{"id":48,"nodeType":"ParameterList","parameters":[{"constant":false,"id":37,"indexed":false,"name":"challengeId","nodeType":"VariableDeclaration","scope":49,"src":"1029:16:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":36,"name":"uint","nodeType":"ElementaryTypeName","src":"1029:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":39,"indexed":false,"name":"name","nodeType":"VariableDeclaration","scope":49,"src":"1047:11:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_string_memory_ptr","typeString":"string"},"typeName":{"id":38,"name":"string","nodeType":"ElementaryTypeName","src":"1047:6:0","typeDescriptions":{"typeIdentifier":"t_string_storage_ptr","typeString":"string"}},"value":null,"visibility":"internal"},{"constant":false,"id":41,"indexed":false,"name":"value","nodeType":"VariableDeclaration","scope":49,"src":"1060:10:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":40,"name":"uint","nodeType":"ElementaryTypeName","src":"1060:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":43,"indexed":false,"name":"judge","nodeType":"VariableDeclaration","scope":49,"src":"1072:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"},"typeName":{"id":42,"name":"address","nodeType":"ElementaryTypeName","src":"1072:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"value":null,"visibility":"internal"},{"constant":false,"id":45,"indexed":false,"name":"startDate","nodeType":"VariableDeclaration","scope":49,"src":"1087:14:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":44,"name":"uint","nodeType":"ElementaryTypeName","src":"1087:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":47,"indexed":false,"name":"time","nodeType":"VariableDeclaration","scope":49,"src":"1103:9:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":46,"name":"uint","nodeType":"ElementaryTypeName","src":"1103:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"src":"1028:85:0"},"src":"1010:104:0"},{"anonymous":false,"documentation":null,"id":55,"name":"ChallengeResolved","nodeType":"EventDefinition","parameters":{"id":54,"nodeType":"ParameterList","parameters":[{"constant":false,"id":51,"indexed":false,"name":"challengeId","nodeType":"VariableDeclaration","scope":55,"src":"1141:16:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":50,"name":"uint","nodeType":"ElementaryTypeName","src":"1141:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":53,"indexed":false,"name":"decision","nodeType":"VariableDeclaration","scope":55,"src":"1159:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"typeName":{"id":52,"name":"bool","nodeType":"ElementaryTypeName","src":"1159:4:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"value":null,"visibility":"internal"}],"src":"1140:33:0"},"src":"1117:57:0"},{"constant":false,"id":58,"name":"challenges","nodeType":"VariableDeclaration","scope":377,"src":"1178:29:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_array$_t_struct$_Challenge_$35_storage_$dyn_storage","typeString":"struct CoinPledge.Challenge[]"},"typeName":{"baseType":{"contractScope":null,"id":56,"name":"Challenge","nodeType":"UserDefinedTypeName","referencedDeclaration":35,"src":"1178:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge"}},"id":57,"length":null,"nodeType":"ArrayTypeName","src":"1178:11:0","typeDescriptions":{"typeIdentifier":"t_array$_t_struct$_Challenge_$35_storage_$dyn_storage_ptr","typeString":"struct CoinPledge.Challenge[]"}},"value":null,"visibility":"public"},{"constant":false,"id":62,"name":"challengeToOwner","nodeType":"VariableDeclaration","scope":377,"src":"1212:48:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_mapping$_t_uint256_$_t_address_$","typeString":"mapping(uint256 => address)"},"typeName":{"id":61,"keyType":{"id":59,"name":"uint","nodeType":"ElementaryTypeName","src":"1220:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"Mapping","src":"1212:24:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_uint256_$_t_address_$","typeString":"mapping(uint256 => address)"},"valueType":{"id":60,"name":"address","nodeType":"ElementaryTypeName","src":"1228:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}}},"value":null,"visibility":"public"},{"constant":false,"id":66,"name":"ownerToChallengeCount","nodeType":"VariableDeclaration","scope":377,"src":"1264:53:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"},"typeName":{"id":65,"keyType":{"id":63,"name":"address","nodeType":"ElementaryTypeName","src":"1272:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"Mapping","src":"1264:24:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"},"valueType":{"id":64,"name":"uint","nodeType":"ElementaryTypeName","src":"1283:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}},"value":null,"visibility":"public"},{"constant":false,"id":70,"name":"bonusFund","nodeType":"VariableDeclaration","scope":377,"src":"1321:41:0","stateVariable":true,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"},"typeName":{"id":69,"keyType":{"id":67,"name":"address","nodeType":"ElementaryTypeName","src":"1329:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"Mapping","src":"1321:24:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"},"valueType":{"id":68,"name":"uint","nodeType":"ElementaryTypeName","src":"1340:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}},"value":null,"visibility":"public"},{"body":{"id":134,"nodeType":"Block","src":"1435:347:0","statements":[{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":83,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":79,"name":"ownerToChallengeCount","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":66,"src":"1449:21:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":81,"indexExpression":{"argumentTypes":null,"id":80,"name":"owner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":72,"src":"1471:5:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"1449:28:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":">","rightExpression":{"argumentTypes":null,"hexValue":"30","id":82,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"1480:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_0_by_1","typeString":"int_const 0"},"value":"0"},"src":"1449:32:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},{"argumentTypes":null,"hexValue":"486173207a65726f206368616c6c656e676573","id":84,"isConstant":false,"isLValue":false,"isPure":true,"kind":"string","lValueRequested":false,"nodeType":"Literal","src":"1483:21:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_stringliteral_95495eb823f5d228899cc46212e7e321a5ffb5d0e1cf2fa809b1107c050636d4","typeString":"literal_string \"Has zero challenges\""},"value":"Has zero challenges"}],"expression":{"argumentTypes":[{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_stringliteral_95495eb823f5d228899cc46212e7e321a5ffb5d0e1cf2fa809b1107c050636d4","typeString":"literal_string \"Has zero challenges\""}],"id":78,"name":"require","nodeType":"Identifier","overloadedDeclarations":[914,915],"referencedDeclaration":915,"src":"1441:7:0","typeDescriptions":{"typeIdentifier":"t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$","typeString":"function (bool,string memory) pure"}},"id":85,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"1441:64:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":86,"nodeType":"ExpressionStatement","src":"1441:64:0"},{"assignments":[90],"declarations":[{"constant":false,"id":90,"name":"result","nodeType":"VariableDeclaration","scope":135,"src":"1512:20:0","stateVariable":false,"storageLocation":"memory","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_memory_ptr","typeString":"uint256[]"},"typeName":{"baseType":{"id":88,"name":"uint","nodeType":"ElementaryTypeName","src":"1512:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":89,"length":null,"nodeType":"ArrayTypeName","src":"1512:6:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_storage_ptr","typeString":"uint256[]"}},"value":null,"visibility":"internal"}],"id":98,"initialValue":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":94,"name":"ownerToChallengeCount","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":66,"src":"1546:21:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":96,"indexExpression":{"argumentTypes":null,"id":95,"name":"owner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":72,"src":"1568:5:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"1546:28:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"}],"id":93,"isConstant":false,"isLValue":false,"isPure":true,"lValueRequested":false,"nodeType":"NewExpression","src":"1535:10:0","typeDescriptions":{"typeIdentifier":"t_function_objectcreation_pure$_t_uint256_$returns$_t_array$_t_uint256_$dyn_memory_$","typeString":"function (uint256) pure returns (uint256[] memory)"},"typeName":{"baseType":{"id":91,"name":"uint","nodeType":"ElementaryTypeName","src":"1539:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":92,"length":null,"nodeType":"ArrayTypeName","src":"1539:6:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_storage_ptr","typeString":"uint256[]"}}},"id":97,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"1535:40:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_memory","typeString":"uint256[] memory"}},"nodeType":"VariableDeclarationStatement","src":"1512:63:0"},{"assignments":[100],"declarations":[{"constant":false,"id":100,"name":"counter","nodeType":"VariableDeclaration","scope":135,"src":"1581:12:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":99,"name":"uint","nodeType":"ElementaryTypeName","src":"1581:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":102,"initialValue":{"argumentTypes":null,"hexValue":"30","id":101,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"1596:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_0_by_1","typeString":"int_const 0"},"value":"0"},"nodeType":"VariableDeclarationStatement","src":"1581:16:0"},{"body":{"id":130,"nodeType":"Block","src":"1648:111:0","statements":[{"condition":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_address","typeString":"address"},"id":118,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":114,"name":"challengeToOwner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":62,"src":"1660:16:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_uint256_$_t_address_$","typeString":"mapping(uint256 => address)"}},"id":116,"indexExpression":{"argumentTypes":null,"id":115,"name":"i","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":104,"src":"1677:1:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"1660:19:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"BinaryOperation","operator":"==","rightExpression":{"argumentTypes":null,"id":117,"name":"owner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":72,"src":"1683:5:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"src":"1660:28:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"falseBody":null,"id":129,"nodeType":"IfStatement","src":"1656:97:0","trueBody":{"id":128,"nodeType":"Block","src":"1696:57:0","statements":[{"expression":{"argumentTypes":null,"id":123,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":119,"name":"result","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":90,"src":"1706:6:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_memory_ptr","typeString":"uint256[] memory"}},"id":121,"indexExpression":{"argumentTypes":null,"id":120,"name":"counter","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":100,"src":"1713:7:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"nodeType":"IndexAccess","src":"1706:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"Assignment","operator":"=","rightHandSide":{"argumentTypes":null,"id":122,"name":"i","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":104,"src":"1724:1:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"1706:19:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":124,"nodeType":"ExpressionStatement","src":"1706:19:0"},{"expression":{"argumentTypes":null,"id":126,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"nodeType":"UnaryOperation","operator":"++","prefix":false,"src":"1735:9:0","subExpression":{"argumentTypes":null,"id":125,"name":"counter","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":100,"src":"1735:7:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":127,"nodeType":"ExpressionStatement","src":"1735:9:0"}]}}]},"condition":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":110,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"id":107,"name":"i","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":104,"src":"1620:1:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":"<","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":108,"name":"challenges","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":58,"src":"1624:10:0","typeDescriptions":{"typeIdentifier":"t_array$_t_struct$_Challenge_$35_storage_$dyn_storage","typeString":"struct CoinPledge.Challenge storage ref[] storage ref"}},"id":109,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"length","nodeType":"MemberAccess","referencedDeclaration":null,"src":"1624:17:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"1620:21:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"id":131,"initializationExpression":{"assignments":[104],"declarations":[{"constant":false,"id":104,"name":"i","nodeType":"VariableDeclaration","scope":135,"src":"1608:6:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":103,"name":"uint","nodeType":"ElementaryTypeName","src":"1608:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":106,"initialValue":{"argumentTypes":null,"hexValue":"30","id":105,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"1617:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_0_by_1","typeString":"int_const 0"},"value":"0"},"nodeType":"VariableDeclarationStatement","src":"1608:10:0"},"loopExpression":{"expression":{"argumentTypes":null,"id":112,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"nodeType":"UnaryOperation","operator":"++","prefix":false,"src":"1643:3:0","subExpression":{"argumentTypes":null,"id":111,"name":"i","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":104,"src":"1643:1:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":113,"nodeType":"ExpressionStatement","src":"1643:3:0"},"nodeType":"ForStatement","src":"1603:156:0"},{"expression":{"argumentTypes":null,"id":132,"name":"result","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":90,"src":"1771:6:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_memory_ptr","typeString":"uint256[] memory"}},"functionReturnParameters":77,"id":133,"nodeType":"Return","src":"1764:13:0"}]},"documentation":null,"id":135,"implemented":true,"isConstructor":false,"isDeclaredConst":true,"modifiers":[],"name":"getChallenges","nodeType":"FunctionDefinition","parameters":{"id":73,"nodeType":"ParameterList","parameters":[{"constant":false,"id":72,"name":"owner","nodeType":"VariableDeclaration","scope":135,"src":"1390:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"},"typeName":{"id":71,"name":"address","nodeType":"ElementaryTypeName","src":"1390:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"value":null,"visibility":"internal"}],"src":"1389:15:0"},"payable":false,"returnParameters":{"id":77,"nodeType":"ParameterList","parameters":[{"constant":false,"id":76,"name":"","nodeType":"VariableDeclaration","scope":135,"src":"1427:6:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_memory_ptr","typeString":"uint256[]"},"typeName":{"baseType":{"id":74,"name":"uint","nodeType":"ElementaryTypeName","src":"1427:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":75,"length":null,"nodeType":"ArrayTypeName","src":"1427:6:0","typeDescriptions":{"typeIdentifier":"t_array$_t_uint256_$dyn_storage_ptr","typeString":"uint256[]"}},"value":null,"visibility":"internal"}],"src":"1426:8:0"},"scope":377,"src":"1367:415:0","stateMutability":"view","superFunction":null,"visibility":"external"},{"body":{"id":202,"nodeType":"Block","src":"1889:385:0","statements":[{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":150,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":147,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":911,"src":"1903:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":148,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"value","nodeType":"MemberAccess","referencedDeclaration":null,"src":"1903:9:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":">=","rightExpression":{"argumentTypes":null,"hexValue":"302e3031","id":149,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"1916:10:0","subdenomination":"ether","typeDescriptions":{"typeIdentifier":"t_rational_10000000000000000_by_1","typeString":"int_const 10000000000000000"},"value":"0.01"},"src":"1903:23:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},{"argumentTypes":null,"hexValue":"48617320746f207374616b65206d6f7265207468616e20302e3031206574686572","id":151,"isConstant":false,"isLValue":false,"isPure":true,"kind":"string","lValueRequested":false,"nodeType":"Literal","src":"1928:35:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_stringliteral_0ff5f852bf5cd8c2547c84b195ec3cb13d74f8cd2e22fd216845c5cebc7e54c6","typeString":"literal_string \"Has to stake more than 0.01 ether\""},"value":"Has to stake more than 0.01 ether"}],"expression":{"argumentTypes":[{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_stringliteral_0ff5f852bf5cd8c2547c84b195ec3cb13d74f8cd2e22fd216845c5cebc7e54c6","typeString":"literal_string \"Has to stake more than 0.01 ether\""}],"id":146,"name":"require","nodeType":"Identifier","overloadedDeclarations":[914,915],"referencedDeclaration":915,"src":"1895:7:0","typeDescriptions":{"typeIdentifier":"t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$","typeString":"function (bool,string memory) pure"}},"id":152,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"1895:69:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":153,"nodeType":"ExpressionStatement","src":"1895:69:0"},{"assignments":[155],"declarations":[{"constant":false,"id":155,"name":"startDate","nodeType":"VariableDeclaration","scope":203,"src":"1971:14:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":154,"name":"uint","nodeType":"ElementaryTypeName","src":"1971:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":158,"initialValue":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":156,"name":"block","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":901,"src":"1988:5:0","typeDescriptions":{"typeIdentifier":"t_magic_block","typeString":"block"}},"id":157,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"timestamp","nodeType":"MemberAccess","referencedDeclaration":null,"src":"1988:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"VariableDeclarationStatement","src":"1971:32:0"},{"assignments":[160],"declarations":[{"constant":false,"id":160,"name":"id","nodeType":"VariableDeclaration","scope":203,"src":"2009:7:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":159,"name":"uint","nodeType":"ElementaryTypeName","src":"2009:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":176,"initialValue":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":175,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"arguments":[{"argumentTypes":null,"id":164,"name":"name","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":137,"src":"2045:4:0","typeDescriptions":{"typeIdentifier":"t_string_calldata_ptr","typeString":"string calldata"}},{"argumentTypes":null,"expression":{"argumentTypes":null,"id":165,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":911,"src":"2051:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":166,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"value","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2051:9:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":167,"name":"judge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":139,"src":"2062:5:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},{"argumentTypes":null,"id":168,"name":"startDate","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":155,"src":"2069:9:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":169,"name":"time","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":141,"src":"2080:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"hexValue":"66616c7365","id":170,"isConstant":false,"isLValue":false,"isPure":true,"kind":"bool","lValueRequested":false,"nodeType":"Literal","src":"2086:5:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"value":"false"},{"argumentTypes":null,"hexValue":"66616c7365","id":171,"isConstant":false,"isLValue":false,"isPure":true,"kind":"bool","lValueRequested":false,"nodeType":"Literal","src":"2093:5:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"value":"false"}],"expression":{"argumentTypes":[{"typeIdentifier":"t_string_calldata_ptr","typeString":"string calldata"},{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_address","typeString":"address"},{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_bool","typeString":"bool"}],"id":163,"name":"Challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":35,"src":"2035:9:0","typeDescriptions":{"typeIdentifier":"t_type$_t_struct$_Challenge_$35_storage_ptr_$","typeString":"type(struct CoinPledge.Challenge storage pointer)"}},"id":172,"isConstant":false,"isLValue":false,"isPure":false,"kind":"structConstructorCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2035:64:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_memory","typeString":"struct CoinPledge.Challenge memory"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_struct$_Challenge_$35_memory","typeString":"struct CoinPledge.Challenge memory"}],"expression":{"argumentTypes":null,"id":161,"name":"challenges","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":58,"src":"2019:10:0","typeDescriptions":{"typeIdentifier":"t_array$_t_struct$_Challenge_$35_storage_$dyn_storage","typeString":"struct CoinPledge.Challenge storage ref[] storage ref"}},"id":162,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"push","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2019:15:0","typeDescriptions":{"typeIdentifier":"t_function_arraypush_nonpayable$_t_struct$_Challenge_$35_storage_$returns$_t_uint256_$","typeString":"function (struct CoinPledge.Challenge storage ref) returns (uint256)"}},"id":173,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2019:81:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":"-","rightExpression":{"argumentTypes":null,"hexValue":"31","id":174,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"2103:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_1_by_1","typeString":"int_const 1"},"value":"1"},"src":"2019:85:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"VariableDeclarationStatement","src":"2009:95:0"},{"expression":{"argumentTypes":null,"id":182,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":177,"name":"challengeToOwner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":62,"src":"2110:16:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_uint256_$_t_address_$","typeString":"mapping(uint256 => address)"}},"id":179,"indexExpression":{"argumentTypes":null,"id":178,"name":"id","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":160,"src":"2127:2:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"nodeType":"IndexAccess","src":"2110:20:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"Assignment","operator":"=","rightHandSide":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":180,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":911,"src":"2133:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":181,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"sender","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2133:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"src":"2110:33:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"id":183,"nodeType":"ExpressionStatement","src":"2110:33:0"},{"expression":{"argumentTypes":null,"id":188,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"nodeType":"UnaryOperation","operator":"++","prefix":false,"src":"2149:35:0","subExpression":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":184,"name":"ownerToChallengeCount","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":66,"src":"2149:21:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":187,"indexExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":185,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":911,"src":"2171:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":186,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"sender","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2171:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"nodeType":"IndexAccess","src":"2149:33:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":189,"nodeType":"ExpressionStatement","src":"2149:35:0"},{"eventCall":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"id":191,"name":"id","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":160,"src":"2209:2:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":192,"name":"name","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":137,"src":"2213:4:0","typeDescriptions":{"typeIdentifier":"t_string_calldata_ptr","typeString":"string calldata"}},{"argumentTypes":null,"expression":{"argumentTypes":null,"id":193,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":911,"src":"2219:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":194,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"value","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2219:9:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":195,"name":"judge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":139,"src":"2230:5:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},{"argumentTypes":null,"id":196,"name":"startDate","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":155,"src":"2237:9:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":197,"name":"time","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":141,"src":"2248:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_string_calldata_ptr","typeString":"string calldata"},{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_address","typeString":"address"},{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_uint256","typeString":"uint256"}],"id":190,"name":"NewChallenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":49,"src":"2196:12:0","typeDescriptions":{"typeIdentifier":"t_function_event_nonpayable$_t_uint256_$_t_string_memory_ptr_$_t_uint256_$_t_address_$_t_uint256_$_t_uint256_$returns$__$","typeString":"function (uint256,string memory,uint256,address,uint256,uint256)"}},"id":198,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2196:57:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":199,"nodeType":"EmitStatement","src":"2191:62:0"},{"expression":{"argumentTypes":null,"id":200,"name":"id","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":160,"src":"2267:2:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"functionReturnParameters":145,"id":201,"nodeType":"Return","src":"2260:9:0"}]},"documentation":null,"id":203,"implemented":true,"isConstructor":false,"isDeclaredConst":false,"modifiers":[],"name":"createChallenge","nodeType":"FunctionDefinition","parameters":{"id":142,"nodeType":"ParameterList","parameters":[{"constant":false,"id":137,"name":"name","nodeType":"VariableDeclaration","scope":203,"src":"1812:11:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_string_calldata_ptr","typeString":"string"},"typeName":{"id":136,"name":"string","nodeType":"ElementaryTypeName","src":"1812:6:0","typeDescriptions":{"typeIdentifier":"t_string_storage_ptr","typeString":"string"}},"value":null,"visibility":"internal"},{"constant":false,"id":139,"name":"judge","nodeType":"VariableDeclaration","scope":203,"src":"1825:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"},"typeName":{"id":138,"name":"address","nodeType":"ElementaryTypeName","src":"1825:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"value":null,"visibility":"internal"},{"constant":false,"id":141,"name":"time","nodeType":"VariableDeclaration","scope":203,"src":"1840:9:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":140,"name":"uint","nodeType":"ElementaryTypeName","src":"1840:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"src":"1811:39:0"},"payable":true,"returnParameters":{"id":145,"nodeType":"ParameterList","parameters":[{"constant":false,"id":144,"name":"retId","nodeType":"VariableDeclaration","scope":203,"src":"1877:10:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":143,"name":"uint","nodeType":"ElementaryTypeName","src":"1877:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"src":"1876:12:0"},"scope":377,"src":"1787:487:0","stateMutability":"payable","superFunction":null,"visibility":"external"},{"body":{"id":375,"nodeType":"Block","src":"2348:1591:0","statements":[{"assignments":[211],"declarations":[{"constant":false,"id":211,"name":"challenge","nodeType":"VariableDeclaration","scope":376,"src":"2354:27:0","stateVariable":false,"storageLocation":"storage","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge"},"typeName":{"contractScope":null,"id":210,"name":"Challenge","nodeType":"UserDefinedTypeName","referencedDeclaration":35,"src":"2354:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge"}},"value":null,"visibility":"internal"}],"id":215,"initialValue":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":212,"name":"challenges","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":58,"src":"2384:10:0","typeDescriptions":{"typeIdentifier":"t_array$_t_struct$_Challenge_$35_storage_$dyn_storage","typeString":"struct CoinPledge.Challenge storage ref[] storage ref"}},"id":214,"indexExpression":{"argumentTypes":null,"id":213,"name":"challengeId","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":205,"src":"2395:11:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"2384:23:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage","typeString":"struct CoinPledge.Challenge storage ref"}},"nodeType":"VariableDeclarationStatement","src":"2354:53:0"},{"assignments":[217],"declarations":[{"constant":false,"id":217,"name":"challenger","nodeType":"VariableDeclaration","scope":376,"src":"2413:18:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"},"typeName":{"id":216,"name":"address","nodeType":"ElementaryTypeName","src":"2413:7:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"value":null,"visibility":"internal"}],"id":221,"initialValue":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":218,"name":"challengeToOwner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":62,"src":"2434:16:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_uint256_$_t_address_$","typeString":"mapping(uint256 => address)"}},"id":220,"indexExpression":{"argumentTypes":null,"id":219,"name":"challengeId","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":205,"src":"2451:11:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"2434:29:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"VariableDeclarationStatement","src":"2413:50:0"},{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_bool","typeString":"bool"},"id":226,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":223,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":211,"src":"2478:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":224,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"resolved","nodeType":"MemberAccess","referencedDeclaration":34,"src":"2478:18:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"nodeType":"BinaryOperation","operator":"==","rightExpression":{"argumentTypes":null,"hexValue":"66616c7365","id":225,"isConstant":false,"isLValue":false,"isPure":true,"kind":"bool","lValueRequested":false,"nodeType":"Literal","src":"2500:5:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"value":"false"},"src":"2478:27:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},{"argumentTypes":null,"hexValue":"4368616c6c656e676520616c7265616479207265736f6c7665642e","id":227,"isConstant":false,"isLValue":false,"isPure":true,"kind":"string","lValueRequested":false,"nodeType":"Literal","src":"2507:29:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_stringliteral_927df0c53bfb037f5071a20cfbcb8238b08359ff00dbbf9249387ccfe68dd4d4","typeString":"literal_string \"Challenge already resolved.\""},"value":"Challenge already resolved."}],"expression":{"argumentTypes":[{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_stringliteral_927df0c53bfb037f5071a20cfbcb8238b08359ff00dbbf9249387ccfe68dd4d4","typeString":"literal_string \"Challenge already resolved.\""}],"id":222,"name":"require","nodeType":"Identifier","overloadedDeclarations":[914,915],"referencedDeclaration":915,"src":"2470:7:0","typeDescriptions":{"typeIdentifier":"t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$","typeString":"function (bool,string memory) pure"}},"id":228,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2470:67:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":229,"nodeType":"ExpressionStatement","src":"2470:67:0"},{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":239,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":231,"name":"block","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":901,"src":"2551:5:0","typeDescriptions":{"typeIdentifier":"t_magic_block","typeString":"block"}},"id":232,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"timestamp","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2551:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":">","rightExpression":{"argumentTypes":null,"components":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":237,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":233,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":211,"src":"2570:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":234,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"startDate","nodeType":"MemberAccess","referencedDeclaration":28,"src":"2570:19:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":"+","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":235,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":211,"src":"2592:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":236,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"time","nodeType":"MemberAccess","referencedDeclaration":30,"src":"2592:14:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"2570:36:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"id":238,"isConstant":false,"isInlineArray":false,"isLValue":false,"isPure":false,"lValueRequested":false,"nodeType":"TupleExpression","src":"2569:38:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"2551:56:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},{"argumentTypes":null,"hexValue":"4974206973206e6f742074696d652079657420746f206a756467652e","id":240,"isConstant":false,"isLValue":false,"isPure":true,"kind":"string","lValueRequested":false,"nodeType":"Literal","src":"2609:30:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_stringliteral_c31a253449b20a8ae52122536796081eb31fc4c12f917131decfa909f9de3f48","typeString":"literal_string \"It is not time yet to judge.\""},"value":"It is not time yet to judge."}],"expression":{"argumentTypes":[{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_stringliteral_c31a253449b20a8ae52122536796081eb31fc4c12f917131decfa909f9de3f48","typeString":"literal_string \"It is not time yet to judge.\""}],"id":230,"name":"require","nodeType":"Identifier","overloadedDeclarations":[914,915],"referencedDeclaration":915,"src":"2543:7:0","typeDescriptions":{"typeIdentifier":"t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$","typeString":"function (bool,string memory) pure"}},"id":241,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2543:97:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":242,"nodeType":"ExpressionStatement","src":"2543:97:0"},{"condition":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":253,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":243,"name":"block","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":901,"src":"2741:5:0","typeDescriptions":{"typeIdentifier":"t_magic_block","typeString":"block"}},"id":244,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"timestamp","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2741:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":">","rightExpression":{"argumentTypes":null,"components":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":251,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":249,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":245,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":211,"src":"2760:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":246,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"startDate","nodeType":"MemberAccess","referencedDeclaration":28,"src":"2760:19:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":"+","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":247,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":211,"src":"2782:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":248,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"time","nodeType":"MemberAccess","referencedDeclaration":30,"src":"2782:14:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"2760:36:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":"+","rightExpression":{"argumentTypes":null,"id":250,"name":"daysToJudge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":14,"src":"2799:11:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"2760:50:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"id":252,"isConstant":false,"isInlineArray":false,"isLValue":false,"isPure":false,"lValueRequested":false,"nodeType":"TupleExpression","src":"2759:52:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"2741:70:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"falseBody":{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_address","typeString":"address"},"id":273,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":269,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":211,"src":"2955:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":270,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"judge","nodeType":"MemberAccess","referencedDeclaration":26,"src":"2955:15:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"BinaryOperation","operator":"==","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":271,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":911,"src":"2974:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":272,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"sender","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2974:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"src":"2955:29:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},{"argumentTypes":null,"hexValue":"596f7520617265206e6f7420746865206a7564676520666f722074686973206368616c6c656e67652e","id":274,"isConstant":false,"isLValue":false,"isPure":true,"kind":"string","lValueRequested":false,"nodeType":"Literal","src":"2986:43:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_stringliteral_e8f41c75e03622af330e2e43b017cfa8c26dd016135ce18a203a3e2d965d231a","typeString":"literal_string \"You are not the judge for this challenge.\""},"value":"You are not the judge for this challenge."}],"expression":{"argumentTypes":[{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_stringliteral_e8f41c75e03622af330e2e43b017cfa8c26dd016135ce18a203a3e2d965d231a","typeString":"literal_string \"You are not the judge for this challenge.\""}],"id":268,"name":"require","nodeType":"Identifier","overloadedDeclarations":[914,915],"referencedDeclaration":915,"src":"2947:7:0","typeDescriptions":{"typeIdentifier":"t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$","typeString":"function (bool,string memory) pure"}},"id":275,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2947:83:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":276,"nodeType":"ExpressionStatement","src":"2947:83:0"},"id":277,"nodeType":"IfStatement","src":"2738:292:0","trueBody":{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"commonType":{"typeIdentifier":"t_bool","typeString":"bool"},"id":264,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_address","typeString":"address"},"id":259,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":255,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":211,"src":"2827:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":256,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"judge","nodeType":"MemberAccess","referencedDeclaration":26,"src":"2827:15:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"BinaryOperation","operator":"==","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":257,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":911,"src":"2846:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":258,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"sender","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2846:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"src":"2827:29:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"nodeType":"BinaryOperation","operator":"||","rightExpression":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_address","typeString":"address"},"id":263,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"id":260,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":217,"src":"2860:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"nodeType":"BinaryOperation","operator":"==","rightExpression":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":261,"name":"msg","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":911,"src":"2874:3:0","typeDescriptions":{"typeIdentifier":"t_magic_message","typeString":"msg"}},"id":262,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"sender","nodeType":"MemberAccess","referencedDeclaration":null,"src":"2874:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"src":"2860:24:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"src":"2827:57:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},{"argumentTypes":null,"hexValue":"596f7520617265206e6f7420746865206a7564676520666f722074686973206368616c6c656e67652e","id":265,"isConstant":false,"isLValue":false,"isPure":true,"kind":"string","lValueRequested":false,"nodeType":"Literal","src":"2886:43:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_stringliteral_e8f41c75e03622af330e2e43b017cfa8c26dd016135ce18a203a3e2d965d231a","typeString":"literal_string \"You are not the judge for this challenge.\""},"value":"You are not the judge for this challenge."}],"expression":{"argumentTypes":[{"typeIdentifier":"t_bool","typeString":"bool"},{"typeIdentifier":"t_stringliteral_e8f41c75e03622af330e2e43b017cfa8c26dd016135ce18a203a3e2d965d231a","typeString":"literal_string \"You are not the judge for this challenge.\""}],"id":254,"name":"require","nodeType":"Identifier","overloadedDeclarations":[914,915],"referencedDeclaration":915,"src":"2819:7:0","typeDescriptions":{"typeIdentifier":"t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$","typeString":"function (bool,string memory) pure"}},"id":266,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"2819:111:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":267,"nodeType":"ExpressionStatement","src":"2819:111:0"}},{"expression":{"argumentTypes":null,"id":282,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":278,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":211,"src":"3059:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":280,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"memberName":"successed","nodeType":"MemberAccess","referencedDeclaration":32,"src":"3059:19:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"nodeType":"Assignment","operator":"=","rightHandSide":{"argumentTypes":null,"id":281,"name":"decision","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":207,"src":"3081:8:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"src":"3059:30:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"id":283,"nodeType":"ExpressionStatement","src":"3059:30:0"},{"expression":{"argumentTypes":null,"id":288,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"expression":{"argumentTypes":null,"id":284,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":211,"src":"3095:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":286,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"memberName":"resolved","nodeType":"MemberAccess","referencedDeclaration":34,"src":"3095:18:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"nodeType":"Assignment","operator":"=","rightHandSide":{"argumentTypes":null,"hexValue":"74727565","id":287,"isConstant":false,"isLValue":false,"isPure":true,"kind":"bool","lValueRequested":false,"nodeType":"Literal","src":"3116:4:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"value":"true"},"src":"3095:25:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"id":289,"nodeType":"ExpressionStatement","src":"3095:25:0"},{"assignments":[291],"declarations":[{"constant":false,"id":291,"name":"fee","nodeType":"VariableDeclaration","scope":376,"src":"3145:8:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":290,"name":"uint","nodeType":"ElementaryTypeName","src":"3145:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":302,"initialValue":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"arguments":[{"argumentTypes":null,"expression":{"argumentTypes":null,"id":296,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":211,"src":"3182:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":297,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"value","nodeType":"MemberAccess","referencedDeclaration":24,"src":"3182:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"hexValue":"313030","id":298,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"3199:3:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_100_by_1","typeString":"int_const 100"},"value":"100"}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_rational_100_by_1","typeString":"int_const 100"}],"expression":{"argumentTypes":null,"id":294,"name":"SafeMath","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":471,"src":"3169:8:0","typeDescriptions":{"typeIdentifier":"t_type$_t_contract$_SafeMath_$471_$","typeString":"type(library SafeMath)"}},"id":295,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"div","nodeType":"MemberAccess","referencedDeclaration":426,"src":"3169:12:0","typeDescriptions":{"typeIdentifier":"t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$","typeString":"function (uint256,uint256) pure returns (uint256)"}},"id":299,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3169:34:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":300,"name":"feePercentage","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":20,"src":"3205:13:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_uint256","typeString":"uint256"}],"expression":{"argumentTypes":null,"id":292,"name":"SafeMath","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":471,"src":"3156:8:0","typeDescriptions":{"typeIdentifier":"t_type$_t_contract$_SafeMath_$471_$","typeString":"type(library SafeMath)"}},"id":293,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"mul","nodeType":"MemberAccess","referencedDeclaration":412,"src":"3156:12:0","typeDescriptions":{"typeIdentifier":"t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$","typeString":"function (uint256,uint256) pure returns (uint256)"}},"id":301,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3156:63:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"VariableDeclarationStatement","src":"3145:74:0"},{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"id":304,"name":"owner","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":508,"src":"3239:5:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},{"argumentTypes":null,"id":305,"name":"fee","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":291,"src":"3246:3:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_address","typeString":"address"},{"typeIdentifier":"t_uint256","typeString":"uint256"}],"id":303,"name":"asyncTransfer","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":758,"src":"3225:13:0","typeDescriptions":{"typeIdentifier":"t_function_internal_nonpayable$_t_address_$_t_uint256_$returns$__$","typeString":"function (address,uint256)"}},"id":306,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3225:25:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":307,"nodeType":"ExpressionStatement","src":"3225:25:0"},{"assignments":[309],"declarations":[{"constant":false,"id":309,"name":"remainingValue","nodeType":"VariableDeclaration","scope":376,"src":"3257:19:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":308,"name":"uint","nodeType":"ElementaryTypeName","src":"3257:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":316,"initialValue":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"expression":{"argumentTypes":null,"id":312,"name":"challenge","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":211,"src":"3292:9:0","typeDescriptions":{"typeIdentifier":"t_struct$_Challenge_$35_storage_ptr","typeString":"struct CoinPledge.Challenge storage pointer"}},"id":313,"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"memberName":"value","nodeType":"MemberAccess","referencedDeclaration":24,"src":"3292:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":314,"name":"fee","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":291,"src":"3309:3:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_uint256","typeString":"uint256"}],"expression":{"argumentTypes":null,"id":310,"name":"SafeMath","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":471,"src":"3279:8:0","typeDescriptions":{"typeIdentifier":"t_type$_t_contract$_SafeMath_$471_$","typeString":"type(library SafeMath)"}},"id":311,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"sub","nodeType":"MemberAccess","referencedDeclaration":446,"src":"3279:12:0","typeDescriptions":{"typeIdentifier":"t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$","typeString":"function (uint256,uint256) pure returns (uint256)"}},"id":315,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3279:34:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"VariableDeclarationStatement","src":"3257:56:0"},{"assignments":[],"declarations":[{"constant":false,"id":318,"name":"valueToPay","nodeType":"VariableDeclaration","scope":376,"src":"3320:15:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":317,"name":"uint","nodeType":"ElementaryTypeName","src":"3320:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":319,"initialValue":null,"nodeType":"VariableDeclarationStatement","src":"3320:15:0"},{"condition":{"argumentTypes":null,"id":320,"name":"decision","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":207,"src":"3345:8:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"falseBody":{"expression":{"argumentTypes":null,"id":357,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":353,"name":"bonusFund","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":70,"src":"3744:9:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":355,"indexExpression":{"argumentTypes":null,"id":354,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":217,"src":"3754:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"nodeType":"IndexAccess","src":"3744:21:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"Assignment","operator":"+=","rightHandSide":{"argumentTypes":null,"id":356,"name":"remainingValue","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":309,"src":"3769:14:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"3744:39:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":358,"nodeType":"ExpressionStatement","src":"3744:39:0"},"id":359,"nodeType":"IfStatement","src":"3342:441:0","trueBody":{"id":352,"nodeType":"Block","src":"3355:308:0","statements":[{"expression":{"argumentTypes":null,"id":323,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"id":321,"name":"valueToPay","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":318,"src":"3404:10:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"Assignment","operator":"=","rightHandSide":{"argumentTypes":null,"id":322,"name":"remainingValue","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":309,"src":"3417:14:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"3404:27:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":324,"nodeType":"ExpressionStatement","src":"3404:27:0"},{"condition":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":329,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":325,"name":"bonusFund","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":70,"src":"3471:9:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":327,"indexExpression":{"argumentTypes":null,"id":326,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":217,"src":"3481:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"3471:21:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":">","rightExpression":{"argumentTypes":null,"hexValue":"30","id":328,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"3495:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_0_by_1","typeString":"int_const 0"},"value":"0"},"src":"3471:25:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"falseBody":null,"id":351,"nodeType":"IfStatement","src":"3468:189:0","trueBody":{"id":350,"nodeType":"Block","src":"3504:153:0","statements":[{"assignments":[331],"declarations":[{"constant":false,"id":331,"name":"bonusValue","nodeType":"VariableDeclaration","scope":376,"src":"3514:15:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":330,"name":"uint","nodeType":"ElementaryTypeName","src":"3514:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"}],"id":343,"initialValue":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"arguments":[{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":336,"name":"bonusFund","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":70,"src":"3558:9:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":338,"indexExpression":{"argumentTypes":null,"id":337,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":217,"src":"3568:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":false,"nodeType":"IndexAccess","src":"3558:21:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"hexValue":"313030","id":339,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"3581:3:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_100_by_1","typeString":"int_const 100"},"value":"100"}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_rational_100_by_1","typeString":"int_const 100"}],"expression":{"argumentTypes":null,"id":334,"name":"SafeMath","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":471,"src":"3545:8:0","typeDescriptions":{"typeIdentifier":"t_type$_t_contract$_SafeMath_$471_$","typeString":"type(library SafeMath)"}},"id":335,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"div","nodeType":"MemberAccess","referencedDeclaration":426,"src":"3545:12:0","typeDescriptions":{"typeIdentifier":"t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$","typeString":"function (uint256,uint256) pure returns (uint256)"}},"id":340,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3545:40:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":341,"name":"bonusPercentage","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":17,"src":"3587:15:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_uint256","typeString":"uint256"}],"expression":{"argumentTypes":null,"id":332,"name":"SafeMath","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":471,"src":"3532:8:0","typeDescriptions":{"typeIdentifier":"t_type$_t_contract$_SafeMath_$471_$","typeString":"type(library SafeMath)"}},"id":333,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"mul","nodeType":"MemberAccess","referencedDeclaration":412,"src":"3532:12:0","typeDescriptions":{"typeIdentifier":"t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$","typeString":"function (uint256,uint256) pure returns (uint256)"}},"id":342,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3532:71:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"VariableDeclarationStatement","src":"3514:89:0"},{"expression":{"argumentTypes":null,"id":348,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftHandSide":{"argumentTypes":null,"baseExpression":{"argumentTypes":null,"id":344,"name":"bonusFund","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":70,"src":"3613:9:0","typeDescriptions":{"typeIdentifier":"t_mapping$_t_address_$_t_uint256_$","typeString":"mapping(address => uint256)"}},"id":346,"indexExpression":{"argumentTypes":null,"id":345,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":217,"src":"3623:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"isConstant":false,"isLValue":true,"isPure":false,"lValueRequested":true,"nodeType":"IndexAccess","src":"3613:21:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"Assignment","operator":"-=","rightHandSide":{"argumentTypes":null,"id":347,"name":"bonusValue","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":331,"src":"3638:10:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"src":"3613:35:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"id":349,"nodeType":"ExpressionStatement","src":"3613:35:0"}]}}]}},{"condition":{"argumentTypes":null,"commonType":{"typeIdentifier":"t_uint256","typeString":"uint256"},"id":362,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"leftExpression":{"argumentTypes":null,"id":360,"name":"valueToPay","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":318,"src":"3827:10:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"nodeType":"BinaryOperation","operator":">","rightExpression":{"argumentTypes":null,"hexValue":"30","id":361,"isConstant":false,"isLValue":false,"isPure":true,"kind":"number","lValueRequested":false,"nodeType":"Literal","src":"3840:1:0","subdenomination":null,"typeDescriptions":{"typeIdentifier":"t_rational_0_by_1","typeString":"int_const 0"},"value":"0"},"src":"3827:14:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"falseBody":null,"id":369,"nodeType":"IfStatement","src":"3824:58:0","trueBody":{"expression":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"id":366,"name":"valueToPay","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":318,"src":"3871:10:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"}],"expression":{"argumentTypes":null,"id":363,"name":"challenger","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":217,"src":"3851:10:0","typeDescriptions":{"typeIdentifier":"t_address","typeString":"address"}},"id":365,"isConstant":false,"isLValue":false,"isPure":false,"lValueRequested":false,"memberName":"transfer","nodeType":"MemberAccess","referencedDeclaration":null,"src":"3851:19:0","typeDescriptions":{"typeIdentifier":"t_function_transfer_nonpayable$_t_uint256_$returns$__$","typeString":"function (uint256)"}},"id":367,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3851:31:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":368,"nodeType":"ExpressionStatement","src":"3851:31:0"}},{"eventCall":{"argumentTypes":null,"arguments":[{"argumentTypes":null,"id":371,"name":"challengeId","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":205,"src":"3912:11:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},{"argumentTypes":null,"id":372,"name":"decision","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":207,"src":"3925:8:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}}],"expression":{"argumentTypes":[{"typeIdentifier":"t_uint256","typeString":"uint256"},{"typeIdentifier":"t_bool","typeString":"bool"}],"id":370,"name":"ChallengeResolved","nodeType":"Identifier","overloadedDeclarations":[],"referencedDeclaration":55,"src":"3894:17:0","typeDescriptions":{"typeIdentifier":"t_function_event_nonpayable$_t_uint256_$_t_bool_$returns$__$","typeString":"function (uint256,bool)"}},"id":373,"isConstant":false,"isLValue":false,"isPure":false,"kind":"functionCall","lValueRequested":false,"names":[],"nodeType":"FunctionCall","src":"3894:40:0","typeDescriptions":{"typeIdentifier":"t_tuple$__$","typeString":"tuple()"}},"id":374,"nodeType":"EmitStatement","src":"3889:45:0"}]},"documentation":null,"id":376,"implemented":true,"isConstructor":false,"isDeclaredConst":false,"modifiers":[],"name":"resolveChallenge","nodeType":"FunctionDefinition","parameters":{"id":208,"nodeType":"ParameterList","parameters":[{"constant":false,"id":205,"name":"challengeId","nodeType":"VariableDeclaration","scope":376,"src":"2304:16:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"},"typeName":{"id":204,"name":"uint","nodeType":"ElementaryTypeName","src":"2304:4:0","typeDescriptions":{"typeIdentifier":"t_uint256","typeString":"uint256"}},"value":null,"visibility":"internal"},{"constant":false,"id":207,"name":"decision","nodeType":"VariableDeclaration","scope":376,"src":"2322:13:0","stateVariable":false,"storageLocation":"default","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"},"typeName":{"id":206,"name":"bool","nodeType":"ElementaryTypeName","src":"2322:4:0","typeDescriptions":{"typeIdentifier":"t_bool","typeString":"bool"}},"value":null,"visibility":"internal"}],"src":"2303:33:0"},"payable":false,"returnParameters":{"id":209,"nodeType":"ParameterList","parameters":[],"src":"2348:0:0"},"scope":377,"src":"2278:1661:0","stateMutability":"nonpayable","superFunction":null,"visibility":"external"}],"scope":378,"src":"679:3263:0"}],"src":"390:3552:0"},"compiler":{"name":"solc","version":"0.4.24+commit.e67f0147.Emscripten.clang"},"networks":{"3":{"events":{},"links":{},"address":"0xf38aa29f565fdf3afcb7a2643640ef0462d57aee","transactionHash":"0x5ae7f6f4bf929102a6a70637e9c33fd4ffa2a9559960eb77484779df7f92ad8a"},"4447":{"events":{},"links":{},"address":"0xeec918d74c746167564401103096d45bbd494b74","transactionHash":"0xa7ba5be13cf1bc495d5fab234ae0235dbaa45337995fd522e1b97dba7fcab691"}},"schemaVersion":"2.0.1","updatedAt":"2018-08-09T23:37:15.696Z"}
 
 /***/ }),
-/* 356 */
+/* 357 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Schema = __webpack_require__(357);
-var Contract = __webpack_require__(396);
+var Schema = __webpack_require__(358);
+var Contract = __webpack_require__(397);
 
 var contract = function(options) {
   var binary = Schema.normalize(options || {});
@@ -57309,16 +59078,16 @@ if (typeof window !== "undefined") {
 
 
 /***/ }),
-/* 357 */
+/* 358 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var sha3 = __webpack_require__(358);
-var pkgVersion = __webpack_require__(360).version;
-var Ajv = __webpack_require__(361);
+var sha3 = __webpack_require__(359);
+var pkgVersion = __webpack_require__(361).version;
+var Ajv = __webpack_require__(362);
 
-var contractObjectSchema = __webpack_require__(393);
-var networkObjectSchema = __webpack_require__(394);
-var abiSchema = __webpack_require__(395);
+var contractObjectSchema = __webpack_require__(394);
+var networkObjectSchema = __webpack_require__(395);
+var abiSchema = __webpack_require__(396);
 
 
 /**
@@ -57550,13 +59319,13 @@ module.exports = TruffleContractSchema;
 
 
 /***/ }),
-/* 358 */
+/* 359 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory, undef) {
 	if (true) {
 		// CommonJS
-		module.exports = exports = factory(__webpack_require__(151), __webpack_require__(359));
+		module.exports = exports = factory(__webpack_require__(151), __webpack_require__(360));
 	}
 	else if (typeof define === "function" && define.amd) {
 		// AMD
@@ -57878,7 +59647,7 @@ module.exports = TruffleContractSchema;
 }));
 
 /***/ }),
-/* 359 */
+/* 360 */
 /***/ (function(module, exports, __webpack_require__) {
 
 ;(function (root, factory) {
@@ -58187,28 +59956,28 @@ module.exports = TruffleContractSchema;
 }));
 
 /***/ }),
-/* 360 */
+/* 361 */
 /***/ (function(module, exports) {
 
 module.exports = {"_args":[["truffle-contract-schema@2.0.1","/Users/iYalovoy/Dropbox (Personal)/Development/coinpledge"]],"_development":true,"_from":"truffle-contract-schema@2.0.1","_id":"truffle-contract-schema@2.0.1","_inBundle":false,"_integrity":"sha1-m/gh0y4m5nS6FetdQPlrELHJ1Wg=","_location":"/truffle-contract-schema","_phantomChildren":{"ms":"2.0.0"},"_requested":{"type":"version","registry":true,"raw":"truffle-contract-schema@2.0.1","name":"truffle-contract-schema","escapedName":"truffle-contract-schema","rawSpec":"2.0.1","saveSpec":null,"fetchSpec":"2.0.1"},"_requiredBy":["/truffle-contract"],"_resolved":"https://registry.npmjs.org/truffle-contract-schema/-/truffle-contract-schema-2.0.1.tgz","_spec":"2.0.1","_where":"/Users/iYalovoy/Dropbox (Personal)/Development/coinpledge","author":{"name":"Tim Coulter","email":"tim.coulter@consensys.net"},"bugs":{"url":"https://github.com/trufflesuite/truffle-schema/issues"},"dependencies":{"ajv":"^5.1.1","crypto-js":"^3.1.9-1","debug":"^3.1.0"},"description":"JSON schema for contract artifacts","devDependencies":{"mocha":"5.2.0","solc":"0.4.24"},"homepage":"https://github.com/trufflesuite/truffle-schema#readme","keywords":["ethereum","json","schema","contract","artifacts"],"license":"MIT","main":"index.js","name":"truffle-contract-schema","repository":{"type":"git","url":"git+https://github.com/trufflesuite/truffle-schema.git"},"scripts":{"test":"mocha"},"version":"2.0.1"}
 
 /***/ }),
-/* 361 */
+/* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var compileSchema = __webpack_require__(362)
+var compileSchema = __webpack_require__(363)
   , resolve = __webpack_require__(96)
-  , Cache = __webpack_require__(365)
+  , Cache = __webpack_require__(366)
   , SchemaObject = __webpack_require__(152)
   , stableStringify = __webpack_require__(153)
-  , formats = __webpack_require__(366)
-  , rules = __webpack_require__(367)
-  , $dataMetaSchema = __webpack_require__(386)
-  , patternGroups = __webpack_require__(387)
-  , util = __webpack_require__(41)
+  , formats = __webpack_require__(367)
+  , rules = __webpack_require__(368)
+  , $dataMetaSchema = __webpack_require__(387)
+  , patternGroups = __webpack_require__(388)
+  , util = __webpack_require__(42)
   , co = __webpack_require__(155);
 
 module.exports = Ajv;
@@ -58226,8 +59995,8 @@ Ajv.prototype.errorsText = errorsText;
 Ajv.prototype._addSchema = _addSchema;
 Ajv.prototype._compile = _compile;
 
-Ajv.prototype.compileAsync = __webpack_require__(388);
-var customKeyword = __webpack_require__(389);
+Ajv.prototype.compileAsync = __webpack_require__(389);
+var customKeyword = __webpack_require__(390);
 Ajv.prototype.addKeyword = customKeyword.add;
 Ajv.prototype.getKeyword = customKeyword.get;
 Ajv.prototype.removeKeyword = customKeyword.remove;
@@ -58644,11 +60413,11 @@ function addFormat(name, format) {
 function addDraft6MetaSchema(self) {
   var $dataSchema;
   if (self._opts.$data) {
-    $dataSchema = __webpack_require__(391);
+    $dataSchema = __webpack_require__(392);
     self.addMetaSchema($dataSchema, $dataSchema.$id, true);
   }
   if (self._opts.meta === false) return;
-  var metaSchema = __webpack_require__(392);
+  var metaSchema = __webpack_require__(393);
   if (self._opts.$data) metaSchema = $dataMetaSchema(metaSchema, META_SUPPORT_DATA);
   self.addMetaSchema(metaSchema, META_SCHEMA_ID, true);
   self._refs['http://json-schema.org/schema'] = META_SCHEMA_ID;
@@ -58702,14 +60471,14 @@ function noop() {}
 
 
 /***/ }),
-/* 362 */
+/* 363 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var resolve = __webpack_require__(96)
-  , util = __webpack_require__(41)
+  , util = __webpack_require__(42)
   , errorClasses = __webpack_require__(98)
   , stableStringify = __webpack_require__(153);
 
@@ -59089,7 +60858,7 @@ function vars(arr, statement) {
 
 
 /***/ }),
-/* 363 */
+/* 364 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59116,7 +60885,7 @@ module.exports = function ucs2length(str) {
 
 
 /***/ }),
-/* 364 */
+/* 365 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59204,7 +60973,7 @@ function escapeJsonPtr(str) {
 
 
 /***/ }),
-/* 365 */
+/* 366 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59237,13 +61006,13 @@ Cache.prototype.clear = function Cache_clear() {
 
 
 /***/ }),
-/* 366 */
+/* 367 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var util = __webpack_require__(41);
+var util = __webpack_require__(42);
 
 var DATE = /^\d\d\d\d-(\d\d)-(\d\d)$/;
 var DAYS = [0,31,29,31,30,31,30,31,31,30,31,30,31];
@@ -59379,14 +61148,14 @@ function regex(str) {
 
 
 /***/ }),
-/* 367 */
+/* 368 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var ruleModules = __webpack_require__(368)
-  , toHash = __webpack_require__(41).toHash;
+var ruleModules = __webpack_require__(369)
+  , toHash = __webpack_require__(42).toHash;
 
 module.exports = function rules() {
   var RULES = [
@@ -59444,7 +61213,7 @@ module.exports = function rules() {
 
 
 /***/ }),
-/* 368 */
+/* 369 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59452,15 +61221,15 @@ module.exports = function rules() {
 
 //all requires must be explicit because browserify won't work with dynamic requires
 module.exports = {
-  '$ref': __webpack_require__(369),
-  allOf: __webpack_require__(370),
-  anyOf: __webpack_require__(371),
-  const: __webpack_require__(372),
-  contains: __webpack_require__(373),
-  dependencies: __webpack_require__(374),
-  'enum': __webpack_require__(375),
-  format: __webpack_require__(376),
-  items: __webpack_require__(377),
+  '$ref': __webpack_require__(370),
+  allOf: __webpack_require__(371),
+  anyOf: __webpack_require__(372),
+  const: __webpack_require__(373),
+  contains: __webpack_require__(374),
+  dependencies: __webpack_require__(375),
+  'enum': __webpack_require__(376),
+  format: __webpack_require__(377),
+  items: __webpack_require__(378),
   maximum: __webpack_require__(156),
   minimum: __webpack_require__(156),
   maxItems: __webpack_require__(157),
@@ -59469,20 +61238,20 @@ module.exports = {
   minLength: __webpack_require__(158),
   maxProperties: __webpack_require__(159),
   minProperties: __webpack_require__(159),
-  multipleOf: __webpack_require__(378),
-  not: __webpack_require__(379),
-  oneOf: __webpack_require__(380),
-  pattern: __webpack_require__(381),
-  properties: __webpack_require__(382),
-  propertyNames: __webpack_require__(383),
-  required: __webpack_require__(384),
-  uniqueItems: __webpack_require__(385),
+  multipleOf: __webpack_require__(379),
+  not: __webpack_require__(380),
+  oneOf: __webpack_require__(381),
+  pattern: __webpack_require__(382),
+  properties: __webpack_require__(383),
+  propertyNames: __webpack_require__(384),
+  required: __webpack_require__(385),
+  uniqueItems: __webpack_require__(386),
   validate: __webpack_require__(154)
 };
 
 
 /***/ }),
-/* 369 */
+/* 370 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59612,7 +61381,7 @@ module.exports = function generate_ref(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 370 */
+/* 371 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59662,7 +61431,7 @@ module.exports = function generate_allOf(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 371 */
+/* 372 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59742,7 +61511,7 @@ module.exports = function generate_anyOf(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 372 */
+/* 373 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59804,7 +61573,7 @@ module.exports = function generate_const(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 373 */
+/* 374 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59892,7 +61661,7 @@ module.exports = function generate_contains(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 374 */
+/* 375 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60066,7 +61835,7 @@ module.exports = function generate_dependencies(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 375 */
+/* 376 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60138,7 +61907,7 @@ module.exports = function generate_enum(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 376 */
+/* 377 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60294,7 +62063,7 @@ module.exports = function generate_format(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 377 */
+/* 378 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60441,7 +62210,7 @@ module.exports = function generate_items(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 378 */
+/* 379 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60524,7 +62293,7 @@ module.exports = function generate_multipleOf(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 379 */
+/* 380 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60614,7 +62383,7 @@ module.exports = function generate_not(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 380 */
+/* 381 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60691,7 +62460,7 @@ module.exports = function generate_oneOf(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 381 */
+/* 382 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60772,7 +62541,7 @@ module.exports = function generate_pattern(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 382 */
+/* 383 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61247,7 +63016,7 @@ module.exports = function generate_properties(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 383 */
+/* 384 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61335,7 +63104,7 @@ module.exports = function generate_propertyNames(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 384 */
+/* 385 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61610,7 +63379,7 @@ module.exports = function generate_required(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 385 */
+/* 386 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61688,7 +63457,7 @@ module.exports = function generate_uniqueItems(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 386 */
+/* 387 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61744,7 +63513,7 @@ module.exports = function (metaSchema, keywordsJsonPointers) {
 
 
 /***/ }),
-/* 387 */
+/* 388 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61787,7 +63556,7 @@ module.exports = function (ajv) {
 
 
 /***/ }),
-/* 388 */
+/* 389 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61884,14 +63653,14 @@ function compileAsync(schema, meta, callback) {
 
 
 /***/ }),
-/* 389 */
+/* 390 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var IDENTIFIER = /^[a-z_$][a-z0-9_$-]*$/i;
-var customRuleCode = __webpack_require__(390);
+var customRuleCode = __webpack_require__(391);
 
 module.exports = {
   add: addKeyword,
@@ -62026,7 +63795,7 @@ function removeKeyword(keyword) {
 
 
 /***/ }),
-/* 390 */
+/* 391 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62259,43 +64028,43 @@ module.exports = function generate_custom(it, $keyword, $ruleType) {
 
 
 /***/ }),
-/* 391 */
+/* 392 */
 /***/ (function(module, exports) {
 
 module.exports = {"$schema":"http://json-schema.org/draft-06/schema#","$id":"https://raw.githubusercontent.com/epoberezkin/ajv/master/lib/refs/$data.json#","description":"Meta-schema for $data reference (JSON-schema extension proposal)","type":"object","required":["$data"],"properties":{"$data":{"type":"string","anyOf":[{"format":"relative-json-pointer"},{"format":"json-pointer"}]}},"additionalProperties":false}
 
 /***/ }),
-/* 392 */
+/* 393 */
 /***/ (function(module, exports) {
 
 module.exports = {"$schema":"http://json-schema.org/draft-06/schema#","$id":"http://json-schema.org/draft-06/schema#","title":"Core schema meta-schema","definitions":{"schemaArray":{"type":"array","minItems":1,"items":{"$ref":"#"}},"nonNegativeInteger":{"type":"integer","minimum":0},"nonNegativeIntegerDefault0":{"allOf":[{"$ref":"#/definitions/nonNegativeInteger"},{"default":0}]},"simpleTypes":{"enum":["array","boolean","integer","null","number","object","string"]},"stringArray":{"type":"array","items":{"type":"string"},"uniqueItems":true,"default":[]}},"type":["object","boolean"],"properties":{"$id":{"type":"string","format":"uri-reference"},"$schema":{"type":"string","format":"uri"},"$ref":{"type":"string","format":"uri-reference"},"title":{"type":"string"},"description":{"type":"string"},"default":{},"examples":{"type":"array","items":{}},"multipleOf":{"type":"number","exclusiveMinimum":0},"maximum":{"type":"number"},"exclusiveMaximum":{"type":"number"},"minimum":{"type":"number"},"exclusiveMinimum":{"type":"number"},"maxLength":{"$ref":"#/definitions/nonNegativeInteger"},"minLength":{"$ref":"#/definitions/nonNegativeIntegerDefault0"},"pattern":{"type":"string","format":"regex"},"additionalItems":{"$ref":"#"},"items":{"anyOf":[{"$ref":"#"},{"$ref":"#/definitions/schemaArray"}],"default":{}},"maxItems":{"$ref":"#/definitions/nonNegativeInteger"},"minItems":{"$ref":"#/definitions/nonNegativeIntegerDefault0"},"uniqueItems":{"type":"boolean","default":false},"contains":{"$ref":"#"},"maxProperties":{"$ref":"#/definitions/nonNegativeInteger"},"minProperties":{"$ref":"#/definitions/nonNegativeIntegerDefault0"},"required":{"$ref":"#/definitions/stringArray"},"additionalProperties":{"$ref":"#"},"definitions":{"type":"object","additionalProperties":{"$ref":"#"},"default":{}},"properties":{"type":"object","additionalProperties":{"$ref":"#"},"default":{}},"patternProperties":{"type":"object","additionalProperties":{"$ref":"#"},"default":{}},"dependencies":{"type":"object","additionalProperties":{"anyOf":[{"$ref":"#"},{"$ref":"#/definitions/stringArray"}]}},"propertyNames":{"$ref":"#"},"const":{},"enum":{"type":"array","minItems":1,"uniqueItems":true},"type":{"anyOf":[{"$ref":"#/definitions/simpleTypes"},{"type":"array","items":{"$ref":"#/definitions/simpleTypes"},"minItems":1,"uniqueItems":true}]},"format":{"type":"string"},"allOf":{"$ref":"#/definitions/schemaArray"},"anyOf":{"$ref":"#/definitions/schemaArray"},"oneOf":{"$ref":"#/definitions/schemaArray"},"not":{"$ref":"#"}},"default":{}}
 
 /***/ }),
-/* 393 */
+/* 394 */
 /***/ (function(module, exports) {
 
 module.exports = {"id":"contract-object.spec.json","$schema":"http://json-schema.org/schema#","title":"Contract Object","description":"Describes a contract consumable by Truffle, possibly including deployed instances on networks","type":"object","properties":{"contractName":{"allOf":[{"$ref":"#/definitions/ContractName"},{"description":"Name used to identify the contract","default":"Contract"}]},"abi":{"allOf":[{"$ref":"abi.spec.json#"},{"description":"Interface description returned by compiler for source"}]},"bytecode":{"allOf":[{"$ref":"#/definitions/Bytecode"},{"description":"Bytecode sent as contract-creation transaction data, with unresolved link references"}]},"deployedBytecode":{"allOf":[{"$ref":"#/definitions/Bytecode"},{"description":"On-chain deployed contract bytecode, with unresolved link references"}]},"sourceMap":{"allOf":[{"$ref":"#/definitions/SourceMap"},{"description":"Source mapping for contract-creation transaction data bytecode"}]},"deployedSourceMap":{"allOf":[{"$ref":"#/definitions/SourceMap"},{"description":"Source mapping for contract bytecode"}]},"source":{"$ref":"#/definitions/Source"},"sourcePath":{"$ref":"#/definitions/SourcePath"},"ast":{"$ref":"#/definitions/AST"},"legacyAST":{"$ref":"#/definitions/LegacyAST"},"compiler":{"type":"object","properties":{"name":{"type":"string"},"version":{"type":"string"}}},"networks":{"patternProperties":{"^[a-zA-Z0-9]+$":{"$ref":"network-object.spec.json#"}},"additionalProperties":false},"schemaVersion":{"$ref":"#/definitions/SchemaVersion"},"updatedAt":{"type":"string","format":"date-time"}},"required":["abi"],"patternProperties":{"^x-":{"anyOf":[{"type":"string"},{"type":"number"},{"type":"object"},{"type":"array"}]}},"additionalProperties":false,"definitions":{"ContractName":{"type":"string","pattern":"^[a-zA-Z_][a-zA-Z0-9_]*$"},"Bytecode":{"type":"string","pattern":"^0x0$|^0x([a-fA-F0-9]{2}|__.{38})+$"},"Source":{"type":"string"},"SourceMap":{"type":"string","examples":["315:637:1:-;;;452:55;;;;;;;-1:-1:-1;;;;;485:9:1;476:19;:8;:19;;;;;;;;;;498:5;476:27;;452:55;315:637;;;;;;;"]},"SourcePath":{"type":"string"},"AST":{"type":"object"},"LegacyAST":{"type":"object"},"SchemaVersion":{"type":"string","pattern":"[0-9]+\\.[0-9]+\\.[0-9]+"}}}
 
 /***/ }),
-/* 394 */
+/* 395 */
 /***/ (function(module, exports) {
 
 module.exports = {"id":"network-object.spec.json","$schema":"http://json-schema.org/schema#","title":"Network Object","type":"object","properties":{"address":{"$ref":"#/definitions/Address"},"transactionHash":{"$ref":"#/definitions/TransactionHash"},"events":{"type":"object","patternProperties":{"^0x[a-fA-F0-9]{64}$":{"$ref":"abi.spec.json#/definitions/Event"}},"additionalProperties":false},"links":{"type":"object","patternProperties":{"^[a-zA-Z_][a-zA-Z0-9_]*$":{"$ref":"#/definitions/Link"}},"additionalProperties":false}},"additionalProperties":false,"definitions":{"Address":{"type":"string","pattern":"^0x[a-fA-F0-9]{40}$"},"TransactionHash":{"type":"string","pattern":"^0x[a-fA-F0-9]{64}$"},"Link":{"type":"object","properties":{"address":{"$ref":"#/definitions/Address"},"events":{"type":"object","patternProperties":{"^0x[a-fA-F0-9]{64}$":{"$ref":"abi.spec.json#/definitions/Event"}},"additionalProperties":false}}}}}
 
 /***/ }),
-/* 395 */
+/* 396 */
 /***/ (function(module, exports) {
 
 module.exports = {"id":"abi.spec.json","$schema":"http://json-schema.org/schema#","title":"ABI","type":"array","items":{"oneOf":[{"$ref":"#/definitions/Event"},{"$ref":"#/definitions/ConstructorFunction"},{"$ref":"#/definitions/FallbackFunction"},{"$ref":"#/definitions/NormalFunction"}]},"definitions":{"Name":{"type":"string","pattern":"^$|^[a-zA-Z_\\$][a-zA-Z_\\$0-9]*$"},"Type":{"type":"string","oneOf":[{"pattern":"^u?int(8|16|24|32|40|48|56|64|72|80|88|96|104|112|120|128|136|144|152|160|168|176|184|192|200|208|216|224|232|240|248|256)?(\\[[0-9]*\\])?$"},{"pattern":"^address(\\[[0-9]*\\])?$"},{"pattern":"^bool(\\[[0-9]*\\])?$"},{"pattern":"^u?fixed(0x8|8x0|0x16|8x8|16x0|0x24|8x16|16x8|24x0|0x32|8x24|16x16|24x8|32x0|0x40|8x32|16x24|24x16|32x8|40x0|0x48|8x40|16x32|24x24|32x16|40x8|48x0|0x56|8x48|16x40|24x32|32x24|40x16|48x8|56x0|0x64|8x56|16x48|24x40|32x32|40x24|48x16|56x8|64x0|0x72|8x64|16x56|24x48|32x40|40x32|48x24|56x16|64x8|72x0|0x80|8x72|16x64|24x56|32x48|40x40|48x32|56x24|64x16|72x8|80x0|0x88|8x80|16x72|24x64|32x56|40x48|48x40|56x32|64x24|72x16|80x8|88x0|0x96|8x88|16x80|24x72|32x64|40x56|48x48|56x40|64x32|72x24|80x16|88x8|96x0|0x104|8x96|16x88|24x80|32x72|40x64|48x56|56x48|64x40|72x32|80x24|88x16|96x8|104x0|0x112|8x104|16x96|24x88|32x80|40x72|48x64|56x56|64x48|72x40|80x32|88x24|96x16|104x8|112x0|0x120|8x112|16x104|24x96|32x88|40x80|48x72|56x64|64x56|72x48|80x40|88x32|96x24|104x16|112x8|120x0|0x128|8x120|16x112|24x104|32x96|40x88|48x80|56x72|64x64|72x56|80x48|88x40|96x32|104x24|112x16|120x8|128x0|0x136|8x128|16x120|24x112|32x104|40x96|48x88|56x80|64x72|72x64|80x56|88x48|96x40|104x32|112x24|120x16|128x8|136x0|0x144|8x136|16x128|24x120|32x112|40x104|48x96|56x88|64x80|72x72|80x64|88x56|96x48|104x40|112x32|120x24|128x16|136x8|144x0|0x152|8x144|16x136|24x128|32x120|40x112|48x104|56x96|64x88|72x80|80x72|88x64|96x56|104x48|112x40|120x32|128x24|136x16|144x8|152x0|0x160|8x152|16x144|24x136|32x128|40x120|48x112|56x104|64x96|72x88|80x80|88x72|96x64|104x56|112x48|120x40|128x32|136x24|144x16|152x8|160x0|0x168|8x160|16x152|24x144|32x136|40x128|48x120|56x112|64x104|72x96|80x88|88x80|96x72|104x64|112x56|120x48|128x40|136x32|144x24|152x16|160x8|168x0|0x176|8x168|16x160|24x152|32x144|40x136|48x128|56x120|64x112|72x104|80x96|88x88|96x80|104x72|112x64|120x56|128x48|136x40|144x32|152x24|160x16|168x8|176x0|0x184|8x176|16x168|24x160|32x152|40x144|48x136|56x128|64x120|72x112|80x104|88x96|96x88|104x80|112x72|120x64|128x56|136x48|144x40|152x32|160x24|168x16|176x8|184x0|0x192|8x184|16x176|24x168|32x160|40x152|48x144|56x136|64x128|72x120|80x112|88x104|96x96|104x88|112x80|120x72|128x64|136x56|144x48|152x40|160x32|168x24|176x16|184x8|192x0|0x200|8x192|16x184|24x176|32x168|40x160|48x152|56x144|64x136|72x128|80x120|88x112|96x104|104x96|112x88|120x80|128x72|136x64|144x56|152x48|160x40|168x32|176x24|184x16|192x8|200x0|0x208|8x200|16x192|24x184|32x176|40x168|48x160|56x152|64x144|72x136|80x128|88x120|96x112|104x104|112x96|120x88|128x80|136x72|144x64|152x56|160x48|168x40|176x32|184x24|192x16|200x8|208x0|0x216|8x208|16x200|24x192|32x184|40x176|48x168|56x160|64x152|72x144|80x136|88x128|96x120|104x112|112x104|120x96|128x88|136x80|144x72|152x64|160x56|168x48|176x40|184x32|192x24|200x16|208x8|216x0|0x224|8x216|16x208|24x200|32x192|40x184|48x176|56x168|64x160|72x152|80x144|88x136|96x128|104x120|112x112|120x104|128x96|136x88|144x80|152x72|160x64|168x56|176x48|184x40|192x32|200x24|208x16|216x8|224x0|0x232|8x224|16x216|24x208|32x200|40x192|48x184|56x176|64x168|72x160|80x152|88x144|96x136|104x128|112x120|120x112|128x104|136x96|144x88|152x80|160x72|168x64|176x56|184x48|192x40|200x32|208x24|216x16|224x8|232x0|0x240|8x232|16x224|24x216|32x208|40x200|48x192|56x184|64x176|72x168|80x160|88x152|96x144|104x136|112x128|120x120|128x112|136x104|144x96|152x88|160x80|168x72|176x64|184x56|192x48|200x40|208x32|216x24|224x16|232x8|240x0|0x248|8x240|16x232|24x224|32x216|40x208|48x200|56x192|64x184|72x176|80x168|88x160|96x152|104x144|112x136|120x128|128x120|136x112|144x104|152x96|160x88|168x80|176x72|184x64|192x56|200x48|208x40|216x32|224x24|232x16|240x8|248x0|0x256|8x248|16x240|24x232|32x224|40x216|48x208|56x200|64x192|72x184|80x176|88x168|96x160|104x152|112x144|120x136|128x128|136x120|144x112|152x104|160x96|168x88|176x80|184x72|192x64|200x56|208x48|216x40|224x32|232x24|240x16|248x8|256x0)?(\\[[0-9]*\\])?$"},{"pattern":"^bytes(0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31|32)(\\[[0-9]*\\])?"},{"pattern":"^bytes$"},{"pattern":"^function(\\[[0-9]*\\])?$"},{"pattern":"^string$"}]},"StateMutability":{"type":"string","enum":["pure","view","nonpayable","payable"]},"NormalFunction":{"type":"object","properties":{"type":{"type":"string","enum":["function"],"default":"function"},"name":{"$ref":"#/definitions/Name"},"inputs":{"type":"array","items":{"$ref":"#/definitions/Parameter"}},"outputs":{"type":"array","items":{"$ref":"#/definitions/Parameter"},"default":[]},"stateMutability":{"$ref":"#/definitions/StateMutability"},"constant":{"type":"boolean"},"payable":{"type":"boolean","default":false}},"required":["name","inputs","constant"],"additionalProperties":false},"ConstructorFunction":{"type":"object","properties":{"type":{"type":"string","enum":["constructor"]},"inputs":{"type":"array","items":{"$ref":"#/definitions/Parameter"}},"payable":{"type":"boolean","default":false}},"required":["type","inputs"],"additionalProperties":false},"FallbackFunction":{"type":"object","properties":{"type":{"type":"string","enum":["fallback"]},"constant":{"type":"boolean"},"payable":{"type":"boolean","default":false}},"required":["type"],"additionalProperties":false},"Event":{"type":"object","properties":{"type":{"type":"string","enum":["event"]},"name":{"$ref":"#/definitions/Name"},"inputs":{"type":"array","items":{"$ref":"#/definitions/EventParameter"}},"anonymous":{"type":"boolean"}},"required":["type","name","inputs","anonymous"],"additionalProperties":false},"Parameter":{"type":"object","properties":{"name":{"$ref":"#/definitions/Name"},"type":{"$ref":"#/definitions/Type"}},"required":["name","type"]},"EventParameter":{"type":"object","properties":{"name":{"$ref":"#/definitions/Name"},"type":{"$ref":"#/definitions/Type"},"indexed":{"type":"boolean"}},"required":["name","type","indexed"]}}}
 
 /***/ }),
-/* 396 */
+/* 397 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global, module) {var ethJSABI = __webpack_require__(397);
-var BlockchainUtils = __webpack_require__(405);
+/* WEBPACK VAR INJECTION */(function(global, module) {var ethJSABI = __webpack_require__(398);
+var BlockchainUtils = __webpack_require__(406);
 var Web3 = __webpack_require__(160);
-var StatusError = __webpack_require__(440)
+var StatusError = __webpack_require__(441)
 
 // For browserified version. If browserify gave us an empty version,
 // look for the one provided by the user.
@@ -63253,10 +65022,10 @@ var contract = (function(module) {
   return Contract;
 })(module || {});
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11), __webpack_require__(50)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11), __webpack_require__(38)(module)))
 
 /***/ }),
-/* 397 */
+/* 398 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63264,7 +65033,7 @@ var contract = (function(module) {
 
 /* eslint-disable */
 
-var utils = __webpack_require__(398);
+var utils = __webpack_require__(399);
 var uint256Coder = utils.uint256Coder;
 var coderBoolean = utils.coderBoolean;
 var coderFixedBytes = utils.coderFixedBytes;
@@ -63396,15 +65165,15 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13).Buffer))
 
 /***/ }),
-/* 398 */
+/* 399 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {
 
-var BN = __webpack_require__(399);
-var numberToBN = __webpack_require__(400);
-var keccak256 = __webpack_require__(404).keccak_256;
+var BN = __webpack_require__(400);
+var numberToBN = __webpack_require__(401);
+var keccak256 = __webpack_require__(405).keccak_256;
 
 // from ethereumjs-util
 function stripZeros(aInput) {
@@ -63820,7 +65589,7 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13).Buffer))
 
 /***/ }),
-/* 399 */
+/* 400 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {(function (module, exports) {
@@ -67251,14 +69020,14 @@ module.exports = {
   };
 })(typeof module === 'undefined' || module, this);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(50)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(38)(module)))
 
 /***/ }),
-/* 400 */
+/* 401 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var BN = __webpack_require__(401);
-var stripHexPrefix = __webpack_require__(402);
+var BN = __webpack_require__(402);
+var stripHexPrefix = __webpack_require__(403);
 
 /**
  * Returns a BN object, converts a number value to a BN
@@ -67298,7 +69067,7 @@ module.exports = function numberToBN(arg) {
 
 
 /***/ }),
-/* 401 */
+/* 402 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {(function (module, exports) {
@@ -70729,13 +72498,13 @@ module.exports = function numberToBN(arg) {
   };
 })(typeof module === 'undefined' || module, this);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(50)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(38)(module)))
 
 /***/ }),
-/* 402 */
+/* 403 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isHexPrefixed = __webpack_require__(403);
+var isHexPrefixed = __webpack_require__(404);
 
 /**
  * Removes '0x' from a given `String` is present
@@ -70752,7 +72521,7 @@ module.exports = function stripHexPrefix(str) {
 
 
 /***/ }),
-/* 403 */
+/* 404 */
 /***/ (function(module, exports) {
 
 /**
@@ -70771,7 +72540,7 @@ module.exports = function isHexPrefixed(str) {
 
 
 /***/ }),
-/* 404 */
+/* 405 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, global) {/**
@@ -71249,7 +73018,7 @@ module.exports = function isHexPrefixed(str) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(11)))
 
 /***/ }),
-/* 405 */
+/* 406 */
 /***/ (function(module, exports) {
 
 var Blockchain = {
@@ -71335,7 +73104,7 @@ module.exports = Blockchain;
 
 
 /***/ }),
-/* 406 */
+/* 407 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -71365,23 +73134,23 @@ module.exports = Blockchain;
  * @date 2014
  */
 
-var RequestManager = __webpack_require__(407);
+var RequestManager = __webpack_require__(408);
 var Iban = __webpack_require__(71);
-var Eth = __webpack_require__(408);
-var DB = __webpack_require__(427);
-var Shh = __webpack_require__(428);
-var Net = __webpack_require__(429);
-var Personal = __webpack_require__(430);
-var Swarm = __webpack_require__(431);
-var Settings = __webpack_require__(432);
-var version = __webpack_require__(433);
+var Eth = __webpack_require__(409);
+var DB = __webpack_require__(428);
+var Shh = __webpack_require__(429);
+var Net = __webpack_require__(430);
+var Personal = __webpack_require__(431);
+var Swarm = __webpack_require__(432);
+var Settings = __webpack_require__(433);
+var version = __webpack_require__(434);
 var utils = __webpack_require__(10);
 var sha3 = __webpack_require__(53);
-var extend = __webpack_require__(434);
-var Batch = __webpack_require__(435);
-var Property = __webpack_require__(43);
-var HttpProvider = __webpack_require__(436);
-var IpcProvider = __webpack_require__(439);
+var extend = __webpack_require__(435);
+var Batch = __webpack_require__(436);
+var Property = __webpack_require__(44);
+var HttpProvider = __webpack_require__(437);
+var IpcProvider = __webpack_require__(440);
 var BigNumber = __webpack_require__(52);
 
 
@@ -71493,7 +73262,7 @@ module.exports = Web3;
 
 
 /***/ }),
-/* 407 */
+/* 408 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -71525,7 +73294,7 @@ module.exports = Web3;
 var Jsonrpc = __webpack_require__(161);
 var utils = __webpack_require__(10);
 var c = __webpack_require__(70);
-var errors = __webpack_require__(42);
+var errors = __webpack_require__(43);
 
 /**
  * It's responsible for passing messages to providers
@@ -71764,7 +73533,7 @@ module.exports = RequestManager;
 
 
 /***/ }),
-/* 408 */
+/* 409 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -71796,15 +73565,15 @@ module.exports = RequestManager;
 var formatters = __webpack_require__(26);
 var utils = __webpack_require__(10);
 var Method = __webpack_require__(30);
-var Property = __webpack_require__(43);
+var Property = __webpack_require__(44);
 var c = __webpack_require__(70);
-var Contract = __webpack_require__(409);
+var Contract = __webpack_require__(410);
 var watches = __webpack_require__(73);
 var Filter = __webpack_require__(72);
-var IsSyncing = __webpack_require__(421);
-var namereg = __webpack_require__(422);
+var IsSyncing = __webpack_require__(422);
+var namereg = __webpack_require__(423);
 var Iban = __webpack_require__(71);
-var transfer = __webpack_require__(425);
+var transfer = __webpack_require__(426);
 
 var blockCall = function (args) {
     return (utils.isString(args[0]) && args[0].indexOf('0x') === 0) ? "eth_getBlockByHash" : "eth_getBlockByNumber";
@@ -72125,7 +73894,7 @@ module.exports = Eth;
 
 
 /***/ }),
-/* 409 */
+/* 410 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -72153,8 +73922,8 @@ module.exports = Eth;
 var utils = __webpack_require__(10);
 var coder = __webpack_require__(99);
 var SolidityEvent = __webpack_require__(163);
-var SolidityFunction = __webpack_require__(419);
-var AllEvents = __webpack_require__(420);
+var SolidityFunction = __webpack_require__(420);
+var AllEvents = __webpack_require__(421);
 
 /**
  * Should be called to encode constructor params
@@ -72441,7 +74210,7 @@ module.exports = ContractFactory;
 
 
 /***/ }),
-/* 410 */
+/* 411 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var f = __webpack_require__(16);
@@ -72473,7 +74242,7 @@ module.exports = SolidityTypeAddress;
 
 
 /***/ }),
-/* 411 */
+/* 412 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var f = __webpack_require__(16);
@@ -72505,7 +74274,7 @@ module.exports = SolidityTypeBool;
 
 
 /***/ }),
-/* 412 */
+/* 413 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var f = __webpack_require__(16);
@@ -72543,7 +74312,7 @@ module.exports = SolidityTypeInt;
 
 
 /***/ }),
-/* 413 */
+/* 414 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var f = __webpack_require__(16);
@@ -72581,7 +74350,7 @@ module.exports = SolidityTypeUInt;
 
 
 /***/ }),
-/* 414 */
+/* 415 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var f = __webpack_require__(16);
@@ -72607,7 +74376,7 @@ module.exports = SolidityTypeDynamicBytes;
 
 
 /***/ }),
-/* 415 */
+/* 416 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var f = __webpack_require__(16);
@@ -72633,7 +74402,7 @@ module.exports = SolidityTypeString;
 
 
 /***/ }),
-/* 416 */
+/* 417 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var f = __webpack_require__(16);
@@ -72671,7 +74440,7 @@ module.exports = SolidityTypeReal;
 
 
 /***/ }),
-/* 417 */
+/* 418 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var f = __webpack_require__(16);
@@ -72709,7 +74478,7 @@ module.exports = SolidityTypeUReal;
 
 
 /***/ }),
-/* 418 */
+/* 419 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var f = __webpack_require__(16);
@@ -72744,7 +74513,7 @@ module.exports = SolidityTypeBytes;
 
 
 /***/ }),
-/* 419 */
+/* 420 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -72771,7 +74540,7 @@ module.exports = SolidityTypeBytes;
 
 var coder = __webpack_require__(99);
 var utils = __webpack_require__(10);
-var errors = __webpack_require__(42);
+var errors = __webpack_require__(43);
 var formatters = __webpack_require__(26);
 var sha3 = __webpack_require__(53);
 
@@ -73033,7 +74802,7 @@ module.exports = SolidityFunction;
 
 
 /***/ }),
-/* 420 */
+/* 421 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -73126,7 +74895,7 @@ module.exports = AllSolidityEvents;
 
 
 /***/ }),
-/* 421 */
+/* 422 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -73225,7 +74994,7 @@ module.exports = IsSyncing;
 
 
 /***/ }),
-/* 422 */
+/* 423 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -73250,8 +75019,8 @@ module.exports = IsSyncing;
  * @date 2015
  */
 
-var globalRegistrarAbi = __webpack_require__(423);
-var icapRegistrarAbi= __webpack_require__(424);
+var globalRegistrarAbi = __webpack_require__(424);
+var icapRegistrarAbi= __webpack_require__(425);
 
 var globalNameregAddress = '0xc6d9d2cd449a754c494264e1809c50e34d64562b';
 var icapNameregAddress = '0xa1a111bc074c9cfa781f0c38e63bd51c91b8af00';
@@ -73270,19 +75039,19 @@ module.exports = {
 
 
 /***/ }),
-/* 423 */
+/* 424 */
 /***/ (function(module, exports) {
 
 module.exports = [{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"name","outputs":[{"name":"o_name","type":"bytes32"}],"type":"function"},{"constant":true,"inputs":[{"name":"_name","type":"bytes32"}],"name":"owner","outputs":[{"name":"","type":"address"}],"type":"function"},{"constant":true,"inputs":[{"name":"_name","type":"bytes32"}],"name":"content","outputs":[{"name":"","type":"bytes32"}],"type":"function"},{"constant":true,"inputs":[{"name":"_name","type":"bytes32"}],"name":"addr","outputs":[{"name":"","type":"address"}],"type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"bytes32"}],"name":"reserve","outputs":[],"type":"function"},{"constant":true,"inputs":[{"name":"_name","type":"bytes32"}],"name":"subRegistrar","outputs":[{"name":"","type":"address"}],"type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"bytes32"},{"name":"_newOwner","type":"address"}],"name":"transfer","outputs":[],"type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"bytes32"},{"name":"_registrar","type":"address"}],"name":"setSubRegistrar","outputs":[],"type":"function"},{"constant":false,"inputs":[],"name":"Registrar","outputs":[],"type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"bytes32"},{"name":"_a","type":"address"},{"name":"_primary","type":"bool"}],"name":"setAddress","outputs":[],"type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"bytes32"},{"name":"_content","type":"bytes32"}],"name":"setContent","outputs":[],"type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"bytes32"}],"name":"disown","outputs":[],"type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_name","type":"bytes32"},{"indexed":false,"name":"_winner","type":"address"}],"name":"AuctionEnded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_name","type":"bytes32"},{"indexed":false,"name":"_bidder","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"NewBid","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"name","type":"bytes32"}],"name":"Changed","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"name","type":"bytes32"},{"indexed":true,"name":"addr","type":"address"}],"name":"PrimaryChanged","type":"event"}]
 
 /***/ }),
-/* 424 */
+/* 425 */
 /***/ (function(module, exports) {
 
 module.exports = [{"constant":true,"inputs":[{"name":"_name","type":"bytes32"}],"name":"owner","outputs":[{"name":"","type":"address"}],"type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"bytes32"},{"name":"_refund","type":"address"}],"name":"disown","outputs":[],"type":"function"},{"constant":true,"inputs":[{"name":"_name","type":"bytes32"}],"name":"addr","outputs":[{"name":"","type":"address"}],"type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"bytes32"}],"name":"reserve","outputs":[],"type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"bytes32"},{"name":"_newOwner","type":"address"}],"name":"transfer","outputs":[],"type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"bytes32"},{"name":"_a","type":"address"}],"name":"setAddr","outputs":[],"type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"name","type":"bytes32"}],"name":"Changed","type":"event"}]
 
 /***/ }),
-/* 425 */
+/* 426 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -73308,7 +75077,7 @@ module.exports = [{"constant":true,"inputs":[{"name":"_name","type":"bytes32"}],
  */
 
 var Iban = __webpack_require__(71);
-var exchangeAbi = __webpack_require__(426);
+var exchangeAbi = __webpack_require__(427);
 
 /**
  * Should be used to make Iban transfer
@@ -73380,13 +75149,13 @@ module.exports = transfer;
 
 
 /***/ }),
-/* 426 */
+/* 427 */
 /***/ (function(module, exports) {
 
 module.exports = [{"constant":false,"inputs":[{"name":"from","type":"bytes32"},{"name":"to","type":"address"},{"name":"value","type":"uint256"}],"name":"transfer","outputs":[],"type":"function"},{"constant":false,"inputs":[{"name":"from","type":"bytes32"},{"name":"to","type":"address"},{"name":"indirectId","type":"bytes32"},{"name":"value","type":"uint256"}],"name":"icapTransfer","outputs":[],"type":"function"},{"constant":false,"inputs":[{"name":"to","type":"bytes32"}],"name":"deposit","outputs":[],"payable":true,"type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"AnonymousDeposit","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"bytes32"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Deposit","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"bytes32"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"bytes32"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"indirectId","type":"bytes32"},{"indexed":false,"name":"value","type":"uint256"}],"name":"IcapTransfer","type":"event"}]
 
 /***/ }),
-/* 427 */
+/* 428 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -73458,7 +75227,7 @@ module.exports = DB;
 
 
 /***/ }),
-/* 428 */
+/* 429 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -73608,7 +75377,7 @@ module.exports = Shh;
 
 
 /***/ }),
-/* 429 */
+/* 430 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -73634,7 +75403,7 @@ module.exports = Shh;
  */
 
 var utils = __webpack_require__(10);
-var Property = __webpack_require__(43);
+var Property = __webpack_require__(44);
 
 var Net = function (web3) {
     this._requestManager = web3._requestManager;
@@ -73666,7 +75435,7 @@ module.exports = Net;
 
 
 /***/ }),
-/* 430 */
+/* 431 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -73696,7 +75465,7 @@ module.exports = Net;
 
 
 var Method = __webpack_require__(30);
-var Property = __webpack_require__(43);
+var Property = __webpack_require__(44);
 var formatters = __webpack_require__(26);
 
 function Personal(web3) {
@@ -73788,7 +75557,7 @@ module.exports = Personal;
 
 
 /***/ }),
-/* 431 */
+/* 432 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -73819,7 +75588,7 @@ module.exports = Personal;
 
 
 var Method = __webpack_require__(30);
-var Property = __webpack_require__(43);
+var Property = __webpack_require__(44);
 
 function Swarm(web3) {
     this._requestManager = web3._requestManager;
@@ -73940,7 +75709,7 @@ module.exports = Swarm;
 
 
 /***/ }),
-/* 432 */
+/* 433 */
 /***/ (function(module, exports) {
 
 
@@ -73955,19 +75724,19 @@ module.exports = Settings;
 
 
 /***/ }),
-/* 433 */
+/* 434 */
 /***/ (function(module, exports) {
 
 module.exports = {"version":"0.20.6"}
 
 /***/ }),
-/* 434 */
+/* 435 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var formatters = __webpack_require__(26);
 var utils = __webpack_require__(10);
 var Method = __webpack_require__(30);
-var Property = __webpack_require__(43);
+var Property = __webpack_require__(44);
 
 // TODO: refactor, so the input params are not altered.
 // it's necessary to make same 'extension' work with multiple providers
@@ -74015,7 +75784,7 @@ module.exports = extend;
 
 
 /***/ }),
-/* 435 */
+/* 436 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -74041,7 +75810,7 @@ module.exports = extend;
  */
 
 var Jsonrpc = __webpack_require__(161);
-var errors = __webpack_require__(42);
+var errors = __webpack_require__(43);
 
 var Batch = function (web3) {
     this.requestManager = web3._requestManager;
@@ -74087,7 +75856,7 @@ module.exports = Batch;
 
 
 /***/ }),
-/* 436 */
+/* 437 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/*
@@ -74114,7 +75883,7 @@ module.exports = Batch;
  * @date 2015
  */
 
-var errors = __webpack_require__(42);
+var errors = __webpack_require__(43);
 
 // workaround to use httpprovider in different envs
 
@@ -74123,10 +75892,10 @@ if (typeof window !== 'undefined' && window.XMLHttpRequest) {
   XMLHttpRequest = window.XMLHttpRequest; // jshint ignore: line
 // node
 } else {
-  XMLHttpRequest = __webpack_require__(437).XMLHttpRequest; // jshint ignore: line
+  XMLHttpRequest = __webpack_require__(438).XMLHttpRequest; // jshint ignore: line
 }
 
-var XHR2 = __webpack_require__(438); // jshint ignore: line
+var XHR2 = __webpack_require__(439); // jshint ignore: line
 
 /**
  * HttpProvider should be used to send rpc calls over http
@@ -74257,7 +76026,7 @@ module.exports = HttpProvider;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13).Buffer))
 
 /***/ }),
-/* 437 */
+/* 438 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -74273,14 +76042,14 @@ if (typeof XMLHttpRequest === 'undefined') {
 
 
 /***/ }),
-/* 438 */
+/* 439 */
 /***/ (function(module, exports) {
 
 module.exports = XMLHttpRequest;
 
 
 /***/ }),
-/* 439 */
+/* 440 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -74309,7 +76078,7 @@ module.exports = XMLHttpRequest;
 
 
 var utils = __webpack_require__(10);
-var errors = __webpack_require__(42);
+var errors = __webpack_require__(43);
 
 
 var IpcProvider = function (path, net) {
@@ -74494,10 +76263,10 @@ module.exports = IpcProvider;
 
 
 /***/ }),
-/* 440 */
+/* 441 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var TruffleError = __webpack_require__(441);
+var TruffleError = __webpack_require__(442);
 var inherits = __webpack_require__(164).inherits;
 var web3 = __webpack_require__(160);
 
@@ -74533,10 +76302,10 @@ function StatusError(args, tx, receipt) {
 module.exports = StatusError;
 
 /***/ }),
-/* 441 */
+/* 442 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ExtendableBuiltin = __webpack_require__(442);
+var ExtendableBuiltin = __webpack_require__(443);
 var inherits = __webpack_require__(164).inherits;
 
 inherits(ExtendableError, ExtendableBuiltin(Error));
@@ -74560,7 +76329,7 @@ module.exports = ExtendableError;
 
 
 /***/ }),
-/* 442 */
+/* 443 */
 /***/ (function(module, exports) {
 
 // From here:
@@ -74583,7 +76352,7 @@ module.exports = ExtendableBuiltin;
 
 
 /***/ }),
-/* 443 */
+/* 444 */
 /***/ (function(module, exports) {
 
 module.exports = function isBuffer(arg) {
