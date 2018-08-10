@@ -41,31 +41,31 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
 
   Challenge[] public challenges;
 
-  mapping(uint => address) public challengeToOwner;
-  mapping(address => uint) public ownerToChallengeCount;
+  mapping(uint => address) public challengeToUser;
+  mapping(address => uint) public userToChallengeCount;
 
   mapping(uint => address) public challengeToJudge;
   mapping(address => uint) public judgeToChallengeCount;
 
   mapping(address => uint) public bonusFund;
 
-  function getBonusFund(address owner)
+  function getBonusFund(address user)
   external
   view
   returns(uint) {
-    return bonusFund[owner];
+    return bonusFund[user];
   }
 
-  function getChallenges(address owner) 
+  function getChallenges(address user) 
   external 
   view 
   returns(uint[]) {
-    require(ownerToChallengeCount[owner] > 0, "Has zero challenges");
+    require(userToChallengeCount[user] > 0, "Has zero challenges");
 
-    uint[] memory result = new uint[](ownerToChallengeCount[owner]);
+    uint[] memory result = new uint[](userToChallengeCount[user]);
     uint counter = 0;
     for (uint i = 0; i < challenges.length; i++) {
-      if (challengeToOwner[i] == owner)
+      if (challengeToUser[i] == user)
       {
         result[counter] = i;
         counter++;
@@ -78,12 +78,12 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
   external 
   view 
   returns(uint[]) {
-    require(judgeToChallengeCount[owner] > 0, "Has zero cases");
+    require(judgeToChallengeCount[judge] > 0, "Has zero cases");
 
     uint[] memory result = new uint[](judgeToChallengeCount[judge]);
     uint counter = 0;
     for (uint i = 0; i < challenges.length; i++) {
-      if (challengeToJudge[i] == owner)
+      if (challengeToJudge[i] == judge)
       {
         result[counter] = i;
         counter++;
@@ -91,7 +91,6 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
     }
     return result;
   }
-
 
   function createChallenge(string name, address judge, uint time) 
   external 
@@ -104,8 +103,8 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
     uint startDate = block.timestamp;
     uint id = challenges.push(Challenge(name, msg.value, judge, startDate, time, false, false)) - 1;
 
-    challengeToOwner[id] = msg.sender;
-    ownerToChallengeCount[msg.sender]++;
+    challengeToUser[id] = msg.sender;
+    userToChallengeCount[msg.sender]++;
 
     challengeToJudge[id] = judge;
     judgeToChallengeCount[judge]++;
@@ -119,7 +118,7 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
   external
   {
     Challenge storage challenge = challenges[challengeId];
-    address challenger = challengeToOwner[challengeId];
+    address challenger = challengeToUser[challengeId];
 
     require(challenge.resolved == false, "Challenge already resolved.");
     require(block.timestamp > (challenge.startDate + challenge.time), "It is not time yet to judge.");

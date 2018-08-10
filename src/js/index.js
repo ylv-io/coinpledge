@@ -107,7 +107,7 @@ class App extends React.Component {
     const instance = this.state.coin;
     if(instance) {
       // check number of challenges
-      instance.ownerToChallengeCount.call(web3.eth.accounts[0], {
+      instance.userToChallengeCount.call(web3.eth.accounts[0], {
         from: web3.eth.accounts[0]
       })
       .then((result) => {
