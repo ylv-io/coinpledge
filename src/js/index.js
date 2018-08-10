@@ -17,15 +17,15 @@ class App extends React.Component {
     this.resolveChallenge = this.resolveChallenge.bind(this);
 
     this.state = {
-      challenges: []
+      challenges: [],
+      bonusFund: 0,
     }
 
     if(typeof web3 != 'undefined') {
         console.log("Using web3 detected from external source like Metamask")
         this.web3 = new Web3(web3.currentProvider)
     } else {
-        console.log("No web3 detected. Falling back to http://localhost:8545. You should remove this fallback when you deploy live, as it's inherently insecure. Consider switching to Metamask for development. More info here: http://truffleframework.com/tutorials/truffle-and-metamask");
-        this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
+        console.log("No web3 detected.");
     }
 
     // Using truffle-contract we create the coinpledge object.
@@ -35,28 +35,50 @@ class App extends React.Component {
     // Find contract instance on blockchain and bind
     coin.deployed().then((instance) => {
       this.state.coin = instance;
+    });
 
-      //check number of challenges
+  }
+
+  getBonusFund() {
+    const coin = this.state.coin;
+    if(coin) {
+      return coin.getBonusFund.call(this.web3.eth.accounts[0], {
+        from: this.web3.eth.accounts[0]
+      })
+      .then((result) => {
+        const bonusFund = web3.fromWei(result.toNumber(), 'ether');
+        console.log(`User has ${bonusFund} ether in bonus fund`);
+        this.setState((o) => {
+          return {
+            bonusFund: bonusFund
+          }
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    }
+  }
+
+  getAllChallenges() {
+    const instance = this.state.coin;
+    if(instance) {
+      // check number of challenges
       instance.ownerToChallengeCount.call(web3.eth.accounts[0], {
         from: web3.eth.accounts[0]
       })
       .then((result) => {
         const numberOfChallenges = result.toNumber();
+        console.log(`User has ${numberOfChallenges} challenges`);
         if(numberOfChallenges > 0)
-          this.getAllChallenges();
-      })
-    });
-
-  }
-
-  getAllChallenges() {
-    const instance = this.state.coin;
-    if(instance)
-    {
-      return instance.getChallenges.call(web3.eth.accounts[0], {
-        from: web3.eth.accounts[0]
+        // get all user challenges indexes
+          return instance.getChallenges.call(web3.eth.accounts[0], {
+            from: web3.eth.accounts[0]
+          });
+        else return Promise.reject("User has zero challenges");
       })
       .then((result) => {
+        // get all users's challenges objects
         const promises = result.map(((o) => instance.challenges.call(o.toNumber(), {
           from: web3.eth.accounts[0]
         })));
@@ -64,7 +86,9 @@ class App extends React.Component {
         return Promise.all(promises);
       })
       .then((result) => {
+        // map all user's challenges to objects
         const challenges = result.map((o, i) => this.arrayToChallenge(o, i));
+        console.log(`User challenges:`);
         console.log(challenges);
         this.setState((o) => {
           return {
@@ -99,6 +123,7 @@ class App extends React.Component {
 
   updateState() {
     this.getAllChallenges.bind(this)();
+    this.getBonusFund.bind(this)();
   }
 
   createChallenge(e) {
@@ -134,8 +159,10 @@ class App extends React.Component {
     const id = e.target.elements.id.value.trim();
     e.target.elements.id.value = '';
 
-    const decision = e.target.elements.decision.value;
-    e.target.elements.decision = false;
+    const decision = e.target.elements.decision.checked;
+    e.target.elements.decision.checked = false;
+
+    console.log(decision);
 
     this.state.coin.resolveChallenge(id, decision, {
       from: web3.eth.accounts[0]
@@ -153,6 +180,7 @@ class App extends React.Component {
     return (
         <div>
           <h1>CoinPledge</h1>
+          <h4>Your bonus fund is {this.state.bonusFund} ether</h4>
           <h4>Create Challenge</h4>
           <form onSubmit={this.createChallenge}>
               <label htmlFor="name">What?</label> <input type="text" name="name"/> <br/>

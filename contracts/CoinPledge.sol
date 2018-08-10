@@ -45,6 +45,13 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
   mapping(address => uint) public ownerToChallengeCount;
   mapping(address => uint) public bonusFund;
 
+  function getBonusFund(address owner)
+  external
+  view
+  returns(uint) {
+    return bonusFund[owner];
+  }
+
   function getChallenges(address owner) 
   external 
   view 
