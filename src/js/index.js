@@ -18,7 +18,8 @@ class App extends React.Component {
 
     this.state = {
       challenges: [],
-      bonusFund: 0,
+      cases: [],
+      bonusFund: 0
     }
 
     if(typeof web3 != 'undefined') {
@@ -55,6 +56,48 @@ class App extends React.Component {
         });
       })
       .catch((e) => {
+        console.log(e);
+      });
+    }
+  }
+
+  getAllCases() {
+    const instance = this.state.coin;
+    if(instance) {
+      // check number of challenges
+      instance.judgeToChallengeCount.call(web3.eth.accounts[0], {
+        from: web3.eth.accounts[0]
+      })
+      .then((result) => {
+        const numberOfCases = result.toNumber();
+        console.log(`User has ${numberOfCases} cases`);
+        if(numberOfCases > 0)
+        // get all user cases indexes
+          return instance.getCases.call(web3.eth.accounts[0], {
+            from: web3.eth.accounts[0]
+          });
+        else return Promise.reject("User has zero cases");
+      })
+      .then((result) => {
+        // get all users's cases objects
+        const promises = result.map(((o) => instance.challenges.call(o.toNumber(), {
+          from: web3.eth.accounts[0]
+        })));
+  
+        return Promise.all(promises);
+      })
+      .then((result) => {
+        // map all user's cases to objects
+        const cases = result.map((o, i) => this.arrayToChallenge(o, i));
+        console.log(`User cases:`);
+        console.log(cases);
+        this.setState((o) => {
+          return {
+            cases: cases
+          }
+        });
+      })
+      .catch(function(e) {
         console.log(e);
       });
     }
@@ -124,6 +167,7 @@ class App extends React.Component {
   updateState() {
     this.getAllChallenges.bind(this)();
     this.getBonusFund.bind(this)();
+    this.getAllCases.bind(this)();
   }
 
   createChallenge(e) {
@@ -198,7 +242,42 @@ class App extends React.Component {
           <h2>Your Challenges</h2>
           {this.state.challenges.map((o) => 
               <div key={o.id}>
-                <h4>{o.name}</h4>
+                <h4>{o.name}({o.id})</h4>
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>Value</td>
+                      <td>{o.value} ether</td>
+                    </tr>
+                    <tr>
+                      <td>Judge</td>
+                      <td>{o.judge}</td>
+                    </tr>
+                    <tr>
+                      <td>Start Date</td>
+                      <td>{o.startDate}</td>
+                    </tr>
+                    <tr>
+                      <td>Time</td>
+                      <td>{o.time} days</td>
+                    </tr>
+                    <tr>
+                      <td>Successed</td>
+                      <td>{o.successed ? "True" : "False"}</td>
+                    </tr>
+                    <tr>
+                      <td>Resolved</td>
+                      <td>{o.resolved ? "True" : "False"}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            )
+          }
+          <h2>Your Cases</h2>
+          {this.state.cases.map((o) => 
+              <div key={o.id}>
+                <h4>{o.name}({o.id})</h4>
                 <table>
                   <tbody>
                     <tr>
