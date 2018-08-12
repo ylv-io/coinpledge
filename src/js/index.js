@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Web3 from 'web3'
 import _ from 'underscore'
+import moment from 'moment'
 
 import './../css/index.css'
 
@@ -12,36 +13,17 @@ const contract = require('truffle-contract')
 class Challenge extends React.Component {
   render() {
     return (
-      <div>
-        <h4>{this.props.challenge.name}({this.props.challenge.id})</h4>
-        <table>
-          <tbody>
-            <tr>
-              <td>Value</td>
-              <td>{this.props.challenge.value} ether</td>
-            </tr>
-            <tr>
-              <td>Judge</td>
-              <td>{this.props.challenge.judge}</td>
-            </tr>
-            <tr>
-              <td>Start Date</td>
-              <td>{this.props.challenge.startDate}</td>
-            </tr>
-            <tr>
-              <td>Time</td>
-              <td>{this.props.challenge.time} days</td>
-            </tr>
-            <tr>
-              <td>Successed</td>
-              <td>{this.props.challenge.successed ? "True" : "False"}</td>
-            </tr>
-            <tr>
-              <td>Resolved</td>
-              <td>{this.props.challenge.resolved ? "True" : "False"}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div className="card">
+        <div className="card-content">
+          <p className="is-size-4">
+            I pledge to "<strong>{this.props.challenge.name}</strong>" before <strong>{moment.unix(this.props.challenge.startDate).add(this.props.challenge.time, 's').format("DD MMM YYYY")}</strong> by staking <strong>{this.props.challenge.value} ether</strong>.
+          </p>
+        </div>
+        <footer className="card-footer">
+          <a href="#" className="card-footer-item">Tweet</a>
+          <a href="#" className="card-footer-item">Facebook</a>
+          <a href="#" className="card-footer-item">Resolve</a>
+        </footer>
       </div>
     );
   }
@@ -223,7 +205,7 @@ class App extends React.Component {
     const judge = e.target.elements.judge.value.trim();
     e.target.elements.judge.value = '';
 
-    this.state.coin.createChallenge(name, judge, time, {
+    this.state.coin.createChallenge(name, judge, time * 86400, {
         from: web3.eth.accounts[0],
         value: web3.toWei(value, 'ether')
       })
@@ -261,26 +243,115 @@ class App extends React.Component {
   render(){
     return (
         <div>
-          <h1>CoinPledge</h1>
-          <h4>Your bonus fund is {this.state.bonusFund} ether</h4>
-          <h4>Create Challenge</h4>
-          <form onSubmit={this.createChallenge}>
-              <label htmlFor="name">What?</label> <input type="text" name="name"/> <br/>
-              <label htmlFor="number">How much?</label> <input type="number" step="0.01" name="value"/> <br/>
-              <label htmlFor="judge">Who judge?</label> <input type="text" name="judge"/> <br/>
-              <label htmlFor="time">How long?</label> <input type="number" name="time"/> <br/>
-              <button>Create Challenge</button>
-          </form>
-          <h4>Resolve Challenge</h4>
-          <form onSubmit={this.resolveChallenge}>
-              <label htmlFor="id">Which challenge?</label> <input type="number" name="id"/> <br/>
-              <label><input type="checkbox" value="check" name="decision"/> Is accomplished? </label> <br/>
-              <button>Resolve Challenge</button>
-          </form>
-          <h2>Your Challenges</h2>
-          {this.state.challenges.map((o) => <Challenge challenge={o} key={o.id} />)}
-          <h2>Your Cases</h2>
-          {this.state.cases.map((o) => <Challenge challenge={o} key={o.id} />)}
+          <section className="hero is-success is-bold">
+            <div className="hero-body">
+              <div className="container">
+                <h1 className="title">CoinPledge</h1>
+                <h4 className="subtitle">Archive your goals and connect with people in a meaningful way</h4>
+                <hr/>
+              </div>
+            </div>
+          </section>
+
+          <section className="section">
+            <div className="container">
+              <div className="columns">
+                <div className="column is-half box">
+                  <h4 className="title is-4">Create Challenge</h4>
+                  <hr/>
+                  <form onSubmit={this.createChallenge}>
+                    <div className="field">
+                      <label className="label" htmlFor="name">State your goal. Keep it short.</label>
+                      <div className="control">
+                        <input className="input" type="text" name="name"/>
+                      </div>
+                    </div>
+
+                    <div className="field">
+                      <label className="label" htmlFor="number">How much in ether? 0.1 is minimum.</label>
+                      <div className="control">
+                        <input className="input" type="number" step="0.01" name="value"/>
+                      </div>
+                    </div>
+
+                    <div className="field">
+                      <label className="label" htmlFor="judge">Who will judge challenge? Ethereum address requred.</label>
+                      <div className="control">
+                        <input className="input" type="text" name="judge"/>
+                      </div>
+                    </div>
+
+                    <div className="field">
+                      <label className="label" htmlFor="time">How long it will take in days?</label>
+                      <div className="control">
+                        <input className="input" type="number" name="time"/>
+                      </div>
+                    </div>
+
+                    <hr/>
+                    <div className="field">
+                      <div className="control">
+                        <button className="button is-primary">Create Challenge</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section className="section">
+            <div className="container">
+              <div className="columns">
+                <div className="column is-half box">
+                  <h4 className="title is-4">Resolve Challenge</h4>
+                  <hr/>
+                  <form onSubmit={this.resolveChallenge}>
+                    <div className="field">
+                      <label className="label" htmlFor="id">Which challenge?</label>
+                      <div className="control">
+                        <input className="input" type="number" name="id"/>
+                      </div>
+                    </div>
+                    
+                    <div className="field">
+                      <label className="checkbox">
+                        <input type="checkbox" value="check" name="decision"/> Is accomplished?
+                      </label>
+                    </div>
+                    <hr/>
+                    <div className="field">
+                      <button className="button">Resolve Challenge</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section className="section">
+            <div className="container">
+              <h4 className="title is-4">Your Challenges</h4>
+              <hr/>
+              <div className="columns is-multiline">
+                {this.state.challenges.map((o) => 
+                  <div className="column is-4" key={o.id}>
+                    <Challenge challenge={o} />
+                  </div>)}
+              </div>
+            </div>
+          </section>
+          <section className="section">
+            <div className="container">
+              <h2 className="subtitle">Your Cases</h2>
+              {this.state.cases.map((o) => <Challenge challenge={o} key={o.id} />)}
+            </div>
+          </section>
+
+          <section className="section">
+            <div className="container">
+              Your bonus fund is <strong>{this.state.bonusFund}</strong> ether
+            </div>
+          </section>
+
         </div>
     )
   }
