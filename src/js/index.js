@@ -9,6 +9,44 @@ import CoinPledgeContract from '../../build/contracts/CoinPledge.json'
 
 const contract = require('truffle-contract')
 
+class Challenge extends React.Component {
+  render() {
+    return (
+      <div>
+        <h4>{this.props.challenge.name}({this.props.challenge.id})</h4>
+        <table>
+          <tbody>
+            <tr>
+              <td>Value</td>
+              <td>{this.props.challenge.value} ether</td>
+            </tr>
+            <tr>
+              <td>Judge</td>
+              <td>{this.props.challenge.judge}</td>
+            </tr>
+            <tr>
+              <td>Start Date</td>
+              <td>{this.props.challenge.startDate}</td>
+            </tr>
+            <tr>
+              <td>Time</td>
+              <td>{this.props.challenge.time} days</td>
+            </tr>
+            <tr>
+              <td>Successed</td>
+              <td>{this.props.challenge.successed ? "True" : "False"}</td>
+            </tr>
+            <tr>
+              <td>Resolved</td>
+              <td>{this.props.challenge.resolved ? "True" : "False"}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+}
+
 class App extends React.Component {
   constructor(props){
     super(props)
@@ -36,6 +74,8 @@ class App extends React.Component {
     // Find contract instance on blockchain and bind
     coin.deployed().then((instance) => {
       this.state.coin = instance;
+
+      this.updateState();
     });
 
   }
@@ -159,8 +199,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.updateState();
-
     setInterval(this.updateState.bind(this), 7e3);
   }
 
@@ -240,75 +278,9 @@ class App extends React.Component {
               <button>Resolve Challenge</button>
           </form>
           <h2>Your Challenges</h2>
-          {this.state.challenges.map((o) => 
-              <div key={o.id}>
-                <h4>{o.name}({o.id})</h4>
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>Value</td>
-                      <td>{o.value} ether</td>
-                    </tr>
-                    <tr>
-                      <td>Judge</td>
-                      <td>{o.judge}</td>
-                    </tr>
-                    <tr>
-                      <td>Start Date</td>
-                      <td>{o.startDate}</td>
-                    </tr>
-                    <tr>
-                      <td>Time</td>
-                      <td>{o.time} days</td>
-                    </tr>
-                    <tr>
-                      <td>Successed</td>
-                      <td>{o.successed ? "True" : "False"}</td>
-                    </tr>
-                    <tr>
-                      <td>Resolved</td>
-                      <td>{o.resolved ? "True" : "False"}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            )
-          }
+          {this.state.challenges.map((o) => <Challenge challenge={o} key={o.id} />)}
           <h2>Your Cases</h2>
-          {this.state.cases.map((o) => 
-              <div key={o.id}>
-                <h4>{o.name}({o.id})</h4>
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>Value</td>
-                      <td>{o.value} ether</td>
-                    </tr>
-                    <tr>
-                      <td>Judge</td>
-                      <td>{o.judge}</td>
-                    </tr>
-                    <tr>
-                      <td>Start Date</td>
-                      <td>{o.startDate}</td>
-                    </tr>
-                    <tr>
-                      <td>Time</td>
-                      <td>{o.time} days</td>
-                    </tr>
-                    <tr>
-                      <td>Successed</td>
-                      <td>{o.successed ? "True" : "False"}</td>
-                    </tr>
-                    <tr>
-                      <td>Resolved</td>
-                      <td>{o.resolved ? "True" : "False"}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            )
-          }
+          {this.state.cases.map((o) => <Challenge challenge={o} key={o.id} />)}
         </div>
     )
   }
