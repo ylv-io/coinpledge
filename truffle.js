@@ -13,7 +13,7 @@ module.exports = {
                     return new HDWalletProvider(mnemonic, "https://ropsten.infura.io/2ZODJ6T7eeMAaaJFPi4E");
                 },
                 network_id: 3,
-                gas: 4712388, // Gas limit used for deploys
+                gas: 4600000, // Gas limit used for deploys
                 gasPrice: 20000000000, // 20 gwei
             },
         main: {

@@ -15,8 +15,8 @@ class Challenge extends React.Component {
     return (
       <div className="card">
         <div className="card-content">
-          <p className="is-size-4">
-            I pledge to "<strong>{this.props.challenge.name}</strong>" before <strong>{moment.unix(this.props.challenge.startDate).add(this.props.challenge.time, 's').format("DD MMM YYYY")}</strong> by staking <strong>{this.props.challenge.value} ether</strong>.
+          <p className="is-size-5">
+            I pledge to <strong className="is-size-4">"{this.props.challenge.name}({this.props.challenge.id})"</strong> before <strong>{moment.unix(this.props.challenge.startDate).add(this.props.challenge.time, 's').format("DD MMM YYYY")}</strong> by staking <strong>{this.props.challenge.value} ether</strong>.
           </p>
         </div>
         <footer className="card-footer">
@@ -197,7 +197,7 @@ class App extends React.Component {
     e.target.elements.name.value = '';
 
     const value = e.target.elements.value.value.trim();
-    e.target.elements.name.value = '';
+    e.target.elements.value.value = '';
 
     const time = e.target.elements.time.value.trim();
     e.target.elements.time.value = '';
@@ -205,7 +205,8 @@ class App extends React.Component {
     const judge = e.target.elements.judge.value.trim();
     e.target.elements.judge.value = '';
 
-    this.state.coin.createChallenge(name, judge, time * 86400, {
+    // * 86400
+    this.state.coin.createChallenge(name, judge, time , {
         from: web3.eth.accounts[0],
         value: web3.toWei(value, 'ether')
       })
@@ -275,7 +276,7 @@ class App extends React.Component {
                     </div>
 
                     <div className="field">
-                      <label className="label" htmlFor="judge">Who will judge challenge? Ethereum address requred.</label>
+                      <label className="label" htmlFor="judge">Who will judge challenge? Ethereum address required.</label>
                       <div className="control">
                         <input className="input" type="text" name="judge"/>
                       </div>
@@ -331,6 +332,7 @@ class App extends React.Component {
             <div className="container">
               <h4 className="title is-4">Your Challenges</h4>
               <hr/>
+              { !this.state.challenges.length && <p className="title is-4">You don't have any challenges yet. Create one. You can do it!</p>}
               <div className="columns is-multiline">
                 {this.state.challenges.map((o) => 
                   <div className="column is-4" key={o.id}>
@@ -348,7 +350,7 @@ class App extends React.Component {
 
           <section className="section">
             <div className="container">
-              Your bonus fund is <strong>{this.state.bonusFund}</strong> ether
+              Your bonus fund has <strong>{this.state.bonusFund}</strong> ether
             </div>
           </section>
 
