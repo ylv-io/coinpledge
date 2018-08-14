@@ -1,2 +1,2 @@
 # CoinPledge
-Archive your goals and interact with people in the meaning way.
+Archive your goals and connect with people in a meaningful way.

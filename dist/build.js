@@ -51425,11 +51425,16 @@ var App = function (_React$Component2) {
             });
           });
 
+          // push indexes down the chain
+          promises.push(result);
+
           return Promise.all(promises);
         }).then(function (result) {
+          //pop indexes
+          var indexes = result.pop();
           // map all user's challenges to objects
           var challenges = result.map(function (o, i) {
-            return _this5.arrayToChallenge(o, i);
+            return _this5.arrayToChallenge(o, indexes[i].toNumber());
           });
           console.log('User challenges:');
           console.log(challenges);
@@ -51486,8 +51491,7 @@ var App = function (_React$Component2) {
       var judge = e.target.elements.judge.value.trim();
       e.target.elements.judge.value = '';
 
-      // * 86400
-      this.state.coin.createChallenge(name, judge, time, {
+      this.state.coin.createChallenge(name, judge, time * 86400, {
         from: web3.eth.accounts[0],
         value: web3.toWei(value, 'ether')
       }).then(function (result) {

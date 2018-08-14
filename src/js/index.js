@@ -147,12 +147,17 @@ class App extends React.Component {
         const promises = result.map(((o) => instance.challenges.call(o.toNumber(), {
           from: web3.eth.accounts[0]
         })));
+
+        // push indexes down the chain
+        promises.push(result);
   
         return Promise.all(promises);
       })
       .then((result) => {
+        //pop indexes
+        const indexes = result.pop();
         // map all user's challenges to objects
-        const challenges = result.map((o, i) => this.arrayToChallenge(o, i));
+        const challenges = result.map((o, i) => this.arrayToChallenge(o, indexes[i].toNumber()));
         console.log(`User challenges:`);
         console.log(challenges);
         this.setState((o) => {
@@ -205,8 +210,7 @@ class App extends React.Component {
     const judge = e.target.elements.judge.value.trim();
     e.target.elements.judge.value = '';
 
-    // * 86400
-    this.state.coin.createChallenge(name, judge, time , {
+    this.state.coin.createChallenge(name, judge, time * 86400, {
         from: web3.eth.accounts[0],
         value: web3.toWei(value, 'ether')
       })
