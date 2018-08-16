@@ -1,50 +1,26 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import Web3 from 'web3'
-import _ from 'underscore'
-import moment from 'moment'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Web3 from 'web3';
+import _ from 'underscore';
 
-import './../css/index.css'
+import CoinPledgeContract from '../../../build/contracts/CoinPledge.json';
 
-import CoinPledgeContract from '../../build/contracts/CoinPledge.json'
+import Challenge from './Challenge';
+import CreateChallenge from './CreateChallenge';
 
-const contract = require('truffle-contract')
+import Contract from 'truffle-contract';
 
-class Challenge extends React.Component {
-  render() {
-    return (
-      <div className="card">
-        <header className="card-header ">
-          <p className={"card-header-title " + (this.props.challenge.resolved ? this.props.challenge.successed ? "has-background-success" : "has-background-danger" : "")}>
-            <span className={this.props.challenge.resolved ? "has-text-white" : ""}> { this.props.challenge.resolved ? this.props.challenge.successed ? "Win" : "Loss" : "In Progress" } </span>
-          </p>
-        </header>
-        <div className="card-content">
-          <p className="is-size-5">
-            I pledge to <strong className="is-size-4">"{this.props.challenge.name}"</strong> before <strong>{moment.unix(this.props.challenge.startDate).add(this.props.challenge.time, 's').format("DD MMM YYYY")}</strong> by staking <strong>{this.props.challenge.value} ether</strong>.
-          </p>
-        </div>
-        <footer className="card-footer">
-          { !this.props.challenge.resolved && <a href="#" className="card-footer-item has-text-success" onClick={this.props.handleWin}>Win</a>}
-          { !this.props.challenge.resolved && <a href="#" className="card-footer-item has-text-danger" onClick={this.props.handleLoss}>Loss</a>}
-        </footer>
-      </div>
-    );
+
+export default class App extends React.Component {
+
+  state = {
+    challenges: [],
+    cases: [],
+    bonusFund: 0
   }
-}
 
-class App extends React.Component {
   constructor(props){
     super(props)
-
-    this.createChallenge = this.createChallenge.bind(this);
-    this.resolveChallenge = this.resolveChallenge.bind(this);
-
-    this.state = {
-      challenges: [],
-      cases: [],
-      bonusFund: 0
-    }
 
     if(typeof web3 != 'undefined') {
         console.log("Using web3 detected from external source like Metamask")
@@ -54,7 +30,7 @@ class App extends React.Component {
     }
 
     // Using truffle-contract we create the coinpledge object.
-    const coin = contract(CoinPledgeContract);
+    const coin = Contract(CoinPledgeContract);
     coin.setProvider(this.web3.currentProvider);
 
     // Find contract instance on blockchain and bind
@@ -66,7 +42,7 @@ class App extends React.Component {
 
   }
 
-  getBonusFund() {
+  getBonusFund = () => {
     const coin = this.state.coin;
     if(coin) {
       return coin.getBonusFund.call(this.web3.eth.accounts[0], {
@@ -87,7 +63,7 @@ class App extends React.Component {
     }
   }
 
-  getAllCases() {
+  getAllCases = () => {
     const instance = this.state.coin;
     if(instance) {
       // check number of challenges
@@ -134,7 +110,7 @@ class App extends React.Component {
     }
   }
 
-  getAllChallenges() {
+  getAllChallenges = () => {
     const instance = this.state.coin;
     if(instance) {
       // check number of challenges
@@ -199,31 +175,28 @@ class App extends React.Component {
   }
 
   updateState() {
-    this.getAllChallenges.bind(this)();
-    this.getBonusFund.bind(this)();
-    this.getAllCases.bind(this)();
+    this.getAllChallenges();
+    this.getBonusFund();
+    this.getAllCases();
   }
 
-  createChallenge(e) {
+  createChallenge = (e) => {
     e.preventDefault();
 
     const name = e.target.elements.name.value.trim();
-    e.target.elements.name.value = '';
-
     const value = e.target.elements.value.value.trim();
-    e.target.elements.value.value = '';
-
     const time = e.target.elements.time.value.trim();
-    e.target.elements.time.value = '';
-
     const judge = e.target.elements.judge.value.trim();
-    e.target.elements.judge.value = '';
 
     this.state.coin.createChallenge(name, judge, time * 86400, {
         from: web3.eth.accounts[0],
         value: web3.toWei(value, 'ether')
       })
       .then((result) => {
+        e.target.elements.name.value = '';
+        e.target.elements.value.value = '';
+        e.target.elements.time.value = '';
+        e.target.elements.judge.value = '';
         console.log(result);
       })
       .catch(function(e) {
@@ -235,7 +208,7 @@ class App extends React.Component {
     return () => this.resolveChallenge(id, decision);
   }
 
-  resolveChallenge(id, decision) {
+  resolveChallenge = (id, decision) => {
     this.state.coin.resolveChallenge(id, decision, {
       from: web3.eth.accounts[0]
     })
@@ -247,7 +220,7 @@ class App extends React.Component {
     });
   }
 
-  render(){
+  render () {
     return (
         <div>
           <section className="hero is-success is-bold">
@@ -264,54 +237,7 @@ class App extends React.Component {
             <div className="container">
               <div className="columns">
                 <div className="column is-half box">
-                  <h4 className="title is-4">Create Challenge</h4>
-                  <hr/>
-                  <form onSubmit={this.createChallenge}>
-                    <div className="field">
-                      <label className="label" htmlFor="name">State your goal. Keep it short.</label>
-                      <div className="control">
-                        <input className="input" type="text" name="name"/>
-                      </div>
-                    </div>
-
-                    <label className="label" htmlFor="number">How much in ether? 0.1 is minimum.</label>
-                    <div className="field has-addons">
-                      <p className="control is-expanded">
-                        <input className="input" type="number" step="0.01" name="value"/>
-                      </p>
-                      <p className="control">
-                        <a className="button is-static">
-                          ether
-                        </a>
-                      </p>
-                    </div>
-
-                    <label className="label" htmlFor="judge">Who will resolve challenge? Ethereum address required.</label>
-                    <div className="field">
-                      <p className="control">
-                        <input className="input" type="text" name="judge"/>
-                      </p>
-                    </div>
-
-                    <label className="label" htmlFor="time">How long it will take in days?</label>
-                    <div className="field has-addons">
-                      <p className="control is-expanded">
-                        <input className="input" type="number" name="time"/>
-                      </p>
-                      <p className="control">
-                        <a className="button is-static">
-                          days
-                        </a>
-                      </p>
-                    </div>
-
-                    <hr/>
-                    <div className="field">
-                      <div className="control">
-                        <button className="button is-primary">Create Challenge</button>
-                      </div>
-                    </div>
-                  </form>
+                  <CreateChallenge createChallenge={this.createChallenge} />
                 </div>
               </div>
             </div>
@@ -357,8 +283,3 @@ class App extends React.Component {
     )
   }
 }
-
-ReactDOM.render(
-   <App />,
-   document.querySelector('#root')
-)
