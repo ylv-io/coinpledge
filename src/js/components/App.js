@@ -235,6 +235,15 @@ export default class App extends React.Component {
 
           <section className="section">
             <div className="container">
+              <p>
+                  Your bonus fund has <strong>{this.state.bonusFund}</strong> ether. <br/>
+                  Your account is <strong>{this.web3.eth.accounts[0]}</strong>.
+              </p>
+            </div>
+          </section>
+
+          <section className="section">
+            <div className="container">
               <div className="columns">
                 <div className="column is-half box">
                   <CreateChallenge createChallenge={this.createChallenge} />
@@ -267,15 +276,6 @@ export default class App extends React.Component {
                   </div>
                 )}
               </div>
-            </div>
-          </section>
-
-          <section className="section">
-            <div className="container">
-              <p>
-                  Your bonus is fund has <strong>{this.state.bonusFund}</strong> ether. <br/>
-                  Your account is <strong>{this.web3.eth.accounts[0]}</strong>.
-              </p>
             </div>
           </section>
 
