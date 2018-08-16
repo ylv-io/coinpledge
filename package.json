@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server",
+    "serve": "webpack-dev-server",
     "build": "webpack --mode production",
     "deploy": "gh-pages-deploy",
     "clean-source": "rimraf README.md src package.json package-lock.json truffle.js truffle-config.js contracts migrations build license dist webpack.config.js"
@@ -24,6 +24,7 @@
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "gh-pages-deploy": "0.4.2",
     "json-loader": "^0.5.7",
+    "live-server": "^1.2.0",
     "moment": "^2.22.2",
     "node-sass": "^4.9.3",
     "openzeppelin-solidity": "^1.11.0",

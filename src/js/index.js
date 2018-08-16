@@ -14,15 +14,19 @@ class Challenge extends React.Component {
   render() {
     return (
       <div className="card">
+        <header className="card-header ">
+          <p className={"card-header-title " + (this.props.challenge.resolved ? this.props.challenge.successed ? "has-background-success" : "has-background-danger" : "")}>
+            <span className={this.props.challenge.resolved ? "has-text-white" : ""}> { this.props.challenge.resolved ? this.props.challenge.successed ? "Win" : "Loss" : "In Progress" } </span>
+          </p>
+        </header>
         <div className="card-content">
           <p className="is-size-5">
-            I pledge to <strong className="is-size-4">"{this.props.challenge.name}({this.props.challenge.id})"</strong> before <strong>{moment.unix(this.props.challenge.startDate).add(this.props.challenge.time, 's').format("DD MMM YYYY")}</strong> by staking <strong>{this.props.challenge.value} ether</strong>.
+            I pledge to <strong className="is-size-4">"{this.props.challenge.name}"</strong> before <strong>{moment.unix(this.props.challenge.startDate).add(this.props.challenge.time, 's').format("DD MMM YYYY")}</strong> by staking <strong>{this.props.challenge.value} ether</strong>.
           </p>
         </div>
         <footer className="card-footer">
-          <a href="#" className="card-footer-item">Tweet</a>
-          <a href="#" className="card-footer-item">Facebook</a>
-          <a href="#" className="card-footer-item">Resolve</a>
+          { !this.props.challenge.resolved && <a href="#" className="card-footer-item has-text-success" onClick={this.props.handleWin}>Win</a>}
+          { !this.props.challenge.resolved && <a href="#" className="card-footer-item has-text-danger" onClick={this.props.handleLoss}>Loss</a>}
         </footer>
       </div>
     );
@@ -105,12 +109,17 @@ class App extends React.Component {
         const promises = result.map(((o) => instance.challenges.call(o.toNumber(), {
           from: web3.eth.accounts[0]
         })));
+
+        // push indexes down the chain
+        promises.push(result);
   
         return Promise.all(promises);
       })
       .then((result) => {
+        //pop indexes
+        const indexes = result.pop();
         // map all user's cases to objects
-        const cases = result.map((o, i) => this.arrayToChallenge(o, i));
+        const cases = result.map((o, i) => this.arrayToChallenge(o, indexes[i].toNumber()));
         console.log(`User cases:`);
         console.log(cases);
         this.setState((o) => {
@@ -222,17 +231,11 @@ class App extends React.Component {
       });
   }
 
-  resolveChallenge(e) {
-    e.preventDefault();
+  getHandleResolve(id, decision) {
+    return () => this.resolveChallenge(id, decision);
+  }
 
-    const id = e.target.elements.id.value.trim();
-    e.target.elements.id.value = '';
-
-    const decision = e.target.elements.decision.checked;
-    e.target.elements.decision.checked = false;
-
-    console.log(decision);
-
+  resolveChallenge(id, decision) {
     this.state.coin.resolveChallenge(id, decision, {
       from: web3.eth.accounts[0]
     })
@@ -242,7 +245,6 @@ class App extends React.Component {
     .catch(function(e) {
       console.log(e);
     });
-
   }
 
   render(){
@@ -272,25 +274,35 @@ class App extends React.Component {
                       </div>
                     </div>
 
-                    <div className="field">
-                      <label className="label" htmlFor="number">How much in ether? 0.1 is minimum.</label>
-                      <div className="control">
+                    <label className="label" htmlFor="number">How much in ether? 0.1 is minimum.</label>
+                    <div className="field has-addons">
+                      <p className="control is-expanded">
                         <input className="input" type="number" step="0.01" name="value"/>
-                      </div>
+                      </p>
+                      <p className="control">
+                        <a className="button is-static">
+                          ether
+                        </a>
+                      </p>
                     </div>
 
+                    <label className="label" htmlFor="judge">Who will resolve challenge? Ethereum address required.</label>
                     <div className="field">
-                      <label className="label" htmlFor="judge">Who will judge challenge? Ethereum address required.</label>
-                      <div className="control">
+                      <p className="control">
                         <input className="input" type="text" name="judge"/>
-                      </div>
+                      </p>
                     </div>
 
-                    <div className="field">
-                      <label className="label" htmlFor="time">How long it will take in days?</label>
-                      <div className="control">
+                    <label className="label" htmlFor="time">How long it will take in days?</label>
+                    <div className="field has-addons">
+                      <p className="control is-expanded">
                         <input className="input" type="number" name="time"/>
-                      </div>
+                      </p>
+                      <p className="control">
+                        <a className="button is-static">
+                          days
+                        </a>
+                      </p>
                     </div>
 
                     <hr/>
@@ -306,55 +318,38 @@ class App extends React.Component {
           </section>
           <section className="section">
             <div className="container">
-              <div className="columns">
-                <div className="column is-half box">
-                  <h4 className="title is-4">Resolve Challenge</h4>
-                  <hr/>
-                  <form onSubmit={this.resolveChallenge}>
-                    <div className="field">
-                      <label className="label" htmlFor="id">Which challenge?</label>
-                      <div className="control">
-                        <input className="input" type="number" name="id"/>
-                      </div>
-                    </div>
-                    
-                    <div className="field">
-                      <label className="checkbox">
-                        <input type="checkbox" value="check" name="decision"/> Is accomplished?
-                      </label>
-                    </div>
-                    <hr/>
-                    <div className="field">
-                      <button className="button">Resolve Challenge</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </section>
-          <section className="section">
-            <div className="container">
               <h4 className="title is-4">Your Challenges</h4>
               <hr/>
               { !this.state.challenges.length && <p className="title is-4">You don't have any challenges yet. Create one. You can do it!</p>}
               <div className="columns is-multiline">
                 {this.state.challenges.map((o) => 
                   <div className="column is-4" key={o.id}>
-                    <Challenge challenge={o} />
+                    <Challenge challenge={o} handleWin={this.getHandleResolve(o.id, true)} handleLoss={this.getHandleResolve(o.id, false)} />
                   </div>)}
               </div>
             </div>
           </section>
           <section className="section">
             <div className="container">
-              <h2 className="subtitle">Your Cases</h2>
-              {this.state.cases.map((o) => <Challenge challenge={o} key={o.id} />)}
+            <h4 className="title is-4">Your Cases</h4>
+            <hr/>
+            { !this.state.challenges.length && <p className="title is-4">You don't have any cases yet. Help someone!</p>}
+              <div className="columns is-multiline">
+                {this.state.cases.map((o) => 
+                  <div className="column is-4" key={o.id}>
+                    <Challenge challenge={o} handleWin={this.getHandleResolve(o.id, true)} handleLoss={this.getHandleResolve(o.id, false)} />
+                  </div>
+                )}
+              </div>
             </div>
           </section>
 
           <section className="section">
             <div className="container">
-              Your bonus fund has <strong>{this.state.bonusFund}</strong> ether
+              <p>
+                  Your bonus is fund has <strong>{this.state.bonusFund}</strong> ether. <br/>
+                  Your account is <strong>{this.web3.eth.accounts[0]}</strong>.
+              </p>
             </div>
           </section>
 

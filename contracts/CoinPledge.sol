@@ -121,12 +121,9 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
     address challenger = challengeToUser[challengeId];
 
     require(challenge.resolved == false, "Challenge already resolved.");
-    require(block.timestamp > (challenge.startDate + challenge.time), "It is not time yet to judge.");
 
     // if more time passed than endDate + daysToJudge, then challenger can resolve himself
-    if(block.timestamp > (challenge.startDate + challenge.time + daysToJudge))
-      require(challenge.judge == msg.sender || challenger == msg.sender, "You are not the judge for this challenge.");
-    else
+    if(block.timestamp < (challenge.startDate + challenge.time + daysToJudge))
       require(challenge.judge == msg.sender, "You are not the judge for this challenge.");
 
     // write decision

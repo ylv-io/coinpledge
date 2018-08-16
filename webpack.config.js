@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('path');
 
 module.exports = {
    entry: path.join(__dirname, 'src/js', 'index.js'), // Our frontend will be inside the src folder
@@ -22,5 +22,9 @@ module.exports = {
          test: /\.json$/, // To load the json files
          loader: 'json-loader'
       }]
-   }
+   },
+   devtool: 'cheap-module-eval-source-map',
+   devServer: {
+    contentBase: path.join(__dirname, 'dist')
+  }
 }
