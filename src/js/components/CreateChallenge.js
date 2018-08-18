@@ -26,10 +26,10 @@ export default class CreateChallenge extends React.Component {
             </p>
           </div>
 
-          <label className="label" htmlFor="judge">Who will resolve challenge? Ethereum address required.</label>
+          <label className="label" htmlFor="mentor">Who will resolve challenge? Ethereum address required.</label>
           <div className="field">
             <p className="control">
-              <input className="input" type="text" name="judge"/>
+              <input className="input" type="text" name="mentor"/>
             </p>
           </div>
 

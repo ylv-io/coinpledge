@@ -163,12 +163,12 @@ export default class App extends React.Component {
       id: id,
       name: array[0],
       value: web3.fromWei(array[1].toNumber(), 'ether'),
-      judge: array[2],
+      mentor: array[2],
       startDate: array[3].toNumber(),
       time: array[4].toNumber(),
       successed: array[5],
       resolved: array[6],
-      canResolve: this.account === array[2]
+      canResolve: this.account === array[2] && !array[6]
     }
   }
 
@@ -188,9 +188,9 @@ export default class App extends React.Component {
     const name = e.target.elements.name.value.trim();
     const value = e.target.elements.value.value.trim();
     const time = e.target.elements.time.value.trim();
-    const judge = e.target.elements.judge.value.trim();
+    const mentor = e.target.elements.mentor.value.trim();
 
-    this.state.coin.createChallenge(name, judge, time * 86400, {
+    this.state.coin.createChallenge(name, mentor, time * 86400, {
         from: web3.eth.accounts[0],
         value: web3.toWei(value, 'ether')
       })
@@ -198,7 +198,7 @@ export default class App extends React.Component {
         e.target.elements.name.value = '';
         e.target.elements.value.value = '';
         e.target.elements.time.value = '';
-        e.target.elements.judge.value = '';
+        e.target.elements.mentor.value = '';
         console.log(result);
       })
       .catch(function(e) {
