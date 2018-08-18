@@ -24,7 +24,8 @@ export default class App extends React.Component {
 
     if(typeof web3 != 'undefined') {
         console.log("Using web3 detected from external source like Metamask")
-        this.web3 = new Web3(web3.currentProvider)
+        this.web3 = new Web3(web3.currentProvider);
+        this.account = this.web3.eth.accounts[0];
     } else {
         console.log("No web3 detected.");
     }
@@ -45,8 +46,8 @@ export default class App extends React.Component {
   getBonusFund = () => {
     const coin = this.state.coin;
     if(coin) {
-      return coin.getBonusFund.call(this.web3.eth.accounts[0], {
-        from: this.web3.eth.accounts[0]
+      return coin.getBonusFund.call(this.account, {
+        from: this.account
       })
       .then((result) => {
         const bonusFund = web3.fromWei(result.toNumber(), 'ether');
@@ -166,7 +167,8 @@ export default class App extends React.Component {
       startDate: array[3].toNumber(),
       time: array[4].toNumber(),
       successed: array[5],
-      resolved: array[6]
+      resolved: array[6],
+      canResolve: this.account === array[2]
     }
   }
 
@@ -237,7 +239,7 @@ export default class App extends React.Component {
             <div className="container">
               <p>
                   Your bonus fund has <strong>{this.state.bonusFund}</strong> ether. <br/>
-                  Your account is <strong>{this.web3.eth.accounts[0]}</strong>.
+                  Your account is <strong>{this.account}</strong>.
               </p>
             </div>
           </section>

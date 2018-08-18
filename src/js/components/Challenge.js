@@ -16,8 +16,12 @@ export default class Challenge extends React.Component {
           </p>
         </div>
         <footer className="card-footer">
-          { !this.props.challenge.resolved && <a href="#" className="card-footer-item has-text-success" onClick={this.props.handleWin}>Win</a>}
-          { !this.props.challenge.resolved && <a href="#" className="card-footer-item has-text-danger" onClick={this.props.handleLoss}>Loss</a>}
+          { this.props.challenge.canResolve && 
+              <a href="#" className="card-footer-item has-text-success" onClick={this.props.handleWin}>Win</a>
+          }
+          { this.props.challenge.canResolve && 
+            <a href="#" className="card-footer-item has-text-danger" onClick={this.props.handleLoss}>Loss</a>
+          }
         </footer>
       </div>
     );
