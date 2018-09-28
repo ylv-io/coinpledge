@@ -163,12 +163,15 @@ export default class App extends React.Component {
       id: id,
       name: array[0],
       value: web3.fromWei(array[1].toNumber(), 'ether'),
+      user: this.account,
       mentor: array[2],
       startDate: array[3].toNumber(),
       time: array[4].toNumber(),
       successed: array[5],
       resolved: array[6],
-      canResolve: this.account === array[2] && !array[6]
+      canResolve: this.account === array[2] && !array[6],
+      isMentor: this.account == array[2],
+
     }
   }
 
@@ -229,7 +232,7 @@ export default class App extends React.Component {
             <div className="hero-body">
               <div className="container">
                 <h1 className="title">CoinPledge</h1>
-                <h4 className="subtitle">Archive your goals and connect with people in a meaningful way</h4>
+                <h4 className="subtitle">Reach your goals and connect with people in a meaningful way</h4>
                 <hr/>
               </div>
             </div>
@@ -239,7 +242,7 @@ export default class App extends React.Component {
             <div className="container">
               <p>
                   Your bonus fund has <strong>{this.state.bonusFund}</strong> ether. <br/>
-                  Your account is <strong>{this.account}</strong>.
+                  Your account is <a target="_blank" href={`https://ropsten.etherscan.io/address/${this.account}`}>{this.account.substring(0, 10)}</a>.
               </p>
             </div>
           </section>

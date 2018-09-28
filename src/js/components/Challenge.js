@@ -14,6 +14,7 @@ export default class Challenge extends React.Component {
           <p className="is-size-5">
             I pledge to <strong className="is-size-4">"{this.props.challenge.name}"</strong> before <strong>{moment.unix(this.props.challenge.startDate).add(this.props.challenge.time, 's').format("DD MMM YYYY")}</strong> by staking <strong>{this.props.challenge.value} ether</strong>.
           </p>
+          <small>by <a target="_blank" href={`https://ropsten.etherscan.io/address/${this.props.challenge.mentor}`}>{this.props.challenge.mentor.substring(0, 10)}</a></small>
         </div>
         <footer className="card-footer">
           { this.props.challenge.canResolve && 

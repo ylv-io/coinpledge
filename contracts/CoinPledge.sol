@@ -5,7 +5,7 @@
 // Twitter: https://twitter.com/ylv_io
 
 // Coin Pledge
-// Archive your goals and have fun with friends. Powered by security of smart contracts.
+// Achieve your goals and have fun with friends. Powered by security of smart contracts.
 
 
 // Proofs:
@@ -149,7 +149,7 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
       }
     }
     else 
-        // if failed to archive goal, put money to bonus fund
+        // if failed to achieve goal, put money to bonus fund
         bonusFund[challenger] += remainingValue;
 
     // pay back to the challenger
