@@ -1,9 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import logo from '../../img/logo.png'
 
 
-const Header = () => (
+const Header = (props) => (
   <header>
     <nav className="navbar is-success" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
@@ -24,9 +26,19 @@ const Header = () => (
           <NavLink className="navbar-item" to="/mentor" activeClassName="is-active" exact={true}>Mentor</NavLink>
           <NavLink className="navbar-item" to="/FAQ" activeClassName="is-active" exact={true}>FAQ</NavLink>
         </div>
+        <div className="navbar-end">
+          <a className="navbar-item" target="_blank" href={`https://ropsten.etherscan.io/address/${props.account}`}>{props.account.substring(0, 10)}</a>
+          <div className="navbar-item">{props.bonusFund} ether</div>
+        </div>
       </div>
     </nav>
   </header>
 );
 
-export default Header;
+const mapStateToProps = (state, props) => {
+  return {
+    ...state.blockchain
+  }
+};
+
+export default connect(mapStateToProps)(Header);

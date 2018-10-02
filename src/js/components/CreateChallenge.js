@@ -1,6 +1,7 @@
 import React from 'react'
 import { addExpense } from '../actions/challenges';
 import { connect } from 'react-redux';
+import { createChallenge } from '../services/web3/web3';
 
 class CreateChallenge extends React.Component {
   constructor(props) {
@@ -15,22 +16,21 @@ class CreateChallenge extends React.Component {
     const time = e.target.elements.time.value.trim();
     const mentor = e.target.elements.mentor.value.trim();
 
-    // this.state.coin.createChallenge(name, mentor, time * 86400, {
-    //     from: web3.eth.accounts[0],
-    //     value: web3.toWei(value, 'ether')
-    //   })
-    //   .then((result) => {
-    //     e.target.elements.name.value = '';
-    //     e.target.elements.value.value = '';
-    //     e.target.elements.time.value = '';
-    //     e.target.elements.mentor.value = '';
-    //     console.log(result);
-    //   })
-    //   .catch(function(e) {
-    //     console.log(e);
-    //   });
+    const target = e.target;
 
-    this.props.dispatch(addExpense({name, value, time, mentor}));
+    createChallenge(name, value, time, mentor)
+    .then((result) => {
+      target.elements.name.value = '';
+      target.elements.value.value = '';
+      target.elements.time.value = '';
+      target.elements.mentor.value = '';
+    })
+    .catch(function(e) {
+      
+    });
+
+    // this.props.dispatch(addExpense({name, value, time, mentor}));
+    // this.props.history.push('/challenges');
   };
   render() {
     return (

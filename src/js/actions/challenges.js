@@ -15,3 +15,9 @@ export const addExpense = (
     mentor
   }
 });
+
+
+export const addOrUpdateChallenges = (challenges = []) => ({
+  type: 'ADD_OR_UPDATE_CHALLENGES',
+  challenges
+});

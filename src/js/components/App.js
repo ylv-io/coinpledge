@@ -185,58 +185,9 @@ export default class App extends React.Component {
     this.getAllCases();
   }
 
-  createChallenge = (e) => {
-    e.preventDefault();
-
-    const name = e.target.elements.name.value.trim();
-    const value = e.target.elements.value.value.trim();
-    const time = e.target.elements.time.value.trim();
-    const mentor = e.target.elements.mentor.value.trim();
-
-    this.state.coin.createChallenge(name, mentor, time * 86400, {
-        from: web3.eth.accounts[0],
-        value: web3.toWei(value, 'ether')
-      })
-      .then((result) => {
-        e.target.elements.name.value = '';
-        e.target.elements.value.value = '';
-        e.target.elements.time.value = '';
-        e.target.elements.mentor.value = '';
-        console.log(result);
-      })
-      .catch(function(e) {
-        console.log(e);
-      });
-  }
-
-  getHandleResolve(id, decision) {
-    return () => this.resolveChallenge(id, decision);
-  }
-
-  resolveChallenge = (id, decision) => {
-    this.state.coin.resolveChallenge(id, decision, {
-      from: web3.eth.accounts[0]
-    })
-    .then((result) => {
-      console.log(result);
-    })
-    .catch(function(e) {
-      console.log(e);
-    });
-  }
-
   render () {
     return (
         <div>
-          <section className="hero is-success is-bold">
-            <div className="hero-body">
-              <div className="container">
-                <h1 className="title">CoinPledge</h1>
-                <h4 className="subtitle">Reach your goals and connect with people in a meaningful way</h4>
-                <hr/>
-              </div>
-            </div>
-          </section>
 
           <section className="section">
             <div className="container">
@@ -256,19 +207,7 @@ export default class App extends React.Component {
               </div>
             </div>
           </section>
-          <section className="section">
-            <div className="container">
-              <h4 className="title is-4">Your Challenges</h4>
-              <hr/>
-              { !this.state.challenges.length && <p className="title is-4">You don't have any challenges yet. Create one. You can do it!</p>}
-              <div className="columns is-multiline">
-                {this.state.challenges.map((o) => 
-                  <div className="column is-4" key={o.id}>
-                    <Challenge challenge={o} handleWin={this.getHandleResolve(o.id, true)} handleLoss={this.getHandleResolve(o.id, false)} />
-                  </div>)}
-              </div>
-            </div>
-          </section>
+          
           <section className="section">
             <div className="container">
             <h4 className="title is-4">Your Cases</h4>
