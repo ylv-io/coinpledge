@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "webpack-dev-server",
-    "build": "webpack --mode production",
+    "build": "webpack -p",
     "deploy": "gh-pages-deploy",
     "clean-source": "rimraf README.md src package.json package-lock.json truffle.js truffle-config.js contracts migrations build license dist webpack.config.js"
   },
@@ -24,6 +24,7 @@
     "css-loader": "^0.28.11",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^2.0.0",
+    "formik": "^1.3.1",
     "gh-pages-deploy": "0.4.2",
     "install": "^0.12.1",
     "json-loader": "^0.5.7",
