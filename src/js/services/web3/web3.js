@@ -2,42 +2,37 @@ import Contract from 'truffle-contract';
 import CoinPledgeContract from '../../../../build/contracts/CoinPledge.json';
 import Web3 from 'web3';
 
+let web3js;
+
 export const getWeb3js = () => {
-  if(typeof web3 != 'undefined') {
+  if(web3js === undefined && typeof web3 != 'undefined') {
     // console.log("Using web3 detected from external source like Metamask")
-    return new Web3(web3.currentProvider);
+    web3js = new Web3(web3.currentProvider);
   }
-  return null;
+  return web3js;
 }
+
+let coinContractInstance;
 
 export const getCoinContractPromise = () => {
-  // Using truffle-contract we create the coinpledge object.
-  const coinContract = Contract(CoinPledgeContract);
-  coinContract.setProvider(getWeb3js().currentProvider);
+  if(coinContractInstance === undefined)
+  {
+    // Using truffle-contract we create the coinpledge object.
+    const coinContract = Contract(CoinPledgeContract);
+    coinContract.setProvider(getWeb3js().currentProvider);
 
-  // Find contract instance on blockchain and bind
-  return coinContract.deployed();
-
-}
-
-export const createChallenge = (name, value, time, mentor) => {
-
-  return getCoinContractPromise().then((instance) => {
-    const web3js = getWeb3js();
-    const account = web3js.eth.accounts[0];
-
-    return instance.createChallenge(name, mentor, time * 86400, {
-      from: account,
-      value: web3js.toWei(value, 'ether')
-    })
+    // Find contract instance on blockchain and bind
+    return coinContract.deployed()
     .then((result) => {
-      console.log(result);
+      coinContractInstance = result;
       return result;
     })
     .catch(function(e) {
       console.log(e);
       throw e;
     });
-
+  }
+  return new Promise(function(resolve, reject) {
+    resolve(coinContractInstance);
   });
 }

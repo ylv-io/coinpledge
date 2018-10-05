@@ -1,7 +1,7 @@
 import React from 'react'
 import { addExpense } from '../actions/challenges';
 import { connect } from 'react-redux';
-import { createChallenge } from '../services/web3/web3';
+import { createChallenge } from '../services/web3/challenge';
 
 class CreateChallenge extends React.Component {
   constructor(props) {

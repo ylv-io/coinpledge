@@ -27,8 +27,11 @@ const Header = (props) => (
           <NavLink className="navbar-item" to="/FAQ" activeClassName="is-active" exact={true}>FAQ</NavLink>
         </div>
         <div className="navbar-end">
-          <a className="navbar-item" target="_blank" href={`https://ropsten.etherscan.io/address/${props.account}`}>{props.account.substring(0, 10)}</a>
-          <div className="navbar-item">{props.bonusFund} ether</div>
+        { props.account ? 
+          <a className="navbar-item" target="_blank" href={`https://ropsten.etherscan.io/address/${props.account}`}>{props.account.substring(0, 10)}</a> :
+          <div className="navbar-item">Login at Metamask</div>
+        }
+        { props.account && <div className="navbar-item">{props.bonusFund} ether</div>}
         </div>
       </div>
     </nav>
@@ -41,4 +44,4 @@ const mapStateToProps = (state, props) => {
   }
 };
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, null, null, { pure: false })(Header);

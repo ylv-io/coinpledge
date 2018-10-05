@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 
 import './../css/index.css';
 
-import App from './components/App';
 import configureStore from './store/configureStore';
 
 import { setAccount, setBonusFund } from './actions/web3';

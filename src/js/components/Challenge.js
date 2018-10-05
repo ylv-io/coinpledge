@@ -1,5 +1,7 @@
 import React from 'react'
 import moment from 'moment'
+import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom';
+import { shortAddress } from '../utils/web3';
 
 export default class Challenge extends React.Component {
   render() {
@@ -14,7 +16,8 @@ export default class Challenge extends React.Component {
           <p className="is-size-5">
             I pledge to <strong className="is-size-4">"{this.props.challenge.name}"</strong> before <strong>{moment.unix(this.props.challenge.startDate).add(this.props.challenge.time, 's').format("DD MMM YYYY")}</strong> by staking <strong>{this.props.challenge.value} ether</strong>.
           </p>
-          <small>by <a target="_blank" href={`https://ropsten.etherscan.io/address/${this.props.challenge.mentor}`}>{this.props.challenge.mentor.substring(0, 10)}</a></small>
+          <small>by <Link to={`/${this.props.challenge.user}`}>{shortAddress(this.props.challenge.user)}</Link>/<Link to={`/${this.props.challenge.mentor}`}>{shortAddress(this.props.challenge.mentor)}</Link>
+          </small>
         </div>
         <footer className="card-footer">
           { this.props.challenge.canResolve && 

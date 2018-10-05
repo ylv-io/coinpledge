@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Challenge from './Challenge';
 import { resolveChallenge } from '../services/web3/web3';
 
-class Challenges extends React.Component {
+class Mentor extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -15,18 +15,18 @@ class Challenges extends React.Component {
     return(
       <section className="section">
         <div className="container">
-          <h4 className="title is-4">Your Challenges</h4>
+          <h4 className="title is-4">Mentor</h4>
           <hr/>
-          { !this.props.challenges.length && <p className="title is-4">You don't have any challenges yet. Create one. You can do it!</p>}
+          { !this.props.mentor.length && <p className="title is-4">You don't have any cases yet. Help someone!</p>}
           <div className="columns is-multiline">
-            {this.props.challenges.map((o) => 
+            {this.props.mentor.map((o) => 
               <div className="column is-4" key={o.id}>
                 <Challenge 
-                  challenge={o} 
-                  handleWin={this.getHandleResolve(o.id, true)} 
-                  handleLoss={this.getHandleResolve(o.id, false)} 
-                  />
-              </div>)}
+                challenge={o} 
+                handleWin={this.getHandleResolve(o.id, true)} 
+                handleLoss={this.getHandleResolve(o.id, false)} />
+              </div>
+            )}
           </div>
 
           {!!this.props.history.length && (
@@ -43,7 +43,7 @@ class Challenges extends React.Component {
               </div>
             </div>
           )}
-
+          
         </div>
       </section>
     );
@@ -52,9 +52,9 @@ class Challenges extends React.Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    challenges: state.challenges.filter(o => !o.resolved),
-    history: state.challenges.filter(o => o.resolved)
+    mentor: state.mentor.filter(o => !o.resolved),
+    history: state.mentor.filter(o => o.resolved)
   }
 };
 
-export default connect(mapStateToProps)(Challenges);
+export default connect(mapStateToProps)(Mentor);

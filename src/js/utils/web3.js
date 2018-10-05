@@ -14,3 +14,7 @@ export const arrayToChallenge = (array, id, account) => {
     isMentor: account == array[2],
   }
 }
+
+export const shortAddress = (address) => {
+  return address.substring(0, 10);
+}
