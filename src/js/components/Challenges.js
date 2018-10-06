@@ -1,14 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import Challenge from './Challenge';
-import { resolveChallenge } from '../services/web3/web3';
+import { resolveChallenge } from '../services/web3/challenge';
 
 class Challenges extends React.Component {
   constructor(props) {
     super(props);
   }
   getHandleResolve(id, decision) {
-    return () => resolveChallenge(id, decision);
+    return (e) => {
+      e.preventDefault();
+      resolveChallenge(id, decision);
+    };
   }
 
   render() {

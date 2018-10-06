@@ -166,15 +166,19 @@ const CreateChallengeWrappedForm = withFormik({
     return errors;
   },
 
-  handleSubmit: (values, { setSubmitting }) => {
+  handleSubmit: (values, { resetForm, setSubmitting, setStatus }) => {
 
     createChallenge(values.name, values.value, values.time, values.mentor)
       .then((result) => {
+        console.log('success');
       })
       .catch(function(e) {
         
       });
     setSubmitting(false);
+    resetForm();
+    console.log('success');
+    setStatus({ success: true });
   },
 
   displayName: 'CreateChallengeForm', // helps with React DevTools
@@ -186,9 +190,20 @@ class CreateChallenge extends React.Component {
     super(props);
 
     this.state = {
-      isSuccessModelOpen: true
+      isSuccessModalOpen: false
     }
 
+  }
+  componentDidUpdate(prevProps) {
+    console.log('prevProps');
+    const { success: isSuccess = false } = this.props.status || {};
+    if (isSuccess) {
+      this.setState(() => ({isSuccessModalOpen: true}));
+    }
+  }
+
+  closeIsSuccessModal = () => {
+    this.setState(() => ({ isSuccessModalOpen: false }));
   }
   render() {
     return (
@@ -201,27 +216,27 @@ class CreateChallenge extends React.Component {
                 <hr/>
 
                 <CreateChallengeWrappedForm />
-              
+
              </div>
             </div>
           </div>
         </div>
 
         <div className={
-          this.state.isSuccessModelOpen ?
+          this.state.isSuccessModalOpen ?
             'modal is-active' :
             'modal'
         }>
           <div 
             className="modal-background"
-            onClick={() => {this.setState(() => ({ isSuccessModelOpen: false }))}}
+            onClick={this.closeIsSuccessModal}
           ></div>
           <div className="modal-content">
             <article className="message is-success">
               <div className="message-header">
                 <p>Success</p>
                 <button 
-                  onClick={() => {this.setState(() => ({ isSuccessModelOpen: false }))}}
+                  onClick={this.closeIsSuccessModal}
                   className="delete" 
                   aria-label="delete"
                 />
@@ -232,7 +247,7 @@ class CreateChallenge extends React.Component {
             </article>
           </div>
           <button 
-            onClick={() => {this.setState(() => ({ isSuccessModelOpen: false }))}}
+            onClick={this.closeIsSuccessModal}
             className="modal-close is-large" 
             aria-label="close"
           />
