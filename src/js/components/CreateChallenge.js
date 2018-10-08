@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import { createChallenge } from '../services/web3/challenge';
 import { withFormik } from 'formik';
 
+import moment from 'moment';
+import { SingleDatePicker } from 'react-dates';
+import 'react-dates/lib/css/_datepicker.css';
+
 const CreateChallengeForm = props => {
   const {
     values,
@@ -14,12 +18,14 @@ const CreateChallengeForm = props => {
     handleBlur,
     handleSubmit,
     handleReset,
+    setFieldValue,
+    setFieldTouched,
     dirty,
   } = props;
   return (
     <form onSubmit={handleSubmit}>
       <div className="field">
-        <label className="label" htmlFor="name">State your goal. Keep it short.</label>
+        <label className="label" htmlFor="name">Goal</label>
         <div className="control">
           <input 
             id="name"
@@ -43,7 +49,7 @@ const CreateChallengeForm = props => {
       </div>
 
       <div className="field">
-        <label className="label" htmlFor="number">How much in ether? 0.1 is minimum.</label>
+        <label className="label" htmlFor="number">Amount</label>
           <div className="field has-addons">
             <p className="control is-expanded">
               <input 
@@ -75,7 +81,7 @@ const CreateChallengeForm = props => {
       </div>
 
       <div className="field">
-        <label className="label" htmlFor="mentor">Who will resolve challenge? Ethereum address required.</label>
+        <label className="label" htmlFor="mentor">Mentor</label>
         <div className="field">
           <p className="control">
             <input 
@@ -99,35 +105,13 @@ const CreateChallengeForm = props => {
         </div>
       </div>
 
-      <div className="field">
-        <label className="label" htmlFor="time">How long it will take in days?</label>
-        <div className="field has-addons">
-          <p className="control is-expanded">
-            <input 
-              type="number" 
-              name="time"
-              value={values.time}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className={
-                errors.time && touched.time ? (
-                  'input is-danger'
-                ) : (
-                  'input'
-                )
-              }
-            />
-          </p>
-          <p className="control">
-            <a className="button is-static">
-              days
-            </a>
-          </p>
-        </div>
-        {errors.time && touched.time && (
-          <div className="has-text-danger">{errors.time}</div>
-        )}
-      </div>
+      <DatePicker
+        value={values.time}
+        onChange={setFieldValue}
+        onBlur={setFieldTouched}
+        error={errors.time}
+        touched={touched.time}
+      />
 
       <hr/>
       <div className="field">
@@ -145,7 +129,7 @@ const CreateChallengeWrappedForm = withFormik({
     name: '',
     value: '',
     mentor: '',
-    time: ''
+    time: moment().add(7, 'days')
   }),
 
   // Custom sync validation
@@ -154,9 +138,13 @@ const CreateChallengeWrappedForm = withFormik({
     if(!values.name) {
       errors.name = 'Required';
     }
+
     if(!values.value || values.value <= 0) {
       errors.value = 'Required';
     }
+    else if(values.value < 0.1)
+      errors.value = 'Mininum amount is 0.1 eth';
+    
     if(!values.mentor) {
       errors.mentor = 'Required';
     }
@@ -168,21 +156,59 @@ const CreateChallengeWrappedForm = withFormik({
 
   handleSubmit: (values, { resetForm, setSubmitting, setStatus }) => {
 
-    createChallenge(values.name, values.value, values.time, values.mentor)
+    createChallenge(values.name, values.value, values.time.unix(), values.mentor)
       .then((result) => {
-        console.log('success');
       })
       .catch(function(e) {
         
       });
     setSubmitting(false);
     resetForm();
-    console.log('success');
     setStatus({ success: true });
   },
 
   displayName: 'CreateChallengeForm', // helps with React DevTools
 })(CreateChallengeForm);
+
+class DatePicker extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      calendarFocused: false
+    };
+  }
+  
+  handleChange = value => {
+    this.props.onChange('time', value);
+  };
+  onFocusChange = ({focused}) => {
+    this.setState(() => ({calendarFocused: focused}));
+    if(!focused)
+      this.props.onBlur('time', true);
+  };
+
+  render() {
+    return (
+      <div className="field">
+        <label className="label" htmlFor="time">Deadline</label>
+        <div className="control">
+          <SingleDatePicker 
+            date={this.props.value}
+            onDateChange={this.handleChange}
+            focused={this.state.calendarFocused}
+            onFocusChange={this.onFocusChange}
+            numberOfMonths={1}
+          />
+        </div>
+        {!!this.props.error &&
+          this.props.touched && (
+            <div className="has-text-danger">{this.props.error}</div>
+          )}
+      </div>
+    );
+  }
+}
 
 
 class CreateChallenge extends React.Component {

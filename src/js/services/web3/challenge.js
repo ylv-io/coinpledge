@@ -1,5 +1,7 @@
 import { getWeb3js, getCoinContractPromise } from './web3';
 import { arrayToChallenge } from '../../utils/web3';
+import { isMoment } from 'moment';
+import moment from 'moment';
 
 export const createChallenge = (name, value, time, mentor) => {
 
@@ -7,7 +9,7 @@ export const createChallenge = (name, value, time, mentor) => {
     const web3js = getWeb3js();
     const account = web3js.eth.accounts[0];
 
-    return instance.createChallenge(name, mentor, time * 86400, {
+    return instance.createChallenge(name, mentor, time - moment().unix(), {
       from: account,
       value: web3js.toWei(value, 'ether')
     })

@@ -9,6 +9,7 @@ import Challenges from '../components/Challenges';
 import Mentor from '../components/Mentor';
 import User from '../components/User';
 import NotFoundPage from '../components/NotFoundPage';
+import FAQ from '../components/FAQ';
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -19,6 +20,7 @@ const AppRouter = () => (
         <Route path="/create" component={CreateChallenge} exact={true} />
         <Route path="/challenges" component={Challenges} exact={true} />
         <Route path="/mentor" component={Mentor} exact={true} />
+        <Route path="/faq" component={FAQ} exact={true} />
         <Route path="/404/" component={NotFoundPage}></Route>
         <Route path="/:id" component={User} exact={true} />
         <Redirect from='*' to='/404' />
