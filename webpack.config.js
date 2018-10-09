@@ -13,10 +13,7 @@ module.exports = {
       }, {
          test: /\.jsx?$/, // To load the js and jsx files
          loader: 'babel-loader',
-         exclude: /node_modules/,
-         query: {
-            presets: ['env', 'es2015', 'react', 'stage-2']
-         }
+         exclude: /node_modules/
       }, {
          test: /\.json$/, // To load the json files
          loader: 'json-loader'

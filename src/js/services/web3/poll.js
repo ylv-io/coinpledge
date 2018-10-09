@@ -17,14 +17,14 @@ export default (store) => {
   updateFromWeb3(store);
 }
 
-const updateFromWeb3 = (store) => {
-  getChallenges(account).then(result => {
-    store.dispatch(addOrUpdateChallenges(result));
-  });
-  getBonusFund(account).then(result => {
-    store.dispatch(setBonusFund(result));
-  });
-  getMentor(account).then(result => {
-    store.dispatch(addOrUpdateMentor(result));
-  });
+const updateFromWeb3 = async (store) => {
+  let result = await getChallenges(account);
+  store.dispatch(addOrUpdateChallenges(result));
+
+  result = await getBonusFund(account);
+  store.dispatch(setBonusFund(result));
+
+  result = await getMentor(account);
+  store.dispatch(addOrUpdateMentor(result));
+
 }

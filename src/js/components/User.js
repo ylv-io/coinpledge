@@ -18,7 +18,7 @@ class User extends React.Component {
     }
   }
 
-  updateStateFromWeb3() {
+  async updateStateFromWeb3() {
 
     const web3js = getWeb3js();
     const isAddress = web3js.isAddress(this.props.match.params.id);
@@ -28,13 +28,11 @@ class User extends React.Component {
       return;
     }
 
-    getChallenges(this.props.match.params.id).then(result => {
-      this.setState((o) => ({challenges: result}));
-    });
+    let result = await getChallenges(this.props.match.params.id);
+    this.setState((o) => ({challenges: result}));
 
-    getMentor(this.props.match.params.id).then(result => {
-      this.setState((o) => ({mentor: result}));
-    });
+    result = await getMentor(this.props.match.params.id);
+    this.setState((o) => ({mentor: result}));
 
   }
 

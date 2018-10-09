@@ -1,6 +1,7 @@
 import Contract from 'truffle-contract';
 import CoinPledgeContract from '../../../../build/contracts/CoinPledge.json';
 import Web3 from 'web3';
+import { wait } from '../../utils/promise';
 
 let web3js;
 
@@ -14,7 +15,7 @@ export const getWeb3js = () => {
 
 let coinContractInstance;
 
-export const getCoinContractPromise = () => {
+export const getCoinContractPromise = async () => {
   if(coinContractInstance === undefined)
   {
     // Using truffle-contract we create the coinpledge object.
@@ -22,17 +23,26 @@ export const getCoinContractPromise = () => {
     coinContract.setProvider(getWeb3js().currentProvider);
 
     // Find contract instance on blockchain and bind
-    return coinContract.deployed()
-    .then((result) => {
-      coinContractInstance = result;
-      return result;
-    })
-    .catch(function(e) {
-      console.log(e);
-      throw e;
-    });
+    coinContractInstance = await coinContract.deployed();
   }
+  return coinContractInstance;
+}
+
+export const getTransactionReceipt = async (hash) => {
+  let receipt = null;
+  while(receipt === null)
+  {
+    receipt = await getTransactionReceiptPromise(hash);
+    await wait(1000);
+  }
+  return receipt;
+}
+
+function getTransactionReceiptPromise(hash) {
   return new Promise(function(resolve, reject) {
-    resolve(coinContractInstance);
+      web3js.eth.getTransactionReceipt(hash, function(err, data) {
+          if (err !== null) reject(err);
+          else resolve(data);
+      });
   });
 }

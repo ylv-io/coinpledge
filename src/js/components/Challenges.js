@@ -2,15 +2,17 @@ import React from 'react'
 import { connect } from 'react-redux';
 import Challenge from './Challenge';
 import { resolveChallenge } from '../services/web3/challenge';
+import { updateChallenge } from '../actions/challenges';
 
 class Challenges extends React.Component {
   constructor(props) {
     super(props);
   }
-  getHandleResolve(id, decision) {
-    return (e) => {
+  getHandleResolve = (challenge, decision) => {
+    return async (e) => {
       e.preventDefault();
-      resolveChallenge(id, decision);
+      const hash = await resolveChallenge(challenge.id, decision);
+      this.props.dispatch(updateChallenge(challenge.id, { isSubmitting: true}));
     };
   }
 
@@ -26,8 +28,8 @@ class Challenges extends React.Component {
               <div className="column is-4" key={o.id}>
                 <Challenge 
                   challenge={o} 
-                  handleWin={this.getHandleResolve(o.id, true)} 
-                  handleLoss={this.getHandleResolve(o.id, false)} 
+                  handleWin={this.getHandleResolve(o, true)} 
+                  handleLoss={this.getHandleResolve(o, false)} 
                   />
               </div>)}
           </div>
