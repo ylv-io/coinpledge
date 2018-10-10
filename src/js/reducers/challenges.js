@@ -16,8 +16,8 @@ export default (state = challengesReducerDefaultState, action) => {
       });
     case 'ADD_OR_UPDATE_CHALLENGES':
       return action.challenges.map(challenge => ({
-        ...challenge,
         ...(state.find(i => i.id === challenge.id) || {}),
+        ...challenge
       }));
     default:
       return state;

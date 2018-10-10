@@ -17,7 +17,7 @@ const AppRouter = () => (
       <Header />
       <Switch>
         <Route path="/" component={Landing} exact={true} />
-        <Route path="/create" component={CreateChallenge} exact={true} />
+        <Route path="/new" component={CreateChallenge} exact={true} />
         <Route path="/challenges" component={Challenges} exact={true} />
         <Route path="/mentor" component={Mentor} exact={true} />
         <Route path="/faq" component={FAQ} exact={true} />

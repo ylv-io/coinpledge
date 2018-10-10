@@ -114,7 +114,7 @@ const CreateChallengeForm = props => {
       <hr/>
       <div className="field">
         <div className="control">
-          <button type="submit" disabled={isSubmitting} className="button is-primary">Create Challenge</button>
+          <button type="submit" disabled={isSubmitting} className="button is-primary is-fullwidth">Do It</button>
         </div>
       </div>
 

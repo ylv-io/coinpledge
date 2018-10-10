@@ -43,7 +43,7 @@ class CreateChallenge extends React.Component {
           <div className="columns">
             <div className="column is-half">
               <div className="box">
-                <h4 className="title is-4">Create Challenge</h4>
+                <h4 className="title is-4">New Challenge</h4>
                 <hr/>
                 <CreateChallengeForm handleSubmit={this.handleSubmit} />
              </div>
