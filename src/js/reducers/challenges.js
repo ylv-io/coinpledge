@@ -7,7 +7,7 @@ export default (state = challengesReducerDefaultState, action) => {
       return [...state, action.challenge];
     case 'UPDATE_CHALLENGE':
       return state.map((challenge) => {
-        if (challenge.id === action.id) 
+        if (challenge.id === action.id)
           return {
             ...challenge,
             ...action.updates
