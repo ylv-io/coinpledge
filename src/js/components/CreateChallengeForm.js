@@ -23,6 +23,9 @@ const CreateChallengeForm = props => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="field">
+        <div className="notification">
+          Goal has to be specific. Good example "100 pull ups", bad example "be more healthy". Keep it short.
+        </div>
         <label className="label" htmlFor="name">Goal</label>
         <div className="control">
           <input 
@@ -45,8 +48,13 @@ const CreateChallengeForm = props => {
             )}
         </div>
       </div>
-
+      
+      <hr/>
+      
       <div className="field">
+        <div className="notification">
+          Amount to stake. 7 cappuccinos is a good stake.
+        </div>
         <label className="label" htmlFor="number">Amount</label>
           <div className="field has-addons">
             <p className="control is-expanded">
@@ -78,7 +86,12 @@ const CreateChallengeForm = props => {
           )}
       </div>
 
+      <hr/>
+
       <div className="field">
+        <div className="notification">
+        Ethereum address. A person to resolve your challenge and keep you accountable.
+        </div>
         <label className="label" htmlFor="mentor">Mentor</label>
         <div className="field">
           <p className="control">
@@ -102,6 +115,8 @@ const CreateChallengeForm = props => {
           )}
         </div>
       </div>
+
+      <hr/>
 
       <DatePicker
         value={values.time}
@@ -143,6 +158,9 @@ class DatePicker extends React.Component {
   render() {
     return (
       <div className="field">
+        <div className="notification">
+          A date before which your goal has to be reached.
+        </div>
         <label className="label" htmlFor="time">Deadline</label>
         <div className="control">
           <SingleDatePicker 

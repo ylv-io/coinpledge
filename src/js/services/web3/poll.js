@@ -22,23 +22,6 @@ export default async (store) => {
   const newChallengeEvent = contract.NewChallenge();
   newChallengeEvent.watch(function(error, result) {
 
-    // address: "0x97babd178e227d99c225db960289ced8899b5e52"
-    // args:
-    //   challengeId: BigNumber {s: 1, e: 1, c: Array(1)}
-    //   judge: "0xf0083dca53282b299b5e937c209c2615d62474ab"
-    //   name: "evetns"
-    //   startDate: BigNumber {s: 1, e: 9, c: Array(1)}
-    //   time: BigNumber {s: 1, e: 5, c: Array(1)}
-    //   value: BigNumber {s: 1, e: 17, c: Array(1)}
-    // __proto__: Object
-    // blockHash: "0xaf3cd349d6a91274c8ff7b49872ddc067d4d31850f19cf1d8ab33cba12f0c4af"
-    // blockNumber: 4206205
-    // event: "NewChallenge"
-    // logIndex: 10
-    // removed: false
-    // transactionHash: "0x31671e92467d9b9b36ba68e61f46a3046a4a54d81a35be8e2db21af02695c233"
-    // transactionIndex: 21
-
     if (!error) {
       const { challengeId, judge, name, startDate, time, value } = result.args;
       const newChallenge = {
@@ -77,8 +60,7 @@ export default async (store) => {
 
   while(true)
   {
-    const result = await getBonusFund(account);
-    store.dispatch(setBonusFund(result));
+    updateFromWeb3(store);
     await wait(7000);
   }
 

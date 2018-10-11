@@ -36,7 +36,7 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
     bool resolved;
   }
 
-  event NewChallenge(uint challengeId, string name, uint value, address judge, uint startDate, uint time);
+  event NewChallenge(uint challengeId, string name, uint value, address indexed judge, uint startDate, uint time);
   event ChallengeResolved(uint challengeId, bool decision);
 
   Challenge[] public challenges;

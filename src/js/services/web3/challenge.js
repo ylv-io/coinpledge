@@ -34,45 +34,28 @@ export const getChallenges = async (user) => {
 
   if(instance && account) {
     // check number of challenges
-    return instance.userToChallengeCount.call(user, {
+    const numberOfChallenges = (await instance.userToChallengeCount.call(user, {
       from: account
-    })
-    .then((result) => {
-      const numberOfChallenges = result.toNumber();
-      // console.log(`User has ${numberOfChallenges} challenges`);
-      if(numberOfChallenges > 0)
-      // get all user challenges indexes
-        return instance.getChallenges.call(user, {
-          from: account
-        });
-      else return Promise.reject("User has zero challenges");
-    })
-    .then((result) => {
-      // get all users's challenges objects
-      const promises = result.map(((o) => instance.challenges.call(o.toNumber(), {
+    })).toNumber();
+
+    let indexes;
+    if(numberOfChallenges > 0)
+    // get all user challenges indexes
+      indexes = await instance.getChallenges.call(user, {
         from: account
-      })));
+      });
+    else [];
+    // get all users's challenges objects
+    const promises = indexes.map(((o) => instance.challenges.call(o.toNumber(), {
+      from: account
+    })));
 
-      // push indexes down the chain
-      promises.push(result);
 
-      return Promise.all(promises);
-    })
-    .then((result) => {
-      //pop indexes
-      const indexes = result.pop();
-      // map all user's challenges to objects
-      const challenges = result.map((o, i) => arrayToChallenge(o, indexes[i].toNumber(), user));
-      // console.log(`User challenges:`);
-      // console.log(challenges);
-      return challenges;
-    })
-    .catch(function(e) {
-      console.log(e);
-      throw e;
-    });
+    const challengesRaw = await Promise.all(promises);
+    // map all user's challenges to objects
+    const challenges = challengesRaw.map((o, i) => arrayToChallenge(o, indexes[i].toNumber(), user));
+    return challenges;
   }
-
 }
 
 export const getMentor = async (user) => {
@@ -82,43 +65,26 @@ export const getMentor = async (user) => {
 
   if(instance && account) {
     // check number of challenges
-    return instance.judgeToChallengeCount.call(user, {
+    const numberOfEfforts = (await instance.judgeToChallengeCount.call(user, {
       from: account
-    })
-    .then((result) => {
-      const numberOfCases = result.toNumber();
-      // console.log(`User has ${numberOfCases} cases`);
-      if(numberOfCases > 0)
-      // get all user cases indexes
-        return instance.getCases.call(user, {
+    })).toNumber();
+
+    let indexes;
+    if(numberOfEfforts > 0)
+      // get all user efforts indexes
+      indexes = await instance.getCases.call(user, {
           from: account
         });
-      else return Promise.reject("User has zero cases");
-    })
-    .then((result) => {
-      // get all users's cases objects
-      const promises = result.map(((o) => instance.challenges.call(o.toNumber(), {
-        from: account
-      })));
+    else return [];
+    // get all users's cases objects
+    const promises = indexes.map(((o) => instance.challenges.call(o.toNumber(), {
+      from: account
+    })));
 
-      // push indexes down the chain
-      promises.push(result);
-
-      return Promise.all(promises);
-    })
-    .then((result) => {
-      //pop indexes
-      const indexes = result.pop();
-      // map all user's cases to objects
-      const cases = result.map((o, i) => arrayToChallenge(o, indexes[i].toNumber(), account));
-      // console.log(`User cases:`);
-      // console.log(cases);
-      return cases;
-    })
-    .catch(function(e) {
-      console.log(e);
-      throw e;
-    });
+    const effortsRaw = await Promise.all(promises);
+    // map all user's cases to objects
+    const efforts = effortsRaw.map((o, i) => arrayToChallenge(o, indexes[i].toNumber(), account));
+    return efforts;
   }
 
 }
@@ -127,18 +93,11 @@ export const getBonusFund = async (user) => {
   const instance = await getCoinContractPromise();
   const web3js = getWeb3js();
   const account = web3js.eth.accounts[0];
+
   if(instance && account) {
-    return instance.getBonusFund.call(user, {
+    const result = await instance.getBonusFund.call(user, {
       from: account
-    })
-    .then((result) => {
-      const bonusFund = web3.fromWei(result.toNumber(), 'ether');
-      // console.log(`User has ${bonusFund} ether in bonus fund`);
-      return bonusFund;
-    })
-    .catch((e) => {
-      console.log(e);
-      throw e;
     });
+    return web3.fromWei(result.toNumber(), 'ether');
   }
 }
