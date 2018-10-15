@@ -39,22 +39,22 @@ export const getChallenges = async (user) => {
     })).toNumber();
 
     let indexes;
-    if(numberOfChallenges > 0)
-    // get all user challenges indexes
+    if(numberOfChallenges > 0) {
+      // get all user challenges indexes
       indexes = await instance.getChallenges.call(user, {
         from: account
       });
-    else [];
-    // get all users's challenges objects
-    const promises = indexes.map(((o) => instance.challenges.call(o.toNumber(), {
-      from: account
-    })));
 
+      // get all users's challenges objects
+      const promises = indexes.map(((o) => instance.challenges.call(o.toNumber(), {
+        from: account
+      })));
 
-    const challengesRaw = await Promise.all(promises);
-    // map all user's challenges to objects
-    const challenges = challengesRaw.map((o, i) => arrayToChallenge(o, indexes[i].toNumber(), user));
-    return challenges;
+      const challengesRaw = await Promise.all(promises);
+      // map all user's challenges to objects
+      const challenges = challengesRaw.map((o, i) => arrayToChallenge(o, indexes[i].toNumber(), user));
+      return challenges;
+    }
   }
 }
 
@@ -70,21 +70,22 @@ export const getMentor = async (user) => {
     })).toNumber();
 
     let indexes;
-    if(numberOfEfforts > 0)
-      // get all user efforts indexes
-      indexes = await instance.getCases.call(user, {
-          from: account
-        });
-    else return [];
-    // get all users's cases objects
-    const promises = indexes.map(((o) => instance.challenges.call(o.toNumber(), {
-      from: account
-    })));
+    if(numberOfEfforts > 0) {
+       // get all user efforts indexes
+       indexes = await instance.getCases.call(user, {
+        from: account
+      });
 
-    const effortsRaw = await Promise.all(promises);
-    // map all user's cases to objects
-    const efforts = effortsRaw.map((o, i) => arrayToChallenge(o, indexes[i].toNumber(), account));
-    return efforts;
+      // get all users's cases objects
+      const promises = indexes.map(((o) => instance.challenges.call(o.toNumber(), {
+        from: account
+      })));
+
+      const effortsRaw = await Promise.all(promises);
+      // map all user's cases to objects
+      const efforts = effortsRaw.map((o, i) => arrayToChallenge(o, indexes[i].toNumber(), account));
+      return efforts;
+    }
   }
 
 }

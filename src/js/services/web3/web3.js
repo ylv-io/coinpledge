@@ -16,16 +16,23 @@ export const getWeb3js = () => {
 let coinContractInstance;
 
 export const getCoinContractPromise = async () => {
-  if(coinContractInstance === undefined)
+  const web3js = getWeb3js();
+  if(coinContractInstance === undefined && web3js)
   {
     // Using truffle-contract we create the coinpledge object.
     const coinContract = Contract(CoinPledgeContract);
-    coinContract.setProvider(getWeb3js().currentProvider);
+    coinContract.setProvider(web3js.currentProvider);
 
     // Find contract instance on blockchain and bind
     coinContractInstance = await coinContract.deployed();
   }
   return coinContractInstance;
+}
+
+export const getAccount = () => {
+  if(web3js)
+    return web3js.eth.accounts[0];
+  return undefined;
 }
 
 export const getTransactionReceipt = async (hash) => {

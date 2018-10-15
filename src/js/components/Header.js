@@ -21,15 +21,22 @@ const Header = (props) => (
       </div>
       <div className="navbar-menu">
         <div className="navbar-start">
-          <NavLink className="navbar-item" to="/new" activeClassName="is-active" exact={true}>New</NavLink>
-          <NavLink className="navbar-item" to="/challenges" activeClassName="is-active" exact={true}>Challenges</NavLink>
-          <NavLink className="navbar-item" to="/mentor" activeClassName="is-active" exact={true}>Mentor</NavLink>
-          <NavLink className="navbar-item" to="/FAQ" activeClassName="is-active" exact={true}>FAQ</NavLink>
+          { props.installed && !props.locked && <NavLink className="navbar-item" to="/new" activeClassName="is-active" exact={true}>New</NavLink>}
+          { props.installed && !props.locked && <NavLink className="navbar-item" to="/challenges" activeClassName="is-active" exact={true}>Challenges</NavLink>}
+          { props.installed && !props.locked && <NavLink className="navbar-item" to="/mentor" activeClassName="is-active" exact={true}>Mentor</NavLink>}
         </div>
         <div className="navbar-end">
-        { props.account ? 
-          <a className="navbar-item" target="_blank" href={`https://ropsten.etherscan.io/address/${props.account}`}>{props.account.substring(0, 10)}</a> :
-          <div className="navbar-item">Login at Metamask</div>
+        { props.installed ? 
+            (
+              !props.locked ?
+              <a className="navbar-item" target="_blank" href={`https://ropsten.etherscan.io/address/${props.account}`}>{props.account? props.account.substring(0, 10): ''}</a>:
+              <div className="navbar-item">
+                Unlock MetaMask
+              </div>
+            ):
+            <div className="navbar-item">
+              Install&nbsp;<a target="_blank" href="https://metamask.io/">MetaMask</a>
+            </div>
         }
         { props.account && <div className="navbar-item">{Math.round(props.bonusFund * 100) / 100} ether</div>}
         </div>

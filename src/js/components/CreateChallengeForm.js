@@ -24,7 +24,7 @@ const CreateChallengeForm = props => {
     <form onSubmit={handleSubmit}>
       <div className="field">
         <div className="notification">
-          Goal has to be specific. Good example "100 pull ups", bad example "be more healthy". Keep it short.
+          Goal has to be specific and measurable. Good example "100 pull ups", bad example "be more healthy". Keep it short.
         </div>
         <label className="label" htmlFor="name">Goal</label>
         <div className="control">
