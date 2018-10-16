@@ -13,11 +13,51 @@ export const getWeb3js = () => {
   return web3js;
 }
 
+export const getBalance = () => {
+  const web3js = getWeb3js();
+  if(getAccount()) {
+    web3js.eth.getBalance(getAccount(), (err, balance) => {
+      const balanceInEth = web3js.fromWei(balance, "ether");
+      console.log(`balance ${balanceInEth} ether`);
+      return balanceInEth;
+    });
+  }
+}
+
+export const getNetwork = () => {
+  const web3js = getWeb3js();
+
+  // switch (web3js.version.network) {
+  //   case "1":
+  //     console.log('This is mainnet')
+  //     break
+  //   case "2":
+  //     console.log('This is the deprecated Morden test network.')
+  //     break
+  //   case "3":
+  //     console.log('This is the ropsten test network.')
+  //     break
+  //   case "4":
+  //     console.log('This is the Rinkeby test network.')
+  //     break
+  //   case "42":
+  //     console.log('This is the Kovan test network.')
+  //     break
+  //   default:
+  //     console.log('This is an unknown network.')
+  // }
+
+  const desiredNetwork = "3";
+  return { network: web3js.version.network, desiredNetwork, isRightNetwork: web3js.version.network === desiredNetwork};
+
+}
+
 let coinContractInstance;
 
 export const getCoinContractPromise = async () => {
   const web3js = getWeb3js();
-  if(coinContractInstance === undefined && web3js)
+
+  if(coinContractInstance === undefined)
   {
     // Using truffle-contract we create the coinpledge object.
     const coinContract = Contract(CoinPledgeContract);
@@ -30,9 +70,9 @@ export const getCoinContractPromise = async () => {
 }
 
 export const getAccount = () => {
-  if(web3js)
-    return web3js.eth.accounts[0];
-  return undefined;
+  const web3js = getWeb3js();
+  
+  return web3js.eth.accounts[0];
 }
 
 export const getTransactionReceipt = async (hash) => {
@@ -46,6 +86,8 @@ export const getTransactionReceipt = async (hash) => {
 }
 
 function getTransactionReceiptPromise(hash) {
+  const web3js = getWeb3js();
+  
   return new Promise(function(resolve, reject) {
       web3js.eth.getTransactionReceipt(hash, function(err, data) {
           if (err !== null) reject(err);

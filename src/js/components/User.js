@@ -50,10 +50,12 @@ class User extends React.Component {
     if(this.state.notFound)
       return <Redirect to='/404' />
 
+    console.log(this.state);
+
     return(
       <section className="section">
         <div className="container">
-          <h4 className="title is-3">User {shortAddress(this.props.match.params.id)}</h4>
+          <h4 className="title is-3">User <a target="_blank" href={`https://ropsten.etherscan.io/address/${this.props.match.params.id}`}>{shortAddress(this.props.match.params.id)}</a></h4>
           <h4 className="title is-4">Challenges</h4>
           <hr/>
           { !this.state.challenges.length && <p className="title is-4">User do not have any challenges.</p>}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { getWeb3js, getCoinContractPromise, getAccount, getNetwork } from '../services/web3/web3';
 
 import logo from '../../img/logo.png'
 
@@ -20,16 +21,29 @@ const Header = (props) => (
         </a>
       </div>
       <div className="navbar-menu">
-        <div className="navbar-start">
-          { props.installed && !props.locked && <NavLink className="navbar-item" to="/new" activeClassName="is-active" exact={true}>New</NavLink>}
-          { props.installed && !props.locked && <NavLink className="navbar-item" to="/challenges" activeClassName="is-active" exact={true}>Challenges</NavLink>}
-          { props.installed && !props.locked && <NavLink className="navbar-item" to="/mentor" activeClassName="is-active" exact={true}>Mentor</NavLink>}
-        </div>
+        
+          { props.installed && !props.locked && props.isRightNetwork && 
+            (
+              <div className="navbar-start">
+                <NavLink className="navbar-item" to="/new" activeClassName="is-active" exact={true}>New</NavLink>
+                <NavLink className="navbar-item" to="/challenges" activeClassName="is-active" exact={true}>Challenges</NavLink>
+                <NavLink className="navbar-item" to="/mentor" activeClassName="is-active" exact={true}>Mentor</NavLink>
+              </div>
+            )}
+        
         <div className="navbar-end">
         { props.installed ? 
             (
               !props.locked ?
-              <a className="navbar-item" target="_blank" href={`https://ropsten.etherscan.io/address/${props.account}`}>{props.account? props.account.substring(0, 10): ''}</a>:
+              (
+                props.isRightNetwork ?
+                (
+                  <a className="navbar-item" target="_blank" href={`https://ropsten.etherscan.io/address/${props.account}`}>{props.account? props.account.substring(0, 10): ''}</a>
+                ):
+                <div className="navbar-item">
+                  Switch to Ropsten
+                </div>  
+              ):
               <div className="navbar-item">
                 Unlock MetaMask
               </div>
@@ -38,7 +52,7 @@ const Header = (props) => (
               Install&nbsp;<a target="_blank" href="https://metamask.io/">MetaMask</a>
             </div>
         }
-        { props.account && <div className="navbar-item">{Math.round(props.bonusFund * 100) / 100} ether</div>}
+        { props.installed && !props.locked && props.account && props.isRightNetwork && <div className="navbar-item">{Math.round(props.bonusFund * 100) / 100} ether</div>}
         </div>
       </div>
     </nav>
@@ -46,8 +60,13 @@ const Header = (props) => (
 );
 
 const mapStateToProps = (state, props) => {
+  let  network, desiredNetwork, isRightNetwork;
+  if(getWeb3js())
+    ({ network, desiredNetwork, isRightNetwork } = getNetwork());
   return {
-    ...state.blockchain
+    ...state.blockchain,
+    isRightNetwork
+
   }
 };
 
