@@ -101,7 +101,7 @@ export const getBonusFund = async (user) => {
   return web3.fromWei(result.toNumber(), 'ether');
 }
 
-export const subscribeToCoinEvents = async () => {
+export const subscribeToCoinEvents = async (store) => {
 
   const web3js = getWeb3js();
   const contract = await getCoinContractPromise();

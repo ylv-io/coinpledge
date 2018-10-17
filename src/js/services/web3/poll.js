@@ -21,7 +21,7 @@ export default async (store) => {
 
       if(getWeb3js())
       {
-        const { newChallengeEvent, challengeResolvedEvent } = subscribeToCoinEvents();
+        const { newChallengeEvent, challengeResolvedEvent } = subscribeToCoinEvents(store);
 
         const { network, desiredNetwork, isRightNetwork } = getNetwork();
         store.dispatch(setNetwork(network));
