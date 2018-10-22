@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux';
 import Challenge from './Challenge';
 import { resolveChallenge } from '../services/web3/challenge';
-import { updateChallenge } from '../actions/challenges';
+import { updateUserChallenge } from '../actions/userChallenges';
 
 class Challenges extends React.Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class Challenges extends React.Component {
     return async (e) => {
       e.preventDefault();
       const hash = await resolveChallenge(challenge.id, decision);
-      this.props.dispatch(updateChallenge(challenge.id, { isSubmitting: true}));
+      this.props.dispatch(updateUserChallenge(challenge.id, { isSubmitting: true}));
     };
   }
 
@@ -57,8 +57,8 @@ class Challenges extends React.Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    challenges: state.challenges.filter(o => !o.resolved),
-    history: state.challenges.filter(o => o.resolved)
+    challenges: state.userChallenges.filter(o => !o.resolved),
+    history: state.userChallenges.filter(o => o.resolved)
   }
 };
 

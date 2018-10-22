@@ -1,9 +1,9 @@
 import { getWeb3js, getCoinContractPromise, getAccount, getNetwork } from './web3';
 import { arrayToChallenge } from '../../utils/web3';
 import { setAccount, setBonusFund, setLocked, setNetwork, setInstalled } from '../../actions/web3';
-import { addOrUpdateChallenges, addChallenge, updateChallenge } from '../../actions/challenges';
-import { addOrUpdateMentor } from '../../actions/mentor';
-import { getBonusFund, getMentor, getChallenges, subscribeToCoinEvents } from '../web3/challenge';
+import { addOrUpdateUserChallenges } from '../../actions/userChallenges';
+import { addOrUpdateMentorChallenges } from '../../actions/mentorChallenges';
+import { getBonusFund, getChallengesForMentor, getChallengesForUser, subscribeToCoinEvents } from '../web3/challenge';
 import { wait } from '../../utils/promise';
 
 import { promisify } from 'es6-promisify'
@@ -14,50 +14,45 @@ export default async (store) => {
       // Update state related to metamask events
 
       let prevAccount;
-      let counter = 7;
       
       store.dispatch(setInstalled(!!getWeb3js()));
       store.dispatch(setLocked(true));
 
       if(getWeb3js())
       {
-        const { newChallengeEvent, challengeResolvedEvent } = subscribeToCoinEvents(store);
-
         const { network, desiredNetwork, isRightNetwork } = getNetwork();
         store.dispatch(setNetwork(network));
 
-        while(true)
-        {
-          const newAccount = getAccount();
+        if(isRightNetwork) {
 
-          // account changed
-          if (newAccount !== prevAccount) {
-            if(newAccount === undefined) {
-              // account locked
-              store.dispatch(setLocked(true));
-            }
-            else {
-              // account unlocked
-              store.dispatch(setLocked(false));
-            }
+          const { newChallengeEvent, challengeResolvedEvent } = subscribeToCoinEvents(store);
 
-            store.dispatch(setAccount(newAccount));
-            prevAccount = newAccount;
-          }
-
+          while(true)
           {
-            if(counter == 7)
-            {
-              const { installed, network, locked, account } = store.getState().blockchain;
-              if(installed && (network === desiredNetwork) && !locked && account) {
+            const newAccount = getAccount();
+
+            // account changed
+            if (newAccount !== prevAccount) {
+              if(newAccount === undefined) {
+                // account locked
+                store.dispatch(setLocked(true));
+              }
+              else {
+                // account unlocked
+                store.dispatch(setLocked(false));
+                // pull data once on account unlocked
                 updateFromWeb3(store, getAccount());
               }
-              counter = 0;
+
+              store.dispatch(setAccount(newAccount));
+              prevAccount = newAccount;
             }
-            counter++;
+           
+            await wait(1000);
           }
-          await wait(1000);
+
         }
+
       }
     }
 
@@ -69,13 +64,13 @@ export default async (store) => {
 }
 
 const updateFromWeb3 = async (store, account) => {
-  let result = await getChallenges(account);
-  store.dispatch(addOrUpdateChallenges(result));
+  let result = await getChallengesForUser(account);
+  store.dispatch(addOrUpdateUserChallenges(result));
 
   result = await getBonusFund(account);
   store.dispatch(setBonusFund(result));
 
-  result = await getMentor(account);
-  store.dispatch(addOrUpdateMentor(result));
+  result = await getChallengesForMentor(account);
+  store.dispatch(addOrUpdateMentorChallenges(result));
 
 }

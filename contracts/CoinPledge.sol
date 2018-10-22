@@ -5,7 +5,7 @@
 // Twitter: https://twitter.com/ylv_io
 
 // Coin Pledge
-// Achieve your goals and have fun with friends. Powered by security of smart contracts.
+// Reach your goals and have fun with friends. Powered by security of smart contracts.
 
 
 // Proofs:
@@ -21,14 +21,19 @@ import "openzeppelin-solidity/contracts/ownership/CanReclaimToken.sol";
 
 contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
 
-  uint constant daysToJudge = 7 days;
+  using SafeMath for uint256;
+
+  uint constant daysToResolve = 7 days;
   uint constant bonusPercentage = 50;
   uint constant feePercentage = 1;
+  uint constant mentorPercentage = 4;
+  uint constant minBonus = 1 finney;
 
   struct Challenge {
+    address user;
     string name;
     uint value;
-    address judge;
+    address mentor;
     uint startDate;
     uint time;
 
@@ -36,16 +41,17 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
     bool resolved;
   }
 
-  event NewChallenge(uint challengeId, string name, uint value, address indexed judge, uint startDate, uint time);
-  event ChallengeResolved(uint challengeId, bool decision);
+  event NewChallenge(uint indexed challengeId, address indexed user, string name, uint value, address indexed mentor, uint startDate, uint time);
+  event ChallengeResolved(uint indexed challengeId, address indexed user, address indexed mentor, bool decision);
+  event BonusFundChanged(address indexed user, uint value);
 
   Challenge[] public challenges;
 
   mapping(uint => address) public challengeToUser;
   mapping(address => uint) public userToChallengeCount;
 
-  mapping(uint => address) public challengeToJudge;
-  mapping(address => uint) public judgeToChallengeCount;
+  mapping(uint => address) public challengeToMentor;
+  mapping(address => uint) public mentorToChallengeCount;
 
   mapping(address => uint) public bonusFund;
 
@@ -56,7 +62,7 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
     return bonusFund[user];
   }
 
-  function getChallenges(address user) 
+  function getChallengesForUser(address user) 
   external 
   view 
   returns(uint[]) {
@@ -74,16 +80,16 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
     return result;
   }
 
-  function getCases(address judge) 
+  function getChallengesForMentor(address mentor) 
   external 
   view 
   returns(uint[]) {
-    require(judgeToChallengeCount[judge] > 0, "Has zero cases");
+    require(mentorToChallengeCount[mentor] > 0, "Has zero cases");
 
-    uint[] memory result = new uint[](judgeToChallengeCount[judge]);
+    uint[] memory result = new uint[](mentorToChallengeCount[mentor]);
     uint counter = 0;
     for (uint i = 0; i < challenges.length; i++) {
-      if (challengeToJudge[i] == judge)
+      if (challengeToMentor[i] == mentor)
       {
         result[counter] = i;
         counter++;
@@ -92,24 +98,24 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
     return result;
   }
 
-  function createChallenge(string name, address judge, uint time) 
+  function createChallenge(string name, address mentor, uint time) 
   external 
   payable 
   returns (uint retId) {
     require(msg.value >= 0.01 ether, "Has to stake more than 0.01 ether");
-    require(judge != 0x0, "Has to be a judge");
+    require(mentor != 0x0, "Has to be a mentor");
     require(time > 0, "Time has to be greater than zero");
 
     uint startDate = block.timestamp;
-    uint id = challenges.push(Challenge(name, msg.value, judge, startDate, time, false, false)) - 1;
+    uint id = challenges.push(Challenge(msg.sender, name, msg.value, mentor, startDate, time, false, false)) - 1;
 
     challengeToUser[id] = msg.sender;
     userToChallengeCount[msg.sender]++;
 
-    challengeToJudge[id] = judge;
-    judgeToChallengeCount[judge]++;
+    challengeToMentor[id] = mentor;
+    mentorToChallengeCount[mentor]++;
 
-    emit NewChallenge(id, name, msg.value, judge, startDate, time);
+    emit NewChallenge(id, msg.sender, name, msg.value, mentor, startDate, time);
 
     return id;
   }
@@ -118,45 +124,57 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
   external
   {
     Challenge storage challenge = challenges[challengeId];
-    address challenger = challengeToUser[challengeId];
+    address user = challengeToUser[challengeId];
+    address mentor = challengeToMentor[challengeId];
 
     require(challenge.resolved == false, "Challenge already resolved.");
 
-    // if more time passed than endDate + daysToJudge, then challenger can resolve himself
-    if(block.timestamp < (challenge.startDate + challenge.time + daysToJudge))
-      require(challenge.judge == msg.sender, "You are not the judge for this challenge.");
+    // if more time passed than endDate + daysToResolve, then user can resolve himself
+    if(block.timestamp < (challenge.startDate + challenge.time + daysToResolve))
+      require(challenge.mentor == msg.sender, "You are not the mentor for this challenge.");
+    else require(challenge.user == msg.sender, "You are not the user for this challenge.");
 
     // write decision
     challenge.successed = decision;
     challenge.resolved = true;
 
-    // pay 1% fee
-    uint fee = SafeMath.mul(SafeMath.div(challenge.value, 100), feePercentage);
-    asyncTransfer(owner, fee);
+    // pay service fee
+    uint serviceFee = challenge.value.div(100).mul(feePercentage);
+    owner.transfer(serviceFee);
 
-    uint remainingValue = SafeMath.sub(challenge.value, fee);
+    // pay mentor fee
+    uint mentorFee = challenge.value.div(100).mul(mentorPercentage);
+    mentor.transfer(mentorFee);
+
+    uint remainingValue = challenge.value.sub(serviceFee).sub(mentorFee);
 
     uint valueToPay;
 
     if(decision) {
-      // value to pay back to challenger
+      // value to pay back to user
       valueToPay = remainingValue;
       // credit bouns if any
-      if(bonusFund[challenger] > 0)
+      uint currentBonus = bonusFund[user];
+      if(currentBonus > 0)
       {
-        uint bonusValue = SafeMath.mul(SafeMath.div(bonusFund[challenger], 100), bonusPercentage);
-        bonusFund[challenger] -= bonusValue;
+        uint bonusValue = bonusFund[user].div(100).mul(bonusPercentage);
+        if(currentBonus <= minBonus)
+          bonusValue = currentBonus;
+        bonusFund[user] -= bonusValue;
+        emit BonusFundChanged(user, bonusFund[user]);
+
+        valueToPay += bonusValue;
       }
     }
     else 
         // if failed to achieve goal, put money to bonus fund
-        bonusFund[challenger] += remainingValue;
+        bonusFund[user] += remainingValue;
 
     // pay back to the challenger
     if(valueToPay > 0)
-        challenger.transfer(valueToPay);
+        user.transfer(valueToPay);
 
-    emit ChallengeResolved(challengeId, decision);
+    emit ChallengeResolved(challengeId, user, mentor, decision);
   }
 
 }

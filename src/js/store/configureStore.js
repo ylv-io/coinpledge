@@ -1,18 +1,18 @@
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
-import challengesReducer from '../reducers/challenges';
+import challengesReducer from '../reducers/userChallenges';
 import web3Reducer from '../reducers/web3';
-import mentorReducer from '../reducers/mentor';
-import pendingReducer from '../reducers/pending';
+import mentorReducer from '../reducers/mentorChallenges';
+import pendingReducer from '../reducers/pendingChallenges';
 
 
 export default () => {
 
   const store = createStore(
     combineReducers({
-      challenges: challengesReducer,
-      pending: pendingReducer,
+      userChallenges: challengesReducer,
+      pendingChallenges: pendingReducer,
       blockchain: web3Reducer,
-      mentor: mentorReducer
+      mentorChallenges: mentorReducer
     }),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );

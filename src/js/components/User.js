@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch, Link, NavLink, Redirect } from 'react-rou
 
 import Challenge from './Challenge';
 import { shortAddress } from '../utils/web3';
-import { getBonusFund, getMentor, getChallenges } from '../services/web3/challenge';
+import { getBonusFund, getChallengesForMentor, getChallengesForUser } from '../services/web3/challenge';
 import { getWeb3js, getCoinContractPromise } from '../services/web3/web3';
 
 class User extends React.Component {
@@ -28,10 +28,10 @@ class User extends React.Component {
       return;
     }
 
-    let result = await getChallenges(this.props.match.params.id);
+    let result = await getChallengesForUser(this.props.match.params.id);
     this.setState((o) => ({challenges: result}));
 
-    result = await getMentor(this.props.match.params.id);
+    result = await getChallengesForMentor(this.props.match.params.id);
     this.setState((o) => ({mentor: result}));
 
   }
@@ -49,8 +49,6 @@ class User extends React.Component {
   render() {
     if(this.state.notFound)
       return <Redirect to='/404' />
-
-    console.log(this.state);
 
     return(
       <section className="section">

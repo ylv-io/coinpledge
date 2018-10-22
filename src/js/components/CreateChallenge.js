@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import CreateChallengeForm from './CreateChallengeForm';
 import { createChallenge } from '../services/web3/challenge';
 import { getTransactionReceipt } from '../services/web3/web3';
-import { addPending, updatePending } from '../actions/pending';
+import { addPendingChallenge, updatePendingChallenge } from '../actions/pendingChallenges';
 
 
 class CreateChallenge extends React.Component {
@@ -24,10 +24,10 @@ class CreateChallenge extends React.Component {
       const result = await createChallenge(values.name, values.value, values.time.unix(), values.mentor);
       setSubmitting(false);
       resetForm();
-      this.props.dispatch(addPending({id: result, name: values.name, value: values.value, time: values.time.unix(), mentor: values.mentor }));
+      this.props.dispatch(addPendingChallenge({id: result, name: values.name, value: values.value, time: values.time.unix(), mentor: values.mentor }));
 
       const receipt = await getTransactionReceipt(result);
-      this.props.dispatch(updatePending(result, { isConfirmed: true}));
+      this.props.dispatch(updatePendingChallenge(result, { isConfirmed: true}));
     }
     catch(e)
     {
@@ -50,7 +50,7 @@ class CreateChallenge extends React.Component {
             </div>
 
             <div className="column is-half">
-              {this.props.pending.map((o) => 
+              {this.props.pendingChallenges.map((o) => 
                   <article 
                     key={o.id} 
                     className={ 
@@ -85,7 +85,7 @@ class CreateChallenge extends React.Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    pending: state.pending
+    pendingChallenges: state.pendingChallenges
   }
 };
 

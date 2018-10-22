@@ -52,8 +52,8 @@ class Mentor extends React.Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    mentor: state.mentor.filter(o => !o.resolved),
-    history: state.mentor.filter(o => o.resolved)
+    mentor: state.mentorChallenges.filter(o => !o.resolved),
+    history: state.mentorChallenges.filter(o => o.resolved)
   }
 };
 

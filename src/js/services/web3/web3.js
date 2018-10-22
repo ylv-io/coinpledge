@@ -13,6 +13,11 @@ export const getWeb3js = () => {
   return web3js;
 }
 
+export const fromWei = (balance, base) => {
+  const web3js = getWeb3js();
+  return web3js.fromWei(balance, base);
+}
+
 export const getBalance = () => {
   const web3js = getWeb3js();
   if(getAccount()) {
@@ -26,6 +31,7 @@ export const getBalance = () => {
 
 export const getNetwork = () => {
   const web3js = getWeb3js();
+  // console.log(web3js.version.network);
 
   // switch (web3js.version.network) {
   //   case "1":
@@ -47,7 +53,7 @@ export const getNetwork = () => {
   //     console.log('This is an unknown network.')
   // }
 
-  const desiredNetwork = "3";
+  const desiredNetwork = "5777";
   return { network: web3js.version.network, desiredNetwork, isRightNetwork: web3js.version.network === desiredNetwork};
 
 }

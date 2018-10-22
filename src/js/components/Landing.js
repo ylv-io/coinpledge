@@ -96,6 +96,16 @@ const Landing = () => (
         </div>
       <hr/>
 
+      <h1 className="title has-text-centered">Need Help? Need Mentor?</h1>
+        <div className="columns">
+          <div className="column is-offset-one-quarter is-half">
+            <p>
+              Our <a href="https://t.me/ylv_public">Telegram</a> group is here to help you.
+            </p>
+          </div>
+        </div>
+      <hr/>
+
     </div>
   </section>
 );
