@@ -1,23 +1,23 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom';
-import Gist from 'react-gist';
 
-import logo from '../../img/logo.png'
+import {
+  Link,
+} from 'react-router-dom';
 
 const Landing = () => (
   <section className="section">
     <div className="container">
 
       <h1 className="title has-text-centered">What Is It?</h1>
-        <div className="columns">
-          <div className="column is-offset-one-quarter is-half">
-            <p>
-              <strong>Coinpledge</strong> a is personal productivity tool based on <strong>publicity</strong> and <strong>commitment</strong> principles.
+      <div className="columns">
+        <div className="column is-offset-one-quarter is-half">
+          <p>
+            <strong>Coinpledge</strong> a is personal productivity tool based on <strong>publicity</strong> and <strong>commitment</strong> principles.
               It helps to <strong>clarify</strong> your goals and increase the <strong>success</strong> rate.
-            </p>
-          </div>
+          </p>
         </div>
-      <hr/>
+      </div>
+      <hr />
 
       <h1 className="title has-text-centered">How It Works?</h1>
       <div className="container has-text-centered">
@@ -26,7 +26,7 @@ const Landing = () => (
             <a href="#" className="has-text-dark">
               <span className="steps-marker">
                 <span className="icon">
-                  <i className="fa fa-check"></i>
+                  <i className="fa fa-check" />
                 </span>
               </span>
               <div className="steps-content">
@@ -39,7 +39,7 @@ const Landing = () => (
             <a href="#" className="has-text-dark">
               <span className="steps-marker">
                 <span className="icon">
-                  <i className="fa fa-tasks"></i>
+                  <i className="fa fa-tasks" />
                 </span>
               </span>
               <div className="steps-content">
@@ -51,7 +51,7 @@ const Landing = () => (
           <li className="steps-segment">
             <span className="steps-marker">
               <span className="icon">
-                <i className="fa fa-trophy"></i>
+                <i className="fa fa-trophy" />
               </span>
             </span>
             <div className="steps-content">
@@ -61,50 +61,50 @@ const Landing = () => (
           </li>
         </ul>
       </div>
-      <hr/>
+      <hr />
 
       <h1 className="title has-text-centered">Why to Use?</h1>
-        <div className="columns">
-          <div className="column is-offset-one-quarter is-half">
-            <p>
-              Humans are funny creations. We care so much about an opinion of other people, 
-              that it dramatically improves our chances to succeed at something if we make it public. 
-              <a href="https://en.wikipedia.org/wiki/Loss_aversion"> Loss aversion</a> means people rather not lose $5 than gain $5. 
-              By staking ETH on your goal, you force loss aversion to work for you. <strong>Coinpledge</strong> uses both principles to improve your chances to succeed at your goal.
-            </p>
-          </div>
+      <div className="columns">
+        <div className="column is-offset-one-quarter is-half">
+          <p>
+            Humans are funny creations. We care so much about an opinion of other people, 
+            that it dramatically improves our chances to succeed at something if we make it public. 
+            <a href="https://en.wikipedia.org/wiki/Loss_aversion"> Loss aversion</a> means people rather not lose $5 than gain $5. 
+            By staking ETH on your goal, you force loss aversion to work for you. <strong>Coinpledge</strong> uses both principles to improve your chances to succeed at your goal.
+          </p>
         </div>
-      <hr/>
+      </div>
+      <hr />
 
       <h1 className="title has-text-centered">Is My ETH Safe?</h1>
-        <div className="columns">
-          <div className="column is-offset-one-quarter is-half">
-            <p>
-              <strong>Coinpledge</strong> is Ethereum dApp. Your ETH is managed by <a href="https://gist.github.com/ylv-io/eb11f85fb938338cb10d0885024fcf7e">smart contract</a> and we do not have access to funds.
-            </p>
-          </div>
+      <div className="columns">
+        <div className="column is-offset-one-quarter is-half">
+          <p>
+            <strong>Coinpledge</strong> is Ethereum dApp. Your ETH is managed by <a href="https://gist.github.com/ylv-io/eb11f85fb938338cb10d0885024fcf7e">smart contract</a> and we do not have access to funds.
+          </p>
         </div>
-      <hr/>
+      </div>
+      <hr />
 
       <h1 className="title has-text-centered">How to Use?</h1>
-        <div className="columns">
-          <div className="column is-offset-one-quarter is-half">
-            <p>
-              Install <a target="_blank" href="https://metamask.io/">MetaMask</a>, get some ETH and start a <Link to='/new'>new challenge</Link>.
-            </p>
-          </div>
+      <div className="columns">
+        <div className="column is-offset-one-quarter is-half">
+          <p>
+            Install <a target="_blank" href="https://metamask.io/">MetaMask</a>, get some ETH and start a <Link to='/new'>new challenge</Link>.
+          </p>
         </div>
-      <hr/>
+      </div>
+      <hr />
 
       <h1 className="title has-text-centered">Need Help? Need Mentor?</h1>
-        <div className="columns">
-          <div className="column is-offset-one-quarter is-half">
-            <p>
-              Our <a href="https://t.me/ylv_public">Telegram</a> group is here to help you.
-            </p>
-          </div>
+      <div className="columns">
+        <div className="column is-offset-one-quarter is-half">
+          <p>
+            Our <a href="https://t.me/ylv_public">Telegram</a> group is here to help you.
+          </p>
         </div>
-      <hr/>
+      </div>
+      <hr />
 
     </div>
   </section>

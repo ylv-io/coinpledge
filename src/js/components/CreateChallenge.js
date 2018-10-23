@@ -5,7 +5,6 @@ import { createChallenge } from '../services/web3/challenge';
 import { getTransactionReceipt } from '../services/web3/web3';
 import { addPendingChallenge, updatePendingChallenge } from '../actions/pendingChallenges';
 
-
 class CreateChallenge extends React.Component {
   constructor(props) {
     super(props);

@@ -1,12 +1,11 @@
-// Author: Igor Yalovoy
-// Web: ylv.io
-// Email: to@ylv.io
-// GitHub: https://github.com/ylv-io/coinpledge/tree/master
-// Twitter: https://twitter.com/ylv_io
-
-// Coin Pledge
-// Reach your goals and have fun with friends. Powered by security of smart contracts.
-
+/// @title CoinPledge
+/// @author Igor Yalovoy
+/// @notice Reach your goals and have fun with friends
+/// @dev All function calls are currently implement without side effects
+/// @web: ylv.io
+/// @email: to@ylv.io
+/// @gitHub: https://github.com/ylv-io/coinpledge/tree/master
+/// @twitter: https://twitter.com/ylv_io
 
 // Proofs:
 // Public commitment as a motivator for weight loss (https://onlinelibrary.wiley.com/doi/pdf/10.1002/mar.20316)
@@ -41,10 +40,18 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
     bool resolved;
   }
 
+  struct User {
+    address addr;
+    string name;
+  }
+
+  // Events
   event NewChallenge(uint indexed challengeId, address indexed user, string name, uint value, address indexed mentor, uint startDate, uint time);
   event ChallengeResolved(uint indexed challengeId, address indexed user, address indexed mentor, bool decision);
   event BonusFundChanged(address indexed user, uint value);
+  event NewUsername(address indexed addr, string indexed name);
 
+  /// @notice All Challenges
   Challenge[] public challenges;
 
   mapping(uint => address) public challengeToUser;
@@ -53,8 +60,14 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
   mapping(uint => address) public challengeToMentor;
   mapping(address => uint) public mentorToChallengeCount;
 
+  /// @notice All Users
+  mapping(address => User) public users;
+  mapping(string => address) private usernameToAddress;
+  
+  /// @notice User's bonuses
   mapping(address => uint) public bonusFund;
 
+  /// @notice Get Bonus Fund For User
   function getBonusFund(address user)
   external
   view
@@ -62,6 +75,8 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
     return bonusFund[user];
   }
 
+
+  /// @notice Get Challenges For User
   function getChallengesForUser(address user) 
   external 
   view 
@@ -80,11 +95,12 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
     return result;
   }
 
+  /// @notice Get Challenges For Mentor
   function getChallengesForMentor(address mentor) 
   external 
   view 
   returns(uint[]) {
-    require(mentorToChallengeCount[mentor] > 0, "Has zero cases");
+    require(mentorToChallengeCount[mentor] > 0, "Has zero challenges");
 
     uint[] memory result = new uint[](mentorToChallengeCount[mentor]);
     uint counter = 0;
@@ -98,6 +114,22 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
     return result;
   }
 
+  /// @notice User Signup
+
+  function setUsername(string name)
+  external {
+    require(bytes(name).length > 2, "Provide a name longer than 2 chars");
+    require(bytes(name).length < 32, "Provide a name shorter than 32 chars");
+    require(users[msg.sender].addr == address(0x0), "You already have a name");
+    require(usernameToAddress[name] == address(0x0), "Name already taken");
+
+    users[msg.sender] = User(msg.sender, name);
+    usernameToAddress[name] = msg.sender;
+
+    emit NewUsername(msg.sender, name);
+  }
+
+  /// @notice Creates Challenge
   function createChallenge(string name, address mentor, uint time) 
   external 
   payable 
@@ -120,9 +152,9 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
     return id;
   }
 
+  /// @notice Resolves Challenge
   function resolveChallenge(uint challengeId, bool decision)
-  external
-  {
+  external {
     Challenge storage challenge = challenges[challengeId];
     address user = challengeToUser[challengeId];
     address mentor = challengeToMentor[challengeId];
@@ -132,7 +164,7 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
     // if more time passed than endDate + daysToResolve, then user can resolve himself
     if(block.timestamp < (challenge.startDate + challenge.time + daysToResolve))
       require(challenge.mentor == msg.sender, "You are not the mentor for this challenge.");
-    else require(challenge.user == msg.sender, "You are not the user for this challenge.");
+    else require((challenge.user == msg.sender) || (challenge.mentor == msg.sender), "You are not the user or mentor for this challenge.");
 
     // write decision
     challenge.successed = decision;

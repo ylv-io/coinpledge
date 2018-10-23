@@ -1,15 +1,15 @@
-export const addUserChallenge = (challenge) => ({
+export const addUserChallenge = challenge => ({
   type: 'ADD_USER_CHALLENGE',
-  challenge
+  challenge,
 });
 
 export const addOrUpdateUserChallenges = (challenges = []) => ({
   type: 'ADD_OR_UPDATE_USER_CHALLENGES',
-  challenges
+  challenges,
 });
 
 export const updateUserChallenge = (id, updates) => ({
   type: 'UPDATE_USER_CHALLENGE',
   id,
-  updates
+  updates,
 });

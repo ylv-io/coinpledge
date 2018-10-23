@@ -7,17 +7,18 @@ export default (state = mentorReducerDefaultState, action) => {
       return [...state, action.challenge];
     case 'UPDATE_MENTOR_CHALLENGE':
       return state.map((challenge) => {
-        if (challenge.id === action.id)
+        if (challenge.id === action.id) {
           return {
             ...challenge,
-            ...action.updates
-          }
+            ...action.updates,
+          };
+        }
         return challenge;
       });
     case 'ADD_OR_UPDATE_MENTOR_CHALLENGES':
       return action.challenges.map(challenge => ({
         ...(state.find(i => i.id === challenge.id) || {}),
-        ...challenge
+        ...challenge,
       }));
     default:
       return state;

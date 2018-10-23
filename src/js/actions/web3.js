@@ -22,3 +22,8 @@ export const setBonusFund = (bonusFund) => ({
   type: 'SET_BONUS_FUND',
   bonusFund
 });
+
+export const setUsername = (username) => ({
+  type: 'SET_USERNAME',
+  username
+});

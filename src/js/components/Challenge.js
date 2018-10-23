@@ -1,11 +1,16 @@
-import React from 'react'
-import moment from 'moment'
-import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom';
+import React from 'react';
+import moment from 'moment';
+
+import {
+  Link,
+} from 'react-router-dom';
+
 import { shortAddress } from '../utils/web3';
 
 export default class Challenge extends React.Component {
   constructor(props) {
     super(props);
+    this.props = props;
   }
 
   render() {

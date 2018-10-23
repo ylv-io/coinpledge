@@ -4,26 +4,23 @@ import Challenge from './Challenge';
 import { resolveChallenge } from '../services/web3/challenge';
 
 class Mentor extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   getHandleResolve(id, decision) {
     return () => resolveChallenge(id, decision);
   }
 
   render() {
-    return(
+    return (
       <section className="section">
         <div className="container">
           <h4 className="title is-4">Mentor</h4>
-          <hr/>
-          { !this.props.mentor.length && <p className="title is-4">You don't have any cases yet. Help someone!</p>}
+          <hr />
+          { !this.props.mentor.length && <p className="title is-4">You don't have any challenges yet. Help someone!</p>}
           <div className="columns is-multiline">
             {this.props.mentor.map((o) => 
               <div className="column is-4" key={o.id}>
-                <Challenge 
-                challenge={o} 
-                handleWin={this.getHandleResolve(o.id, true)} 
+                <Challenge
+                challenge={o}
+                handleWin={this.getHandleResolve(o.id, true)}
                 handleLoss={this.getHandleResolve(o.id, false)} />
               </div>
             )}
@@ -32,12 +29,12 @@ class Mentor extends React.Component {
           {!!this.props.history.length && (
             <div>
               <h4 className="title is-4">History</h4>
-              <hr/>
+              <hr />
               <div className="columns is-multiline">
                 {this.props.history.map((o) => 
                   <div className="column is-4" key={o.id}>
-                    <Challenge 
-                      challenge={o} 
+                    <Challenge
+                      challenge={o}
                       />
                   </div>)}
               </div>
@@ -50,11 +47,9 @@ class Mentor extends React.Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
-  return {
-    mentor: state.mentorChallenges.filter(o => !o.resolved),
-    history: state.mentorChallenges.filter(o => o.resolved)
-  }
-};
+const mapStateToProps = state => ({
+  mentor: state.mentorChallenges.filter(o => !o.resolved),
+  history: state.mentorChallenges.filter(o => o.resolved),
+});
 
 export default connect(mapStateToProps)(Mentor);

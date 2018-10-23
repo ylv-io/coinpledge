@@ -1,4 +1,3 @@
-
 const challengesReducerDefaultState = [];
 
 export default (state = challengesReducerDefaultState, action) => {
@@ -7,17 +6,18 @@ export default (state = challengesReducerDefaultState, action) => {
       return [...state, action.challenge];
     case 'UPDATE_USER_CHALLENGE':
       return state.map((challenge) => {
-        if (challenge.id === action.id)
+        if (challenge.id === action.id) {
           return {
             ...challenge,
-            ...action.updates
-          }
+            ...action.updates,
+          };
+        }
         return challenge;
       });
     case 'ADD_OR_UPDATE_USER_CHALLENGES':
       return action.challenges.map(challenge => ({
         ...(state.find(i => i.id === challenge.id) || {}),
-        ...challenge
+        ...challenge,
       }));
     default:
       return state;

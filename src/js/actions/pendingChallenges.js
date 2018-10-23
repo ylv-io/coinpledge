@@ -2,12 +2,12 @@
 export const addPendingChallenge = (
   {
     id = '',
-    name = '', 
-    value = 0, 
-    time = 0, 
+    name = '',
+    value = 0,
+    time = 0,
     mentor = '',
-    isConfirmed = false
-  } = {}
+    isConfirmed = false,
+  } = {},
 ) => ({
   type: 'ADD_PENDING_CHALLENGE',
   pending: {
@@ -16,18 +16,18 @@ export const addPendingChallenge = (
     value,
     time,
     mentor,
-    isConfirmed
-  }
+    isConfirmed,
+  },
 });
 
-export const removePendingChallenge = (id) => ({
+export const removePendingChallenge = id => ({
   type: 'REMOVE_PENDING_CHALLENGE',
-  id
+  id,
 });
 
 
 export const updatePendingChallenge = (id, updates) => ({
   type: 'UPDATE_PENDING_CHALLENGE',
   id,
-  updates
+  updates,
 });
