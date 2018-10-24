@@ -11,8 +11,8 @@ class User extends React.Component {
     super(props);
 
     this.state = {
-      challenges: [],
-      mentor: [],
+      userChallenges: [],
+      mentorChallenges: [],
       notFound: false,
     };
   }
@@ -22,14 +22,16 @@ class User extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.match.params.id !== prevProps.match.params.id) {
+    const { match } = this.props;
+    if (match.params.id !== prevProps.match.params.id) {
       this.updateStateFromWeb3();
     }
   }
 
   async updateStateFromWeb3() {
     const web3js = getWeb3js();
-    const { id } = this.props.match.params;
+    const { match } = this.props;
+    const { id } = match.params;
     const isAddress = web3js.isAddress(id);
     if (!isAddress) {
       this.setState(() => ({ notFound: true }));
@@ -37,14 +39,17 @@ class User extends React.Component {
     }
 
     let result = await getChallengesForUser(id);
-    this.setState(o => ({ challenges: result }));
+    this.setState(o => ({ userChallenges: result }));
 
     result = await getChallengesForMentor(id);
-    this.setState(o => ({ mentor: result }));
+    this.setState(o => ({ mentorChallenges: result }));
   }
 
   render() {
-    if (this.state.notFound) {return <Redirect to='/404' />};
+    const { notFound, userChallenges, mentorChallenges } = this.state;
+    const { match } = this.props;
+
+    if (notFound) return <Redirect to="/404" />;
 
     return (
       <section className="section">
@@ -52,13 +57,13 @@ class User extends React.Component {
           <h4 className="title is-3">
             User
             {' '}
-            <a target="_blank" href={`https://ropsten.etherscan.io/address/${this.props.match.params.id}`}>{shortAddress(this.props.match.params.id)}</a>
+            <a target="_blank" rel="noopener noreferrer" href={`https://ropsten.etherscan.io/address/${match.params.id}`}>{shortAddress(match.params.id)}</a>
           </h4>
           <h4 className="title is-4">Challenges</h4>
           <hr />
-          { !this.state.challenges.length && <p className="title is-4">User do not have any challenges.</p>}
+          { !userChallenges.length && <p className="title is-4">User do not have any challenges.</p>}
           <div className="columns is-multiline">
-            {this.state.challenges.map(o => (
+            {userChallenges.map(o => (
               <div className="column is-4" key={o.id}>
                 <Challenge
                   challenge={o}
@@ -69,9 +74,9 @@ class User extends React.Component {
 
           <h4 className="title is-4">Mentor</h4>
           <hr />
-          { !this.state.mentor.length && <p className="title is-4">User don't have any challenges to mentor yet.</p>}
+          { !mentorChallenges.length && <p className="title is-4">User don&apos;t have any challenges to mentor yet.</p>}
           <div className="columns is-multiline">
-            {this.state.mentor.map(o => (
+            {mentorChallenges.map(o => (
               <div className="column is-4" key={o.id}>
                 <Challenge
                   challenge={o}

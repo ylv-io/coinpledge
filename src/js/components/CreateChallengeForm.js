@@ -6,7 +6,7 @@ import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 
-const CreateChallengeForm = props => {
+const CreateChallengeForm = (props) => {
   const {
     values,
     touched,
@@ -24,13 +24,13 @@ const CreateChallengeForm = props => {
     <form onSubmit={handleSubmit}>
       <div className="field">
         <div className="notification">
-          Goal has to be specific and measurable. Good example "100 pull ups", bad example "be more healthy". Keep it short.
+          Goal has to be specific and measurable. Good example &quot;100 pull ups&quot;, bad example &quot;be more healthy&quot;. Keep it short.
         </div>
         <label className="label" htmlFor="name">Goal</label>
         <div className="control">
-          <input 
+          <input
             id="name"
-            type="text" 
+            type="text"
             name="name"
             value={values.name}
             onChange={handleChange}
@@ -43,50 +43,52 @@ const CreateChallengeForm = props => {
               )
             }
           />
-          {errors.name && touched.name && (
+          {
+            errors.name && touched.name && (
               <div className="has-text-danger">{errors.name}</div>
-            )}
+            )
+        }
         </div>
       </div>
-      
-      <hr/>
-      
+
+      <hr />
+
       <div className="field">
         <div className="notification">
           Amount to stake. 7 cappuccinos is a good stake.
         </div>
         <label className="label" htmlFor="number">Amount</label>
-          <div className="field has-addons">
-            <p className="control is-expanded">
-              <input 
-                type="number" 
-                step="0.01" 
-                name="value"
-                id="value"
-                value={values.value}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className={
+        <div className="field has-addons">
+          <p className="control is-expanded">
+            <input
+              type="number"
+              step="0.01"
+              name="value"
+              id="value"
+              value={values.value}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className={
                   errors.value && touched.value ? (
                     'input is-danger'
                   ) : (
                     'input'
                   )
                 }
-              />
-            </p>
-            <p className="control">
-              <a className="button is-static">
+            />
+          </p>
+          <p className="control">
+            <a className="button is-static">
                 ether
-              </a>
-            </p>
-          </div>
-          {errors.value && touched.value && (
-            <div className="has-text-danger">{errors.value}</div>
-          )}
+            </a>
+          </p>
+        </div>
+        {errors.value && touched.value && (
+        <div className="has-text-danger">{errors.value}</div>
+        )}
       </div>
 
-      <hr/>
+      <hr />
 
       <div className="field">
         <div className="notification">
@@ -95,8 +97,8 @@ const CreateChallengeForm = props => {
         <label className="label" htmlFor="mentor">Mentor</label>
         <div className="field">
           <p className="control">
-            <input 
-              type="text" 
+            <input
+              type="text"
               name="mentor"
               value={values.mentor}
               onChange={handleChange}
@@ -116,7 +118,7 @@ const CreateChallengeForm = props => {
         </div>
       </div>
 
-      <hr/>
+      <hr />
 
       <DatePicker
         value={values.time}
@@ -126,7 +128,7 @@ const CreateChallengeForm = props => {
         touched={touched.time}
       />
 
-      <hr/>
+      <hr />
       <div className="field">
         <div className="control">
           <button type="submit" disabled={isSubmitting} className="button is-primary is-fullwidth">Do It</button>
@@ -142,20 +144,26 @@ class DatePicker extends React.Component {
     super(props);
 
     this.state = {
-      calendarFocused: false
+      calendarFocused: false,
     };
   }
-  
-  handleChange = value => {
-    this.props.onChange('time', value);
+
+  handleChange = (value) => {
+    const { props } = this;
+    props.onChange('time', value);
   };
-  onFocusChange = ({focused}) => {
-    this.setState(() => ({calendarFocused: focused}));
-    if(!focused)
-      this.props.onBlur('time', true);
+
+  onFocusChange = ({ focused }) => {
+    const { props } = this;
+    this.setState(() => ({ calendarFocused: focused }));
+    if (!focused) props.onBlur('time', true);
   };
 
   render() {
+    const { value, error, touched } = this.props;
+    const { handleChange, onFocusChange } = this;
+    const { calendarFocused } = this.state;
+
     return (
       <div className="field">
         <div className="notification">
@@ -163,48 +171,46 @@ class DatePicker extends React.Component {
         </div>
         <label className="label" htmlFor="time">Deadline</label>
         <div className="control">
-          <SingleDatePicker 
-            date={this.props.value}
-            onDateChange={this.handleChange}
-            focused={this.state.calendarFocused}
-            onFocusChange={this.onFocusChange}
+          <SingleDatePicker
+            date={value}
+            onDateChange={handleChange}
+            focused={calendarFocused}
+            onFocusChange={onFocusChange}
             numberOfMonths={1}
           />
         </div>
-        {!!this.props.error &&
-          this.props.touched && (
-            <div className="has-text-danger">{this.props.error}</div>
-          )}
+        {!!error
+          && touched && (
+            <div className="has-text-danger">{error}</div>
+        )}
       </div>
     );
   }
 }
 
 export default withFormik({
-  mapPropsToValues: () => ({ 
+  mapPropsToValues: () => ({
     name: '',
     value: '',
     mentor: '',
-    time: moment().add(7, 'days')
+    time: moment().add(7, 'days'),
   }),
 
   // Custom sync validation
-  validate: values => {
-    let errors = {};
-    if(!values.name) {
+  validate: (values) => {
+    const errors = {};
+    if (!values.name) {
       errors.name = 'Required';
     }
 
-    if(!values.value || values.value <= 0) {
+    if (!values.value || values.value <= 0) {
       errors.value = 'Required';
-    }
-    else if(values.value < 0.1)
-      errors.value = 'Mininum amount is 0.1 eth';
-    
-    if(!values.mentor) {
+    } else if (values.value < 0.1) { errors.value = 'Mininum amount is 0.1 eth'; }
+
+    if (!values.mentor) {
       errors.mentor = 'Required';
     }
-    if(!values.time || values.time <= 0) {
+    if (!values.time || values.time <= 0) {
       errors.time = 'Required';
     }
     return errors;

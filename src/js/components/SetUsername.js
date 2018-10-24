@@ -67,7 +67,7 @@ export default withFormik({
       errors.username = 'Required';
     } else if ((values.username.length) < 3 || (values.username.length > 32)) {
       errors.username = 'Has to be within [3, 32]';
-    } else if (!/^[a-zA-Z\.]+$/.test(values.username)) {
+    } else if (!/^[a-zA-Z.]+$/.test(values.username)) {
       errors.username = 'Can contain only letters and dot';
     }
     return errors;

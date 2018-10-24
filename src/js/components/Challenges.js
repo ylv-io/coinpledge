@@ -5,46 +5,55 @@ import { resolveChallenge } from '../services/web3/challenge';
 import { updateUserChallenge } from '../actions/userChallenges';
 
 class Challenges extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  getHandleResolve = (challenge, decision) => {
-    return async (e) => {
+  getHandleResolve = (challenge, decision) => (
+    async (e) => {
+      const { props } = this;
       e.preventDefault();
       const hash = await resolveChallenge(challenge.id, decision);
-      this.props.dispatch(updateUserChallenge(challenge.id, { isSubmitting: true}));
-    };
-  }
+      props.dispatch(updateUserChallenge(challenge.id, { isSubmitting: true }));
+    }
+  )
 
   render() {
-    return(
+    const {
+      challenges,
+      history,
+    } = this.props;
+
+    return (
       <section className="section">
         <div className="container">
           <h4 className="title is-4">Your Challenges</h4>
-          <hr/>
-          { !this.props.challenges.length && <p className="title is-4">You don't have any challenges yet. Create one. You can do it!</p>}
+          <hr />
+          { !challenges.length && <p className="title is-4">You don&#39;t have any challenges yet. Create one. You can do it!</p>}
           <div className="columns is-multiline">
-            {this.props.challenges.map((o) => 
-              <div className="column is-4" key={o.id}>
-                <Challenge 
-                  challenge={o} 
-                  handleWin={this.getHandleResolve(o, true)} 
-                  handleLoss={this.getHandleResolve(o, false)} 
+            {
+              challenges.map(o => (
+                <div className="column is-4" key={o.id}>
+                  <Challenge
+                    challenge={o}
+                    handleWin={this.getHandleResolve(o, true)}
+                    handleLoss={this.getHandleResolve(o, false)}
                   />
-              </div>)}
+                </div>
+              ))
+            }
           </div>
 
-          {!!this.props.history.length && (
+          {!!history.length && (
             <div>
               <h4 className="title is-4">History</h4>
-              <hr/>
+              <hr />
               <div className="columns is-multiline">
-                {this.props.history.map((o) => 
-                  <div className="column is-4" key={o.id}>
-                    <Challenge 
-                      challenge={o} 
+                {
+                  history.map(o => (
+                    <div className="column is-4" key={o.id}>
+                      <Challenge
+                        challenge={o}
                       />
-                  </div>)}
+                    </div>
+                  ))
+                }
               </div>
             </div>
           )}
@@ -58,8 +67,8 @@ class Challenges extends React.Component {
 const mapStateToProps = (state, props) => {
   return {
     challenges: state.userChallenges.filter(o => !o.resolved),
-    history: state.userChallenges.filter(o => o.resolved)
-  }
+    history: state.userChallenges.filter(o => o.resolved),
+  };
 };
 
 export default connect(mapStateToProps)(Challenges);

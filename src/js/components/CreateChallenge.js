@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { connect } from 'react-redux';
 import CreateChallengeForm from './CreateChallengeForm';
 import { createChallenge } from '../services/web3/challenge';
@@ -10,32 +10,36 @@ class CreateChallenge extends React.Component {
     super(props);
 
     this.state = {
-    }
-
+    };
   }
 
   componentDidUpdate(prevProps) {
   }
-  
-  handleSubmit = async (values, { resetForm, setSubmitting, setStatus }) => {
 
+  handleSubmit = async (values, { resetForm, setSubmitting, setStatus }) => {
+    const { props } = this;
     try {
       const result = await createChallenge(values.name, values.value, values.time.unix(), values.mentor);
       setSubmitting(false);
       resetForm();
-      this.props.dispatch(addPendingChallenge({id: result, name: values.name, value: values.value, time: values.time.unix(), mentor: values.mentor }));
+      props.dispatch(addPendingChallenge({
+        id: result,
+        name: values.name,
+        value: values.value,
+        time: values.time.unix(),
+        mentor: values.mentor,
+      }));
 
       const receipt = await getTransactionReceipt(result);
-      this.props.dispatch(updatePendingChallenge(result, { isConfirmed: true}));
-    }
-    catch(e)
-    {
+      props.dispatch(updatePendingChallenge(result, { isConfirmed: true }));
+    } catch (e) {
       console.log(e);
       setSubmitting(false);
     }
   }
 
   render() {
+    const { pendingChallenges } = this.props;
     return (
       <section className="section">
         <div className="container">
@@ -43,27 +47,28 @@ class CreateChallenge extends React.Component {
             <div className="column is-half">
               <div className="box">
                 <h4 className="title is-4">New Challenge</h4>
-                <hr/>
+                <hr />
                 <CreateChallengeForm handleSubmit={this.handleSubmit} />
-             </div>
+              </div>
             </div>
 
             <div className="column is-half">
-              {this.props.pendingChallenges.map((o) => 
-                  <article 
-                    key={o.id} 
-                    className={ 
-                                o.isConfirmed ?
-                                "message is-success":
-                                "message is-info"
+              {
+                pendingChallenges.map(o => (
+                  <article
+                    key={o.id}
+                    className={
+                                o.isConfirmed
+                                  ? 'message is-success'
+                                  : 'message is-info'
                               }
                   >
                     <div className="message-header">
                       <p>
-                        { 
-                          o.isConfirmed ? 
-                          'Challenge Confirmed':
-                          'Submitting Challenge'
+                        {
+                          o.isConfirmed
+                            ? 'Challenge Confirmed'
+                            : 'Submitting Challenge'
                         }
                       </p>
                     </div>
@@ -71,7 +76,8 @@ class CreateChallenge extends React.Component {
                       <span className="is-size-4">{o.name}</span>
                     </div>
                   </article>
-                )}
+                ))
+              }
             </div>
 
           </div>
@@ -82,10 +88,8 @@ class CreateChallenge extends React.Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
-  return {
-    pendingChallenges: state.pendingChallenges
-  }
-};
+const mapStateToProps = (state, props) => ({
+  pendingChallenges: state.pendingChallenges,
+});
 
 export default connect(mapStateToProps)(CreateChallenge);
