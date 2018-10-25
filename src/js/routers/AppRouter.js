@@ -1,12 +1,11 @@
 import React from 'react';
 
 import {
- BrowserRouter,
- Route,
- Switch,
- Link,
- NavLink,
- Redirect } from 'react-router-dom';
+  BrowserRouter,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';

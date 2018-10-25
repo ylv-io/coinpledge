@@ -31,25 +31,25 @@ export default class Challenge extends React.Component {
         </header>
         <div className="card-content">
           <p className="is-size-5">
-            I pledge to
+            <span>I pledge to </span>
             <strong className="is-size-4">
               &quot;
               {challenge.name}
               &quot;
             </strong>
-            before
+            <span> before </span>
             <strong>{moment.unix(challenge.startDate).add(challenge.time, 's').format('DD MMM YYYY')}</strong>
-              by staking
+            <span> by staking </span>
             <strong>
               {challenge.value}
-              ether.
+              <span> ether.</span>
             </strong>
           </p>
           <small>
-           by
-            <Link to={`/${challenge.user}`}>{shortAddress(challenge.user)}</Link>
+            <span>by </span>
+            <Link to={`/${challenge.user}`}>{challenge.username}</Link>
             /
-            <Link to={`/${challenge.mentor}`}>{shortAddress(challenge.mentor)}</Link>
+            <Link to={`/${challenge.mentor}`}>{challenge.mentorname}</Link>
           </small>
         </div>
         <footer className="card-footer">

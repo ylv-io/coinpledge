@@ -62,6 +62,7 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
 
   /// @notice All Users
   mapping(address => User) public users;
+  address[] public allUsers;
   mapping(string => address) private usernameToAddress;
   
   /// @notice User's bonuses
@@ -76,10 +77,19 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
   }
 
 
+  /// @notice Get Users Lenght
+  function getUsersCount()
+  external
+  view
+  returns(uint) {
+    return allUsers.length;
+  }
+
+
   /// @notice Get Challenges For User
-  function getChallengesForUser(address user) 
-  external 
-  view 
+  function getChallengesForUser(address user)
+  external
+  view
   returns(uint[]) {
     require(userToChallengeCount[user] > 0, "Has zero challenges");
 
@@ -96,9 +106,9 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
   }
 
   /// @notice Get Challenges For Mentor
-  function getChallengesForMentor(address mentor) 
-  external 
-  view 
+  function getChallengesForMentor(address mentor)
+  external
+  view
   returns(uint[]) {
     require(mentorToChallengeCount[mentor] > 0, "Has zero challenges");
 
@@ -114,7 +124,7 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
     return result;
   }
 
-  /// @notice User Signup
+  /// @notice Set Username
 
   function setUsername(string name)
   external {
@@ -125,14 +135,15 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
 
     users[msg.sender] = User(msg.sender, name);
     usernameToAddress[name] = msg.sender;
+    allUsers.push(msg.sender);
 
     emit NewUsername(msg.sender, name);
   }
 
   /// @notice Creates Challenge
-  function createChallenge(string name, address mentor, uint time) 
-  external 
-  payable 
+  function createChallenge(string name, address mentor, uint time)
+  external
+  payable
   returns (uint retId) {
     require(msg.value >= 0.01 ether, "Has to stake more than 0.01 ether");
     require(mentor != 0x0, "Has to be a mentor");

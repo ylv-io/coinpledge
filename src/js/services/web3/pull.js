@@ -15,17 +15,19 @@ import {
 
 import { addOrUpdateUserChallenges } from '../../actions/userChallenges';
 import { addOrUpdateMentorChallenges } from '../../actions/mentorChallenges';
+import { addOrUpdateUsers } from '../../actions/users';
 import {
   getBonusFund,
   getChallengesForMentor,
   getChallengesForUser,
-  subscribeToCoinEvents,
-  getUsername,
 } from './challenge';
+
+import subscribeToCoinEvents from './events';
+import { getUsername, getAllUsers } from './user';
 
 import { wait } from '../../utils/promise';
 
-const updateFromWeb3 = async (store, account) => {
+const pullFromWeb3 = async (store, account) => {
   let result = await getChallengesForUser(account);
   store.dispatch(addOrUpdateUserChallenges(result));
 
@@ -37,6 +39,9 @@ const updateFromWeb3 = async (store, account) => {
 
   result = await getUsername(account);
   store.dispatch(setUsername(result));
+
+  result = await getAllUsers();
+  store.dispatch(addOrUpdateUsers(result));
 };
 
 
@@ -45,7 +50,6 @@ export default async (store) => {
     // Update state related to metamask events
 
     let prevAccount;
-    
     store.dispatch(setInstalled(!!getWeb3js()));
     store.dispatch(setLocked(true));
 
@@ -70,7 +74,7 @@ export default async (store) => {
               // account unlocked
               store.dispatch(setLocked(false));
               // pull data once on account unlocked
-              updateFromWeb3(store, getAccount());
+              pullFromWeb3(store, getAccount());
             }
 
             store.dispatch(setAccount(newAccount));

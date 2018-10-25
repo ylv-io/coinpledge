@@ -1,13 +1,21 @@
 import {
   createStore,
   combineReducers,
+  applyMiddleware,
 } from 'redux';
+
+import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import challengesReducer from '../reducers/userChallenges';
 import web3Reducer from '../reducers/web3';
 import mentorReducer from '../reducers/mentorChallenges';
 import pendingReducer from '../reducers/pendingChallenges';
+import usersReducer from '../reducers/users';
 
+const middleware = [
+  thunk,
+];
 
 export default () => {
   const store = createStore(
@@ -16,8 +24,11 @@ export default () => {
       pendingChallenges: pendingReducer,
       blockchain: web3Reducer,
       mentorChallenges: mentorReducer,
+      users: usersReducer,
     }),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    composeWithDevTools(
+      applyMiddleware(...middleware),
+    ),
   );
 
   return store;

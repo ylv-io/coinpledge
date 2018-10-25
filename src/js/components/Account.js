@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import SetUsernameForm from './SetUsername';
 
-import { setUsername } from '../services/web3/challenge';
+import { setUsername } from '../services/web3/user';
 import { getTransactionReceipt } from '../services/web3/web3';
+import { setUsername as setUsernameAction } from '../actions/web3';
 
 class Account extends React.Component {
   constructor(props) {
@@ -21,15 +22,15 @@ class Account extends React.Component {
 
   handleSubmit = async ({ username }, { resetForm, setSubmitting, setStatus }) => {
     try {
+      const { props } = this;
+
       const result = await setUsername(username);
       setSubmitting(false);
       resetForm();
 
-      // this.props.dispatch(addPendingChallenge({id: result, name: values.name, value: values.value, time: values.time.unix(), mentor: values.mentor }));
+      props.dispatch(setUsernameAction(username));
 
       const receipt = await getTransactionReceipt(result);
-      console.log(receipt);
-      // this.props.dispatch(updatePendingChallenge(result, { isConfirmed: true}));
     } catch (e) {
       console.log(e);
       setSubmitting(false);
@@ -39,6 +40,7 @@ class Account extends React.Component {
   render() {
     const {
       account,
+      username,
     } = this.props;
 
     return (
@@ -52,7 +54,13 @@ class Account extends React.Component {
               <div className="box">
                 <h4 className="title is-4">Username</h4>
                 <hr />
-                <SetUsernameForm handleSubmit={this.handleSubmit} />
+                { !username ? <SetUsernameForm handleSubmit={this.handleSubmit} /> : (
+                  <span className="title is-4">
+                    {
+                      username
+                    }
+                  </span>
+                )}
               </div>
             </div>
           </div>

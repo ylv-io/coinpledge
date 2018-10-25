@@ -1,29 +1,31 @@
-export const setInstalled = (installed) => ({
+export const setInstalled = installed => ({
   type: 'SET_INSTALLED',
-  installed
+  installed,
 });
 
-export const setLocked = (locked) => ({
+export const setLocked = locked => ({
   type: 'SET_LOCKED',
-  locked
+  locked,
 });
 
-export const setNetwork = (network) => ({
+export const setNetwork = network => ({
   type: 'SET_NETWORK',
-  network
+  network,
 });
 
-export const setAccount = (account) => ({
+export const setAccount = account => ({
   type: 'SET_ACCOUNT',
-  account
+  account,
 });
 
-export const setBonusFund = (bonusFund) => ({
+export const setBonusFund = bonusFund => ({
   type: 'SET_BONUS_FUND',
-  bonusFund
+  bonusFund,
 });
 
-export const setUsername = (username) => ({
-  type: 'SET_USERNAME',
-  username
-});
+export const setUsername = username => (dispatch) => {
+  dispatch({
+    type: 'SET_USERNAME',
+    username,
+  });
+};

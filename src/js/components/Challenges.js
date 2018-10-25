@@ -1,6 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { connect } from 'react-redux';
+
 import Challenge from './Challenge';
+import { getChallenges } from '../selectors/challenges';
 import { resolveChallenge } from '../services/web3/challenge';
 import { updateUserChallenge } from '../actions/userChallenges';
 
@@ -64,11 +66,9 @@ class Challenges extends React.Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
-  return {
-    challenges: state.userChallenges.filter(o => !o.resolved),
-    history: state.userChallenges.filter(o => o.resolved),
-  };
-};
+const mapStateToProps = (state, props) => ({
+  challenges: getChallenges(state.userChallenges, state.users, o => !o.resolved),
+  history: getChallenges(state.userChallenges, state.users, o => o.resolved),
+});
 
 export default connect(mapStateToProps)(Challenges);

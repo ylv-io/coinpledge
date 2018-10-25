@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
+import { getChallenges } from '../selectors/challenges';
 import Challenge from './Challenge';
 import { resolveChallenge } from '../services/web3/challenge';
 import { updateMentorChallenge } from '../actions/mentorChallenges';
@@ -15,16 +17,16 @@ class Mentor extends React.Component {
   )
 
   render() {
-    const { mentor, history } = this.props;
+    const { challenges, history } = this.props;
     return (
       <section className="section">
         <div className="container">
           <h4 className="title is-4">Mentor</h4>
           <hr />
-          { !mentor.length && <p className="title is-4">You don&apos;t have any challenges yet. Help someone!</p>}
+          { !challenges.length && <p className="title is-4">You don&apos;t have any challenges yet. Help someone!</p>}
           <div className="columns is-multiline">
             {
-              mentor.map(o => (
+              challenges.map(o => (
                 <div className="column is-4" key={o.id}>
                   <Challenge
                     challenge={o}
@@ -61,8 +63,8 @@ class Mentor extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  mentor: state.mentorChallenges.filter(o => !o.resolved),
-  history: state.mentorChallenges.filter(o => o.resolved),
+  challenges: getChallenges(state.mentorChallenges, state.users, o => !o.resolved),
+  history: getChallenges(state.mentorChallenges, state.users, o => o.resolved),
 });
 
 export default connect(mapStateToProps)(Mentor);
