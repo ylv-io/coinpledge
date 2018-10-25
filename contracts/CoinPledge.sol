@@ -141,24 +141,26 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
   }
 
   /// @notice Creates Challenge
-  function createChallenge(string name, address mentor, uint time)
+  function createChallenge(string name, string mentor, uint time)
   external
   payable
   returns (uint retId) {
     require(msg.value >= 0.01 ether, "Has to stake more than 0.01 ether");
-    require(mentor != 0x0, "Has to be a mentor");
+    require(bytes(mentor).length > 0, "Has to be a mentor");
+    require(usernameToAddress[mentor] != address(0x0), "Mentor has to be registered");
     require(time > 0, "Time has to be greater than zero");
 
+    address mentorAddr = usernameToAddress[mentor];
     uint startDate = block.timestamp;
-    uint id = challenges.push(Challenge(msg.sender, name, msg.value, mentor, startDate, time, false, false)) - 1;
+    uint id = challenges.push(Challenge(msg.sender, name, msg.value, mentorAddr, startDate, time, false, false)) - 1;
 
     challengeToUser[id] = msg.sender;
     userToChallengeCount[msg.sender]++;
 
-    challengeToMentor[id] = mentor;
-    mentorToChallengeCount[mentor]++;
+    challengeToMentor[id] = mentorAddr;
+    mentorToChallengeCount[mentorAddr]++;
 
-    emit NewChallenge(id, msg.sender, name, msg.value, mentor, startDate, time);
+    emit NewChallenge(id, msg.sender, name, msg.value, mentorAddr, startDate, time);
 
     return id;
   }

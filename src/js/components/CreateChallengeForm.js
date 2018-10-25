@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { withFormik } from 'formik';
 
 import moment from 'moment';
-import { SingleDatePicker } from 'react-dates';
-import 'react-dates/lib/css/_datepicker.css';
+
+import DatePickerField from './DatePickerField';
+import SelectField from './SelectField';
 
 const CreateChallengeForm = (props) => {
   const {
@@ -19,6 +20,7 @@ const CreateChallengeForm = (props) => {
     setFieldValue,
     setFieldTouched,
     dirty,
+    users,
   } = props;
   return (
     <form onSubmit={handleSubmit}>
@@ -90,37 +92,18 @@ const CreateChallengeForm = (props) => {
 
       <hr />
 
-      <div className="field">
-        <div className="notification">
-        Ethereum address. A person to resolve your challenge and keep you accountable.
-        </div>
-        <label className="label" htmlFor="mentor">Mentor</label>
-        <div className="field">
-          <p className="control">
-            <input
-              type="text"
-              name="mentor"
-              value={values.mentor}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className={
-                errors.mentor && touched.mentor ? (
-                  'input is-danger'
-                ) : (
-                  'input'
-                )
-              }
-            />
-          </p>
-          {errors.mentor && touched.mentor && (
-            <div className="has-text-danger">{errors.mentor}</div>
-          )}
-        </div>
-      </div>
+      <SelectField
+        value={values.mentor}
+        onChange={setFieldValue}
+        onBlur={setFieldTouched}
+        error={errors.mentor}
+        touched={touched.touched}
+        options={users}
+      />
 
       <hr />
 
-      <DatePicker
+      <DatePickerField
         value={values.time}
         onChange={setFieldValue}
         onBlur={setFieldTouched}
@@ -138,55 +121,6 @@ const CreateChallengeForm = (props) => {
     </form>
   );
 };
-
-class DatePicker extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      calendarFocused: false,
-    };
-  }
-
-  handleChange = (value) => {
-    const { props } = this;
-    props.onChange('time', value);
-  };
-
-  onFocusChange = ({ focused }) => {
-    const { props } = this;
-    this.setState(() => ({ calendarFocused: focused }));
-    if (!focused) props.onBlur('time', true);
-  };
-
-  render() {
-    const { value, error, touched } = this.props;
-    const { handleChange, onFocusChange } = this;
-    const { calendarFocused } = this.state;
-
-    return (
-      <div className="field">
-        <div className="notification">
-          A date before which your goal has to be reached.
-        </div>
-        <label className="label" htmlFor="time">Deadline</label>
-        <div className="control">
-          <SingleDatePicker
-            date={value}
-            onDateChange={handleChange}
-            focused={calendarFocused}
-            onFocusChange={onFocusChange}
-            numberOfMonths={1}
-          />
-        </div>
-        {!!error
-          && touched && (
-            <div className="has-text-danger">{error}</div>
-        )}
-      </div>
-    );
-  }
-}
 
 export default withFormik({
   mapPropsToValues: () => ({

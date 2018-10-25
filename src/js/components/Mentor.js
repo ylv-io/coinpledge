@@ -30,8 +30,8 @@ class Mentor extends React.Component {
                 <div className="column is-4" key={o.id}>
                   <Challenge
                     challenge={o}
-                    handleWin={this.getHandleResolve(o.id, true)}
-                    handleLoss={this.getHandleResolve(o.id, false)}
+                    handleWin={this.getHandleResolve(o, true)}
+                    handleLoss={this.getHandleResolve(o, false)}
                   />
                 </div>
               ))

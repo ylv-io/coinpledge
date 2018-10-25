@@ -106,7 +106,9 @@ const Landing = () => (
           <p>
             Install
             <a target="_blank" rel="noopener noreferrer" href="https://metamask.io/"> MetaMask</a>
-            , get some ETH and start a
+            , get some ETH,
+            <Link to="/account"> pick a username </Link>
+            and start a
             <Link to="/new"> new challenge</Link>
             .
           </p>

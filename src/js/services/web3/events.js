@@ -46,11 +46,11 @@ const subscribeToCoinEvents = async (store) => {
         canResolve: (getAccount() === mentor),
         isMentor: getAccount() === mentor,
       };
-      if (user === account) {
+      if (account === user) {
         const exst = store.getState().userChallenges.filter(o => o.id === newChallenge.id)[0];
         if (!exst) store.dispatch(addUserChallenge(newChallenge));
       }
-      if (user === mentor) {
+      if (account === mentor) {
         const exst = store.getState().mentorChallenges.filter(o => o.id === newChallenge.id)[0];
         if (!exst) store.dispatch(addMentorChallenge(newChallenge));
       }
@@ -73,11 +73,11 @@ const subscribeToCoinEvents = async (store) => {
         resolved: true,
         canResolve: false,
       };
-      if (user === account) {
+      if (account === user) {
         const exst = store.getState().userChallenges.filter(o => o.id === challengeId)[0];
         if (!exst) store.dispatch(updateUserChallenge(challengeId.toNumber(), updates));
       }
-      if (user === mentor) {
+      if (account === mentor) {
         const exst = store.getState().mentorChallenges.filter(o => o.id === challengeId)[0];
         if (!exst) store.dispatch(updateMentorChallenge(challengeId.toNumber(), updates));
       }

@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
+import usersSelect from '../selectors/usersSelect';
 import CreateChallengeForm from './CreateChallengeForm';
 import { createChallenge } from '../services/web3/challenge';
 import { getTransactionReceipt } from '../services/web3/web3';
@@ -39,7 +41,7 @@ class CreateChallenge extends React.Component {
   }
 
   render() {
-    const { pendingChallenges } = this.props;
+    const { pendingChallenges, users } = this.props;
     return (
       <section className="section">
         <div className="container">
@@ -48,7 +50,7 @@ class CreateChallenge extends React.Component {
               <div className="box">
                 <h4 className="title is-4">New Challenge</h4>
                 <hr />
-                <CreateChallengeForm handleSubmit={this.handleSubmit} />
+                <CreateChallengeForm users={users} handleSubmit={this.handleSubmit} />
               </div>
             </div>
 
@@ -90,6 +92,7 @@ class CreateChallenge extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   pendingChallenges: state.pendingChallenges,
+  users: usersSelect(state.users),
 });
 
 export default connect(mapStateToProps)(CreateChallenge);
