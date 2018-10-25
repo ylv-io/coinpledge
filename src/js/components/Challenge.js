@@ -75,6 +75,26 @@ export default class Challenge extends React.Component {
               </a>
             )
           }
+          <a
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`I pledge to "${challenge.name}" before ${moment.unix(challenge.startDate).add(challenge.time, 's').format('DD MMM YYYY')} by staking ${challenge.value} ether at coinpledge.ylv.io.`)}&hashtags=coinpledge`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="card-footer-item"
+          >
+            <span className="icon">
+              <i className="fab fa-twitter" />
+            </span>
+          </a>
+          <a
+            href={`https://www.facebook.com/sharer/sharer.php?u=coinpledge.ylv.io&quote=${encodeURIComponent(`I pledge to "${challenge.name}" before ${moment.unix(challenge.startDate).add(challenge.time, 's').format('DD MMM YYYY')} by staking ${challenge.value} ether at coinpledge.ylv.io.`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="card-footer-item"
+          >
+            <span className="icon">
+              <i className="fab fa-facebook" />
+            </span>
+          </a>
         </footer>
       </div>
     );
