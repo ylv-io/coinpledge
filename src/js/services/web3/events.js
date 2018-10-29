@@ -32,6 +32,7 @@ const subscribeToCoinEvents = async (store) => {
         name,
         startDate,
         time,
+        mentorFee,
         value,
       } = result.args;
       const account = getAccount();
@@ -43,11 +44,13 @@ const subscribeToCoinEvents = async (store) => {
         mentor,
         startDate: startDate.toNumber(),
         time: time.toNumber(),
+        mentorFee: mentorFee.toNumber(),
         successed: false,
         resolved: false,
         canResolve: (getAccount() === mentor),
         isMentor: getAccount() === mentor,
       };
+      console.log(newChallenge);
       if (account === user) {
         const exst = store.getState().userChallenges.filter(o => o.id === newChallenge.id)[0];
         if (!exst) store.dispatch(addUserChallenge(newChallenge));

@@ -59,7 +59,7 @@ const CreateChallengeForm = (props) => {
         <div className="notification">
           Amount to stake. 7 cappuccinos is a good stake.
         </div>
-        <label className="label" htmlFor="number">Amount</label>
+        <label className="label" htmlFor="value">Stake</label>
         <div className="field has-addons">
           <p className="control is-expanded">
             <input
@@ -91,7 +91,6 @@ const CreateChallengeForm = (props) => {
       </div>
 
       <hr />
-
       <SelectField
         value={values.mentor}
         onChange={setFieldValue}
@@ -102,7 +101,42 @@ const CreateChallengeForm = (props) => {
       />
 
       <hr />
+      <div className="field">
+        <div className="notification">
+          Mentor&apos;s reward. Paid out of staked amount.
+        </div>
+        <label className="label" htmlFor="mentorFee">Mentor Fee</label>
+        <div className="field has-addons">
+          <p className="control is-expanded">
+            <input
+              type="number"
+              step="0.01"
+              name="mentorFee"
+              id="mentorFee"
+              value={values.mentorFee}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className={
+                  errors.mentorFee && touched.mentorFee ? (
+                    'input is-danger'
+                  ) : (
+                    'input'
+                  )
+                }
+            />
+          </p>
+          <p className="control">
+            <a className="button is-static">
+                ether
+            </a>
+          </p>
+        </div>
+        {errors.mentorFee && touched.mentorFee && (
+        <div className="has-text-danger">{errors.mentorFee}</div>
+        )}
+      </div>
 
+      <hr />
       <DatePickerField
         value={values.time}
         onChange={setFieldValue}
@@ -127,6 +161,7 @@ export default withFormik({
     name: '',
     value: '',
     mentor: '',
+    mentorFee: '',
     time: moment().add(7, 'days'),
   }),
 
@@ -137,13 +172,18 @@ export default withFormik({
       errors.name = 'Required';
     }
 
-    if (!values.value || values.value <= 0) {
+    if (values.value <= 0) {
       errors.value = 'Required';
     } else if (values.value < 0.1) { errors.value = 'Mininum amount is 0.1 eth'; }
 
     if (!values.mentor) {
       errors.mentor = 'Required';
     }
+
+    if (values.mentorFee === '' || values.mentorFee < 0) {
+      errors.mentorFee = 'Required';
+    }
+
     if (!values.time || values.time <= 0) {
       errors.time = 'Required';
     }

@@ -169,6 +169,8 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
   payable
   returns (uint retId) {
     require(msg.value >= 0.01 ether, "Has to stake more than 0.01 ether");
+    require(mentorFee >= 0 ether, "Can't be negative");
+    require(mentorFee <= msg.value, "Can't be bigger than stake");
     require(bytes(mentor).length > 0, "Has to be a mentor");
     require(usernameToAddress[mentor] != address(0x0), "Mentor has to be registered");
     require(time > 0, "Time has to be greater than zero");
@@ -191,6 +193,8 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
   /// @notice Resolves Challenge
   function resolveChallenge(uint challengeId, bool decision)
   external {
+    Challenge storage challenge = challenges[challengeId];
+    
     require(challenge.resolved == false, "Challenge already resolved.");
 
     // if more time passed than endDate + daysToResolve, then user can resolve himself
@@ -200,7 +204,7 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
 
     uint mentorFee;
     uint serviceFee;
-    Challenge storage challenge = challenges[challengeId];
+    
     address user = challengeToUser[challengeId];
     address mentor = challengeToMentor[challengeId];
 
@@ -213,14 +217,11 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
     // mentor & service fee
     if(challenge.mentorFee > 0) {
       serviceFee = challenge.mentorFee.div(100).mul(serviceFeePercentage);
-      mentorFee = challenge.mentorFee - serviceFee;
+      mentorFee = challenge.mentorFee.div(100).mul(100 - serviceFeePercentage);
     }
     
-    if(serviceFee > 0)
-      remainingValue = challenge.value.sub(serviceFee);
-
-    if(mentorFee > 0)
-      remainingValue = challenge.value.sub(mentorFee);
+    if(challenge.mentorFee > 0)
+      remainingValue = challenge.value.sub(challenge.mentorFee);
 
     uint valueToPay;
 
@@ -242,6 +243,7 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
     }
     else {
       bonusFund[user] += remainingValue;
+      emit BonusFundChanged(user, bonusFund[user]);
     }
 
     // pay back to the challenger

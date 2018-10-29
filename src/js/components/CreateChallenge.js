@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import usersSelect from '../selectors/usersSelect';
 import CreateChallengeForm from './CreateChallengeForm';
 import { createChallenge } from '../services/web3/challenge';
-import { getTransactionReceipt } from '../services/web3/web3';
+import { getTransactionReceipt, toWei } from '../services/web3/web3';
 import { addPendingChallenge, updatePendingChallenge } from '../actions/pendingChallenges';
 
 class CreateChallenge extends React.Component {
@@ -18,18 +18,24 @@ class CreateChallenge extends React.Component {
   componentDidUpdate(prevProps) {
   }
 
-  handleSubmit = async (values, { resetForm, setSubmitting, setStatus }) => {
+  handleSubmit = async ({
+    name,
+    value,
+    time,
+    mentor,
+    mentorFee,
+  }, { resetForm, setSubmitting, setStatus }) => {
     const { props } = this;
     try {
-      const result = await createChallenge(values.name, values.value, values.time.unix(), values.mentor, 0);
+      const result = await createChallenge(name, value, time.unix(), mentor, toWei(mentorFee, 'ether'));
       setSubmitting(false);
       resetForm();
       props.dispatch(addPendingChallenge({
         id: result,
-        name: values.name,
-        value: values.value,
-        time: values.time.unix(),
-        mentor: values.mentor,
+        name,
+        value,
+        time: time.unix(),
+        mentor,
       }));
 
       const receipt = await getTransactionReceipt(result);
