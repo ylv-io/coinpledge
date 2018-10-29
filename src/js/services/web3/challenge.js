@@ -9,12 +9,12 @@ import {
   fromWei,
 } from './web3';
 
-export const createChallenge = async (name, value, time, mentor) => {
+export const createChallenge = async (name, value, time, mentor, mentorFee) => {
   const web3js = getWeb3js();
   const instance = await getCoinContractPromise();
   const account = getAccount();
 
-  return instance.createChallenge.sendTransaction(name, mentor, time - moment().unix(), {
+  return instance.createChallenge.sendTransaction(name, mentor, time - moment().unix(), mentorFee, {
     from: account,
     value: web3js.toWei(value, 'ether'),
   });

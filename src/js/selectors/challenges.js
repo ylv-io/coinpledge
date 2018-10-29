@@ -11,5 +11,5 @@ export const getChallenges = (challenges, users, filter) => _.orderBy(
       username: user ? user.username : shortAddress(o.user),
       mentorname: mentor ? mentor.username : shortAddress(o.mentor),
     };
-  }, [o => o.startDate]),
+  }, [o => o.startDate]), ['startDate'], ['desc'],
 );

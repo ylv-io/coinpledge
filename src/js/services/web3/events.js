@@ -14,12 +14,13 @@ import {
   updateMentorChallenge,
 } from '../../actions/mentorChallenges';
 
+import { addUser } from '../../actions/users';
+
 import { setBonusFund } from '../../actions/web3';
 
 const subscribeToCoinEvents = async (store) => {
   const web3js = getWeb3js();
   const contract = await getCoinContractPromise();
-  const account = getAccount();
 
   const newChallengeEvent = contract.NewChallenge();
   newChallengeEvent.watch((error, result) => {
@@ -33,6 +34,7 @@ const subscribeToCoinEvents = async (store) => {
         time,
         value,
       } = result.args;
+      const account = getAccount();
       const newChallenge = {
         id: challengeId.toNumber(),
         user,
@@ -68,6 +70,7 @@ const subscribeToCoinEvents = async (store) => {
         mentor,
         decision,
       } = result.args;
+      const account = getAccount();
       const updates = {
         successed: decision,
         resolved: true,
@@ -89,8 +92,23 @@ const subscribeToCoinEvents = async (store) => {
   const bonusFundChangedEvent = contract.BonusFundChanged();
   bonusFundChangedEvent.watch((error, result) => {
     if (!error) {
+      const account = getAccount();
       const { user, value } = result.args;
       if (user === account) store.dispatch(setBonusFund(fromWei(value.toNumber(), 'ether')));
+    } else {
+      console.log(error);
+    }
+  });
+
+  const newUsernameEvent = contract.NewUsername();
+  newUsernameEvent.watch((error, result) => {
+    if (!error) {
+      const account = getAccount();
+      const state = store.getState();
+      const { addr, name } = result.args;
+      if (!state.users.find(user => user.addr === addr)) {
+        store.dispatch(addUser({ addr, username: name }));
+      }
     } else {
       console.log(error);
     }

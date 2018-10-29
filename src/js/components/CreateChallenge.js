@@ -21,7 +21,7 @@ class CreateChallenge extends React.Component {
   handleSubmit = async (values, { resetForm, setSubmitting, setStatus }) => {
     const { props } = this;
     try {
-      const result = await createChallenge(values.name, values.value, values.time.unix(), values.mentor);
+      const result = await createChallenge(values.name, values.value, values.time.unix(), values.mentor, 0);
       setSubmitting(false);
       resetForm();
       props.dispatch(addPendingChallenge({

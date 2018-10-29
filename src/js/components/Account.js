@@ -41,29 +41,39 @@ class Account extends React.Component {
     const {
       account,
       username,
+      bonusFund,
+      users,
     } = this.props;
 
     return (
       <section className="section">
         <div className="container">
-          <h4 className="title is-3"><a target="_blank" rel="noopener noreferrer" href={`https://ropsten.etherscan.io/address/${account}`}>{account ? account.substring(0, 10) : ''}</a></h4>
+          <h4 className="title is-3">
+            <a target="_blank" rel="noopener noreferrer" href={`https://ropsten.etherscan.io/address/${account}`}>
+              { username ? `${username} (${account.substring(0, 10)})` : account.substring(0, 10) }
+            </a>
+          </h4>
+          <hr />
+          <p className="title is-4">Bonus Fund</p>
+          <p className="subtitle is-5">
+            { bonusFund }
+            <span> ether</span>
+          </p>
           <hr />
 
-          <div className="columns">
-            <div className="column is-half">
-              <div className="box">
-                <h4 className="title is-4">Username</h4>
-                <hr />
-                { !username ? <SetUsernameForm handleSubmit={this.handleSubmit} /> : (
-                  <span className="title is-4">
-                    {
-                      username
-                    }
-                  </span>
-                )}
+          { !username
+            && (
+              <div className="columns">
+                <div className="column is-half">
+                  <div className="box">
+                    <h4 className="title is-4">Pick Username</h4>
+                    <hr />
+                    <SetUsernameForm handleSubmit={this.handleSubmit} users={users} />
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            )
+          }
 
         </div>
       </section>
@@ -73,6 +83,7 @@ class Account extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   ...state.blockchain,
+  users: state.users,
 });
 
 export default connect(mapStateToProps)(Account);

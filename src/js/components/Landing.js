@@ -116,6 +116,28 @@ const Landing = () => (
       </div>
       <hr />
 
+      <h1 className="title has-text-centered">How Much Does It Cost?</h1>
+      <div className="columns">
+        <div className="column is-offset-one-quarter is-half">
+          <p>
+            It is
+            <strong> free! </strong>
+            However, we do take a 10% cut from mentor fee, so if you want to use CoinPledge absolutely for free, make sure to set mentor fee to 0.
+          </p>
+        </div>
+      </div>
+      <hr />
+
+      <h1 className="title has-text-centered">What Happens to My Stake If I Lose?</h1>
+      <div className="columns">
+        <div className="column is-offset-one-quarter is-half">
+          <p>
+            Your staked ethereum goes to your personal bonus fund. Everytime you win a challenge, you get 50% as bonus from your bonus fund. If it is less than 1 finney, you get it all back.
+          </p>
+        </div>
+      </div>
+      <hr />
+
       <h1 className="title has-text-centered">Need Help? Need Mentor?</h1>
       <div className="columns">
         <div className="column is-offset-one-quarter is-half">

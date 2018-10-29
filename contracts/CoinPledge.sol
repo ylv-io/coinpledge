@@ -24,8 +24,7 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
 
   uint constant daysToResolve = 7 days;
   uint constant bonusPercentage = 50;
-  uint constant feePercentage = 1;
-  uint constant mentorPercentage = 4;
+  uint constant serviceFeePercentage = 10;
   uint constant minBonus = 1 finney;
 
   struct Challenge {
@@ -35,6 +34,7 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
     address mentor;
     uint startDate;
     uint time;
+    uint mentorFee;
 
     bool successed;
     bool resolved;
@@ -46,10 +46,33 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
   }
 
   // Events
-  event NewChallenge(uint indexed challengeId, address indexed user, string name, uint value, address indexed mentor, uint startDate, uint time);
-  event ChallengeResolved(uint indexed challengeId, address indexed user, address indexed mentor, bool decision);
-  event BonusFundChanged(address indexed user, uint value);
-  event NewUsername(address indexed addr, string indexed name);
+  event NewChallenge(
+    uint indexed challengeId,
+    address indexed user,
+    string name,
+    uint value,
+    address indexed mentor,
+    uint startDate,
+    uint time,
+    uint mentorFee
+  );
+
+  event ChallengeResolved(
+    uint indexed challengeId,
+    address indexed user,
+    address indexed mentor,
+    bool decision
+  );
+
+  event BonusFundChanged(
+    address indexed user,
+    uint value
+  );
+
+  event NewUsername(
+    address indexed addr,
+    string name
+  );
 
   /// @notice All Challenges
   Challenge[] public challenges;
@@ -141,7 +164,7 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
   }
 
   /// @notice Creates Challenge
-  function createChallenge(string name, string mentor, uint time)
+  function createChallenge(string name, string mentor, uint time, uint mentorFee)
   external
   payable
   returns (uint retId) {
@@ -152,7 +175,7 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
 
     address mentorAddr = usernameToAddress[mentor];
     uint startDate = block.timestamp;
-    uint id = challenges.push(Challenge(msg.sender, name, msg.value, mentorAddr, startDate, time, false, false)) - 1;
+    uint id = challenges.push(Challenge(msg.sender, name, msg.value, mentorAddr, startDate, time, mentorFee, false, false)) - 1;
 
     challengeToUser[id] = msg.sender;
     userToChallengeCount[msg.sender]++;
@@ -160,7 +183,7 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
     challengeToMentor[id] = mentorAddr;
     mentorToChallengeCount[mentorAddr]++;
 
-    emit NewChallenge(id, msg.sender, name, msg.value, mentorAddr, startDate, time);
+    emit NewChallenge(id, msg.sender, name, msg.value, mentorAddr, startDate, time, mentorFee);
 
     return id;
   }
@@ -168,10 +191,6 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
   /// @notice Resolves Challenge
   function resolveChallenge(uint challengeId, bool decision)
   external {
-    Challenge storage challenge = challenges[challengeId];
-    address user = challengeToUser[challengeId];
-    address mentor = challengeToMentor[challengeId];
-
     require(challenge.resolved == false, "Challenge already resolved.");
 
     // if more time passed than endDate + daysToResolve, then user can resolve himself
@@ -179,19 +198,29 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
       require(challenge.mentor == msg.sender, "You are not the mentor for this challenge.");
     else require((challenge.user == msg.sender) || (challenge.mentor == msg.sender), "You are not the user or mentor for this challenge.");
 
+    uint mentorFee;
+    uint serviceFee;
+    Challenge storage challenge = challenges[challengeId];
+    address user = challengeToUser[challengeId];
+    address mentor = challengeToMentor[challengeId];
+
     // write decision
     challenge.successed = decision;
     challenge.resolved = true;
 
-    // pay service fee
-    uint serviceFee = challenge.value.div(100).mul(feePercentage);
-    owner.transfer(serviceFee);
+    uint remainingValue = challenge.value;
 
-    // pay mentor fee
-    uint mentorFee = challenge.value.div(100).mul(mentorPercentage);
-    mentor.transfer(mentorFee);
+    // mentor & service fee
+    if(challenge.mentorFee > 0) {
+      serviceFee = challenge.mentorFee.div(100).mul(serviceFeePercentage);
+      mentorFee = challenge.mentorFee - serviceFee;
+    }
+    
+    if(serviceFee > 0)
+      remainingValue = challenge.value.sub(serviceFee);
 
-    uint remainingValue = challenge.value.sub(serviceFee).sub(mentorFee);
+    if(mentorFee > 0)
+      remainingValue = challenge.value.sub(mentorFee);
 
     uint valueToPay;
 
@@ -211,13 +240,19 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
         valueToPay += bonusValue;
       }
     }
-    else 
-        // if failed to achieve goal, put money to bonus fund
-        bonusFund[user] += remainingValue;
+    else {
+      bonusFund[user] += remainingValue;
+    }
 
     // pay back to the challenger
     if(valueToPay > 0)
-        user.transfer(valueToPay);
+      user.transfer(valueToPay);
+
+    if(mentorFee > 0)
+      mentor.transfer(mentorFee);
+
+    if(serviceFee > 0)
+      owner.transfer(serviceFee);
 
     emit ChallengeResolved(challengeId, user, mentor, decision);
   }

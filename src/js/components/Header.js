@@ -69,7 +69,7 @@ const Header = (props) => {
               )
               : (
                 <div className="navbar-item">
-                  <span>Install </span>
+                  Install&nbsp;
                   <a target="_blank" rel="noopener noreferrer" href="https://metamask.io/">MetaMask</a>
                 </div>
               )}

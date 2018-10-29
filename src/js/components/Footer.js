@@ -13,6 +13,11 @@ const Footer = () => (
         <a href="https://t.me/ylv_public">Telegram</a>
       </p>
       <p>
+        Donate
+        <br />
+        <small>0x4632F4120DC68F225e7d24d973Ee57478389e9Fd</small>
+      </p>
+      <p>
         <span>Built by </span>
         <a href="https://ylv.io/">Igor Yalovoy</a>
       </p>

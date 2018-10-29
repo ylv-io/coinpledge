@@ -1,35 +1,38 @@
-
-//  struct Challenge {
+// struct Challenge {
 //   address user;
 //   string name;
 //   uint value;
 //   address mentor;
 //   uint startDate;
 //   uint time;
+//   uint mentorFee;
 
 //   bool successed;
 //   bool resolved;
 // }
 
 export const arrayToChallenge = (array, id, account) => {
-  const user = array[0];
-  const mentor = array[3];
-  const resolved = array[7];
-  const startDate = array[4].toNumber();
-  const time = array[5].toNumber();
+  const [user, name, valueRaw, mentor, startDateRaw, timeRaw, mentorFee, successed, resolved] = array;
+
+  const startDate = startDateRaw.toNumber();
+  const time = timeRaw.toNumber();
+  const value = web3.fromWei(valueRaw.toNumber(), 'ether');
+
   const daysToMentor = 7;
+
   return {
     id,
-    name: array[1],
-    value: web3.fromWei(array[2].toNumber(), 'ether'),
+    name,
+    value,
     user,
     mentor,
     startDate,
     time,
-    successed: array[6],
+    mentorFee,
+    successed,
     resolved,
     canResolve: (account === mentor || (startDate + time + (daysToMentor * 24 * 60 * 60)) < Math.floor(Date.now() / 1000)) && !resolved,
-    isMentor: user === mentor,
+    isMentor: account === mentor,
   };
 };
 
