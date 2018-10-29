@@ -65,7 +65,8 @@ export const getNetwork = () => {
   // }
 
   // const desiredNetwork = '5777';
-  const desiredNetwork = '4447';
+  // const desiredNetwork = '4447';
+  const desiredNetwork = '3';
 
   return {
     network: web3.version.network,
