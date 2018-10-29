@@ -103,7 +103,7 @@ const CreateChallengeForm = (props) => {
       <hr />
       <div className="field">
         <div className="notification">
-          Mentor&apos;s reward. Paid out of staked amount.
+          Mentor&apos;s reward. Paid out of the staked amount.
         </div>
         <label className="label" htmlFor="mentorFee">Mentor Fee</label>
         <div className="field has-addons">
