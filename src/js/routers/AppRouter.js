@@ -11,8 +11,8 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Landing from '../components/Landing';
 import CreateChallenge from '../components/CreateChallenge';
-import Challenges from '../components/Challenges';
-import Mentor from '../components/Mentor';
+import UserChallenges from '../components/UserChallenges';
+import MentorChallenges from '../components/MentorChallenges';
 import User from '../components/User';
 import Users from '../components/Users';
 import Account from '../components/Account';
@@ -26,8 +26,8 @@ const AppRouter = () => (
         <Route path="/" component={Landing} exact />
         <Route path="/account" component={Account} exact />
         <Route path="/new" component={CreateChallenge} exact />
-        <Route path="/challenges" component={Challenges} exact />
-        <Route path="/mentor" component={Mentor} exact />
+        <Route path="/challenges" component={UserChallenges} exact />
+        <Route path="/mentor" component={MentorChallenges} exact />
         <Route path="/users" component={Users} exact />
         <Route path="/404/" component={NotFoundPage} />
         <Route path="/:id" component={User} exact />

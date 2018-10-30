@@ -98,7 +98,7 @@ class CreateChallenge extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   pendingChallenges: state.pendingChallenges,
-  users: usersSelect(state.users),
+  users: usersSelect(state.users, state.blockchain.account),
 });
 
 export default connect(mapStateToProps)(CreateChallenge);

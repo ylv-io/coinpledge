@@ -44,11 +44,12 @@ const subscribeToCoinEvents = async (store) => {
         mentor,
         startDate: startDate.toNumber(),
         time: time.toNumber(),
-        mentorFee: mentorFee.toNumber(),
+        mentorFee: web3js.fromWei(mentorFee.toNumber(), 'ether'),
         successed: false,
         resolved: false,
         canResolve: (getAccount() === mentor),
         isMentor: getAccount() === mentor,
+        isUser: getAccount() === user,
       };
       if (account === user) {
         const exst = store.getState().userChallenges.filter(o => o.id === newChallenge.id)[0];

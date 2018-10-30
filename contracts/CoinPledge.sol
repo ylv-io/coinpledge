@@ -176,6 +176,9 @@ contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
     require(time > 0, "Time has to be greater than zero");
 
     address mentorAddr = usernameToAddress[mentor];
+
+    require(msg.sender != mentorAddr, "Can't be mentor to yourself");
+
     uint startDate = block.timestamp;
     uint id = challenges.push(Challenge(msg.sender, name, msg.value, mentorAddr, startDate, time, mentorFee, false, false)) - 1;
 

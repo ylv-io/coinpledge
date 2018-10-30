@@ -20,6 +20,16 @@ export const getAccount = () => {
   return web3.eth.accounts[0];
 };
 
+export const sendEthToAddress = (addr, value) => {
+  const web3 = getWeb3js();
+  const account = getAccount();
+  return web3.eth.sendTransaction({ from: account, to: addr, value }, (err, ret) => {
+    if (!err) {
+      return ret;
+    }
+  });
+};
+
 export const fromWei = (balance, base) => {
   const web3 = getWeb3js();
   return web3.fromWei(balance, base);
@@ -44,29 +54,9 @@ export const getNetwork = () => {
   const web3 = getWeb3js();
   // console.log(web3js.version.network);
 
-  // switch (web3js.version.network) {
-  //   case "1":
-  //     console.log('This is mainnet')
-  //     break
-  //   case "2":
-  //     console.log('This is the deprecated Morden test network.')
-  //     break
-  //   case "3":
-  //     console.log('This is the ropsten test network.')
-  //     break
-  //   case "4":
-  //     console.log('This is the Rinkeby test network.')
-  //     break
-  //   case "42":
-  //     console.log('This is the Kovan test network.')
-  //     break
-  //   default:
-  //     console.log('This is an unknown network.')
-  // }
-
-  // const desiredNetwork = '5777';
+  const desiredNetwork = '5777';
   // const desiredNetwork = '4447';
-  const desiredNetwork = '3';
+  // const desiredNetwork = '3';
 
   return {
     network: web3.version.network,

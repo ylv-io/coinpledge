@@ -1,1 +1,1 @@
-export default users => users.map(o => ({ value: o.username, label: o.username }));
+export default (users, account) => users.filter(o => o.addr !== account).map(o => ({ value: o.username, label: o.username }));

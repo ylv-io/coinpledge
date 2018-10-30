@@ -89,10 +89,8 @@ const Header = (props) => {
 };
 
 const mapStateToProps = (state, props) => {
-  let network;
-  let desiredNetwork;
   let isRightNetwork;
-  if (getWeb3js()) ({ network, desiredNetwork, isRightNetwork } = getNetwork());
+  if (getWeb3js()) ({ isRightNetwork } = getNetwork());
   return {
     ...state.blockchain,
     isRightNetwork,
