@@ -50,7 +50,6 @@ const subscribeToCoinEvents = async (store) => {
         canResolve: (getAccount() === mentor),
         isMentor: getAccount() === mentor,
       };
-      console.log(newChallenge);
       if (account === user) {
         const exst = store.getState().userChallenges.filter(o => o.id === newChallenge.id)[0];
         if (!exst) store.dispatch(addUserChallenge(newChallenge));

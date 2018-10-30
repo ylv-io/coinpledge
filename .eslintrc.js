@@ -11,6 +11,7 @@ module.exports = {
   "globals": {
     "React": true,
     "web3": false,
+    "artifacts": false,
   },
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],

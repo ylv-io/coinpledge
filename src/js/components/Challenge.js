@@ -53,7 +53,7 @@ export default class Challenge extends React.Component {
           </small>
         </div>
         <footer className="card-footer">
-          { challenge.canResolve && !challenge.isSubmitting
+          { challenge.canResolve && !challenge.isSubmitting && handleWin
             && (
             <a
               href="#"
@@ -64,7 +64,7 @@ export default class Challenge extends React.Component {
             </a>
             )
           }
-          { challenge.canResolve && !challenge.isSubmitting
+          { challenge.canResolve && !challenge.isSubmitting && handleLoss
             && (
               <a
                 href="#"

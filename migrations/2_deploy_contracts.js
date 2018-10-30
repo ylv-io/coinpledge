@@ -1,6 +1,5 @@
-var CoinPledge = artifacts.require("./CoinPledge.sol");
+const CoinPledge = artifacts.require('./CoinPledge.sol');
 
-module.exports = function(deployer) {
+module.exports = (deployer) => {
   deployer.deploy(CoinPledge);
 };
-

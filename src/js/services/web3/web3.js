@@ -64,9 +64,9 @@ export const getNetwork = () => {
   //     console.log('This is an unknown network.')
   // }
 
-  // const desiredNetwork = '5777';
+  const desiredNetwork = '5777';
   // const desiredNetwork = '4447';
-  const desiredNetwork = '3';
+  // const desiredNetwork = '3';
 
   return {
     network: web3.version.network,

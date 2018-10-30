@@ -62,6 +62,7 @@ class User extends React.Component {
       username,
     } = this.state;
     const { match } = this.props;
+    const shortAccount = shortAddress(match.params.id);
 
     if (notFound) return <Redirect to="/404" />;
 
@@ -70,7 +71,9 @@ class User extends React.Component {
         <div className="container">
           <h4 className="title is-3">
             <span>User </span>
-            <a target="_blank" rel="noopener noreferrer" href={`https://ropsten.etherscan.io/address/${match.params.id}`}>{username || shortAddress(match.params.id)}</a>
+            <a target="_blank" rel="noopener noreferrer" href={`https://ropsten.etherscan.io/address/${match.params.id}`}>
+              { username ? `${username} (${shortAccount})` : shortAccount }
+            </a>
           </h4>
           <h4 className="title is-4">Challenges</h4>
           <hr />

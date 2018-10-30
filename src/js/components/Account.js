@@ -6,6 +6,8 @@ import { setUsername } from '../services/web3/user';
 import { getTransactionReceipt } from '../services/web3/web3';
 import { setUsername as setUsernameAction } from '../actions/web3';
 
+import { shortAddress } from '../utils/web3';
+
 class Account extends React.Component {
   constructor(props) {
     super(props);
@@ -45,12 +47,14 @@ class Account extends React.Component {
       users,
     } = this.props;
 
+    const shortAccount = shortAddress(account);
+
     return (
       <section className="section">
         <div className="container">
           <h4 className="title is-3">
             <a target="_blank" rel="noopener noreferrer" href={`https://ropsten.etherscan.io/address/${account}`}>
-              { username ? `${username} (${account.substring(0, 10)})` : account.substring(0, 10) }
+              { username ? `${username} (${shortAccount})` : shortAccount }
             </a>
           </h4>
           <hr />
