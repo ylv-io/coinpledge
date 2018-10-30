@@ -36,5 +36,6 @@ module.exports = {
       }
     }],
     "import/prefer-default-export": 0,
+    "security/no-block-members": 0,
   }
 };

@@ -27,6 +27,7 @@ export const sendEthToAddress = (addr, value) => {
     if (!err) {
       return ret;
     }
+    return null;
   });
 };
 
@@ -54,9 +55,9 @@ export const getNetwork = () => {
   const web3 = getWeb3js();
   // console.log(web3js.version.network);
 
-  const desiredNetwork = '5777';
+  // const desiredNetwork = '5777';
   // const desiredNetwork = '4447';
-  // const desiredNetwork = '3';
+  const desiredNetwork = '3';
 
   return {
     network: web3.version.network,
