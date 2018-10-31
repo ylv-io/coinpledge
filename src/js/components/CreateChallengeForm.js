@@ -111,7 +111,7 @@ class CreateChallengeForm extends React.Component {
         <hr />
         <div className="field">
           <div className="notification">
-            Paid out of the staked amount. There is 10% service fee.
+            Paid out of the staked amount. There is a 10% service fee.
           </div>
           <label className="label" htmlFor="mentorFee">Mentor Reward</label>
           <div className="field has-addons">

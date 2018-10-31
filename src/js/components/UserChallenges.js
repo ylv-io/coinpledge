@@ -1,6 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import {
+  Link,
+  NavLink,
+} from 'react-router-dom';
+
 import UserChallenge from './UserChallenge';
 import { getChallenges } from '../selectors/challenges';
 import { resolveChallenge } from '../services/web3/challenge';
@@ -27,7 +32,16 @@ class UserChallenges extends React.Component {
         <div className="container">
           <h4 className="title is-4">Your Challenges</h4>
           <hr />
-          { !challenges.length && <p className="title is-4">You don&#39;t have any challenges yet. Create one. Be Better Version of Yourself!</p>}
+          { !challenges.length && (
+            <p className="">
+              You don&#39;t have any challenges yet.
+              <br />
+              <Link to="/new">Create one.</Link>
+              <br />
+              Be the Better Version of Yourself!
+            </p>
+          )
+        }
           <div className="columns is-multiline">
             {
               challenges.map(o => (
@@ -41,6 +55,8 @@ class UserChallenges extends React.Component {
               ))
             }
           </div>
+
+          <br />
 
           {!!history.length && (
             <div>

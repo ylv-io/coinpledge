@@ -21,13 +21,16 @@ export default class UserChallenge extends React.Component {
 
     return (
       <div className="card">
-        <header className="card-header ">
-          <p className={`card-header-title ${challenge.resolved ? challenge.successed ? 'has-background-success' : 'has-background-danger' : ''}`}>
-            <span className={challenge.resolved ? 'has-text-white' : ''}>
-              { challenge.resolved ? challenge.successed ? 'Win' : 'Loss' : 'Be Better Version of Yourself' }
-            </span>
-          </p>
-        </header>
+        { challenge.resolved && (
+          <header className="card-header ">
+            <p className={`card-header-title ${challenge.successed ? 'has-background-success' : 'has-background-danger'}`}>
+              <span className={challenge.resolved ? 'has-text-white' : ''}>
+                { challenge.successed ? 'Win' : 'Loss' }
+              </span>
+            </p>
+          </header>
+        )
+      }
         <div className="card-content">
           <p className="is-size-5">
             <span>I pledge to </span>

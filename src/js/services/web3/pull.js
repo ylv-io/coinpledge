@@ -56,32 +56,29 @@ export default async (store) => {
     if (getWeb3js()) {
       const {
         network,
-        isRightNetwork,
       } = getNetwork();
       store.dispatch(setNetwork(network));
 
-      if (isRightNetwork) {
-        subscribeToCoinEvents(store);
+      subscribeToCoinEvents(store);
 
-        while (true) {
-          const newAccount = getAccount();
-          // account changed
-          if (newAccount !== prevAccount) {
-            if (newAccount === undefined) {
-              // account locked
-              store.dispatch(setLocked(true));
-            } else {
-              // account unlocked
-              store.dispatch(setLocked(false));
-              // pull data once on account unlocked
-              pullFromWeb3(store, getAccount());
-            }
-
-            store.dispatch(setAccount(newAccount));
-            prevAccount = newAccount;
+      while (true) {
+        const newAccount = getAccount();
+        // account changed
+        if (newAccount !== prevAccount) {
+          if (newAccount === undefined) {
+            // account locked
+            store.dispatch(setLocked(true));
+          } else {
+            // account unlocked
+            store.dispatch(setLocked(false));
+            // pull data once on account unlocked
+            pullFromWeb3(store, getAccount());
           }
-          await wait(1000);
+
+          store.dispatch(setAccount(newAccount));
+          prevAccount = newAccount;
         }
+        await wait(1000);
       }
     }
   } catch (e) {

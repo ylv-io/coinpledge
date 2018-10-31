@@ -23,7 +23,16 @@ class MentorChallenges extends React.Component {
         <div className="container">
           <h4 className="title is-4">Mentor</h4>
           <hr />
-          { !challenges.length && <p className="title is-4">You don&apos;t have any challenges yet. Make World Better Place!</p>}
+          { !challenges.length && (
+            <p className="">
+              You don&#39;t have any people to mentor.
+              <br />
+              <a href="https://t.me/ylv_public">Connect with people.</a>
+              <br />
+              Make World a Better Place!
+            </p>
+          )
+        }
           <div className="columns is-multiline">
             {
               challenges.map(o => (

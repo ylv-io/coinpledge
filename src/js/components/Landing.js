@@ -122,7 +122,7 @@ const Landing = () => (
           <p>
             It is
             <strong> free! </strong>
-            However, we do take a 10% cut from mentor fee, so if you want to use CoinPledge absolutely for free, make sure to set mentor fee to 0.
+            However, we do take a 10% cut from mentor reward, so if you want to use CoinPledge absolutely for free, make sure to set mentor reward to 0.
           </p>
         </div>
       </div>

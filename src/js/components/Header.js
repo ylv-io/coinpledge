@@ -19,7 +19,6 @@ const Header = (props) => {
   const {
     installed,
     locked,
-    isRightNetwork,
     username,
     account,
     bonusFund,
@@ -41,7 +40,7 @@ const Header = (props) => {
         </div>
         <div className="navbar-menu">
 
-          { installed && !locked && isRightNetwork
+          { installed && !locked
             && (
               <div className="navbar-start">
                 <NavLink className="navbar-item" to="/new" activeClassName="is-active" exact>New</NavLink>
@@ -53,14 +52,7 @@ const Header = (props) => {
           <div className="navbar-end">
             { installed
               ? (!locked
-                ? (isRightNetwork
-                  ? (<NavLink className="navbar-item" to="/account" activeClassName="is-active" exact>{ !username ? account.substring(0, 10) : username }</NavLink>)
-                  : (
-                    <div className="navbar-item">
-                      Switch to Ropsten
-                    </div>
-                  )
-                )
+                ? <NavLink className="navbar-item" to="/account" activeClassName="is-active" exact>{ !username ? account.substring(0, 10) : username }</NavLink>
                 : (
                   <div className="navbar-item">
                     Unlock MetaMask
@@ -73,7 +65,7 @@ const Header = (props) => {
                   <a target="_blank" rel="noopener noreferrer" href="https://metamask.io/">MetaMask</a>
                 </div>
               )}
-            { installed && !locked && account && isRightNetwork && (
+            { installed && !locked && account && (
               <div className="navbar-item">
                 <span>
                   {Math.round(bonusFund * 100) / 100 }
@@ -88,13 +80,8 @@ const Header = (props) => {
   );
 };
 
-const mapStateToProps = (state, props) => {
-  let isRightNetwork;
-  if (getWeb3js()) ({ isRightNetwork } = getNetwork());
-  return {
-    ...state.blockchain,
-    isRightNetwork,
-  };
-};
+const mapStateToProps = state => ({
+  ...state.blockchain,
+});
 
 export default connect(mapStateToProps, null, null, { pure: false })(Header);
