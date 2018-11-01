@@ -4,14 +4,17 @@ module.exports = {
   "env": {
     "es6": true,
     "browser": true,
+    "mocha": true,
   },
   "plugins": [
-    "react"
+    "react",
+    "mocha",
   ],
   "globals": {
     "React": true,
     "web3": false,
     "artifacts": false,
+    "contract": false,
   },
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
@@ -37,5 +40,6 @@ module.exports = {
     }],
     "import/prefer-default-export": 0,
     "security/no-block-members": 0,
+    "mocha/no-exclusive-tests": "error"
   }
 };

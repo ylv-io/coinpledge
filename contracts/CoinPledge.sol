@@ -18,7 +18,7 @@ import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "openzeppelin-solidity/contracts/payment/PullPayment.sol";
 import "openzeppelin-solidity/contracts/ownership/CanReclaimToken.sol";
 
-contract CoinPledge is Ownable, CanReclaimToken, PullPayment {
+contract CoinPledge is Ownable, CanReclaimToken {
 
   using SafeMath for uint256;
 

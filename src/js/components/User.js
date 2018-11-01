@@ -44,6 +44,8 @@ class User extends React.Component {
       return;
     }
 
+    console.log(id);
+
     let result = await getChallengesForUser(id);
     this.setState(o => ({ userChallenges: getChallenges(result, users, x => true) }));
 
