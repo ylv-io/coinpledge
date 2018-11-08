@@ -11,14 +11,13 @@
 // Public commitment as a motivator for weight loss (https://onlinelibrary.wiley.com/doi/pdf/10.1002/mar.20316)
 
 
-pragma solidity ^0.4.17;
+pragma solidity ^0.4.24;
 
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "openzeppelin-solidity/contracts/payment/PullPayment.sol";
-import "openzeppelin-solidity/contracts/ownership/CanReclaimToken.sol";
 
-contract CoinPledge is Ownable, CanReclaimToken {
+contract CoinPledge is Ownable {
 
   using SafeMath for uint256;
 
@@ -152,7 +151,7 @@ contract CoinPledge is Ownable, CanReclaimToken {
   function setUsername(string name)
   external {
     require(bytes(name).length > 2, "Provide a name longer than 2 chars");
-    require(bytes(name).length < 32, "Provide a name shorter than 32 chars");
+    require(bytes(name).length <= 32, "Provide a name shorter than 33 chars");
     require(users[msg.sender].addr == address(0x0), "You already have a name");
     require(usernameToAddress[name] == address(0x0), "Name already taken");
 
@@ -257,7 +256,7 @@ contract CoinPledge is Ownable, CanReclaimToken {
       mentor.transfer(mentorFee);
 
     if(serviceFee > 0)
-      owner.transfer(serviceFee);
+      owner().transfer(serviceFee);
 
     emit ChallengeResolved(challengeId, user, mentor, decision);
   }
