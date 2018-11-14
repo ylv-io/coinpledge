@@ -17,10 +17,23 @@ contract('CoinPledge', ([owner, user, second, third, ...otherAccounts]) => {
     instance = await CoinPledge.new(owner);
   });
 
-  describe('owner', () => {
-    it('is first account', async () => {
+  describe('when created', () => {
+    it('creator is owner', async () => {
       const retVal = await instance.owner();
       expect(retVal).to.equal(owner);
+    });
+  });
+
+  describe('when owner ends game', () => {
+    it('game ends', async () => {
+      await instance.gameOver({ from: owner });
+      const isGameOver = await instance.isGameOver();
+      expect(isGameOver).to.equal(true);
+    });
+  });
+  describe('when user ends game', () => {
+    it('reverts', async () => {
+      await reverting(instance.gameOver({ from: user }));
     });
   });
 });

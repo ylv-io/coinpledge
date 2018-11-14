@@ -142,145 +142,6 @@ contract Ownable {
   }
 }
 
-// File: openzeppelin-solidity/contracts/ownership/Secondary.sol
-
-/**
- * @title Secondary
- * @dev A Secondary contract can only be used by its primary account (the one that created it)
- */
-contract Secondary {
-  address private _primary;
-
-  event PrimaryTransferred(
-    address recipient
-  );
-
-  /**
-   * @dev Sets the primary account to the one that is creating the Secondary contract.
-   */
-  constructor() internal {
-    _primary = msg.sender;
-    emit PrimaryTransferred(_primary);
-  }
-
-  /**
-   * @dev Reverts if called from any account other than the primary.
-   */
-  modifier onlyPrimary() {
-    require(msg.sender == _primary);
-    _;
-  }
-
-  /**
-   * @return the address of the primary.
-   */
-  function primary() public view returns (address) {
-    return _primary;
-  }
-  
-  /**
-   * @dev Transfers contract to a new primary.
-   * @param recipient The address of new primary. 
-   */
-  function transferPrimary(address recipient) public onlyPrimary {
-    require(recipient != address(0));
-    _primary = recipient;
-    emit PrimaryTransferred(_primary);
-  }
-}
-
-// File: openzeppelin-solidity/contracts/payment/escrow/Escrow.sol
-
-/**
- * @title Escrow
- * @dev Base escrow contract, holds funds designated for a payee until they
- * withdraw them.
- * @dev Intended usage: This contract (and derived escrow contracts) should be a
- * standalone contract, that only interacts with the contract that instantiated
- * it. That way, it is guaranteed that all Ether will be handled according to
- * the Escrow rules, and there is no need to check for payable functions or
- * transfers in the inheritance tree. The contract that uses the escrow as its
- * payment method should be its primary, and provide public methods redirecting
- * to the escrow's deposit and withdraw.
- */
-contract Escrow is Secondary {
-  using SafeMath for uint256;
-
-  event Deposited(address indexed payee, uint256 weiAmount);
-  event Withdrawn(address indexed payee, uint256 weiAmount);
-
-  mapping(address => uint256) private _deposits;
-
-  function depositsOf(address payee) public view returns (uint256) {
-    return _deposits[payee];
-  }
-
-  /**
-  * @dev Stores the sent amount as credit to be withdrawn.
-  * @param payee The destination address of the funds.
-  */
-  function deposit(address payee) public onlyPrimary payable {
-    uint256 amount = msg.value;
-    _deposits[payee] = _deposits[payee].add(amount);
-
-    emit Deposited(payee, amount);
-  }
-
-  /**
-  * @dev Withdraw accumulated balance for a payee.
-  * @param payee The address whose funds will be withdrawn and transferred to.
-  */
-  function withdraw(address payee) public onlyPrimary {
-    uint256 payment = _deposits[payee];
-
-    _deposits[payee] = 0;
-
-    payee.transfer(payment);
-
-    emit Withdrawn(payee, payment);
-  }
-}
-
-// File: openzeppelin-solidity/contracts/payment/PullPayment.sol
-
-/**
- * @title PullPayment
- * @dev Base contract supporting async send for pull payments. Inherit from this
- * contract and use _asyncTransfer instead of send or transfer.
- */
-contract PullPayment {
-  Escrow private _escrow;
-
-  constructor() internal {
-    _escrow = new Escrow();
-  }
-
-  /**
-  * @dev Withdraw accumulated balance.
-  * @param payee Whose balance will be withdrawn.
-  */
-  function withdrawPayments(address payee) public {
-    _escrow.withdraw(payee);
-  }
-
-  /**
-  * @dev Returns the credit owed to an address.
-  * @param dest The creditor's address.
-  */
-  function payments(address dest) public view returns (uint256) {
-    return _escrow.depositsOf(dest);
-  }
-
-  /**
-  * @dev Called by the payer to store the sent amount as credit to be pulled.
-  * @param dest The destination address of the funds.
-  * @param amount The amount to transfer.
-  */
-  function _asyncTransfer(address dest, uint256 amount) internal {
-    _escrow.deposit.value(amount)(dest);
-  }
-}
-
 // File: contracts/CoinPledge.sol
 
 /// @title CoinPledge
@@ -296,8 +157,7 @@ contract PullPayment {
 // Public commitment as a motivator for weight loss (https://onlinelibrary.wiley.com/doi/pdf/10.1002/mar.20316)
 
 
-pragma solidity ^0.4.17;
-
+pragma solidity ^0.4.24;
 
 
 
@@ -357,6 +217,9 @@ contract CoinPledge is Ownable {
     string name
   );
 
+  /// @notice indicated is game over or not
+  bool public isGameOver;
+
   /// @notice All Challenges
   Challenge[] public challenges;
 
@@ -374,6 +237,18 @@ contract CoinPledge is Ownable {
   /// @notice User's bonuses
   mapping(address => uint) public bonusFund;
 
+  /// @notice Can access only if game is not over
+  modifier gameIsNotOver() {
+    require(!isGameOver, "Game should be not over");
+    _;
+  }
+
+  /// @notice Can access only if game is over
+  modifier gameIsOver() {
+    require(isGameOver, "Game should be over");
+    _;
+  }
+
   /// @notice Get Bonus Fund For User
   function getBonusFund(address user)
   external
@@ -382,7 +257,6 @@ contract CoinPledge is Ownable {
     return bonusFund[user];
   }
 
-
   /// @notice Get Users Lenght
   function getUsersCount()
   external
@@ -390,7 +264,6 @@ contract CoinPledge is Ownable {
   returns(uint) {
     return allUsers.length;
   }
-
 
   /// @notice Get Challenges For User
   function getChallengesForUser(address user)
@@ -429,13 +302,21 @@ contract CoinPledge is Ownable {
     }
     return result;
   }
+  
+  /// @notice Ends game
+  function gameOver()
+  external
+  gameIsNotOver
+  onlyOwner {
+    isGameOver = true;
+  }
 
   /// @notice Set Username
-
   function setUsername(string name)
-  external {
+  external
+  gameIsNotOver {
     require(bytes(name).length > 2, "Provide a name longer than 2 chars");
-    require(bytes(name).length < 32, "Provide a name shorter than 32 chars");
+    require(bytes(name).length <= 32, "Provide a name shorter than 33 chars");
     require(users[msg.sender].addr == address(0x0), "You already have a name");
     require(usernameToAddress[name] == address(0x0), "Name already taken");
 
@@ -450,6 +331,7 @@ contract CoinPledge is Ownable {
   function createChallenge(string name, string mentor, uint time, uint mentorFee)
   external
   payable
+  gameIsNotOver
   returns (uint retId) {
     require(msg.value >= 0.01 ether, "Has to stake more than 0.01 ether");
     require(mentorFee >= 0 ether, "Can't be negative");
@@ -478,7 +360,8 @@ contract CoinPledge is Ownable {
 
   /// @notice Resolves Challenge
   function resolveChallenge(uint challengeId, bool decision)
-  external {
+  external
+  gameIsNotOver {
     Challenge storage challenge = challenges[challengeId];
     
     require(challenge.resolved == false, "Challenge already resolved.");
@@ -545,4 +428,13 @@ contract CoinPledge is Ownable {
     emit ChallengeResolved(challengeId, user, mentor, decision);
   }
 
+  function withdraw()
+  external
+  gameIsOver {
+    require(bonusFund[msg.sender] > 0, "You do not have any funds");
+
+    uint funds = bonusFund[msg.sender];
+    bonusFund[msg.sender] = 0;
+    msg.sender.transfer(funds);
+  }
 }

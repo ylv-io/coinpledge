@@ -8,7 +8,7 @@
     "serve": "webpack-dev-server",
     "build": "webpack -p",
     "deploy": "gh-pages-deploy",
-    "compile": "truffle-flattener ./contracts/CoinPledge.sol > ./contracts/Complete.sol",
+    "compile": "truffle-flattener ./contracts/CoinPledge.sol > ./dist/Complete.sol",
     "clean-source": "rimraf README.md src package.json package-lock.json truffle.js truffle-config.js contracts migrations build license dist webpack.config.js .babelrc"
   },
   "keywords": [],

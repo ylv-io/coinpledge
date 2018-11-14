@@ -15,7 +15,6 @@ pragma solidity ^0.4.24;
 
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
-import "openzeppelin-solidity/contracts/payment/PullPayment.sol";
 
 contract CoinPledge is Ownable {
 
@@ -73,6 +72,9 @@ contract CoinPledge is Ownable {
     string name
   );
 
+  /// @notice indicated is game over or not
+  bool public isGameOver;
+
   /// @notice All Challenges
   Challenge[] public challenges;
 
@@ -90,6 +92,18 @@ contract CoinPledge is Ownable {
   /// @notice User's bonuses
   mapping(address => uint) public bonusFund;
 
+  /// @notice Can access only if game is not over
+  modifier gameIsNotOver() {
+    require(!isGameOver, "Game should be not over");
+    _;
+  }
+
+  /// @notice Can access only if game is over
+  modifier gameIsOver() {
+    require(isGameOver, "Game should be over");
+    _;
+  }
+
   /// @notice Get Bonus Fund For User
   function getBonusFund(address user)
   external
@@ -98,7 +112,6 @@ contract CoinPledge is Ownable {
     return bonusFund[user];
   }
 
-
   /// @notice Get Users Lenght
   function getUsersCount()
   external
@@ -106,7 +119,6 @@ contract CoinPledge is Ownable {
   returns(uint) {
     return allUsers.length;
   }
-
 
   /// @notice Get Challenges For User
   function getChallengesForUser(address user)
@@ -145,11 +157,19 @@ contract CoinPledge is Ownable {
     }
     return result;
   }
+  
+  /// @notice Ends game
+  function gameOver()
+  external
+  gameIsNotOver
+  onlyOwner {
+    isGameOver = true;
+  }
 
   /// @notice Set Username
-
   function setUsername(string name)
-  external {
+  external
+  gameIsNotOver {
     require(bytes(name).length > 2, "Provide a name longer than 2 chars");
     require(bytes(name).length <= 32, "Provide a name shorter than 33 chars");
     require(users[msg.sender].addr == address(0x0), "You already have a name");
@@ -166,6 +186,7 @@ contract CoinPledge is Ownable {
   function createChallenge(string name, string mentor, uint time, uint mentorFee)
   external
   payable
+  gameIsNotOver
   returns (uint retId) {
     require(msg.value >= 0.01 ether, "Has to stake more than 0.01 ether");
     require(mentorFee >= 0 ether, "Can't be negative");
@@ -194,7 +215,8 @@ contract CoinPledge is Ownable {
 
   /// @notice Resolves Challenge
   function resolveChallenge(uint challengeId, bool decision)
-  external {
+  external
+  gameIsNotOver {
     Challenge storage challenge = challenges[challengeId];
     
     require(challenge.resolved == false, "Challenge already resolved.");
@@ -261,4 +283,13 @@ contract CoinPledge is Ownable {
     emit ChallengeResolved(challengeId, user, mentor, decision);
   }
 
+  function withdraw()
+  external
+  gameIsOver {
+    require(bonusFund[msg.sender] > 0, "You do not have any funds");
+
+    uint funds = bonusFund[msg.sender];
+    bonusFund[msg.sender] = 0;
+    msg.sender.transfer(funds);
+  }
 }
