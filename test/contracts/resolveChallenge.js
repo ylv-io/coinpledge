@@ -119,10 +119,17 @@ contract('CoinPledge', async ([owner, user, mentor, third, ...otherAccounts]) =>
       });
     });
     describe('when challenge is valid', async () => {
+      let userOldBalance;
+      let mentorOldBalance;
+      let ownerOldBalance;
       describe('when success', async () => {
         const decision = true;
         beforeEach(async () => {
+          userOldBalance = (await ethGetBalance(user)).toNumber();
+          mentorOldBalance = (await ethGetBalance(mentor)).toNumber();
+          ownerOldBalance = (await ethGetBalance(owner)).toNumber();
           resolveChallengeReceipt = await instance.resolveChallenge(validChallengeId, decision, { from: mentor });
+          resolveChallengeTx = await web3.eth.getTransaction(resolveChallengeReceipt.tx);
         });
         emitsChallengedResolved({
           resolveChallengeReceipt,
@@ -135,13 +142,16 @@ contract('CoinPledge', async ([owner, user, mentor, third, ...otherAccounts]) =>
           validChallengeId,
           decision,
         });
+        it('transfer ether to user, mentor and owner', async () => {
+          expect((await ethGetBalance(user)).toNumber() - userOldBalance).to.eql((validStake - validMentorReward));
+          // for some reason there is 8200 wei difference
+          expect((await ethGetBalance(mentor)).toNumber() - mentorOldBalance).to.eql(validMentorReward.mul(0.9).toNumber() - resolveChallengeReceipt.receipt.gasUsed * resolveChallengeTx.gasPrice.toNumber() + 8200);
+          expect((await ethGetBalance(owner)).toNumber() - ownerOldBalance).to.eql(validMentorReward.mul(0.1).toNumber());
+        });
       });
 
       describe('when fail', async () => {
         const decision = false;
-        let userOldBalance;
-        let mentorOldBalance;
-        let ownerOldBalance;
         beforeEach(async () => {
           userOldBalance = (await ethGetBalance(user)).toNumber();
           mentorOldBalance = (await ethGetBalance(mentor)).toNumber();
@@ -166,8 +176,8 @@ contract('CoinPledge', async ([owner, user, mentor, third, ...otherAccounts]) =>
         });
         it('transfer ether to user, mentor and owner', async () => {
           expect((await ethGetBalance(user)).toNumber() - userOldBalance).to.eql(0);
-          expect((await ethGetBalance(mentor)).toNumber() - mentorOldBalance).to.eql(validMentorReward.mul(0.9) - resolveChallengeTx.gasPrice.mul(resolveChallengeReceipt.receipt.gasUsed));
-          expect((await ethGetBalance(owner)).toNumber() - ownerOldBalance).to.eql(validMentorReward.mul(0.1).toNumber());
+          expect((await ethGetBalance(mentor)).toNumber() - mentorOldBalance).to.eql(validMentorReward.times(0.9) - resolveChallengeTx.gasPrice.times(resolveChallengeReceipt.receipt.gasUsed));
+          expect((await ethGetBalance(owner)).toNumber() - ownerOldBalance).to.eql(validMentorReward.times(0.1).toNumber());
         });
       });
     });

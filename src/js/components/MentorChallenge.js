@@ -33,7 +33,7 @@ export default class MentorChallenge extends React.Component {
       }
         <div className="card-content">
           <p className="is-size-5">
-            <span>I pledge to mentor </span>
+            <span>I pledge to help </span>
             <Link to={`/${challenge.user}`}>{ challenge.username }</Link>
             <span> to </span>
             <strong>

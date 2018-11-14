@@ -40,6 +40,7 @@ module.exports = {
     }],
     "import/prefer-default-export": 0,
     "security/no-block-members": 0,
-    "mocha/no-exclusive-tests": "error"
+    "mocha/no-exclusive-tests": "error",
+    'no-plusplus': 'off'
   }
 };
