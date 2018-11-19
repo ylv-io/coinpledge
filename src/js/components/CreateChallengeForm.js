@@ -65,7 +65,7 @@ class CreateChallengeForm extends React.Component {
 
         <div className="field">
           <div className="notification">
-            Amount to stake. 7 cappuccinos is a good stake.
+            Amount to stake. Funds are safu!
           </div>
           <label className="label" htmlFor="value">Stake</label>
           <div className="field has-addons">

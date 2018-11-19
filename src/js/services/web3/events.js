@@ -9,6 +9,8 @@ import {
   updateUserChallenge,
 } from '../../actions/userChallenges';
 
+import { addDonation } from '../../actions/donations';
+
 import {
   addMentorChallenge,
   updateMentorChallenge,
@@ -18,9 +20,53 @@ import { addUser } from '../../actions/users';
 
 import { setBonusFund } from '../../actions/web3';
 
+
+const pullDonationEvents = async (store) => {
+  const web3js = getWeb3js();
+  const instance = await getCoinContractPromise();
+
+  instance.Donation({}, { fromBlock: 0, toBlock: 'latest' }).get((error, eventResult) => {
+    if (error) {
+      console.log(`Error in myEvent event handler: ${error}`);
+    } else {
+      console.log(`myEvent: ${JSON.stringify(eventResult)}`);
+    }
+  });
+};
+
+const subscribeToDonationEvent = async (store) => {
+  const instance = await getCoinContractPromise();
+
+  const donationEvent = instance.Donation();
+  donationEvent.watch((error, result) => {
+    if (!error) {
+      const {
+        name,
+        url,
+        value,
+        timestamp,
+      } = result.args;
+      const timestampNumber = timestamp.toNumber();
+      const exst = store.getState().donations.filter(o => o.timestamp === timestampNumber)[0];
+      if (!exst) {
+        store.dispatch(addDonation({
+          name,
+          url,
+          value: fromWei(value.toNumber(), 'ether'),
+          timestamp: timestampNumber,
+        }));
+      }
+    } else {
+      console.log(error);
+    }
+  });
+};
+
 const subscribeToCoinEvents = async (store) => {
   const web3js = getWeb3js();
   const contract = await getCoinContractPromise();
+
+  await subscribeToDonationEvent(store);
 
   const newChallengeEvent = contract.NewChallenge();
   newChallengeEvent.watch((error, result) => {

@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { getChallenges } from '../selectors/challenges';
 import Challenge from './Challenge';
 import { shortAddress } from '../utils/web3';
-import { getChallengesForMentor, getChallengesForUser } from '../services/web3/challenge';
+import { getChallengesForMentor, getChallengesForUser, getBonusFund } from '../services/web3/challenge';
 import { getWeb3js } from '../services/web3/web3';
 import { getUsername } from '../services/web3/user';
 
@@ -18,6 +18,7 @@ class User extends React.Component {
       mentorChallenges: [],
       notFound: false,
       username: '',
+      bonusFund: 0,
     };
   }
 
@@ -44,8 +45,6 @@ class User extends React.Component {
       return;
     }
 
-    console.log(id);
-
     let result = await getChallengesForUser(id);
     this.setState(o => ({ userChallenges: getChallenges(result, users, x => true) }));
 
@@ -54,6 +53,9 @@ class User extends React.Component {
 
     result = await getUsername(id);
     this.setState(o => ({ username: result }));
+
+    result = await getBonusFund(id);
+    this.setState(o => ({ bonusFund: result }));
   }
 
   render() {
@@ -62,6 +64,7 @@ class User extends React.Component {
       userChallenges,
       mentorChallenges,
       username,
+      bonusFund,
     } = this.state;
     const { match } = this.props;
     const shortAccount = shortAddress(match.params.id);
@@ -71,12 +74,18 @@ class User extends React.Component {
     return (
       <section className="section">
         <div className="container">
-          <h4 className="title is-3">
+          <p className="title is-3">
             <span>User </span>
             <a target="_blank" rel="noopener noreferrer" href={`https://ropsten.etherscan.io/address/${match.params.id}`}>
               { username ? `${username} (${shortAccount})` : shortAccount }
             </a>
-          </h4>
+          </p>
+          <p className="subtitle is-5">
+            <span>Bonus Fund: </span>
+            {bonusFund}
+            <span> ether</span>
+          </p>
+          <br />
           <h4 className="title is-4">Challenges</h4>
           <hr />
           { !userChallenges.length && <p className="title is-4">User do not have any challenges.</p>}

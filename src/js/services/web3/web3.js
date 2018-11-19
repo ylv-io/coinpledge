@@ -7,6 +7,16 @@ import { wait } from '../../utils/promise';
 let web3js;
 
 export const getWeb3js = () => {
+  // if (window.ethereum) {
+  //   const { ethereum } = window;
+  //   window.web3 = new Web3(ethereum);
+  //   try {
+  //     // Request account access if needed
+  //     await ethereum.enable();
+  //   } catch (error) {
+  //     // User denied account access...
+  //   }
+  // }
   if (web3js === undefined && typeof web3 !== 'undefined') {
     // console.log("Using web3 detected from external source like Metamask")
     web3js = new Web3(web3.currentProvider);

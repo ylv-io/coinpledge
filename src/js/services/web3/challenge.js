@@ -33,6 +33,14 @@ export const getChallengesForUser = async (user) => {
   const instance = await getCoinContractPromise();
   const account = getAccount();
 
+  instance.NewChallenge({}, { fromBlock: 0, toBlock: 'latest' }).get((error, eventResult) => {
+    if (error) {
+      console.log(`Error in myEvent event handler: ${error}`);
+    } else {
+      console.log(`myEvent: ${JSON.stringify(eventResult)}`);
+    }
+  });
+
   // check number of challenges
   const numberOfChallenges = (await instance.userToChallengeCount.call(user, {
     from: account,
@@ -96,4 +104,14 @@ export const getBonusFund = async (user) => {
     from: account,
   });
   return fromWei(result.toNumber(), 'ether');
+};
+
+export const donate = async (name, url, value) => {
+  const instance = await getCoinContractPromise();
+  const account = getAccount();
+
+  return instance.donate(name, url, {
+    from: account,
+    value,
+  });
 };

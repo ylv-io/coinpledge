@@ -8,11 +8,6 @@ export const setLocked = locked => ({
   locked,
 });
 
-export const setNetwork = network => ({
-  type: 'SET_NETWORK',
-  network,
-});
-
 export const setAccount = account => ({
   type: 'SET_ACCOUNT',
   account,

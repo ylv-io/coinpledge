@@ -12,6 +12,7 @@ import web3Reducer from '../reducers/web3';
 import mentorReducer from '../reducers/mentorChallenges';
 import pendingReducer from '../reducers/pendingChallenges';
 import usersReducer from '../reducers/users';
+import donationsReducer from '../reducers/donations';
 
 const middleware = [
   thunk,
@@ -25,6 +26,7 @@ export default () => {
       blockchain: web3Reducer,
       mentorChallenges: mentorReducer,
       users: usersReducer,
+      donations: donationsReducer,
     }),
     composeWithDevTools(
       applyMiddleware(...middleware),

@@ -72,6 +72,14 @@ contract CoinPledge is Ownable {
     string name
   );
 
+
+  event Donation(
+    string name,
+    string url,
+    uint value,
+    uint timestamp
+  );
+
   /// @notice indicated is game over or not
   bool public isGameOver;
 
@@ -291,5 +299,13 @@ contract CoinPledge is Ownable {
     uint funds = bonusFund[msg.sender];
     bonusFund[msg.sender] = 0;
     msg.sender.transfer(funds);
+  }
+
+  function donate(string name, string url)
+  external
+  payable
+  gameIsNotOver {
+    owner().transfer(msg.value);
+    emit Donation(name, url, msg.value, block.timestamp);
   }
 }

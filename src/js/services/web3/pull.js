@@ -8,7 +8,6 @@ import {
   setAccount,
   setBonusFund,
   setLocked,
-  setNetwork,
   setInstalled,
   setUsername,
 } from '../../actions/web3';
@@ -54,11 +53,6 @@ export default async (store) => {
     store.dispatch(setLocked(true));
 
     if (getWeb3js()) {
-      const {
-        network,
-      } = getNetwork();
-      store.dispatch(setNetwork(network));
-
       subscribeToCoinEvents(store);
 
       while (true) {

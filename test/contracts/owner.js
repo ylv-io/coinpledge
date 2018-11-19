@@ -32,7 +32,7 @@ contract('CoinPledge', ([owner, user, second, third, ...otherAccounts]) => {
     });
   });
   describe('when user ends game', () => {
-    it('reverts', async () => {
+    it('fails', async () => {
       await reverting(instance.gameOver({ from: user }));
     });
   });

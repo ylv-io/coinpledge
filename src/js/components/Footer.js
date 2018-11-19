@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { sendEthToAddress, toWei } from '../services/web3/web3';
+import { toWei } from '../services/web3/web3';
+import { donate } from '../services/web3/challenge';
 
 class Footer extends React.Component {
   handleDonate = (e) => {
     e.preventDefault();
-    sendEthToAddress('0x4632F4120DC68F225e7d24d973Ee57478389e9Fd', toWei(0.1, 'ether'));
+    donate('ylv', 'ylv.io', toWei(0.1, 'ether'));
   };
 
   render() {
