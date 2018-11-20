@@ -446,11 +446,11 @@ contract CoinPledge is Ownable {
     msg.sender.transfer(funds);
   }
 
-  function donate(string name, string url, uint value, uint timestamp)
+  function donate(string name, string url)
   external
   payable
   gameIsNotOver {
     owner().transfer(msg.value);
-    emit Donation(name, url, value, timestamp);
+    emit Donation(name, url, msg.value, block.timestamp);
   }
 }
