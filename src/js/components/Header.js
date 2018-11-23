@@ -68,7 +68,16 @@ class Header extends React.Component {
             <div className="navbar-end">
               { installed
                 ? (!locked
-                  ? <NavLink className="navbar-item" to="/account" activeClassName="is-active" exact>{ !username ? account.substring(0, 10) : username }</NavLink>
+                  ? (
+                    <NavLink className="navbar-item" to="/account" activeClassName="is-active" exact>
+                      { !username ? account.substring(0, 10) : username }
+                      <span>
+                        &nbsp;(
+                        {Math.round(bonusFund * 100) / 100 }
+                        &nbsp;ether)
+                      </span>
+                    </NavLink>
+                  )
                   : (
                     <div className="navbar-item">
                       Unlock MetaMask
@@ -81,14 +90,6 @@ class Header extends React.Component {
                     <a target="_blank" rel="noopener noreferrer" href="https://metamask.io/">MetaMask</a>
                   </div>
                 )}
-              { installed && !locked && account && (
-                <div className="navbar-item">
-                  <span>
-                    {Math.round(bonusFund * 100) / 100 }
-                    &nbsp;ether
-                  </span>
-                </div>
-              )}
             </div>
           </div>
         </nav>
