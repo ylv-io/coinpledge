@@ -100,7 +100,7 @@ function getTransactionReceiptPromise(hash) {
 export const getTransactionReceipt = async (hash) => {
   let receipt = null;
   while (receipt === null) {
-    receipt = getTransactionReceiptPromise(hash);
+    receipt = await getTransactionReceiptPromise(hash);
     await wait(1000);
   }
   return receipt;

@@ -1,7 +1,6 @@
 
 const web3ReducerDefaultState = {
   installed: false,
-  network: '3',
   locked: false,
   account: '',
   bonusFund: 0,
@@ -18,11 +17,6 @@ export default (state = web3ReducerDefaultState, action) => {
       return {
         ...state,
         locked: action.locked,
-      };
-    case 'SET_NETWORK':
-      return {
-        ...state,
-        network: action.network,
       };
     case 'SET_ACCOUNT':
       return {

@@ -14,13 +14,15 @@ class Footer extends React.Component {
       <footer className="footer">
         <div className="content has-text-centered">
           <p>
-            <a href="https://twitter.com/ylv_io">Twitter</a>
+            <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/ylv_io">Twitter</a>
             <span> | </span>
-            <a href="https://medium.com/@ylv">Medium </a>
+            <a target="_blank" rel="noopener noreferrer" href="https://medium.com/@ylv">Medium </a>
             <span> | </span>
-            <a href="https://github.com/ylv-io/coinpledge">Github</a>
+            <a target="_blank" rel="noopener noreferrer" href="https://github.com/ylv-io/coinpledge">Github</a>
             <span> | </span>
-            <a href="https://t.me/ylv_public">Telegram</a>
+            <a target="_blank" rel="noopener noreferrer" href="https://t.me/ylv_public">Telegram</a>
+            <span> | </span>
+            <a target="_blank" rel="noopener noreferrer" href="https://etherscan.io/address/0x896F11b2628208e09BD5CFdD0C4f7C28C0349d61">Etherscan</a>
           </p>
           <p>
             Donate

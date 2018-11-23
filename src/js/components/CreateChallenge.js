@@ -52,15 +52,13 @@ class CreateChallenge extends React.Component {
       <section className="section">
         <div className="container">
           <div className="columns">
-            <div className="column is-half">
+            <div className="column is-offset-one-quarter is-half">
               <div className="box">
                 <h4 className="title is-4">New Challenge</h4>
                 <hr />
                 <CreateChallengeForm users={users} handleSubmit={this.handleSubmit} />
               </div>
-            </div>
 
-            <div className="column is-half">
               {
                 pendingChallenges.map(o => (
                   <article

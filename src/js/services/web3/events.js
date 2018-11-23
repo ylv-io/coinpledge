@@ -62,11 +62,9 @@ const subscribeToDonationEvent = async (store) => {
   });
 };
 
-const subscribeToCoinEvents = async (store) => {
+const subscribeToNewChallengeEvents = async (store) => {
   const web3js = getWeb3js();
   const contract = await getCoinContractPromise();
-
-  await subscribeToDonationEvent(store);
 
   const newChallengeEvent = contract.NewChallenge();
   newChallengeEvent.watch((error, result) => {
@@ -109,6 +107,11 @@ const subscribeToCoinEvents = async (store) => {
       console.log(error);
     }
   });
+};
+
+const subscribeToChallengeResolvedEvents = async (store) => {
+  const web3js = getWeb3js();
+  const contract = await getCoinContractPromise();
 
   const challengeResolvedEvent = contract.ChallengeResolved();
   challengeResolvedEvent.watch((error, result) => {
@@ -137,6 +140,11 @@ const subscribeToCoinEvents = async (store) => {
       console.log(error);
     }
   });
+};
+
+const subscribeToBonusFundChanged = async (store) => {
+  const web3js = getWeb3js();
+  const contract = await getCoinContractPromise();
 
   const bonusFundChangedEvent = contract.BonusFundChanged();
   bonusFundChangedEvent.watch((error, result) => {
@@ -148,6 +156,11 @@ const subscribeToCoinEvents = async (store) => {
       console.log(error);
     }
   });
+};
+
+const subscribeToNewUsernameChanged = async (store) => {
+  const web3js = getWeb3js();
+  const contract = await getCoinContractPromise();
 
   const newUsernameEvent = contract.NewUsername();
   newUsernameEvent.watch((error, result) => {
@@ -162,8 +175,17 @@ const subscribeToCoinEvents = async (store) => {
       console.log(error);
     }
   });
+};
 
-  return { newChallengeEvent, challengeResolvedEvent };
+const subscribeToCoinEvents = async (store) => {
+  try {
+    await subscribeToDonationEvent(store);
+    await subscribeToNewChallengeEvents(store);
+    await subscribeToChallengeResolvedEvents(store);
+    await subscribeToBonusFundChanged(store);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export default subscribeToCoinEvents;

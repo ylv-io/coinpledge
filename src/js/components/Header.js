@@ -15,70 +15,87 @@ import {
 import logo from '../../img/logo.png';
 
 
-const Header = (props) => {
-  const {
-    installed,
-    locked,
-    username,
-    account,
-    bonusFund,
-  } = props;
+class Header extends React.Component {
+  onBurgerClicked = () => {
+    const toggle = document.querySelector('.navbar-burger');
+    const menu = document.querySelector('.navbar-menu');
+    toggle.classList.toggle('is-active');
+    menu.classList.toggle('is-active');
+  }
 
-  return (
-    <header>
-      <nav className="navbar is-success" role="navigation" aria-label="main navigation">
-        <div className="navbar-brand">
-          <Link to="/" className="navbar-item">
-            <img src={logo} alt="logo" />
-          </Link>
+  render() {
+    const {
+      installed,
+      locked,
+      username,
+      account,
+      bonusFund,
+    } = this.props;
 
-          <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false">
-            <span aria-hidden="true" />
-            <span aria-hidden="true" />
-            <span aria-hidden="true" />
-          </a>
-        </div>
-        <div className="navbar-menu">
+    return (
+      <header>
+        <nav className="navbar is-success" role="navigation" aria-label="main navigation">
+          <div className="navbar-brand">
+            <Link to="/" className="navbar-item">
+              <img src={logo} alt="logo" />
+            </Link>
 
-          { installed && !locked
-            && (
-              <div className="navbar-start">
-                <NavLink className="navbar-item" to="/new" activeClassName="is-active" exact>New</NavLink>
-                <NavLink className="navbar-item" to="/challenges" activeClassName="is-active" exact>Challenges</NavLink>
-                <NavLink className="navbar-item" to="/mentor" activeClassName="is-active" exact>Mentor</NavLink>
-              </div>
-            )}
+            <a
+              href="#"
+              role="button"
+              className="navbar-burger"
+              aria-label="menu"
+              aria-expanded="false"
+              onClick={this.onBurgerClicked}
+              onKeyPress={this.onBurgerClicked}
+            >
+              <span aria-hidden="true" />
+              <span aria-hidden="true" />
+              <span aria-hidden="true" />
+            </a>
+          </div>
+          <div className="navbar-menu">
 
-          <div className="navbar-end">
-            { installed
-              ? (!locked
-                ? <NavLink className="navbar-item" to="/account" activeClassName="is-active" exact>{ !username ? account.substring(0, 10) : username }</NavLink>
-                : (
-                  <div className="navbar-item">
-                    Unlock MetaMask
-                  </div>
-                )
-              )
-              : (
-                <div className="navbar-item">
-                  Install&nbsp;
-                  <a target="_blank" rel="noopener noreferrer" href="https://metamask.io/">MetaMask</a>
+            { installed && !locked
+              && (
+                <div className="navbar-start">
+                  <NavLink className="navbar-item" to="/new" activeClassName="is-active" exact>New</NavLink>
+                  <NavLink className="navbar-item" to="/challenges" activeClassName="is-active" exact>Challenges</NavLink>
+                  <NavLink className="navbar-item" to="/mentor" activeClassName="is-active" exact>Mentor</NavLink>
                 </div>
               )}
-            { installed && !locked && account && (
-              <div className="navbar-item">
-                <span>
-                  {Math.round(bonusFund * 100) / 100 }
-                  &nbsp;ether
-                </span>
-              </div>
-            )}
+
+            <div className="navbar-end">
+              { installed
+                ? (!locked
+                  ? <NavLink className="navbar-item" to="/account" activeClassName="is-active" exact>{ !username ? account.substring(0, 10) : username }</NavLink>
+                  : (
+                    <div className="navbar-item">
+                      Unlock MetaMask
+                    </div>
+                  )
+                )
+                : (
+                  <div className="navbar-item">
+                    Install&nbsp;
+                    <a target="_blank" rel="noopener noreferrer" href="https://metamask.io/">MetaMask</a>
+                  </div>
+                )}
+              { installed && !locked && account && (
+                <div className="navbar-item">
+                  <span>
+                    {Math.round(bonusFund * 100) / 100 }
+                    &nbsp;ether
+                  </span>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      </nav>
-    </header>
-  );
-};
+        </nav>
+      </header>
+    );
+  }
+}
 
 const mapStateToProps = state => ({
   ...state.blockchain,

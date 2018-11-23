@@ -97,7 +97,7 @@ const Landing = () => (
             <span>Funds are safu! </span>
             <strong>Coinpledge </strong>
             is Ethereum dApp. Your ether is managed by a
-            <a href="https://gist.github.com/ylv-io/eb11f85fb938338cb10d0885024fcf7e"> smart contract </a>
+            <a href="https://etherscan.io/address/0x896f11b2628208e09bd5cfdd0c4f7c28c0349d61#code"> smart contract </a>
             and we do not have access to your funds.
           </p>
         </div>
@@ -136,7 +136,9 @@ const Landing = () => (
         <div className="column is-offset-one-quarter is-half">
           <h1 className="title">What Happens to My Stake If I Lose?</h1>
           <p>
-            Your staked ether goes to your personal bonus fund. Everytime you win a challenge, you get 50% as bonus from your bonus fund. If it is less than 1 finney, you get it all back.
+            <span>Your staked ether goes to your personal bonus fund. Everytime you win a challenge, you get 50% as bonus from your bonus fund. If it is less than 1 </span>
+            <a target="_blank" rel="noopener noreferrer" href="https://ethereum.stackexchange.com/questions/253/the-ether-denominations-are-called-finney-szabo-and-wei-what-who-are-these-na">finney</a>
+            , you get it all back.
           </p>
         </div>
       </div>
