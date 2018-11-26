@@ -21,7 +21,7 @@ import {
   getChallengesForUser,
 } from './challenge';
 
-import subscribeToCoinEvents from './events';
+import subscribeToCoinEvents, { pullDonationEvents } from './events';
 import { getUsername, getAllUsers } from './user';
 
 import { wait } from '../../utils/promise';
@@ -41,6 +41,8 @@ const pullFromWeb3 = async (store, account) => {
 
   result = await getAllUsers();
   store.dispatch(addOrUpdateUsers(result));
+
+  result = await pullDonationEvents(store);
 };
 
 

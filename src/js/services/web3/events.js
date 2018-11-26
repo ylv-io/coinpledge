@@ -20,16 +20,32 @@ import { addUser } from '../../actions/users';
 
 import { setBonusFund } from '../../actions/web3';
 
-
-const pullDonationEvents = async (store) => {
+export const pullDonationEvents = async (store) => {
   const web3js = getWeb3js();
   const instance = await getCoinContractPromise();
 
-  instance.Donation({}, { fromBlock: 0, toBlock: 'latest' }).get((error, eventResult) => {
+  instance.Donation({}, { fromBlock: 0, toBlock: 'latest' }).get((error, result) => {
     if (error) {
-      console.log(`Error in myEvent event handler: ${error}`);
+      console.log(error);
     } else {
-      console.log(`myEvent: ${JSON.stringify(eventResult)}`);
+      result.forEach((event) => {
+        const {
+          name,
+          url,
+          value,
+          timestamp,
+        } = event.args;
+        const timestampNumber = timestamp.toNumber();
+        const exst = store.getState().donations.filter(o => o.timestamp === timestampNumber)[0];
+        if (!exst) {
+          store.dispatch(addDonation({
+            name,
+            url,
+            value: fromWei(value.toNumber(), 'ether'),
+            timestamp: timestampNumber,
+          }));
+        }
+      });
     }
   });
 };
@@ -142,7 +158,7 @@ const subscribeToChallengeResolvedEvents = async (store) => {
   });
 };
 
-const subscribeToBonusFundChanged = async (store) => {
+const subscribeToBonusFundEvents = async (store) => {
   const web3js = getWeb3js();
   const contract = await getCoinContractPromise();
 
@@ -158,7 +174,7 @@ const subscribeToBonusFundChanged = async (store) => {
   });
 };
 
-const subscribeToNewUsernameChanged = async (store) => {
+const subscribeToNewUsernameEvents = async (store) => {
   const web3js = getWeb3js();
   const contract = await getCoinContractPromise();
 
@@ -182,7 +198,8 @@ const subscribeToCoinEvents = async (store) => {
     await subscribeToDonationEvent(store);
     await subscribeToNewChallengeEvents(store);
     await subscribeToChallengeResolvedEvents(store);
-    await subscribeToBonusFundChanged(store);
+    await subscribeToBonusFundEvents(store);
+    await subscribeToNewUsernameEvents(store);
   } catch (err) {
     console.log(err);
   }

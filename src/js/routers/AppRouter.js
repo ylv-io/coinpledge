@@ -16,6 +16,8 @@ import MentorChallenges from '../components/MentorChallenges';
 import User from '../components/User';
 import Users from '../components/Users';
 import Account from '../components/Account';
+import Donate from '../components/Donate';
+import Donations from '../components/Donations';
 import NotFoundPage from '../components/NotFoundPage';
 
 const AppRouter = () => (
@@ -29,6 +31,8 @@ const AppRouter = () => (
         <Route path="/challenges" component={UserChallenges} exact />
         <Route path="/mentor" component={MentorChallenges} exact />
         <Route path="/users" component={Users} exact />
+        <Route path="/donate" component={Donate} exact />
+        <Route path="/donations" component={Donations} exact />
         <Route path="/404/" component={NotFoundPage} />
         <Route path="/:id" component={User} exact />
         <Redirect from="*" to="/404" />

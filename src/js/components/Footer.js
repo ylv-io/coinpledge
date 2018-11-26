@@ -1,42 +1,79 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import moment from 'moment';
 
-import { toWei } from '../services/web3/web3';
-import { donate } from '../services/web3/challenge';
+import {
+  Link,
+  NavLink,
+} from 'react-router-dom';
 
-class Footer extends React.Component {
-  handleDonate = (e) => {
-    e.preventDefault();
-    donate('ylv', 'ylv.io', toWei(0.1, 'ether'));
-  };
+import getDonations from '../selectors/donations';
 
-  render() {
-    return (
-      <footer className="footer">
-        <div className="content has-text-centered">
-          <p>
-            <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/ylv_io">Twitter</a>
-            <span> | </span>
-            <a target="_blank" rel="noopener noreferrer" href="https://medium.com/@ylv">Medium </a>
-            <span> | </span>
-            <a target="_blank" rel="noopener noreferrer" href="https://github.com/ylv-io/coinpledge">Github</a>
-            <span> | </span>
-            <a target="_blank" rel="noopener noreferrer" href="https://t.me/ylv_public">Telegram</a>
-            <span> | </span>
-            <a target="_blank" rel="noopener noreferrer" href="https://etherscan.io/address/0x896F11b2628208e09BD5CFdD0C4f7C28C0349d61">Etherscan</a>
-          </p>
-          <p>
-            Donate
+const Footer = (props) => {
+  const { donations } = props;
+  return (
+    <footer className="footer">
+      <div className="content has-text-centered">
+        { donations.length > 2 && (
+          <div>
+            <storng className="is-size-4">Top Donations</storng>
             <br />
-            <a onClick={this.handleDonate} href="#"><small>0x4632F4120DC68F225e7d24d973Ee57478389e9Fd</small></a>
-          </p>
-          <p>
-            <span>Built by </span>
-            <a href="https://ylv.io/">Igor Yalovoy</a>
+            {
+              donations.slice(0, 3).map(o => (
+                <div
+                  key={o.timestamp}
+                >
+                  <a
+                    className="is-size-4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={o.url}
+                  >
+                    {o.name}
+                  </a>
+                  <br />
+                </div>
+              ))
+            }
+            <small>
+              <Link to="/donations">View all</Link>
+            </small>
+          </div>
+        )}
+        <br />
+        <div>
+          <p className="title is-5">Donate</p>
+          <p className="subtitle is-5">
+            <Link to="/donate">
+              <small>0x4632F4120DC68F225e7d24d973Ee57478389e9Fd</small>
+            </Link>
           </p>
         </div>
-      </footer>
-    );
-  }
-}
+        <hr />
+        <p>
+          <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/ylv_io">Twitter</a>
+          <span> | </span>
+          <a target="_blank" rel="noopener noreferrer" href="https://medium.com/@ylv">Medium </a>
+          <span> | </span>
+          <a target="_blank" rel="noopener noreferrer" href="https://github.com/ylv-io/coinpledge">Github</a>
+          <span> | </span>
+          <a target="_blank" rel="noopener noreferrer" href="https://t.me/ylv_public">Telegram</a>
+          <span> | </span>
+          <a target="_blank" rel="noopener noreferrer" href="https://etherscan.io/address/0x896F11b2628208e09BD5CFdD0C4f7C28C0349d61">Etherscan</a>
+          <span> | </span>
+          <a target="_blank" rel="noopener noreferrer" href="https://www.stateofthedapps.com/dapps/coinpledge">State of dApps</a>
+        </p>
+        <p>
+          <span>Built by </span>
+          <a href="https://ylv.io/">Igor Yalovoy</a>
+        </p>
+      </div>
+    </footer>
+  );
+};
 
-export default Footer;
+const mapStateToProps = (state, props) => ({
+  donations: getDonations(state.donations),
+});
+
+export default connect(mapStateToProps)(Footer);

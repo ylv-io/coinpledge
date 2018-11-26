@@ -102,7 +102,7 @@ export const donate = async (name, url, value) => {
   const instance = await getCoinContractPromise();
   const account = getAccount();
 
-  return instance.donate(name, url, {
+  return instance.donate.sendTransaction(name, url, {
     from: account,
     value,
   });
