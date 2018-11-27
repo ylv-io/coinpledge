@@ -38,9 +38,9 @@ const Footer = (props) => {
             <small>
               <Link to="/donations">View all</Link>
             </small>
+            <br />
           </div>
         )}
-        <br />
         <div>
           <p className="title is-5">Donate</p>
           <p className="subtitle is-5">

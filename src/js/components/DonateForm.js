@@ -129,7 +129,7 @@ export default withFormik({
 
     if (values.value <= 0) {
       errors.value = 'Required';
-    } else if (values.value < 0.1) { errors.value = 'Mininum amount is 0.1 eth'; }
+    } else if (values.value < 0.01) { errors.value = 'Mininum amount is 0.01 eth'; }
 
     return errors;
   },

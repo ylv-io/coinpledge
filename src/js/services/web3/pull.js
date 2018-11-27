@@ -55,8 +55,6 @@ export default async (store) => {
     store.dispatch(setLocked(true));
 
     if (getWeb3js()) {
-      subscribeToCoinEvents(store);
-
       while (true) {
         const newAccount = getAccount();
         // account changed
@@ -67,8 +65,11 @@ export default async (store) => {
           } else {
             // account unlocked
             store.dispatch(setLocked(false));
+
+            await subscribeToCoinEvents(store);
+
             // pull data once on account unlocked
-            pullFromWeb3(store, getAccount());
+            await pullFromWeb3(store, getAccount());
           }
 
           store.dispatch(setAccount(newAccount));
