@@ -202,7 +202,7 @@ const subscribeToCoinEvents = async (store) => {
     await subscribeToNewUsernameEvents(store);
   } catch (err) {
     console.log(err);
-    throw e;
+    throw err;
   }
 };
 
