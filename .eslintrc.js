@@ -5,10 +5,12 @@ module.exports = {
     "es6": true,
     "browser": true,
     "mocha": true,
+    "jest/globals": true,
   },
   "plugins": [
     "react",
     "mocha",
+    "jest",
   ],
   "globals": {
     "React": true,
@@ -41,6 +43,7 @@ module.exports = {
     "import/prefer-default-export": 0,
     "security/no-block-members": 0,
     "mocha/no-exclusive-tests": "error",
-    'no-plusplus': 'off'
+    'no-plusplus': 'off',
+    "import/no-named-as-default": 0
   }
 };

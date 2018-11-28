@@ -9,7 +9,7 @@ import {
 
 import getDonations from '../selectors/donations';
 
-const Footer = (props) => {
+export const Footer = (props) => {
   const { donations } = props;
   return (
     <React.Fragment>
