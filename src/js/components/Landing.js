@@ -94,7 +94,6 @@ const Landing = () => (
         <div className="column is-offset-one-quarter is-half">
           <h1 className="title">Is My Ether Safe?</h1>
           <p>
-            <span>Funds are safu! </span>
             <strong>Coinpledge </strong>
             is Ethereum dApp. Your ether is managed by a
             <a href="https://etherscan.io/address/0x896f11b2628208e09bd5cfdd0c4f7c28c0349d61#code"> smart contract </a>

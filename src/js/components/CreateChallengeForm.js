@@ -65,7 +65,7 @@ class CreateChallengeForm extends React.Component {
 
         <div className="field">
           <div className="notification">
-            Amount to stake. Funds are safu!
+            Amount to stake.
           </div>
           <label className="label" htmlFor="value">Stake</label>
           <div className="field has-addons">
@@ -111,7 +111,7 @@ class CreateChallengeForm extends React.Component {
         <hr />
         <div className="field">
           <div className="notification">
-            Paid out of the staked amount. There is a 10% service fee.
+            Paid out of the staked amount.
           </div>
           <label className="label" htmlFor="mentorFee">Mentor Reward</label>
           <div className="field has-addons">
@@ -183,7 +183,7 @@ export default withFormik({
 
     if (values.value <= 0) {
       errors.value = 'Required';
-    } else if (values.value < 0.1) { errors.value = 'Mininum amount is 0.1 eth'; }
+    } else if (values.value < 0.01) { errors.value = 'Mininum amount is 0.01 eth'; }
 
     if (!values.mentor) {
       errors.mentor = 'Required';

@@ -1,11 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
+import UserChallenge from './UserChallenge';
 import usersSelect from '../selectors/usersSelect';
 import CreateChallengeForm from './CreateChallengeForm';
 import { createChallenge } from '../services/web3/challenge';
 import { getTransactionReceipt, toWei } from '../services/web3/web3';
 import { addPendingChallenge, updatePendingChallenge } from '../actions/pendingChallenges';
+
 
 class CreateChallenge extends React.Component {
   constructor(props) {
@@ -35,6 +38,7 @@ class CreateChallenge extends React.Component {
         name,
         value,
         time: time.unix(),
+        startDate: moment().unix(),
         mentor,
       }));
 
@@ -61,27 +65,10 @@ class CreateChallenge extends React.Component {
 
               {
                 pendingChallenges.map(o => (
-                  <article
+                  <UserChallenge
                     key={o.id}
-                    className={
-                                o.isConfirmed
-                                  ? 'message is-success'
-                                  : 'message is-info'
-                              }
-                  >
-                    <div className="message-header">
-                      <p>
-                        {
-                          o.isConfirmed
-                            ? 'Challenge Confirmed'
-                            : 'Submitting Challenge'
-                        }
-                      </p>
-                    </div>
-                    <div className="message-body">
-                      <span className="is-size-4">{o.name}</span>
-                    </div>
-                  </article>
+                    challenge={o}
+                  />
                 ))
               }
             </div>

@@ -5,6 +5,7 @@ export const addPendingChallenge = (
     name = '',
     value = 0,
     time = 0,
+    startDate = 0,
     mentor = '',
     isConfirmed = false,
   } = {},
@@ -16,6 +17,7 @@ export const addPendingChallenge = (
     value,
     time,
     mentor,
+    startDate,
     isConfirmed,
   },
 });

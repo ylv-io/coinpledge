@@ -71,11 +71,6 @@ class Header extends React.Component {
                   ? (
                     <NavLink className="navbar-item" to="/account" activeClassName="is-active" exact>
                       { !username ? account.substring(0, 10) : username }
-                      <span>
-                        &nbsp;(
-                        {Math.round(bonusFund * 100) / 100 }
-                        &nbsp;ether)
-                      </span>
                     </NavLink>
                   )
                   : (
