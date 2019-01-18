@@ -28,22 +28,22 @@ class CreateChallenge extends React.Component {
     mentor,
     mentorFee,
   }, { resetForm, setSubmitting, setStatus }) => {
-    const { props } = this;
+    const { dispatch, users } = this.props;
     try {
       const result = await createChallenge(name, value, time.unix(), mentor, toWei(mentorFee, 'ether'));
       setSubmitting(false);
       resetForm();
-      props.dispatch(addPendingChallenge({
+      dispatch(addPendingChallenge({
         id: result,
         name,
         value,
-        time: time.unix(),
+        time: time.unix() - moment().unix(),
         startDate: moment().unix(),
-        mentor,
+        mentorname: mentor,
       }));
 
       const receipt = await getTransactionReceipt(result);
-      props.dispatch(updatePendingChallenge(result, { isConfirmed: true }));
+      dispatch(updatePendingChallenge(result, { isConfirmed: true }));
     } catch (e) {
       console.log(e);
       setSubmitting(false);

@@ -43,7 +43,10 @@ export default class UserChallenge extends React.Component {
             {challenge.value}
             <span> ether</span>
             <span> with </span>
-            <Link to={`/${challenge.mentor}`}>{challenge.mentorname}</Link>
+            {challenge.mentor
+              ? <Link to={`/${challenge.mentor}`}>{challenge.mentorname}</Link>
+              : <span>{challenge.mentorname}</span>
+            }
             <span> as mentor.</span>
           </p>
         </div>

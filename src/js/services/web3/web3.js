@@ -63,8 +63,6 @@ export const getBalance = () => {
 
 export const getNetwork = () => {
   const web3 = getWeb3js();
-  // console.log(web3js.version.network);
-
   return {
     network: web3.version.network,
   };
