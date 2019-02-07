@@ -13,7 +13,7 @@ const Landing = () => (
           <h1 className="title">What Is It?</h1>
           <p>
             <strong>Coinpledge </strong>
-            a is personal productivity tool based on
+            is a personal productivity tool based on
             <strong> publicity </strong>
             and
             <strong> commitment </strong>
