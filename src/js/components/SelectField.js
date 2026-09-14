@@ -20,7 +20,7 @@ export default class SelectField extends React.Component {
       touched,
       options,
     } = this.props;
-    const { handleChange, handleBlur, onFocusChange } = this;
+    const { handleChange, handleBlur } = this;
 
     return (
       <div className="field">

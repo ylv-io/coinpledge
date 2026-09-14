@@ -11,7 +11,7 @@ class MentorChallenges extends React.Component {
     async (e) => {
       const { props } = this;
       e.preventDefault();
-      const hash = await resolveChallenge(challenge.id, decision);
+      await resolveChallenge(challenge.id, decision);
       props.dispatch(updateMentorChallenge(challenge.id, { isSubmitting: true }));
     }
   )

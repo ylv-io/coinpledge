@@ -24,12 +24,6 @@ export const addPendingChallenge = (
   },
 });
 
-export const removePendingChallenge = id => ({
-  type: 'REMOVE_PENDING_CHALLENGE',
-  id,
-});
-
-
 export const updatePendingChallenge = (id, updates) => ({
   type: 'UPDATE_PENDING_CHALLENGE',
   id,

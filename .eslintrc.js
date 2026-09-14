@@ -24,7 +24,7 @@ module.exports = {
     "react/prop-types": 0,
     "no-nested-ternary": 0,
     "jsx-a11y/anchor-is-valid": 0,
-    "no-unused-vars": 0,
+    "no-unused-vars": "error",
     "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
     "jsx-a11y/label-has-associated-control": [ "error", {
       "required": {

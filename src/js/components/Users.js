@@ -24,7 +24,7 @@ const Users = (props) => {
   );
 };
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = state => ({
   users: state.users,
 });
 

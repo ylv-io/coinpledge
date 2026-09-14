@@ -1,7 +1,6 @@
 import {
   getWeb3js,
   getAccount,
-  getNetwork,
 } from './web3';
 
 import {
@@ -42,7 +41,7 @@ const pullFromWeb3 = async (store, account) => {
   result = await getAllUsers();
   store.dispatch(addOrUpdateUsers(result));
 
-  result = await pullDonationEvents(store);
+  await pullDonationEvents(store);
 };
 
 
