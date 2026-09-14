@@ -2,94 +2,130 @@
 
 ## Scope and orientation
 
-This file applies to the CoinPledge repository. It is a standalone Git repository;
-run Git commands from this checkout, not through the home-directory dotfiles repo.
-Read [README.md](README.md), `package.json`, and the relevant configuration before
-changing setup or documenting commands.
+This file applies to the standalone CoinPledge Git repository. Run Git commands
+from this checkout, not through the home-directory dotfiles repo. Read README.md,
+package.json, foundry.toml and relevant configuration before changing workflows.
 
-CoinPledge is a legacy React 16/Redux browser app backed by a Solidity 0.4.24
-contract. The lockfile uses npm format 1, Truffle 4, Web3 0.20, Webpack 3, Babel 6,
-and node-sass 4. There is no pinned Node version, CI workflow, or verified modern
-runtime support in the checkout. Keep toolchain modernization separate from
-unrelated fixes, and preserve `package-lock.json` unless dependencies must change.
+Contracts use Solidity 0.8.37 and Foundry v1.8.1, with pinned OpenZeppelin v5.7.0
+and forge-std v1.16.2 submodules. The EVM target is Cancun: the transient reentrancy
+guard requires EIP-1153. Keep explicit remappings and foundry.lock aligned with
+submodule revisions; do not update dependencies incidentally.
+
+The React 16/Redux frontend is still legacy: Web3 0.20, Webpack 3, Babel 6,
+node-sass 4, Jest 23, and npm lockfile format 1. Node 10.24.1/npm 6.14.12 was used
+for local frontend checks; Node 10 is end of life. Keep frontend toolchain upgrades
+separate from contract work. Preserve retained lockfile versions unless necessary.
 
 ## Where to make changes
 
-- UI and forms: `src/js/components/`; routes: `src/js/routers/AppRouter.js`.
-- State: `src/js/actions/`, `reducers/`, `selectors/`, and `store/configureStore.js`.
-- Blockchain integration: `src/js/services/web3/`; tuple conversion:
-  `src/js/utils/web3.js`.
-- Contract behavior: `contracts/CoinPledge.sol`; deployment: `migrations/` and
-  `truffle.js`.
-- Frontend tests: `src/js/tests/`; contract tests: `test/contracts/`.
-- Styling: `src/css/index.css` and existing Bulma classes.
+- Contract: contracts/CoinPledge.sol; deployment: script/DeployCoinPledge.s.sol.
+- Forge tests: test/*.t.sol and test/helpers/; dependencies: lib/ git submodules.
+- Artifact/registration and integration scripts: scripts/.
+- Verified deployments: deployments/CoinPledge.json; initially empty.
+- UI/forms: src/js/components/; routes: src/js/routers/AppRouter.js.
+- State: src/js/actions/, reducers/, selectors/, store/configureStore.js.
+- Web3 adapter, contract calls, polling/events: src/js/services/web3/.
+- Challenge tuple conversion: src/js/utils/web3.js.
+- Frontend tests: src/js/tests/; styling: src/css/index.css and Bulma classes.
 
-Follow the existing JavaScript style (two-space indentation, single quotes,
-semicolons, ES module imports in the frontend and CommonJS in Truffle files).
-Consult `.eslintrc.js` for project exceptions to Airbnb style. Avoid wholesale
-formatting, new frameworks, or unrelated refactors.
+Use two-space indentation, single quotes and semicolons in JavaScript; consult
+.eslintrc.js. Solidity formatting is defined by forge fmt. Avoid new frameworks,
+wholesale formatting, or unrelated refactors.
 
-## Contract and frontend coupling
+## Contract behavior and frontend coupling
 
-The browser imports `build/contracts/CoinPledge.json`; deployment lookup depends
-on its network metadata. Changes to ABI, events, or the `Challenge` tuple require
-checking service calls, event handlers, tuple conversion, and affected tests.
-Preserve the existing `successed` field spelling where it is part of that interface.
+This rewrite requires a new deployment. It is not a proxy upgrade and cannot
+change historical balances or stakes. Do not reuse historical deployment addresses
+or claim that deploying migrates existing user funds.
 
-Contract values are wei, while UI inputs and displays also use ether. Challenge
-creation in the UI converts a deadline to a duration in seconds. Preserve these
-boundaries and avoid introducing floating-point conversions for on-chain amounts.
-Check the implementation for fee rounding, mentor permissions, the seven-day
-self-resolution threshold, bonus payouts, and owner shutdown behavior before
-changing or describing them.
+The browser imports build/contracts/CoinPledge.json and uses native Web3 through
+contract.js's promise adapter. Preserve function input/output types, event argument
+names/indexing, Challenge tuple order, and the historical successed spelling.
+Changes must be checked against service calls, event handlers and tuple conversion.
 
-Wallet access uses legacy injected `web3`, synchronous account lookup, and a cached
-contract instance. Do not assume `window.ethereum` initialization or network-change
-handling exists. Account polling lives in `pull.js`; event updates live in `events.js`.
+Contract amounts are wei. Convert user-facing ether with decimal strings or
+BigNumber objects, never a JavaScript number. UI deadlines become durations in
+seconds. A mentor may resolve immediately; a challenger may also resolve at or
+after deadline + seven days. No other caller may resolve.
+
+Fees use floor(reward / 10) for the owner and the remainder for the mentor. Success
+credits remaining stake plus floor(bonus / 2), or the entire bonus at or below
+0.001 ETH. Failure adds the remaining stake to the user's bonus fund. Settlement
+and donations only credit pendingWithdrawals; withdraw()/withdrawTo() transfer ETH
+using checks-effects-interactions and a transient reentrancy guard. Never make a
+recipient's receive hook part of settlement again.
+
+gameOver() permanently stops new challenges, registration and donations. Existing
+challenges can still resolve. Bonuses unlock for withdrawal after shutdown;
+unresolved stakes still require resolution. Ownership transfer requires acceptance,
+renunciation is disabled, and accrued funds remain with their original recipient.
+
+The browser requires legacy injected web3 and synchronous account lookup. It does
+not support ethereum-only injection or fully handle network changes. Preserve or
+explicitly replace these assumptions; reload after changing networks.
 
 ## Generated and tracked files
 
-`build/contracts/` and frontend bundles, styles, and source maps in `dist/` are
-tracked outputs. Do not hand-edit generated ABI, bytecode, bundles, or source maps.
-Regenerate them only when the task needs it and inspect the resulting diff,
-including deployment metadata. Do not delete or blanket-ignore `build/` or `dist/`:
-the frontend needs the artifact, and `dist/index.html` and `dist/404.html` are
-maintained site files that Webpack does not recreate.
+Never hand-edit build/contracts/CoinPledge.json, dist/Complete.sol, bundles or maps.
+Use forge build, node scripts/export-contract.js, forge flatten, and npm run build.
+The exporter uses deployments/CoinPledge.json and refuses stale bytecode. Register
+a deployment with --rpc-url and --address only after deploying the current build;
+it verifies runtime bytecode and network ID. Keep local addresses out of public
+release commits. Never attach the new ABI to a historical contract.
+
+out/, cache/ and broadcast/ are ignored Foundry outputs. build/contracts/ and dist/
+contain tracked outputs; do not delete or blanket-ignore those directories.
+dist/index.html and dist/404.html are maintained site files Webpack does not create.
 
 ## Validation
 
-After dependencies are available, use checks appropriate to the change:
+Contract checks need Foundry and pinned submodules, not npm or a running chain:
 
-- Frontend: `npm test -- --runInBand`; production build: `npm run build`.
-- Contracts: `./node_modules/.bin/truffle compile`, then
-  `./node_modules/.bin/truffle test test/contracts/*.js --network dev` with a local
-  chain on `127.0.0.1:7545`. These tests are not run by Jest.
-- JavaScript lint: `./node_modules/.bin/eslint src/js test/contracts migrations`.
-  There is no npm lint script, and Webpack's lint loader is disabled.
-- Documentation: verify commands, paths, and behavior against source, then run
-  `git diff --check`; installing the legacy stack is unnecessary for prose changes.
+- forge install
+- forge fmt --check
+- forge build
+- forge test (unit, fuzz and stateful accounting invariants)
+- forge lint contracts/CoinPledge.sol (review intentional timestamp/withdrawal diagnostics)
 
-The frontend test command selects `jest.config.json`; the inline Jest settings in
-`package.json` are not automatically merged into it. Do not overwrite snapshots
-just to make tests pass. Report missing dependencies, chain access, or runtime
-compatibility failures accurately rather than claiming unexecuted checks passed.
+With Node available: node scripts/export-contract.js and
+node scripts/test-export-contract.js. Regenerate flattened source with
+forge flatten contracts/CoinPledge.sol --output dist/Complete.sol. Verify generated
+outputs match source and inspect deployment metadata.
+
+Frontend checks in the compatible legacy environment:
+
+- npm ci
+- npm test -- --runInBand
+- ./node_modules/.bin/eslint src/js scripts
+- npm run build
+
+For the actual Forge-to-Web3 integration, start a separate local Anvil at
+127.0.0.1:18545, chain/network 31337, Cancun, then npm run test:integration. The
+script broadcasts only to a verified local Anvil instance and uses its unlocked
+test accounts. It does not alter tracked deployment records. Never use public
+network transactions or wallet operations as routine validation.
+
+Jest uses jest.config.json, whose roots/testMatch restrict discovery to frontend
+source/tests so vendored OpenZeppelin tests are excluded. Package-inline Jest
+settings are not merged. Do not overwrite snapshots just to make tests pass.
+Webpack lint is disabled. Report any unexecuted checks or runtime failures.
+Run git diff --check for all changes; installing the frontend is unnecessary for
+prose-only changes. CI pins Foundry and checks contracts, generated artifacts,
+frontend tests/build, and the local integration path.
 
 ## Commands and credentials requiring care
 
-- Do not use `npm run clean-source` as cleanup: it deletes the repository's source
-  and configuration. `npm run deploy` publishes through `gh-pages-deploy` and
-  invokes that destructive post hook with prompts disabled. Only use deployment
-  workflows when publishing is part of the user's task, after reviewing the hooks.
-- `npm run compile` is a Solidity flattening script with an undeclared executable,
-  not the contract compiler. Use the local Truffle binary for compilation.
-- Use `--network dev` explicitly for local migrations and contract tests. Public
-  network transactions and wallet operations are not routine validation.
-- `truffle.js` contains committed wallet and RPC credentials. Do not copy their
-  values into documentation, logs, fixtures, or new configuration. Treat the wallet
-  mnemonic as exposed and never reuse it. There is no existing `.env` loader.
-- Do not claim the contract has no owner controls or that shutdown refunds all
-  stakes: `gameOver()` disables resolution and `withdraw()` only returns bonus funds.
-- Keep the MIT `LICENSE` / ISC package metadata discrepancy visible until the
-  maintainer resolves it; do not choose a license as an incidental cleanup.
+- npm run clean-source deletes source/configuration. npm run deploy publishes the
+  historical website with a destructive clean-source post hook and prompts disabled.
+  Neither is cleanup, validation or a contract deployment. Review hooks before use.
+- npm run compile now runs forge build and exports the browser artifact.
+  npm run flatten:contracts generates dist/Complete.sol. Truffle is no longer used.
+- Select explicit RPC URLs and signers for Forge scripts. --broadcast sends actual
+  transactions. Local work uses isolated Anvil accounts, never public signers.
+- The deleted truffle.js exposed a mnemonic and RPC credentials in Git history.
+  Never reuse that wallet or copy those credentials into new files/logs. Public
+  deployments should use a Foundry keystore or hardware wallet and supplied RPC URL.
+- Keep the MIT LICENSE / ISC package metadata discrepancy visible until the
+  maintainer resolves it; do not select a new license as incidental cleanup.
 
-Keep README commands and these instructions aligned with any workflow changes.
+Keep README.md and these instructions aligned with workflow changes.
