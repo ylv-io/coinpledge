@@ -75,10 +75,8 @@ contract CoinPledge is Ownable2Step, ReentrancyGuardTransient {
   mapping(address => User) public users;
   address[] public allUsers;
   mapping(string => address) private usernameToAddress;
-  mapping(uint256 => address) public challengeToUser;
-  mapping(uint256 => address) public challengeToMentor;
-  mapping(address => uint256) public userToChallengeCount;
-  mapping(address => uint256) public mentorToChallengeCount;
+  mapping(address => uint256[]) private userChallenges;
+  mapping(address => uint256[]) private mentorChallenges;
 
   /// @notice Failed stakes, locked until later success or shutdown.
   mapping(address => uint256) public bonusFund;
@@ -100,20 +98,30 @@ contract CoinPledge is Ownable2Step, ReentrancyGuardTransient {
     return allUsers.length;
   }
 
-  function getChallengesForUser(address user) external view returns (uint256[] memory result) {
-    result = new uint256[](userToChallengeCount[user]);
-    uint256 next;
-    for (uint256 i; i < challenges.length; ++i) {
-      if (challengeToUser[i] == user) result[next++] = i;
-    }
+  // Retain the original public lookup ABI without duplicating challenge storage.
+  function challengeToUser(uint256 id) external view returns (address) {
+    return id < challenges.length ? challenges[id].user : address(0);
   }
 
-  function getChallengesForMentor(address mentor) external view returns (uint256[] memory result) {
-    result = new uint256[](mentorToChallengeCount[mentor]);
-    uint256 next;
-    for (uint256 i; i < challenges.length; ++i) {
-      if (challengeToMentor[i] == mentor) result[next++] = i;
-    }
+  function challengeToMentor(uint256 id) external view returns (address) {
+    return id < challenges.length ? challenges[id].mentor : address(0);
+  }
+
+  function userToChallengeCount(address user) external view returns (uint256) {
+    return userChallenges[user].length;
+  }
+
+  function mentorToChallengeCount(address mentor) external view returns (uint256) {
+    return mentorChallenges[mentor].length;
+  }
+
+  /// @notice Return this user's IDs in creation order; an unknown user gets an empty array.
+  function getChallengesForUser(address user) external view returns (uint256[] memory) {
+    return userChallenges[user];
+  }
+
+  function getChallengesForMentor(address mentor) external view returns (uint256[] memory) {
+    return mentorChallenges[mentor];
   }
 
   /// @notice Stop new activity permanently and unlock bonuses; existing challenges still settle.
@@ -163,10 +171,8 @@ contract CoinPledge is Ownable2Step, ReentrancyGuardTransient {
         msg.sender, name, msg.value, mentorAddr, block.timestamp, time, mentorFee, false, false
       )
     );
-    challengeToUser[id] = msg.sender;
-    challengeToMentor[id] = mentorAddr;
-    userToChallengeCount[msg.sender]++;
-    mentorToChallengeCount[mentorAddr]++;
+    userChallenges[msg.sender].push(id);
+    mentorChallenges[mentorAddr].push(id);
     emit NewChallenge(id, msg.sender, name, msg.value, mentorAddr, block.timestamp, time, mentorFee);
   }
 
