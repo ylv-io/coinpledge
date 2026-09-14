@@ -65,7 +65,7 @@ const Landing = () => (
               </span>
               <div className="steps-content">
                 <p className="is-size-4">Success</p>
-                <p className="is-size-6">Get your ether back and enjoy your success.</p>
+                <p className="is-size-6">Withdraw your payout from your account and enjoy your success.</p>
               </div>
             </li>
           </ul>
@@ -147,7 +147,7 @@ const Landing = () => (
         <div className="column is-offset-one-quarter is-half">
           <h1 className="title">I Need All My Ether Back Immediately!</h1>
           <p>
-            Sorry, we can&apos;t help. It is a smart contract. No one controls it. You can create many fake challenges and quickly resolve them using another account. That will bring all you ether back to you, but shame will live forever on the blockchain. Ha-ha!
+            Bonus funds unlock through successful challenges while the game is active. The owner can end new activity and unlock bonus funds. Existing stakes still follow the challenge resolution rules.
           </p>
         </div>
       </div>
