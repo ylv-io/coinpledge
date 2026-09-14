@@ -110,9 +110,9 @@ and uses its unlocked test accounts. It does not alter tracked deployment record
 Never use public network transactions or wallet operations as routine validation.
 
 Jest uses jest.config.json, whose roots/testMatch restrict discovery to frontend
-source/tests so vendored OpenZeppelin tests are excluded. Package-inline Jest
-settings are not merged. Do not overwrite snapshots just to make tests pass.
-Webpack lint is disabled. Report any unexecuted checks or runtime failures.
+source/tests so vendored OpenZeppelin tests are excluded. Keep Jest configuration
+in that file. Do not overwrite snapshots just to make tests pass. Run ESLint
+directly; it is not part of Webpack. Report any unexecuted checks or runtime failures.
 Run git diff --check for all changes; installing the frontend is unnecessary for
 prose-only changes. CI pins Foundry and checks contracts, generated artifacts,
 frontend tests/build, and the local integration path.

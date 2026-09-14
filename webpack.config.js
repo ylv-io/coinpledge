@@ -13,11 +13,6 @@ module.exports = (env) => {
     },
     module: {
       rules: [
-        // {
-        //   test: /\.js$/,
-        //   exclude: /node_modules/,
-        //   use: ['eslint-loader'],
-        // },
         {
           test: /\.s?css$/, // To load the css in react
           use: CSSExtract.extract({
@@ -40,9 +35,6 @@ module.exports = (env) => {
           test: /\.jsx?$/, // To load the js and jsx files
           loader: 'babel-loader',
           exclude: /node_modules/,
-        }, {
-          test: /\.json$/, // To load the json files
-          loader: 'json-loader',
         }, {
           test: /\.(jpe?g|png|gif|svg)$/i,
           loader: 'file-loader',
