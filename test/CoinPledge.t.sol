@@ -1,34 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.37;
 
-import {Test} from "forge-std/Test.sol";
-import {CoinPledge} from "../contracts/CoinPledge.sol";
+import {CoinPledgeFixture} from "./helpers/CoinPledgeFixture.sol";
 
-contract CoinPledgeTest is Test {
-  CoinPledge internal pledge;
-  address internal owner = makeAddr("owner");
-  address internal user = makeAddr("user");
-  address internal mentor = makeAddr("mentor");
-
-  function setUp() public {
-    vm.warp(1_800_000_000);
-    vm.prank(owner);
-    pledge = new CoinPledge();
-    vm.prank(mentor);
-    pledge.setUsername("mentor");
-    vm.deal(user, 100 ether);
-  }
-
-  function create(uint256 value, uint256 fee) internal returns (uint256) {
-    vm.prank(user);
-    return pledge.createChallenge{value: value}("Run a marathon", "mentor", 1 days, fee);
-  }
-
-  function resolve(uint256 id, bool success) internal {
-    vm.prank(mentor);
-    pledge.resolveChallenge(id, success);
-  }
-
+contract CoinPledgeTest is CoinPledgeFixture {
   function test_DeploymentAndRegistration() public view {
     assertEq(pledge.owner(), owner);
     assertFalse(pledge.isGameOver());
@@ -73,10 +48,10 @@ contract CoinPledgeTest is Test {
   function test_SuccessPaysStakeAndFees() public {
     uint256 id = create(1 ether, 0.1 ether);
     resolve(id, true);
-    assertEq(user.balance, 99.9 ether);
-    assertEq(mentor.balance, 0.09 ether);
-    assertEq(owner.balance, 0.01 ether);
-    assertEq(address(pledge).balance, 0);
+    assertEq(pledge.pendingWithdrawals(user), 0.9 ether);
+    assertEq(pledge.pendingWithdrawals(mentor), 0.09 ether);
+    assertEq(pledge.pendingWithdrawals(owner), 0.01 ether);
+    assertEq(address(pledge).balance, 1 ether);
   }
 
   function test_FailureAccumulatesBonusAndSuccessReleasesHalf() public {
@@ -84,7 +59,7 @@ contract CoinPledgeTest is Test {
     assertEq(pledge.getBonusFund(user), 1 ether);
     resolve(create(0.01 ether, 0), true);
     assertEq(pledge.getBonusFund(user), 0.5 ether);
-    assertEq(user.balance, 99.5 ether);
+    assertEq(pledge.pendingWithdrawals(user), 0.51 ether);
   }
 
   function test_SmallBonusIsReleasedCompletely() public {
