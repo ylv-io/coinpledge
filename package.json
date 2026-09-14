@@ -13,7 +13,6 @@
     "test:contracts": "forge test",
     "fmt:contracts": "forge fmt --check",
     "export:contracts": "node scripts/export-contract.js",
-    "flatten:contracts": "forge flatten contracts/CoinPledge.sol --output dist/Complete.sol",
     "test:artifacts": "node scripts/test-export-contract.js",
     "test:integration": "node scripts/smoke-contract.js"
   },

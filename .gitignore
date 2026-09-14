@@ -61,3 +61,7 @@ typings/
 /out/
 /cache/
 /broadcast/
+
+# Optional local debugging and flattened contract output
+/dist/*.map
+/dist/Complete.sol

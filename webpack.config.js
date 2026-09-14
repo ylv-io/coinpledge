@@ -20,13 +20,13 @@ module.exports = (env) => {
               {
                 loader: 'css-loader',
                 options: {
-                  sourceMap: true,
+                  sourceMap: !isProduction,
                 },
               },
               {
                 loader: 'sass-loader',
                 options: {
-                  sourceMap: true,
+                  sourceMap: !isProduction,
                 },
               },
             ],
@@ -44,7 +44,7 @@ module.exports = (env) => {
     plugins: [
       CSSExtract,
     ],
-    devtool: isProduction ? 'source-map' : 'inline-source-map',
+    devtool: isProduction ? false : 'inline-source-map',
     devServer: {
       contentBase: path.join(__dirname, 'dist'),
       historyApiFallback: true,

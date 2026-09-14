@@ -26,11 +26,10 @@ jobs:
       - run: forge lint contracts/CoinPledge.sol
       - run: forge test
       - run: node scripts/test-export-contract.js
-      - name: Check generated contract artifacts
+      - name: Check generated browser contract artifact
         run: |
           node scripts/export-contract.js
-          forge flatten contracts/CoinPledge.sol --output dist/Complete.sol
-          git diff --exit-code -- build/contracts/CoinPledge.json dist/Complete.sol
+          git diff --exit-code -- build/contracts/CoinPledge.json
 
   frontend:
     runs-on: ubuntu-22.04
