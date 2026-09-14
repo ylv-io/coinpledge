@@ -16,8 +16,8 @@ export const arrayToChallenge = (array, id, account) => {
 
   const startDate = startDateRaw.toNumber();
   const time = timeRaw.toNumber();
-  const value = web3.fromWei(valueRaw.toNumber(), 'ether');
-  const mentorFee = web3.fromWei(mentorFeeRaw.toNumber(), 'ether');
+  const value = web3.fromWei(valueRaw.toString(10), 'ether');
+  const mentorFee = web3.fromWei(mentorFeeRaw.toString(10), 'ether');
 
   const daysToMentor = 7;
 
@@ -32,7 +32,7 @@ export const arrayToChallenge = (array, id, account) => {
     mentorFee,
     successed,
     resolved,
-    canResolve: (account === mentor || (startDate + time + (daysToMentor * 24 * 60 * 60)) < Math.floor(Date.now() / 1000)) && !resolved,
+    canResolve: (account === mentor || (account === user && (startDate + time + (daysToMentor * 24 * 60 * 60)) <= Math.floor(Date.now() / 1000))) && !resolved,
     isMentor: account === mentor,
     isUser: account === user,
   };

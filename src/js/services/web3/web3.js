@@ -1,5 +1,5 @@
-import Contract from 'truffle-contract';
 import Web3 from 'web3';
+import { bindContract } from './contract';
 
 import CoinPledgeContract from '../../../../build/contracts/CoinPledge.json';
 import { wait } from '../../utils/promise';
@@ -74,12 +74,7 @@ export const getCoinContractPromise = async () => {
   const web3 = getWeb3js();
 
   if (coinContractInstance === undefined) {
-    // Using truffle-contract we create the coinpledge object.
-    const coinContract = Contract(CoinPledgeContract);
-    coinContract.setProvider(web3.currentProvider);
-
-    // Find contract instance on blockchain and bind
-    coinContractInstance = await coinContract.deployed();
+    coinContractInstance = await bindContract(web3, CoinPledgeContract);
   }
   return coinContractInstance;
 };

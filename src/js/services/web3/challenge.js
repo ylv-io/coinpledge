@@ -95,7 +95,7 @@ export const getBonusFund = async (user) => {
   const result = await instance.getBonusFund.call(user, {
     from: account,
   });
-  return fromWei(result.toNumber(), 'ether');
+  return fromWei(result.toString(10), 'ether');
 };
 
 export const donate = async (name, url, value) => {

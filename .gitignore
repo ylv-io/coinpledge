@@ -56,3 +56,8 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# Foundry build and local deployment outputs
+/out/
+/cache/
+/broadcast/

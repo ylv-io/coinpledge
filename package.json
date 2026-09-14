@@ -11,8 +11,14 @@
     "serve": "webpack-dev-server",
     "build": "webpack -p --env production",
     "deploy": "gh-pages-deploy",
-    "compile": "truffle-flattener ./contracts/CoinPledge.sol > ./dist/Bundle.sol",
-    "clean-source": "rimraf README.md src package.json package-lock.json truffle.js truffle-config.js contracts migrations build license dist webpack.config.js .babelrc"
+    "compile": "forge build && node scripts/export-contract.js",
+    "clean-source": "rimraf README.md src package.json package-lock.json truffle.js truffle-config.js contracts migrations build license dist webpack.config.js .babelrc",
+    "test:contracts": "forge test",
+    "fmt:contracts": "forge fmt --check",
+    "export:contracts": "node scripts/export-contract.js",
+    "flatten:contracts": "forge flatten contracts/CoinPledge.sol --output dist/Complete.sol",
+    "test:artifacts": "node scripts/test-export-contract.js",
+    "test:integration": "node scripts/smoke-contract.js"
   },
   "jest": {
     "moduleNameMapper": {
@@ -32,8 +38,6 @@
     "bulma": "^0.7.1",
     "bulma-extensions": "^3.0.0",
     "bulma-o-steps": "^1.0.9",
-    "chai": "^4.2.0",
-    "chai-bignumber": "^2.0.2",
     "css-loader": "^0.28.11",
     "es6-promisify": "^6.0.0",
     "eslint": "^5.9.0",
@@ -56,7 +60,6 @@
     "moment": "^2.22.2",
     "node-sass": "^4.9.3",
     "npm": "^6.4.1",
-    "openzeppelin-solidity": "^2.0.0",
     "react": "^16.5.2",
     "react-addons-shallow-compare": "^15.6.0",
     "react-dates": "^12.7.0",
@@ -68,14 +71,12 @@
     "redux": "^4.0.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.18.2",
-    "truffle": "^4.1.13",
-    "truffle-contract": "^3.0.6",
-    "truffle-hdwallet-provider": "0.0.6",
     "underscore": "^1.9.1",
     "web3": "^0.20.0",
     "webpack": "^3.12.0",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^2.11.2"
+    "webpack-dev-server": "^2.11.2",
+    "babel-register": "6.26.0"
   },
   "gh-pages-deploy": {
     "staticpath": "dist",

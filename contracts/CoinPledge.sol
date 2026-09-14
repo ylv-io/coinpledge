@@ -1,39 +1,29 @@
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.37;
+
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
+import {ReentrancyGuardTransient} from "@openzeppelin/contracts/utils/ReentrancyGuardTransient.sol";
+
 /// @title CoinPledge
 /// @author Igor Yalovoy
-/// @notice Reach your goals and have fun with friends
-/// @dev All function calls are currently implement without side effects
-/// @web: ylv.io
-/// @email: to@ylv.io
-/// @gitHub: https://github.com/ylv-io/coinpledge/tree/master
-/// @twitter: https://twitter.com/ylv_io
+/// @notice Stake ether on a goal judged by a registered mentor.
+/// @dev New deployments only: storage is not compatible with the historical contract.
+///      Settlement credits balances; recipients withdraw independently. Requires Cancun EVM.
+contract CoinPledge is Ownable2Step, ReentrancyGuardTransient {
+  uint256 public constant RESOLUTION_GRACE_PERIOD = 7 days;
+  uint256 public constant MIN_STAKE = 0.01 ether;
+  uint256 public constant MIN_BONUS = 0.001 ether;
 
-// Proofs:
-// Public commitment as a motivator for weight loss (https://onlinelibrary.wiley.com/doi/pdf/10.1002/mar.20316)
-
-
-pragma solidity ^0.4.24;
-
-import "openzeppelin-solidity/contracts/math/SafeMath.sol";
-import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
-
-contract CoinPledge is Ownable {
-
-  using SafeMath for uint256;
-
-  uint constant daysToResolve = 7 days;
-  uint constant bonusPercentage = 50;
-  uint constant serviceFeePercentage = 10;
-  uint constant minBonus = 1 finney;
-
+  // Field order and the historical spelling of successed are part of the browser ABI.
   struct Challenge {
     address user;
     string name;
-    uint value;
+    uint256 value;
     address mentor;
-    uint startDate;
-    uint time;
-    uint mentorFee;
-
+    uint256 startDate;
+    uint256 time;
+    uint256 mentorFee;
     bool successed;
     bool resolved;
   }
@@ -43,269 +33,222 @@ contract CoinPledge is Ownable {
     string name;
   }
 
-  // Events
+  error GameHasEnded();
+  error InvalidUsernameLength();
+  error UserAlreadyRegistered();
+  error UsernameTaken();
+  error StakeTooSmall();
+  error RewardExceedsStake();
+  error UnknownMentor();
+  error InvalidDuration();
+  error SelfMentoring();
+  error UnknownChallenge();
+  error ChallengeAlreadyResolved();
+  error UnauthorizedResolver();
+  error NothingToWithdraw();
+  error InvalidRecipient();
+  error EtherTransferFailed();
+  error OwnershipRenunciationDisabled();
+
   event NewChallenge(
-    uint indexed challengeId,
+    uint256 indexed challengeId,
     address indexed user,
     string name,
-    uint value,
+    uint256 value,
     address indexed mentor,
-    uint startDate,
-    uint time,
-    uint mentorFee
+    uint256 startDate,
+    uint256 time,
+    uint256 mentorFee
   );
-
   event ChallengeResolved(
-    uint indexed challengeId,
-    address indexed user,
-    address indexed mentor,
-    bool decision
+    uint256 indexed challengeId, address indexed user, address indexed mentor, bool decision
   );
+  event BonusFundChanged(address indexed user, uint256 value);
+  event NewUsername(address indexed addr, string name);
+  event Donation(string name, string url, uint256 value, uint256 timestamp);
+  event GameEnded();
+  event PaymentAccrued(address indexed recipient, uint256 value);
+  event PaymentWithdrawn(address indexed user, address indexed recipient, uint256 value);
 
-  event BonusFundChanged(
-    address indexed user,
-    uint value
-  );
-
-  event NewUsername(
-    address indexed addr,
-    string name
-  );
-
-
-  event Donation(
-    string name,
-    string url,
-    uint value,
-    uint timestamp
-  );
-
-  /// @notice indicated is game over or not
   bool public isGameOver;
-
-  /// @notice All Challenges
   Challenge[] public challenges;
-
-  mapping(uint => address) public challengeToUser;
-  mapping(address => uint) public userToChallengeCount;
-
-  mapping(uint => address) public challengeToMentor;
-  mapping(address => uint) public mentorToChallengeCount;
-
-  /// @notice All Users
   mapping(address => User) public users;
   address[] public allUsers;
   mapping(string => address) private usernameToAddress;
-  
-  /// @notice User's bonuses
-  mapping(address => uint) public bonusFund;
+  mapping(address => uint256[]) private userChallenges;
+  mapping(address => uint256[]) private mentorChallenges;
 
-  /// @notice Can access only if game is not over
+  /// @notice Failed stakes, locked until later success or shutdown.
+  mapping(address => uint256) public bonusFund;
+  /// @notice Settled payouts, fees and donations, withdrawable at any time.
+  mapping(address => uint256) public pendingWithdrawals;
+
+  constructor() Ownable(msg.sender) {}
+
   modifier gameIsNotOver() {
-    require(!isGameOver, "Game should be not over");
+    if (isGameOver) revert GameHasEnded();
     _;
   }
 
-  /// @notice Can access only if game is over
-  modifier gameIsOver() {
-    require(isGameOver, "Game should be over");
-    _;
-  }
-
-  /// @notice Get Bonus Fund For User
-  function getBonusFund(address user)
-  external
-  view
-  returns(uint) {
+  function getBonusFund(address user) external view returns (uint256) {
     return bonusFund[user];
   }
 
-  /// @notice Get Users Lenght
-  function getUsersCount()
-  external
-  view
-  returns(uint) {
+  function getUsersCount() external view returns (uint256) {
     return allUsers.length;
   }
 
-  /// @notice Get Challenges For User
-  function getChallengesForUser(address user)
-  external
-  view
-  returns(uint[]) {
-    require(userToChallengeCount[user] > 0, "Has zero challenges");
-
-    uint[] memory result = new uint[](userToChallengeCount[user]);
-    uint counter = 0;
-    for (uint i = 0; i < challenges.length; i++) {
-      if (challengeToUser[i] == user)
-      {
-        result[counter] = i;
-        counter++;
-      }
-    }
-    return result;
+  // Retain the original public lookup ABI without duplicating challenge storage.
+  function challengeToUser(uint256 id) external view returns (address) {
+    return id < challenges.length ? challenges[id].user : address(0);
   }
 
-  /// @notice Get Challenges For Mentor
-  function getChallengesForMentor(address mentor)
-  external
-  view
-  returns(uint[]) {
-    require(mentorToChallengeCount[mentor] > 0, "Has zero challenges");
-
-    uint[] memory result = new uint[](mentorToChallengeCount[mentor]);
-    uint counter = 0;
-    for (uint i = 0; i < challenges.length; i++) {
-      if (challengeToMentor[i] == mentor)
-      {
-        result[counter] = i;
-        counter++;
-      }
-    }
-    return result;
+  function challengeToMentor(uint256 id) external view returns (address) {
+    return id < challenges.length ? challenges[id].mentor : address(0);
   }
-  
-  /// @notice Ends game
-  function gameOver()
-  external
-  gameIsNotOver
-  onlyOwner {
+
+  function userToChallengeCount(address user) external view returns (uint256) {
+    return userChallenges[user].length;
+  }
+
+  function mentorToChallengeCount(address mentor) external view returns (uint256) {
+    return mentorChallenges[mentor].length;
+  }
+
+  /// @notice Return this user's IDs in creation order; an unknown user gets an empty array.
+  function getChallengesForUser(address user) external view returns (uint256[] memory) {
+    return userChallenges[user];
+  }
+
+  function getChallengesForMentor(address mentor) external view returns (uint256[] memory) {
+    return mentorChallenges[mentor];
+  }
+
+  /// @notice Stop new activity permanently and unlock bonuses; existing challenges still settle.
+  function gameOver() external onlyOwner gameIsNotOver {
     isGameOver = true;
+    emit GameEnded();
   }
 
-  /// @notice Set Username
-  function setUsername(string name)
-  external
-  gameIsNotOver {
-    require(bytes(name).length > 2, "Provide a name longer than 2 chars");
-    require(bytes(name).length <= 32, "Provide a name shorter than 33 chars");
-    require(users[msg.sender].addr == address(0x0), "You already have a name");
-    require(usernameToAddress[name] == address(0x0), "Name already taken");
+  /// @notice Ownership must remain available for shutdown and donation/service-fee attribution.
+  function renounceOwnership() public view override onlyOwner {
+    revert OwnershipRenunciationDisabled();
+  }
+
+  /// @notice Register a unique, immutable, case-sensitive name of 3 to 32 UTF-8 bytes.
+  function setUsername(string calldata name) external gameIsNotOver {
+    uint256 length = bytes(name).length;
+    if (length < 3 || length > 32) revert InvalidUsernameLength();
+    if (users[msg.sender].addr != address(0)) revert UserAlreadyRegistered();
+    if (usernameToAddress[name] != address(0)) revert UsernameTaken();
 
     users[msg.sender] = User(msg.sender, name);
     usernameToAddress[name] = msg.sender;
     allUsers.push(msg.sender);
-
     emit NewUsername(msg.sender, name);
   }
 
-  /// @notice Creates Challenge
-  function createChallenge(string name, string mentor, uint time, uint mentorFee)
-  external
-  payable
-  gameIsNotOver
-  returns (uint retId) {
-    require(msg.value >= 0.01 ether, "Has to stake more than 0.01 ether");
-    require(mentorFee >= 0 ether, "Can't be negative");
-    require(mentorFee <= msg.value, "Can't be bigger than stake");
-    require(bytes(mentor).length > 0, "Has to be a mentor");
-    require(usernameToAddress[mentor] != address(0x0), "Mentor has to be registered");
-    require(time > 0, "Time has to be greater than zero");
-
+  /// @param time Duration in seconds, not an absolute deadline.
+  /// @param mentorFee Total reward in wei, including the 10% service fee.
+  function createChallenge(
+    string calldata name,
+    string calldata mentor,
+    uint256 time,
+    uint256 mentorFee
+  ) external payable gameIsNotOver returns (uint256 id) {
+    if (msg.value < MIN_STAKE) revert StakeTooSmall();
+    if (mentorFee > msg.value) revert RewardExceedsStake();
     address mentorAddr = usernameToAddress[mentor];
+    if (mentorAddr == address(0)) revert UnknownMentor();
+    if (mentorAddr == msg.sender) revert SelfMentoring();
+    if (time == 0 || time > type(uint256).max - block.timestamp - RESOLUTION_GRACE_PERIOD) {
+      revert InvalidDuration();
+    }
 
-    require(msg.sender != mentorAddr, "Can't be mentor to yourself");
-
-    uint startDate = block.timestamp;
-    uint id = challenges.push(Challenge(msg.sender, name, msg.value, mentorAddr, startDate, time, mentorFee, false, false)) - 1;
-
-    challengeToUser[id] = msg.sender;
-    userToChallengeCount[msg.sender]++;
-
-    challengeToMentor[id] = mentorAddr;
-    mentorToChallengeCount[mentorAddr]++;
-
-    emit NewChallenge(id, msg.sender, name, msg.value, mentorAddr, startDate, time, mentorFee);
-
-    return id;
+    id = challenges.length;
+    challenges.push(
+      Challenge(
+        msg.sender, name, msg.value, mentorAddr, block.timestamp, time, mentorFee, false, false
+      )
+    );
+    userChallenges[msg.sender].push(id);
+    mentorChallenges[mentorAddr].push(id);
+    emit NewChallenge(id, msg.sender, name, msg.value, mentorAddr, block.timestamp, time, mentorFee);
   }
 
-  /// @notice Resolves Challenge
-  function resolveChallenge(uint challengeId, bool decision)
-  external
-  gameIsNotOver {
+  /// @notice Mentors can settle at any time; users can also settle at deadline + seven days.
+  /// @dev No external calls: a rejecting recipient cannot block settlement or other recipients.
+  function resolveChallenge(uint256 challengeId, bool decision) external {
+    if (challengeId >= challenges.length) revert UnknownChallenge();
     Challenge storage challenge = challenges[challengeId];
-    
-    require(challenge.resolved == false, "Challenge already resolved.");
+    if (challenge.resolved) revert ChallengeAlreadyResolved();
+    if (
+      msg.sender != challenge.mentor
+        && (msg.sender != challenge.user
+          || block.timestamp < challenge.startDate + challenge.time + RESOLUTION_GRACE_PERIOD)
+    ) revert UnauthorizedResolver();
 
-    // if more time passed than endDate + daysToResolve, then user can resolve himself
-    if(block.timestamp < (challenge.startDate + challenge.time + daysToResolve))
-      require(challenge.mentor == msg.sender, "You are not the mentor for this challenge.");
-    else require((challenge.user == msg.sender) || (challenge.mentor == msg.sender), "You are not the user or mentor for this challenge.");
-
-    uint mentorFee;
-    uint serviceFee;
-    
-    address user = challengeToUser[challengeId];
-    address mentor = challengeToMentor[challengeId];
-
-    // write decision
     challenge.successed = decision;
     challenge.resolved = true;
 
-    uint remainingValue = challenge.value;
-
-    // mentor & service fee
-    if(challenge.mentorFee > 0) {
-      serviceFee = challenge.mentorFee.div(100).mul(serviceFeePercentage);
-      mentorFee = challenge.mentorFee.div(100).mul(100 - serviceFeePercentage);
-    }
-    
-    if(challenge.mentorFee > 0)
-      remainingValue = challenge.value.sub(challenge.mentorFee);
-
-    uint valueToPay;
-
-    if(decision) {
-      // value to pay back to user
-      valueToPay = remainingValue;
-      // credit bouns if any
-      uint currentBonus = bonusFund[user];
-      if(currentBonus > 0)
-      {
-        uint bonusValue = bonusFund[user].div(100).mul(bonusPercentage);
-        if(currentBonus <= minBonus)
-          bonusValue = currentBonus;
-        bonusFund[user] -= bonusValue;
-        emit BonusFundChanged(user, bonusFund[user]);
-
-        valueToPay += bonusValue;
+    // Assign every wei: floor 10% to owner, all reward remainder to the mentor.
+    uint256 serviceFee = challenge.mentorFee / 10;
+    uint256 remainingValue = challenge.value - challenge.mentorFee;
+    if (decision) {
+      uint256 currentBonus = bonusFund[challenge.user];
+      uint256 bonus = currentBonus <= MIN_BONUS ? currentBonus : currentBonus / 2;
+      if (bonus > 0) {
+        bonusFund[challenge.user] = currentBonus - bonus;
+        emit BonusFundChanged(challenge.user, currentBonus - bonus);
       }
+      _credit(challenge.user, remainingValue + bonus);
+    } else {
+      bonusFund[challenge.user] += remainingValue;
+      emit BonusFundChanged(challenge.user, bonusFund[challenge.user]);
     }
-    else {
-      bonusFund[user] += remainingValue;
-      emit BonusFundChanged(user, bonusFund[user]);
-    }
 
-    // pay back to the challenger
-    if(valueToPay > 0)
-      user.transfer(valueToPay);
-
-    if(mentorFee > 0)
-      mentor.transfer(mentorFee);
-
-    if(serviceFee > 0)
-      owner().transfer(serviceFee);
-
-    emit ChallengeResolved(challengeId, user, mentor, decision);
+    _credit(challenge.mentor, challenge.mentorFee - serviceFee);
+    _credit(owner(), serviceFee);
+    emit ChallengeResolved(challengeId, challenge.user, challenge.mentor, decision);
   }
 
-  function withdraw()
-  external
-  gameIsOver {
-    require(bonusFund[msg.sender] > 0, "You do not have any funds");
-
-    uint funds = bonusFund[msg.sender];
-    bonusFund[msg.sender] = 0;
-    msg.sender.transfer(funds);
+  /// @notice Includes unlocked bonus funds after shutdown.
+  function withdrawableBalance(address user) public view returns (uint256) {
+    return pendingWithdrawals[user] + (isGameOver ? bonusFund[user] : 0);
   }
 
-  function donate(string name, string url)
-  external
-  payable
-  gameIsNotOver {
-    owner().transfer(msg.value);
+  function withdraw() external nonReentrant {
+    _withdraw(payable(msg.sender));
+  }
+
+  /// @notice Claim your own balance to another recipient, e.g. if your wallet rejects ETH.
+  function withdrawTo(address payable recipient) external nonReentrant {
+    if (recipient == address(0) || recipient == address(this)) revert InvalidRecipient();
+    _withdraw(recipient);
+  }
+
+  /// @notice Credit the current owner's withdrawal balance without calling their wallet.
+  function donate(string calldata name, string calldata url) external payable gameIsNotOver {
+    _credit(owner(), msg.value);
     emit Donation(name, url, msg.value, block.timestamp);
+  }
+
+  function _credit(address recipient, uint256 value) private {
+    if (value == 0) return;
+    pendingWithdrawals[recipient] += value;
+    emit PaymentAccrued(recipient, value);
+  }
+
+  function _withdraw(address payable recipient) private {
+    uint256 funds = withdrawableBalance(msg.sender);
+    if (funds == 0) revert NothingToWithdraw();
+    pendingWithdrawals[msg.sender] = 0;
+    if (isGameOver && bonusFund[msg.sender] > 0) {
+      bonusFund[msg.sender] = 0;
+      emit BonusFundChanged(msg.sender, 0);
+    }
+    emit PaymentWithdrawn(msg.sender, recipient, funds);
+    (bool success,) = recipient.call{value: funds}("");
+    if (!success) revert EtherTransferFailed();
   }
 }

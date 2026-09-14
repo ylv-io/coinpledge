@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SetUsernameForm from './SetUsername';
+import WithdrawFunds from './WithdrawFunds';
 
 import { setUsername } from '../services/web3/user';
 import { getTransactionReceipt } from '../services/web3/web3';
@@ -63,6 +64,9 @@ class Account extends React.Component {
             { bonusFund }
             <span> ether</span>
           </p>
+          <hr />
+
+          <WithdrawFunds account={account} />
           <hr />
 
           { !username
