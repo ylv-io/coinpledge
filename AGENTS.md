@@ -29,7 +29,7 @@ separate from contract work. Preserve retained lockfile versions unless necessar
 - State: src/js/actions/, reducers/, selectors/, store/configureStore.js.
 - Web3 adapter, contract calls, polling/events: src/js/services/web3/.
 - Challenge tuple conversion: src/js/utils/web3.js.
-- Frontend tests: src/js/tests/; styling: src/css/index.css and Bulma classes.
+- Frontend tests: src/js/tests/; styling: imported Bulma, Bulma steps and react-dates CSS.
 
 Use two-space indentation, single quotes and semicolons in JavaScript; consult
 .eslintrc.js. Solidity formatting is defined by forge fmt. Avoid new frameworks,
