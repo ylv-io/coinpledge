@@ -7,9 +7,12 @@ from this checkout, not through the home-directory dotfiles repo. Read README.md
 package.json, foundry.toml and relevant configuration before changing workflows.
 
 Contracts use Solidity 0.8.37 and Foundry v1.8.1, with pinned OpenZeppelin v5.7.0
-and forge-std v1.16.2 submodules. The EVM target is Cancun: the transient reentrancy
-guard requires EIP-1153. Keep explicit remappings and foundry.lock aligned with
-submodule revisions; do not update dependencies incidentally.
+and forge-std v1.16.2 submodules. The EVM target is Osaka, Ethereum mainnet's
+execution-layer fork in Fusaka as of September 14, 2026. Keep EIP-7825 transaction
+gas-limit checks enabled in Forge and Anvil; Forge's gas limit is 16,777,216.
+The transient reentrancy guard requires EIP-1153, which Osaka supports. Keep explicit
+remappings and foundry.lock aligned with submodule revisions; do not update
+dependencies incidentally.
 
 The React 16/Redux frontend is still legacy: Web3 0.20, Webpack 3, Babel 6,
 node-sass 4, Jest 23, and npm lockfile format 1. Node 10.24.1/npm 6.14.12 was used
@@ -100,10 +103,11 @@ Frontend checks in the compatible legacy environment:
 - npm run build
 
 For the actual Forge-to-Web3 integration, start a separate local Anvil at
-127.0.0.1:18545, chain/network 31337, Cancun, then npm run test:integration. The
-script broadcasts only to a verified local Anvil instance and uses its unlocked
-test accounts. It does not alter tracked deployment records. Never use public
-network transactions or wallet operations as routine validation.
+127.0.0.1:18545, chain/network 31337, with --hardfork osaka --enable-tx-gas-limit,
+then npm run test:integration. This tests mainnet EVM rules on a local chain without
+forking mainnet state. The script broadcasts only to a verified local Anvil instance
+and uses its unlocked test accounts. It does not alter tracked deployment records.
+Never use public network transactions or wallet operations as routine validation.
 
 Jest uses jest.config.json, whose roots/testMatch restrict discovery to frontend
 source/tests so vendored OpenZeppelin tests are excluded. Package-inline Jest

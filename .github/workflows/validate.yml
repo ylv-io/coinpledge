@@ -50,7 +50,8 @@ jobs:
       - run: npm run build
       - name: Check local Forge and Web3 integration
         run: |
-          anvil --host 127.0.0.1 --port 18545 --chain-id 31337 --hardfork cancun --silent &
+          anvil --host 127.0.0.1 --port 18545 --chain-id 31337 \
+            --hardfork osaka --enable-tx-gas-limit --silent &
           ANVIL_PID=$!
           trap 'kill "$ANVIL_PID"' EXIT
           for attempt in $(seq 1 50); do

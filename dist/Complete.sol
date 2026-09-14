@@ -463,7 +463,7 @@ abstract contract Ownable2Step is Ownable {
 /// @author Igor Yalovoy
 /// @notice Stake ether on a goal judged by a registered mentor.
 /// @dev New deployments only: storage is not compatible with the historical contract.
-///      Settlement credits balances; recipients withdraw independently. Requires Cancun EVM.
+///      Settlement credits balances; recipients withdraw independently. Targets Osaka EVM.
 contract CoinPledge is Ownable2Step, ReentrancyGuardTransient {
   uint256 public constant RESOLUTION_GRACE_PERIOD = 7 days;
   uint256 public constant MIN_STAKE = 0.01 ether;

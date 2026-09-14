@@ -27,7 +27,8 @@ with Web3 0.20; upgrading that legacy frontend stack is a separate project.
 
 A rejecting recipient cannot block settlement or another recipient's withdrawal.
 Withdrawals clear balances before the external call and use OpenZeppelin's
-transient reentrancy guard. The target chain must support **Cancun / EIP-1153**.
+transient reentrancy guard. Builds and tests target **Osaka**, Ethereum mainnet's
+execution-layer fork in Fusaka, including EIP-1153 transient storage.
 
 The owner can permanently call `gameOver()` to stop new challenges, registrations,
 and donations. **Existing challenges can still resolve under the same timing and
@@ -88,8 +89,11 @@ forge fmt --check
 ```
 
 `forge install` initializes the pinned submodules: OpenZeppelin Contracts
-**v5.7.0** and forge-std **v1.16.2**. Solidity **0.8.37**, the Cancun EVM target,
+**v5.7.0** and forge-std **v1.16.2**. Solidity **0.8.37**, the Osaka EVM target,
 optimizer settings and explicit remappings are pinned in `foundry.toml`.
+Osaka is the execution-layer fork active on Ethereum mainnet as of September 14,
+2026 ([Fusaka](https://ethereum.org/roadmap/fusaka/)). Forge tests and scripts enable
+the EIP-7825 transaction gas cap and use a gas limit of **16,777,216**.
 The compiler is downloaded automatically; no global `solc`, Node, npm, Truffle,
 RPC credentials, or running chain is needed for the Forge tests. Solidity 0.8.37
 is the [stable release verified for this migration](https://www.soliditylang.org/blog/2026/09/10/solidity-0.8.37-release-announcement/).
@@ -117,7 +121,8 @@ Review and commit generated artifact changes with their corresponding source.
 In one terminal, start an isolated chain:
 
 ```sh
-anvil --host 127.0.0.1 --port 8545 --chain-id 31337 --hardfork cancun
+anvil --host 127.0.0.1 --port 8545 --chain-id 31337 \
+  --hardfork osaka --enable-tx-gas-limit
 ```
 
 In another terminal, use the first **public account address printed by Anvil** as
@@ -144,7 +149,7 @@ After resetting Anvil, redeploy and register again. After changing contract code
 redeploy each configured network or remove its stale manifest entry before export.
 Local deployment addresses are disposable; do not commit them as public releases.
 
-For public deployments, review this new contract first, select a Cancun-compatible
+For public deployments, review this new contract first, select an Osaka-compatible
 chain, and supply an explicit RPC URL and a Foundry keystore/hardware-wallet signer
 (e.g. `--account NAME`). Omitting `--broadcast` simulates the deployment. No keys or
 public RPC credentials are stored in the deployment script. Local validation and
@@ -184,10 +189,19 @@ and cached contract/event subscriptions do not fully handle network changes.
 | `npm run build` | Regenerate production frontend bundles and source maps |
 | `git diff --check` | Whitespace validation |
 
-For an end-to-end check, start a **separate** Anvil instance on port 18545 with
-network/chain ID 31337, then run `npm run test:integration`. It deploys through the
-Forge script, verifies the export, and exercises the actual Web3 adapter's calls,
-event and tuple decoding, settlement and withdrawals with exact wei values.
+For an end-to-end check, start a **separate** Anvil instance with the same Osaka
+rules and transaction gas cap used by CI:
+
+```sh
+anvil --host 127.0.0.1 --port 18545 --chain-id 31337 \
+  --hardfork osaka --enable-tx-gas-limit
+```
+
+Then run `npm run test:integration` in another terminal. The local chain uses
+network/chain ID 31337 and mainnet's EVM rules; it does not fork mainnet state.
+The check deploys through the Forge script, verifies the export, and exercises the
+Web3 adapter's calls, event and tuple decoding, settlement and withdrawals with
+exact wei values.
 `COINPLEDGE_TEST_RPC_URL` can override the local URL; the check rejects nonlocal
 hosts and non-Anvil/non-31337 networks. It does not edit the tracked deployment
 manifest or browser artifact. CI runs this check in addition to contract and
