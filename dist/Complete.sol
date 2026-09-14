@@ -1,184 +1,483 @@
-pragma solidity ^0.4.24;
+// SPDX-License-Identifier: MIT
+pragma solidity =0.8.37 ^0.8.20 ^0.8.24;
 
-// File: openzeppelin-solidity/contracts/math/SafeMath.sol
+// lib/openzeppelin-contracts/contracts/utils/Context.sol
+
+// OpenZeppelin Contracts (last updated v5.0.1) (utils/Context.sol)
 
 /**
- * @title SafeMath
- * @dev Math operations with safety checks that revert on error
+ * @dev Provides information about the current execution context, including the
+ * sender of the transaction and its data. While these are generally available
+ * via msg.sender and msg.data, they should not be accessed in such a direct
+ * manner, since when dealing with meta-transactions the account sending and
+ * paying for execution may not be the actual sender (as far as an application
+ * is concerned).
+ *
+ * This contract is only required for intermediate, library-like contracts.
  */
-library SafeMath {
-
-  /**
-  * @dev Multiplies two numbers, reverts on overflow.
-  */
-  function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
-    // benefit is lost if 'b' is also tested.
-    // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
-    if (a == 0) {
-      return 0;
+abstract contract Context {
+    function _msgSender() internal view virtual returns (address) {
+        return msg.sender;
     }
 
-    uint256 c = a * b;
-    require(c / a == b);
+    function _msgData() internal view virtual returns (bytes calldata) {
+        return msg.data;
+    }
 
-    return c;
-  }
-
-  /**
-  * @dev Integer division of two numbers truncating the quotient, reverts on division by zero.
-  */
-  function div(uint256 a, uint256 b) internal pure returns (uint256) {
-    require(b > 0); // Solidity only automatically asserts when dividing by 0
-    uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
-
-    return c;
-  }
-
-  /**
-  * @dev Subtracts two numbers, reverts on overflow (i.e. if subtrahend is greater than minuend).
-  */
-  function sub(uint256 a, uint256 b) internal pure returns (uint256) {
-    require(b <= a);
-    uint256 c = a - b;
-
-    return c;
-  }
-
-  /**
-  * @dev Adds two numbers, reverts on overflow.
-  */
-  function add(uint256 a, uint256 b) internal pure returns (uint256) {
-    uint256 c = a + b;
-    require(c >= a);
-
-    return c;
-  }
-
-  /**
-  * @dev Divides two numbers and returns the remainder (unsigned integer modulo),
-  * reverts when dividing by zero.
-  */
-  function mod(uint256 a, uint256 b) internal pure returns (uint256) {
-    require(b != 0);
-    return a % b;
-  }
+    function _contextSuffixLength() internal view virtual returns (uint256) {
+        return 0;
+    }
 }
 
-// File: openzeppelin-solidity/contracts/ownership/Ownable.sol
+// lib/openzeppelin-contracts/contracts/utils/TransientSlot.sol
+
+// OpenZeppelin Contracts (last updated v5.3.0) (utils/TransientSlot.sol)
+// This file was procedurally generated from scripts/generate/templates/TransientSlot.js.
 
 /**
- * @title Ownable
- * @dev The Ownable contract has an owner address, and provides basic authorization control
- * functions, this simplifies the implementation of "user permissions".
+ * @dev Library for reading and writing value-types to specific transient storage slots.
+ *
+ * Transient slots are often used to store temporary values that are removed after the current transaction.
+ * This library helps with reading and writing to such slots without the need for inline assembly.
+ *
+ *  * Example reading and writing values using transient storage:
+ * ```solidity
+ * contract Lock {
+ *     using TransientSlot for *;
+ *
+ *     // Define the slot. Alternatively, use the SlotDerivation library to derive the slot.
+ *     bytes32 internal constant _LOCK_SLOT = 0xf4678858b2b588224636b8522b729e7722d32fc491da849ed75b3fdf3c84f542;
+ *
+ *     modifier locked() {
+ *         require(!_LOCK_SLOT.asBoolean().tload());
+ *
+ *         _LOCK_SLOT.asBoolean().tstore(true);
+ *         _;
+ *         _LOCK_SLOT.asBoolean().tstore(false);
+ *     }
+ * }
+ * ```
+ *
+ * TIP: Consider using this library along with {SlotDerivation}.
  */
-contract Ownable {
-  address private _owner;
+library TransientSlot {
+    /**
+     * @dev UDVT that represents a slot holding an address.
+     */
+    type AddressSlot is bytes32;
 
-  event OwnershipTransferred(
-    address indexed previousOwner,
-    address indexed newOwner
-  );
+    /**
+     * @dev Cast an arbitrary slot to a AddressSlot.
+     */
+    function asAddress(bytes32 slot) internal pure returns (AddressSlot) {
+        return AddressSlot.wrap(slot);
+    }
 
-  /**
-   * @dev The Ownable constructor sets the original `owner` of the contract to the sender
-   * account.
-   */
-  constructor() internal {
-    _owner = msg.sender;
-    emit OwnershipTransferred(address(0), _owner);
-  }
+    /**
+     * @dev UDVT that represents a slot holding a bool.
+     */
+    type BooleanSlot is bytes32;
 
-  /**
-   * @return the address of the owner.
-   */
-  function owner() public view returns(address) {
-    return _owner;
-  }
+    /**
+     * @dev Cast an arbitrary slot to a BooleanSlot.
+     */
+    function asBoolean(bytes32 slot) internal pure returns (BooleanSlot) {
+        return BooleanSlot.wrap(slot);
+    }
 
-  /**
-   * @dev Throws if called by any account other than the owner.
-   */
-  modifier onlyOwner() {
-    require(isOwner());
-    _;
-  }
+    /**
+     * @dev UDVT that represents a slot holding a bytes32.
+     */
+    type Bytes32Slot is bytes32;
 
-  /**
-   * @return true if `msg.sender` is the owner of the contract.
-   */
-  function isOwner() public view returns(bool) {
-    return msg.sender == _owner;
-  }
+    /**
+     * @dev Cast an arbitrary slot to a Bytes32Slot.
+     */
+    function asBytes32(bytes32 slot) internal pure returns (Bytes32Slot) {
+        return Bytes32Slot.wrap(slot);
+    }
 
-  /**
-   * @dev Allows the current owner to relinquish control of the contract.
-   * @notice Renouncing to ownership will leave the contract without an owner.
-   * It will not be possible to call the functions with the `onlyOwner`
-   * modifier anymore.
-   */
-  function renounceOwnership() public onlyOwner {
-    emit OwnershipTransferred(_owner, address(0));
-    _owner = address(0);
-  }
+    /**
+     * @dev UDVT that represents a slot holding a uint256.
+     */
+    type Uint256Slot is bytes32;
 
-  /**
-   * @dev Allows the current owner to transfer control of the contract to a newOwner.
-   * @param newOwner The address to transfer ownership to.
-   */
-  function transferOwnership(address newOwner) public onlyOwner {
-    _transferOwnership(newOwner);
-  }
+    /**
+     * @dev Cast an arbitrary slot to a Uint256Slot.
+     */
+    function asUint256(bytes32 slot) internal pure returns (Uint256Slot) {
+        return Uint256Slot.wrap(slot);
+    }
 
-  /**
-   * @dev Transfers control of the contract to a newOwner.
-   * @param newOwner The address to transfer ownership to.
-   */
-  function _transferOwnership(address newOwner) internal {
-    require(newOwner != address(0));
-    emit OwnershipTransferred(_owner, newOwner);
-    _owner = newOwner;
-  }
+    /**
+     * @dev UDVT that represents a slot holding a int256.
+     */
+    type Int256Slot is bytes32;
+
+    /**
+     * @dev Cast an arbitrary slot to a Int256Slot.
+     */
+    function asInt256(bytes32 slot) internal pure returns (Int256Slot) {
+        return Int256Slot.wrap(slot);
+    }
+
+    /**
+     * @dev Load the value held at location `slot` in transient storage.
+     */
+    function tload(AddressSlot slot) internal view returns (address value) {
+        assembly ("memory-safe") {
+            value := tload(slot)
+        }
+    }
+
+    /**
+     * @dev Store `value` at location `slot` in transient storage.
+     */
+    function tstore(AddressSlot slot, address value) internal {
+        assembly ("memory-safe") {
+            tstore(slot, value)
+        }
+    }
+
+    /**
+     * @dev Load the value held at location `slot` in transient storage.
+     */
+    function tload(BooleanSlot slot) internal view returns (bool value) {
+        assembly ("memory-safe") {
+            value := tload(slot)
+        }
+    }
+
+    /**
+     * @dev Store `value` at location `slot` in transient storage.
+     */
+    function tstore(BooleanSlot slot, bool value) internal {
+        assembly ("memory-safe") {
+            tstore(slot, value)
+        }
+    }
+
+    /**
+     * @dev Load the value held at location `slot` in transient storage.
+     */
+    function tload(Bytes32Slot slot) internal view returns (bytes32 value) {
+        assembly ("memory-safe") {
+            value := tload(slot)
+        }
+    }
+
+    /**
+     * @dev Store `value` at location `slot` in transient storage.
+     */
+    function tstore(Bytes32Slot slot, bytes32 value) internal {
+        assembly ("memory-safe") {
+            tstore(slot, value)
+        }
+    }
+
+    /**
+     * @dev Load the value held at location `slot` in transient storage.
+     */
+    function tload(Uint256Slot slot) internal view returns (uint256 value) {
+        assembly ("memory-safe") {
+            value := tload(slot)
+        }
+    }
+
+    /**
+     * @dev Store `value` at location `slot` in transient storage.
+     */
+    function tstore(Uint256Slot slot, uint256 value) internal {
+        assembly ("memory-safe") {
+            tstore(slot, value)
+        }
+    }
+
+    /**
+     * @dev Load the value held at location `slot` in transient storage.
+     */
+    function tload(Int256Slot slot) internal view returns (int256 value) {
+        assembly ("memory-safe") {
+            value := tload(slot)
+        }
+    }
+
+    /**
+     * @dev Store `value` at location `slot` in transient storage.
+     */
+    function tstore(Int256Slot slot, int256 value) internal {
+        assembly ("memory-safe") {
+            tstore(slot, value)
+        }
+    }
 }
 
-// File: contracts/CoinPledge.sol
+// lib/openzeppelin-contracts/contracts/access/Ownable.sol
+
+// OpenZeppelin Contracts (last updated v5.0.0) (access/Ownable.sol)
+
+/**
+ * @dev Contract module which provides a basic access control mechanism, where
+ * there is an account (an owner) that can be granted exclusive access to
+ * specific functions.
+ *
+ * The initial owner is set to the address provided by the deployer. This can
+ * later be changed with {transferOwnership}.
+ *
+ * This module is used through inheritance. It will make available the modifier
+ * `onlyOwner`, which can be applied to your functions to restrict their use to
+ * the owner.
+ */
+abstract contract Ownable is Context {
+    address private _owner;
+
+    /**
+     * @dev The caller account is not authorized to perform an operation.
+     */
+    error OwnableUnauthorizedAccount(address account);
+
+    /**
+     * @dev The owner is not a valid owner account. (eg. `address(0)`)
+     */
+    error OwnableInvalidOwner(address owner);
+
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+
+    /**
+     * @dev Initializes the contract setting the address provided by the deployer as the initial owner.
+     */
+    constructor(address initialOwner) {
+        if (initialOwner == address(0)) {
+            revert OwnableInvalidOwner(address(0));
+        }
+        _transferOwnership(initialOwner);
+    }
+
+    /**
+     * @dev Throws if called by any account other than the owner.
+     */
+    modifier onlyOwner() {
+        _checkOwner();
+        _;
+    }
+
+    /**
+     * @dev Returns the address of the current owner.
+     */
+    function owner() public view virtual returns (address) {
+        return _owner;
+    }
+
+    /**
+     * @dev Throws if the sender is not the owner.
+     */
+    function _checkOwner() internal view virtual {
+        if (owner() != _msgSender()) {
+            revert OwnableUnauthorizedAccount(_msgSender());
+        }
+    }
+
+    /**
+     * @dev Leaves the contract without owner. It will not be possible to call
+     * `onlyOwner` functions. Can only be called by the current owner.
+     *
+     * NOTE: Renouncing ownership will leave the contract without an owner,
+     * thereby disabling any functionality that is only available to the owner.
+     */
+    function renounceOwnership() public virtual onlyOwner {
+        _transferOwnership(address(0));
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Can only be called by the current owner.
+     */
+    function transferOwnership(address newOwner) public virtual onlyOwner {
+        if (newOwner == address(0)) {
+            revert OwnableInvalidOwner(address(0));
+        }
+        _transferOwnership(newOwner);
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Internal function without access restriction.
+     */
+    function _transferOwnership(address newOwner) internal virtual {
+        address oldOwner = _owner;
+        _owner = newOwner;
+        emit OwnershipTransferred(oldOwner, newOwner);
+    }
+}
+
+// lib/openzeppelin-contracts/contracts/utils/ReentrancyGuardTransient.sol
+
+// OpenZeppelin Contracts (last updated v5.5.0) (utils/ReentrancyGuardTransient.sol)
+
+/**
+ * @dev Variant of {ReentrancyGuard} that uses transient storage.
+ *
+ * NOTE: This variant only works on networks where EIP-1153 is available.
+ *
+ * _Available since v5.1._
+ *
+ * @custom:stateless
+ */
+abstract contract ReentrancyGuardTransient {
+    using TransientSlot for *;
+
+    // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.ReentrancyGuard")) - 1)) & ~bytes32(uint256(0xff))
+    bytes32 private constant REENTRANCY_GUARD_STORAGE =
+        0x9b779b17422d0df92223018b32b4d1fa46e071723d6817e2486d003becc55f00;
+
+    /**
+     * @dev Unauthorized reentrant call.
+     */
+    error ReentrancyGuardReentrantCall();
+
+    /**
+     * @dev Prevents a contract from calling itself, directly or indirectly.
+     * Calling a `nonReentrant` function from another `nonReentrant`
+     * function is not supported. It is possible to prevent this from happening
+     * by making the `nonReentrant` function external, and making it call a
+     * `private` function that does the actual work.
+     */
+    modifier nonReentrant() {
+        _nonReentrantBefore();
+        _;
+        _nonReentrantAfter();
+    }
+
+    /**
+     * @dev A `view` only version of {nonReentrant}. Use to block view functions
+     * from being called, preventing reading from inconsistent contract state.
+     *
+     * CAUTION: This is a "view" modifier and does not change the reentrancy
+     * status. Use it only on view functions. For payable or non-payable functions,
+     * use the standard {nonReentrant} modifier instead.
+     */
+    modifier nonReentrantView() {
+        _nonReentrantBeforeView();
+        _;
+    }
+
+    function _nonReentrantBeforeView() private view {
+        if (_reentrancyGuardEntered()) {
+            revert ReentrancyGuardReentrantCall();
+        }
+    }
+
+    function _nonReentrantBefore() private {
+        // On the first call to nonReentrant, REENTRANCY_GUARD_STORAGE.asBoolean().tload() will be false
+        _nonReentrantBeforeView();
+
+        // Any calls to nonReentrant after this point will fail
+        _reentrancyGuardStorageSlot().asBoolean().tstore(true);
+    }
+
+    function _nonReentrantAfter() private {
+        _reentrancyGuardStorageSlot().asBoolean().tstore(false);
+    }
+
+    /**
+     * @dev Returns true if the reentrancy guard is currently set to "entered", which indicates there is a
+     * `nonReentrant` function in the call stack.
+     */
+    function _reentrancyGuardEntered() internal view returns (bool) {
+        return _reentrancyGuardStorageSlot().asBoolean().tload();
+    }
+
+    function _reentrancyGuardStorageSlot() internal pure virtual returns (bytes32) {
+        return REENTRANCY_GUARD_STORAGE;
+    }
+}
+
+// lib/openzeppelin-contracts/contracts/access/Ownable2Step.sol
+
+// OpenZeppelin Contracts (last updated v5.1.0) (access/Ownable2Step.sol)
+
+/**
+ * @dev Contract module which provides access control mechanism, where
+ * there is an account (an owner) that can be granted exclusive access to
+ * specific functions.
+ *
+ * This extension of the {Ownable} contract includes a two-step mechanism to transfer
+ * ownership, where the new owner must call {acceptOwnership} in order to replace the
+ * old one. This can help prevent common mistakes, such as transfers of ownership to
+ * incorrect accounts, or to contracts that are unable to interact with the
+ * permission system.
+ *
+ * The initial owner is specified at deployment time in the constructor for `Ownable`. This
+ * can later be changed with {transferOwnership} and {acceptOwnership}.
+ *
+ * This module is used through inheritance. It will make available all functions
+ * from parent (Ownable).
+ */
+abstract contract Ownable2Step is Ownable {
+    address private _pendingOwner;
+
+    event OwnershipTransferStarted(address indexed previousOwner, address indexed newOwner);
+
+    /**
+     * @dev Returns the address of the pending owner.
+     */
+    function pendingOwner() public view virtual returns (address) {
+        return _pendingOwner;
+    }
+
+    /**
+     * @dev Starts the ownership transfer of the contract to a new account. Replaces the pending transfer if there is one.
+     * Can only be called by the current owner.
+     *
+     * Setting `newOwner` to the zero address is allowed; this can be used to cancel an initiated ownership transfer.
+     */
+    function transferOwnership(address newOwner) public virtual override onlyOwner {
+        _pendingOwner = newOwner;
+        emit OwnershipTransferStarted(owner(), newOwner);
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`) and deletes any pending owner.
+     * Internal function without access restriction.
+     */
+    function _transferOwnership(address newOwner) internal virtual override {
+        delete _pendingOwner;
+        super._transferOwnership(newOwner);
+    }
+
+    /**
+     * @dev The new owner accepts the ownership transfer.
+     */
+    function acceptOwnership() public virtual {
+        address sender = _msgSender();
+        if (pendingOwner() != sender) {
+            revert OwnableUnauthorizedAccount(sender);
+        }
+        _transferOwnership(sender);
+    }
+}
+
+// contracts/CoinPledge.sol
 
 /// @title CoinPledge
 /// @author Igor Yalovoy
-/// @notice Reach your goals and have fun with friends
-/// @dev All function calls are currently implement without side effects
-/// @web: ylv.io
-/// @email: to@ylv.io
-/// @gitHub: https://github.com/ylv-io/coinpledge/tree/master
-/// @twitter: https://twitter.com/ylv_io
+/// @notice Stake ether on a goal judged by a registered mentor.
+/// @dev New deployments only: storage is not compatible with the historical contract.
+///      Settlement credits balances; recipients withdraw independently. Requires Cancun EVM.
+contract CoinPledge is Ownable2Step, ReentrancyGuardTransient {
+  uint256 public constant RESOLUTION_GRACE_PERIOD = 7 days;
+  uint256 public constant MIN_STAKE = 0.01 ether;
+  uint256 public constant MIN_BONUS = 0.001 ether;
 
-// Proofs:
-// Public commitment as a motivator for weight loss (https://onlinelibrary.wiley.com/doi/pdf/10.1002/mar.20316)
-
-
-pragma solidity ^0.4.24;
-
-
-
-contract CoinPledge is Ownable {
-
-  using SafeMath for uint256;
-
-  uint constant daysToResolve = 7 days;
-  uint constant bonusPercentage = 50;
-  uint constant serviceFeePercentage = 10;
-  uint constant minBonus = 1 finney;
-
+  // Field order and the historical spelling of successed are part of the browser ABI.
   struct Challenge {
     address user;
     string name;
-    uint value;
+    uint256 value;
     address mentor;
-    uint startDate;
-    uint time;
-    uint mentorFee;
-
+    uint256 startDate;
+    uint256 time;
+    uint256 mentorFee;
     bool successed;
     bool resolved;
   }
@@ -188,269 +487,222 @@ contract CoinPledge is Ownable {
     string name;
   }
 
-  // Events
+  error GameHasEnded();
+  error InvalidUsernameLength();
+  error UserAlreadyRegistered();
+  error UsernameTaken();
+  error StakeTooSmall();
+  error RewardExceedsStake();
+  error UnknownMentor();
+  error InvalidDuration();
+  error SelfMentoring();
+  error UnknownChallenge();
+  error ChallengeAlreadyResolved();
+  error UnauthorizedResolver();
+  error NothingToWithdraw();
+  error InvalidRecipient();
+  error EtherTransferFailed();
+  error OwnershipRenunciationDisabled();
+
   event NewChallenge(
-    uint indexed challengeId,
+    uint256 indexed challengeId,
     address indexed user,
     string name,
-    uint value,
+    uint256 value,
     address indexed mentor,
-    uint startDate,
-    uint time,
-    uint mentorFee
+    uint256 startDate,
+    uint256 time,
+    uint256 mentorFee
   );
-
   event ChallengeResolved(
-    uint indexed challengeId,
-    address indexed user,
-    address indexed mentor,
-    bool decision
+    uint256 indexed challengeId, address indexed user, address indexed mentor, bool decision
   );
+  event BonusFundChanged(address indexed user, uint256 value);
+  event NewUsername(address indexed addr, string name);
+  event Donation(string name, string url, uint256 value, uint256 timestamp);
+  event GameEnded();
+  event PaymentAccrued(address indexed recipient, uint256 value);
+  event PaymentWithdrawn(address indexed user, address indexed recipient, uint256 value);
 
-  event BonusFundChanged(
-    address indexed user,
-    uint value
-  );
-
-  event NewUsername(
-    address indexed addr,
-    string name
-  );
-
-
-  event Donation(
-    string name,
-    string url,
-    uint value,
-    uint timestamp
-  );
-
-  /// @notice indicated is game over or not
   bool public isGameOver;
-
-  /// @notice All Challenges
   Challenge[] public challenges;
-
-  mapping(uint => address) public challengeToUser;
-  mapping(address => uint) public userToChallengeCount;
-
-  mapping(uint => address) public challengeToMentor;
-  mapping(address => uint) public mentorToChallengeCount;
-
-  /// @notice All Users
   mapping(address => User) public users;
   address[] public allUsers;
   mapping(string => address) private usernameToAddress;
-  
-  /// @notice User's bonuses
-  mapping(address => uint) public bonusFund;
+  mapping(address => uint256[]) private userChallenges;
+  mapping(address => uint256[]) private mentorChallenges;
 
-  /// @notice Can access only if game is not over
+  /// @notice Failed stakes, locked until later success or shutdown.
+  mapping(address => uint256) public bonusFund;
+  /// @notice Settled payouts, fees and donations, withdrawable at any time.
+  mapping(address => uint256) public pendingWithdrawals;
+
+  constructor() Ownable(msg.sender) {}
+
   modifier gameIsNotOver() {
-    require(!isGameOver, "Game should be not over");
+    if (isGameOver) revert GameHasEnded();
     _;
   }
 
-  /// @notice Can access only if game is over
-  modifier gameIsOver() {
-    require(isGameOver, "Game should be over");
-    _;
-  }
-
-  /// @notice Get Bonus Fund For User
-  function getBonusFund(address user)
-  external
-  view
-  returns(uint) {
+  function getBonusFund(address user) external view returns (uint256) {
     return bonusFund[user];
   }
 
-  /// @notice Get Users Lenght
-  function getUsersCount()
-  external
-  view
-  returns(uint) {
+  function getUsersCount() external view returns (uint256) {
     return allUsers.length;
   }
 
-  /// @notice Get Challenges For User
-  function getChallengesForUser(address user)
-  external
-  view
-  returns(uint[]) {
-    require(userToChallengeCount[user] > 0, "Has zero challenges");
-
-    uint[] memory result = new uint[](userToChallengeCount[user]);
-    uint counter = 0;
-    for (uint i = 0; i < challenges.length; i++) {
-      if (challengeToUser[i] == user)
-      {
-        result[counter] = i;
-        counter++;
-      }
-    }
-    return result;
+  // Retain the original public lookup ABI without duplicating challenge storage.
+  function challengeToUser(uint256 id) external view returns (address) {
+    return id < challenges.length ? challenges[id].user : address(0);
   }
 
-  /// @notice Get Challenges For Mentor
-  function getChallengesForMentor(address mentor)
-  external
-  view
-  returns(uint[]) {
-    require(mentorToChallengeCount[mentor] > 0, "Has zero challenges");
-
-    uint[] memory result = new uint[](mentorToChallengeCount[mentor]);
-    uint counter = 0;
-    for (uint i = 0; i < challenges.length; i++) {
-      if (challengeToMentor[i] == mentor)
-      {
-        result[counter] = i;
-        counter++;
-      }
-    }
-    return result;
+  function challengeToMentor(uint256 id) external view returns (address) {
+    return id < challenges.length ? challenges[id].mentor : address(0);
   }
-  
-  /// @notice Ends game
-  function gameOver()
-  external
-  gameIsNotOver
-  onlyOwner {
+
+  function userToChallengeCount(address user) external view returns (uint256) {
+    return userChallenges[user].length;
+  }
+
+  function mentorToChallengeCount(address mentor) external view returns (uint256) {
+    return mentorChallenges[mentor].length;
+  }
+
+  /// @notice Return this user's IDs in creation order; an unknown user gets an empty array.
+  function getChallengesForUser(address user) external view returns (uint256[] memory) {
+    return userChallenges[user];
+  }
+
+  function getChallengesForMentor(address mentor) external view returns (uint256[] memory) {
+    return mentorChallenges[mentor];
+  }
+
+  /// @notice Stop new activity permanently and unlock bonuses; existing challenges still settle.
+  function gameOver() external onlyOwner gameIsNotOver {
     isGameOver = true;
+    emit GameEnded();
   }
 
-  /// @notice Set Username
-  function setUsername(string name)
-  external
-  gameIsNotOver {
-    require(bytes(name).length > 2, "Provide a name longer than 2 chars");
-    require(bytes(name).length <= 32, "Provide a name shorter than 33 chars");
-    require(users[msg.sender].addr == address(0x0), "You already have a name");
-    require(usernameToAddress[name] == address(0x0), "Name already taken");
+  /// @notice Ownership must remain available for shutdown and donation/service-fee attribution.
+  function renounceOwnership() public view override onlyOwner {
+    revert OwnershipRenunciationDisabled();
+  }
+
+  /// @notice Register a unique, immutable, case-sensitive name of 3 to 32 UTF-8 bytes.
+  function setUsername(string calldata name) external gameIsNotOver {
+    uint256 length = bytes(name).length;
+    if (length < 3 || length > 32) revert InvalidUsernameLength();
+    if (users[msg.sender].addr != address(0)) revert UserAlreadyRegistered();
+    if (usernameToAddress[name] != address(0)) revert UsernameTaken();
 
     users[msg.sender] = User(msg.sender, name);
     usernameToAddress[name] = msg.sender;
     allUsers.push(msg.sender);
-
     emit NewUsername(msg.sender, name);
   }
 
-  /// @notice Creates Challenge
-  function createChallenge(string name, string mentor, uint time, uint mentorFee)
-  external
-  payable
-  gameIsNotOver
-  returns (uint retId) {
-    require(msg.value >= 0.01 ether, "Has to stake more than 0.01 ether");
-    require(mentorFee >= 0 ether, "Can't be negative");
-    require(mentorFee <= msg.value, "Can't be bigger than stake");
-    require(bytes(mentor).length > 0, "Has to be a mentor");
-    require(usernameToAddress[mentor] != address(0x0), "Mentor has to be registered");
-    require(time > 0, "Time has to be greater than zero");
-
+  /// @param time Duration in seconds, not an absolute deadline.
+  /// @param mentorFee Total reward in wei, including the 10% service fee.
+  function createChallenge(
+    string calldata name,
+    string calldata mentor,
+    uint256 time,
+    uint256 mentorFee
+  ) external payable gameIsNotOver returns (uint256 id) {
+    if (msg.value < MIN_STAKE) revert StakeTooSmall();
+    if (mentorFee > msg.value) revert RewardExceedsStake();
     address mentorAddr = usernameToAddress[mentor];
+    if (mentorAddr == address(0)) revert UnknownMentor();
+    if (mentorAddr == msg.sender) revert SelfMentoring();
+    if (time == 0 || time > type(uint256).max - block.timestamp - RESOLUTION_GRACE_PERIOD) {
+      revert InvalidDuration();
+    }
 
-    require(msg.sender != mentorAddr, "Can't be mentor to yourself");
-
-    uint startDate = block.timestamp;
-    uint id = challenges.push(Challenge(msg.sender, name, msg.value, mentorAddr, startDate, time, mentorFee, false, false)) - 1;
-
-    challengeToUser[id] = msg.sender;
-    userToChallengeCount[msg.sender]++;
-
-    challengeToMentor[id] = mentorAddr;
-    mentorToChallengeCount[mentorAddr]++;
-
-    emit NewChallenge(id, msg.sender, name, msg.value, mentorAddr, startDate, time, mentorFee);
-
-    return id;
+    id = challenges.length;
+    challenges.push(
+      Challenge(
+        msg.sender, name, msg.value, mentorAddr, block.timestamp, time, mentorFee, false, false
+      )
+    );
+    userChallenges[msg.sender].push(id);
+    mentorChallenges[mentorAddr].push(id);
+    emit NewChallenge(id, msg.sender, name, msg.value, mentorAddr, block.timestamp, time, mentorFee);
   }
 
-  /// @notice Resolves Challenge
-  function resolveChallenge(uint challengeId, bool decision)
-  external
-  gameIsNotOver {
+  /// @notice Mentors can settle at any time; users can also settle at deadline + seven days.
+  /// @dev No external calls: a rejecting recipient cannot block settlement or other recipients.
+  function resolveChallenge(uint256 challengeId, bool decision) external {
+    if (challengeId >= challenges.length) revert UnknownChallenge();
     Challenge storage challenge = challenges[challengeId];
-    
-    require(challenge.resolved == false, "Challenge already resolved.");
+    if (challenge.resolved) revert ChallengeAlreadyResolved();
+    if (
+      msg.sender != challenge.mentor
+        && (msg.sender != challenge.user
+          || block.timestamp < challenge.startDate + challenge.time + RESOLUTION_GRACE_PERIOD)
+    ) revert UnauthorizedResolver();
 
-    // if more time passed than endDate + daysToResolve, then user can resolve himself
-    if(block.timestamp < (challenge.startDate + challenge.time + daysToResolve))
-      require(challenge.mentor == msg.sender, "You are not the mentor for this challenge.");
-    else require((challenge.user == msg.sender) || (challenge.mentor == msg.sender), "You are not the user or mentor for this challenge.");
-
-    uint mentorFee;
-    uint serviceFee;
-    
-    address user = challengeToUser[challengeId];
-    address mentor = challengeToMentor[challengeId];
-
-    // write decision
     challenge.successed = decision;
     challenge.resolved = true;
 
-    uint remainingValue = challenge.value;
-
-    // mentor & service fee
-    if(challenge.mentorFee > 0) {
-      serviceFee = challenge.mentorFee.div(100).mul(serviceFeePercentage);
-      mentorFee = challenge.mentorFee.div(100).mul(100 - serviceFeePercentage);
-    }
-    
-    if(challenge.mentorFee > 0)
-      remainingValue = challenge.value.sub(challenge.mentorFee);
-
-    uint valueToPay;
-
-    if(decision) {
-      // value to pay back to user
-      valueToPay = remainingValue;
-      // credit bouns if any
-      uint currentBonus = bonusFund[user];
-      if(currentBonus > 0)
-      {
-        uint bonusValue = bonusFund[user].div(100).mul(bonusPercentage);
-        if(currentBonus <= minBonus)
-          bonusValue = currentBonus;
-        bonusFund[user] -= bonusValue;
-        emit BonusFundChanged(user, bonusFund[user]);
-
-        valueToPay += bonusValue;
+    // Assign every wei: floor 10% to owner, all reward remainder to the mentor.
+    uint256 serviceFee = challenge.mentorFee / 10;
+    uint256 remainingValue = challenge.value - challenge.mentorFee;
+    if (decision) {
+      uint256 currentBonus = bonusFund[challenge.user];
+      uint256 bonus = currentBonus <= MIN_BONUS ? currentBonus : currentBonus / 2;
+      if (bonus > 0) {
+        bonusFund[challenge.user] = currentBonus - bonus;
+        emit BonusFundChanged(challenge.user, currentBonus - bonus);
       }
+      _credit(challenge.user, remainingValue + bonus);
+    } else {
+      bonusFund[challenge.user] += remainingValue;
+      emit BonusFundChanged(challenge.user, bonusFund[challenge.user]);
     }
-    else {
-      bonusFund[user] += remainingValue;
-      emit BonusFundChanged(user, bonusFund[user]);
-    }
 
-    // pay back to the challenger
-    if(valueToPay > 0)
-      user.transfer(valueToPay);
-
-    if(mentorFee > 0)
-      mentor.transfer(mentorFee);
-
-    if(serviceFee > 0)
-      owner().transfer(serviceFee);
-
-    emit ChallengeResolved(challengeId, user, mentor, decision);
+    _credit(challenge.mentor, challenge.mentorFee - serviceFee);
+    _credit(owner(), serviceFee);
+    emit ChallengeResolved(challengeId, challenge.user, challenge.mentor, decision);
   }
 
-  function withdraw()
-  external
-  gameIsOver {
-    require(bonusFund[msg.sender] > 0, "You do not have any funds");
-
-    uint funds = bonusFund[msg.sender];
-    bonusFund[msg.sender] = 0;
-    msg.sender.transfer(funds);
+  /// @notice Includes unlocked bonus funds after shutdown.
+  function withdrawableBalance(address user) public view returns (uint256) {
+    return pendingWithdrawals[user] + (isGameOver ? bonusFund[user] : 0);
   }
 
-  function donate(string name, string url)
-  external
-  payable
-  gameIsNotOver {
-    owner().transfer(msg.value);
+  function withdraw() external nonReentrant {
+    _withdraw(payable(msg.sender));
+  }
+
+  /// @notice Claim your own balance to another recipient, e.g. if your wallet rejects ETH.
+  function withdrawTo(address payable recipient) external nonReentrant {
+    if (recipient == address(0) || recipient == address(this)) revert InvalidRecipient();
+    _withdraw(recipient);
+  }
+
+  /// @notice Credit the current owner's withdrawal balance without calling their wallet.
+  function donate(string calldata name, string calldata url) external payable gameIsNotOver {
+    _credit(owner(), msg.value);
     emit Donation(name, url, msg.value, block.timestamp);
+  }
+
+  function _credit(address recipient, uint256 value) private {
+    if (value == 0) return;
+    pendingWithdrawals[recipient] += value;
+    emit PaymentAccrued(recipient, value);
+  }
+
+  function _withdraw(address payable recipient) private {
+    uint256 funds = withdrawableBalance(msg.sender);
+    if (funds == 0) revert NothingToWithdraw();
+    pendingWithdrawals[msg.sender] = 0;
+    if (isGameOver && bonusFund[msg.sender] > 0) {
+      bonusFund[msg.sender] = 0;
+      emit BonusFundChanged(msg.sender, 0);
+    }
+    emit PaymentWithdrawn(msg.sender, recipient, funds);
+    (bool success,) = recipient.call{value: funds}("");
+    if (!success) revert EtherTransferFailed();
   }
 }
