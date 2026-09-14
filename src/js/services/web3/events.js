@@ -41,7 +41,7 @@ export const pullDonationEvents = async (store) => {
           store.dispatch(addDonation({
             name,
             url,
-            value: fromWei(value.toNumber(), 'ether'),
+            value: fromWei(value.toString(10), 'ether'),
             timestamp: timestampNumber,
           }));
         }
@@ -68,7 +68,7 @@ const subscribeToDonationEvent = async (store) => {
         store.dispatch(addDonation({
           name,
           url,
-          value: fromWei(value.toNumber(), 'ether'),
+          value: fromWei(value.toString(10), 'ether'),
           timestamp: timestampNumber,
         }));
       }
@@ -100,11 +100,11 @@ const subscribeToNewChallengeEvents = async (store) => {
         id: challengeId.toNumber(),
         user,
         name,
-        value: web3js.fromWei(value.toNumber(), 'ether'),
+        value: web3js.fromWei(value.toString(10), 'ether'),
         mentor,
         startDate: startDate.toNumber(),
         time: time.toNumber(),
-        mentorFee: web3js.fromWei(mentorFee.toNumber(), 'ether'),
+        mentorFee: web3js.fromWei(mentorFee.toString(10), 'ether'),
         successed: false,
         resolved: false,
         canResolve: (getAccount() === mentor),
@@ -167,7 +167,7 @@ const subscribeToBonusFundEvents = async (store) => {
     if (!error) {
       const account = getAccount();
       const { user, value } = result.args;
-      if (user === account) store.dispatch(setBonusFund(fromWei(value.toNumber(), 'ether')));
+      if (user === account) store.dispatch(setBonusFund(fromWei(value.toString(10), 'ether')));
     } else {
       console.log(error);
     }
