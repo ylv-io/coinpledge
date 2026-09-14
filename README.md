@@ -217,10 +217,9 @@ Preserve `dist/index.html` and `dist/404.html`; Webpack does not recreate them.
 - The deleted `truffle.js` contained committed wallet and RPC credentials. Their
   deletion does not erase Git history. Never fund or reuse that wallet; replace
   any credentials still in use.
-- `npm run deploy` is the historical **website** publisher, with `noprompt: true`
-  and a destructive `clean-source` post hook. `npm run clean-source` deletes source
-  and configuration. Neither is a contract deployment or validation command.
-  Review that workflow before any website publication.
+- The legacy website publisher and its destructive source-deletion hook have been
+  removed. `npm run build` produces the static site in `dist/`; publishing that
+  directory requires a separately configured hosting workflow.
 - Historical explorer links in the UI may still point to Ropsten or the old mainnet
   deployment. They do not identify a deployment of the new contract.
 - [LICENSE](LICENSE) is MIT and Solidity headers follow it, while `package.json`

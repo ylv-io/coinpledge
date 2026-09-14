@@ -10,9 +10,7 @@
     "test": "jest --config=jest.config.json",
     "serve": "webpack-dev-server",
     "build": "webpack -p --env production",
-    "deploy": "gh-pages-deploy",
     "compile": "forge build && node scripts/export-contract.js",
-    "clean-source": "rimraf README.md src package.json package-lock.json truffle.js truffle-config.js contracts migrations build license dist webpack.config.js .babelrc",
     "test:contracts": "forge test",
     "fmt:contracts": "forge fmt --check",
     "export:contracts": "node scripts/export-contract.js",
@@ -52,7 +50,6 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^2.0.0",
     "formik": "^1.3.1",
-    "gh-pages-deploy": "0.4.2",
     "identity-obj-proxy": "^3.0.0",
     "install": "^0.12.1",
     "json-loader": "^0.5.7",
@@ -77,15 +74,6 @@
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^2.11.2",
     "babel-register": "6.26.0"
-  },
-  "gh-pages-deploy": {
-    "staticpath": "dist",
-    "cname": "coinpledge.ylv.io",
-    "prep": [],
-    "post": [
-      "clean-source"
-    ],
-    "noprompt": true
   },
   "dependencies": {
     "bignumber.js": "^8.0.0",

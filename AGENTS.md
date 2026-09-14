@@ -119,9 +119,9 @@ frontend tests/build, and the local integration path.
 
 ## Commands and credentials requiring care
 
-- npm run clean-source deletes source/configuration. npm run deploy publishes the
-  historical website with a destructive clean-source post hook and prompts disabled.
-  Neither is cleanup, validation or a contract deployment. Review hooks before use.
+- npm run build produces the static site in dist/. There is no website publishing
+  script; configure hosting separately when publication is requested. Never add
+  source-deletion hooks to a build or publishing workflow.
 - npm run compile now runs forge build and exports the browser artifact.
   npm run flatten:contracts generates dist/Complete.sol. Truffle is no longer used.
 - Select explicit RPC URLs and signers for Forge scripts. --broadcast sends actual
