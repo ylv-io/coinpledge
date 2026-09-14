@@ -11,8 +11,10 @@
     "serve": "webpack-dev-server",
     "build": "webpack -p --env production",
     "deploy": "gh-pages-deploy",
-    "compile": "truffle-flattener ./contracts/CoinPledge.sol > ./dist/Bundle.sol",
-    "clean-source": "rimraf README.md src package.json package-lock.json truffle.js truffle-config.js contracts migrations build license dist webpack.config.js .babelrc"
+    "compile": "forge build",
+    "clean-source": "rimraf README.md src package.json package-lock.json truffle.js truffle-config.js contracts migrations build license dist webpack.config.js .babelrc",
+    "test:contracts": "forge test",
+    "fmt:contracts": "forge fmt --check"
   },
   "jest": {
     "moduleNameMapper": {
