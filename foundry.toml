@@ -4,6 +4,7 @@ test = 'test'
 script = 'script'
 out = 'out'
 libs = ['lib']
+auto_detect_remappings = false
 solc = '0.8.37'
 evm_version = 'cancun'
 optimizer = true
@@ -24,3 +25,7 @@ fail_on_revert = true
 [fmt]
 line_length = 100
 tab_width = 2
+
+[profile.default.lint]
+# Run lint explicitly against production source; Forge build also includes test helpers.
+lint_on_build = false
