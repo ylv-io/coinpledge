@@ -2,8 +2,9 @@
 
 CoinPledge is an Ethereum application for public commitments: set a goal, stake
 ether, choose a mentor, and let the mentor judge the result. Contracts use
-**Solidity 0.8.37 and Foundry**. The browser remains a React 16/Redux application
-with Web3 0.20; upgrading that legacy frontend stack is a separate project.
+**Solidity 0.8.37 and Foundry**. The browser uses **Svelte 5, TypeScript and Vite 8**,
+with **Bun 1.4.2** for dependency installation, scripts, builds and tests. Viem handles ABI encoding and
+exact integer amounts; an injected Ethereum wallet provides network access.
 
 ## Contract rules
 
@@ -63,17 +64,18 @@ challenge when reading an account's history.
 | `foundry.toml`, `foundry.lock`, `lib/` | Compiler settings and pinned dependency submodules |
 | `test/` | Forge unit, fuzz and stateful invariant tests |
 | `script/DeployCoinPledge.s.sol` | Deployment using an explicitly selected Foundry signer |
-| `scripts/` | Artifact export, export tests and local Web3 integration check |
+| `scripts/` | Artifact export, export tests and local wallet/browser integration check |
 | `deployments/CoinPledge.json` | Verified deployment manifest; initially empty |
 | `build/contracts/CoinPledge.json` | Generated browser ABI, bytecode and network addresses |
-| `src/js/services/web3/` | Web3 callback adapter, contract calls, polling and events |
-| `src/js/components/` | React UI, including account withdrawals |
-| `src/js/tests/` | Jest/Enzyme frontend tests |
-| `dist/` | Maintained site HTML, generated JavaScript/CSS bundles and the active logo |
+| `src/lib/` | Typed contract adapter, wallet lifecycle, amount and permission rules |
+| `src/App.svelte`, `src/components/` | Svelte pages, forms, challenges and account withdrawals |
+| `tests/unit/`, `tests/browser/` | Bun unit tests and Playwright browser checks |
+| `index.html`, `public/404.html`, `src/app.css` | Maintained page entry, static hosting fallback and styles |
+| `bun.lock`, `.bun-version`, `bunfig.toml` | Locked dependencies, Bun version and runtime configuration |
+| `dist/` | Generated static site, including HTML, bundles and logo |
 
 Truffle, its wallet provider, migration contracts and Mocha contract tests have
-been removed. The browser uses Web3 directly through a small promise adapter;
-there is no application server or database.
+been removed, along with React/Redux, Web3 0.20, Webpack, Babel, node-sass and Jest. There is no application server or database.
 
 ## Contract development
 
@@ -103,14 +105,14 @@ boundaries, fees, bonuses, ownership, shutdown, smart-wallet failures and
 reentrancy. Fuzz tests check wei conservation; stateful invariants exercise
 creation, settlement, donation, withdrawal and shutdown in varying orders.
 
-With Node available, export the compiled artifact for the browser:
+With Bun available, export the compiled artifact for the browser:
 
 ```sh
-node scripts/export-contract.js
-node scripts/test-export-contract.js
+bun scripts/export-contract.js
+bun scripts/test-export-contract.js
 ```
 
-`npm run compile` is shorthand for `forge build` followed by the export.
+`bun run compile` is shorthand for `forge build` followed by the export.
 The exporter generates legacy Web3 `constant`/`payable` flags from the modern ABI
 and rejects manifest entries whose bytecode differs from the current build.
 Review and commit generated artifact changes with their corresponding source.
@@ -138,7 +140,7 @@ contract address as `LOCAL_CONTRACT` to register the deployment:
 
 ```sh
 LOCAL_CONTRACT=0xYourDeployedContractAddress
-node scripts/export-contract.js \
+bun scripts/export-contract.js \
   --rpc-url http://127.0.0.1:8545 --address "$LOCAL_CONTRACT"
 ```
 
@@ -154,39 +156,55 @@ chain, and supply an explicit RPC URL and a Foundry keystore/hardware-wallet sig
 public RPC credentials are stored in the deployment script. Local validation and
 CI never deploy to a public network.
 
-### Legacy frontend environment
+### Svelte frontend development
 
-The frontend's existing lockfile remains **npm format 1**. Local checks for this
-migration used **Node 10.24.1 / npm 6.14.12**; the frontend CI job uses Node 10.24.1.
-This is an end-of-life compatibility environment for the existing Webpack 3,
-Babel 6, node-sass 4 and Jest 23 stack, not a modern supported Node target.
-The contract toolchain and standalone export scripts do not depend on that stack.
-
-In that frontend environment:
+Install [Bun](https://bun.com/docs/installation) **1.4.2**, matching `.bun-version`
+and `package.json`. The frontend no longer needs Node 10 or npm.
 
 ```sh
-npm ci
-npm run serve -- --host 127.0.0.1 --port 8080
+bun install --frozen-lockfile
+bun run dev
 ```
 
-Open `http://127.0.0.1:8080` with a funded local test account on the same Anvil chain.
-The wallet adapter still requires injected legacy `web3.currentProvider` and
-synchronous account access. Wallets exposing only `window.ethereum` need a
-separate adapter update. Reload the page after switching networks: account polling
-and cached contract/event subscriptions do not fully handle network changes.
+Open `http://127.0.0.1:5173` with an Ethereum browser wallet on the same Anvil chain,
+then choose **Connect wallet**. The app uses `window.ethereum` (EIP-1193), checks
+network ID and deployed runtime bytecode, and clears/reloads account data when the
+wallet changes account, changes network or disconnects. It polls fresh chain
+snapshots every five seconds. Wallet rejection, failed transactions, unconfigured
+networks and stale deployments are shown explicitly. No public RPC or historical
+contract address is assumed. Without a wallet, the landing page remains available.
+
+The familiar green-and-white interface includes challenge creation, active/history
+views, mentoring, username registration, bonus and withdrawal balances, profiles,
+the member directory and donations. ETH values stay decimal strings in forms and
+`bigint` in the adapter. Svelte escapes user text; donation links permit only HTTP(S).
+The challenger receives resolution controls at the contract's seven-day boundary.
+
+`bun.lock` is the only dependency lockfile. Use `bun install` when deliberately
+changing dependencies and commit the resulting lockfile. Dependencies are pinned;
+TypeScript 6 matches the supported range of `svelte-check`. `bunfig.toml` runs
+package scripts under Bun, including tools with Node shebangs. Build and preview
+with `bun run build` and `bun run preview`.
 
 ## Validation and generated outputs
 
 | Command | Purpose |
 | --- | --- |
-| `forge test` / `npm run test:contracts` | Contract unit, fuzz and invariant tests; no external chain |
+| `forge test` / `bun run test:contracts` | Contract unit, fuzz and invariant tests |
 | `forge fmt --check` | Solidity formatting |
 | `forge lint contracts/CoinPledge.sol` | Contract lint diagnostics for manual review |
-| `npm run test:artifacts` | Standalone exporter checks; Node only |
-| `npm test -- --runInBand` | Frontend tests only, selected by `jest.config.json` |
-| `./node_modules/.bin/eslint src/js scripts` | JavaScript lint; no npm lint script |
-| `npm run build` | Regenerate production frontend bundles |
+| `bun run test:artifacts` | Standalone exporter checks |
+| `bun run check` | Strict TypeScript, Svelte and accessibility diagnostics |
+| `bun test` | Amount, permission, wallet lifecycle and contract adapter unit tests |
+| `bun run build` | Regenerate the production static site |
 | `git diff --check` | Whitespace validation |
+
+Install Chromium once for the browser checks (`--with-deps` also installs required
+system packages on Linux):
+
+```sh
+bunx --bun playwright install chromium
+```
 
 For an end-to-end check, start a **separate** Anvil instance with the same Osaka
 rules and transaction gas cap used by CI:
@@ -196,11 +214,17 @@ anvil --host 127.0.0.1 --port 18545 --chain-id 31337 \
   --hardfork osaka --enable-tx-gas-limit
 ```
 
-Then run `npm run test:integration` in another terminal. The local chain uses
+Then run `bun run test:integration` in another terminal. The local chain uses
 network/chain ID 31337 and mainnet's EVM rules; it does not fork mainnet state.
 The check deploys through the Forge script, verifies the export, and exercises the
-Web3 adapter's calls, event and tuple decoding, settlement and withdrawals with
-exact wei values.
+new adapter's calls, event and tuple decoding, settlement and withdrawals with
+exact wei values. It then launches Chromium against the Svelte app and tests wallet
+connection, registration, challenge creation, mentor resolution, withdrawals,
+donations, profiles, network/account changes, deep links and mobile layouts.
+It also checks failed stakes, challenger resolution after the grace period, bonus
+release, shutdown and withdrawals after shutdown.
+`bun run test:browser` is the internal browser entry point; use `test:integration`
+to supply its verified temporary deployment and unlocked local test accounts.
 `COINPLEDGE_TEST_RPC_URL` can override the local URL; the check rejects nonlocal
 hosts and non-Anvil/non-31337 networks. It does not edit the tracked deployment
 manifest or browser artifact. CI runs this check in addition to contract and
@@ -209,10 +233,14 @@ frontend tests and builds.
 `out/`, `cache/` and `broadcast/` are disposable ignored Foundry outputs.
 `build/contracts/CoinPledge.json` and frontend bundles are tracked generated
 outputs. Never hand-edit their ABI, bytecode or bundles. Production builds omit
-source maps; the development server retains inline maps for debugging. Generate
+source maps; the development server supports source debugging. Generate
 flattened Solidity on demand with `forge flatten contracts/CoinPledge.sol`; a
 duplicate flattened source file is not part of the build or CI.
-Preserve `dist/index.html` and `dist/404.html`; Webpack does not recreate them.
+Vite recreates all of `dist/`: edit `index.html`, `public/404.html` and source files,
+then rebuild. The maintained 404 fallback restores deep links on a root/custom-domain
+GitHub Pages site; other static hosts should route unknown paths to `index.html`.
+Keep generated `dist/` output tracked, including `404.html`. Browser reports and
+traces in `test-results/` and `playwright-report/` are ignored.
 
 ## Remaining maintenance caveats
 
@@ -220,11 +248,7 @@ Preserve `dist/index.html` and `dist/404.html`; Webpack does not recreate them.
   deletion does not erase Git history. Never fund or reuse that wallet; replace
   any credentials still in use.
 - The legacy website publisher and its destructive source-deletion hook have been
-  removed. `npm run build` produces the static site in `dist/`; publishing that
+  removed. `bun run build` produces the static site in `dist/`; publishing that
   directory requires a separately configured hosting workflow.
-- Historical explorer links in the UI may still point to Ropsten or the old mainnet
-  deployment. They do not identify a deployment of the new contract.
-- [LICENSE](LICENSE) is MIT and Solidity headers follow it, while `package.json`
-  still declares ISC. The maintainer must resolve this existing metadata mismatch.
 
 See [AGENTS.md](AGENTS.md) for repository-specific agent guidance.

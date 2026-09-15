@@ -18,17 +18,17 @@ jobs:
       - uses: foundry-rs/foundry-toolchain@908c540300062bd5a7e473851cdb4282204cee09 # v1
         with:
           version: v1.8.1
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
         with:
-          node-version: '22'
+          bun-version-file: .bun-version
       - run: forge fmt --check
       - run: forge build --sizes
       - run: forge lint contracts/CoinPledge.sol
       - run: forge test
-      - run: node scripts/test-export-contract.js
+      - run: bun scripts/test-export-contract.js
       - name: Check generated browser contract artifact
         run: |
-          node scripts/export-contract.js
+          bun scripts/export-contract.js
           git diff --exit-code -- build/contracts/CoinPledge.json
 
   frontend:
@@ -37,17 +37,18 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           submodules: recursive
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
         with:
-          node-version: '10.24.1'
+          bun-version-file: .bun-version
       - uses: foundry-rs/foundry-toolchain@908c540300062bd5a7e473851cdb4282204cee09 # v1
         with:
           version: v1.8.1
-      - run: npm ci --no-audit
-      - run: npm test -- --runInBand
-      - run: ./node_modules/.bin/eslint src/js scripts
-      - run: npm run build
-      - name: Check local Forge and Web3 integration
+      - run: bun install --frozen-lockfile
+      - run: bun run check
+      - run: bun test
+      - run: bun run build
+      - run: bunx --bun playwright install --with-deps chromium
+      - name: Check local Forge, wallet adapter and browser integration
         run: |
           anvil --host 127.0.0.1 --port 18545 --chain-id 31337 \
             --hardfork osaka --enable-tx-gas-limit --silent &
@@ -57,4 +58,4 @@ jobs:
             if cast rpc --rpc-url http://127.0.0.1:18545 eth_chainId >/dev/null 2>&1; then break; fi
             sleep 0.1
           done
-          npm run test:integration
+          bun run test:integration
