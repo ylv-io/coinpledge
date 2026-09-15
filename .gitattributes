@@ -1,0 +1,3 @@
+/dist/** linguist-generated=true
+# The minifier emits literal whitespace inside Svelte's runtime template strings.
+/dist/build.js whitespace=-blank-at-eol
