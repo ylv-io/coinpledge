@@ -23,7 +23,7 @@ class User extends React.Component {
   }
 
   componentDidMount() {
-    const { match, users } = this.props;
+    const { users } = this.props;
     this.updateStateFromWeb3(users);
   }
 
@@ -46,16 +46,16 @@ class User extends React.Component {
     }
 
     let result = await getChallengesForUser(id);
-    this.setState(o => ({ userChallenges: getChallenges(result, users, x => true) }));
+    this.setState(() => ({ userChallenges: getChallenges(result, users, () => true) }));
 
     result = await getChallengesForMentor(id);
-    this.setState(o => ({ mentorChallenges: getChallenges(result, users, x => true) }));
+    this.setState(() => ({ mentorChallenges: getChallenges(result, users, () => true) }));
 
     result = await getUsername(id);
-    this.setState(o => ({ username: result }));
+    this.setState(() => ({ username: result }));
 
     result = await getBonusFund(id);
-    this.setState(o => ({ bonusFund: result }));
+    this.setState(() => ({ bonusFund: result }));
   }
 
   render() {

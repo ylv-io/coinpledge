@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 
 import 'bulma/css/bulma.css';
 import 'bulma-o-steps/bulma-steps.min.css';
-import '../css/index.css';
 
 import configureStore from './store/configureStore';
 

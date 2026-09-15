@@ -11,24 +11,14 @@ import { addPendingChallenge, updatePendingChallenge } from '../actions/pendingC
 
 
 class CreateChallenge extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-    };
-  }
-
-  componentDidUpdate(prevProps) {
-  }
-
   handleSubmit = async ({
     name,
     value,
     time,
     mentor,
     mentorFee,
-  }, { resetForm, setSubmitting, setStatus }) => {
-    const { dispatch, users } = this.props;
+  }, { resetForm, setSubmitting }) => {
+    const { dispatch } = this.props;
     try {
       const result = await createChallenge(name, value, time.unix(), mentor, toWei(mentorFee, 'ether'));
       setSubmitting(false);
@@ -42,7 +32,7 @@ class CreateChallenge extends React.Component {
         mentorname: mentor,
       }));
 
-      const receipt = await getTransactionReceipt(result);
+      await getTransactionReceipt(result);
       dispatch(updatePendingChallenge(result, { isConfirmed: true }));
     } catch (e) {
       console.log(e);
@@ -81,7 +71,7 @@ class CreateChallenge extends React.Component {
   }
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = state => ({
   pendingChallenges: state.pendingChallenges,
   users: usersSelect(state.users, state.blockchain.account),
 });

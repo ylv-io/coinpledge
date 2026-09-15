@@ -14,17 +14,12 @@ class Donate extends React.Component {
     };
   }
 
-  handleDonate = (e) => {
-    e.preventDefault();
-    donate('ylv', 'ylv.io', toWei(0.1, 'ether'));
-  };
-
-  handleSubmit = async ({ username, url, value }, { resetForm, setSubmitting, setStatus }) => {
+  handleSubmit = async ({ username, url, value }, { resetForm, setSubmitting }) => {
     try {
-      const result = await donate(username, url, toWei(value, 'ether'));
+      await donate(username, url, toWei(value, 'ether'));
       setSubmitting(false);
       resetForm();
-      this.setState(o => ({ hasDonated: true }));
+      this.setState(() => ({ hasDonated: true }));
     } catch (e) {
       console.log(e);
       setSubmitting(false);

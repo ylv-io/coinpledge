@@ -21,7 +21,6 @@ import { addUser } from '../../actions/users';
 import { setBonusFund } from '../../actions/web3';
 
 export const pullDonationEvents = async (store) => {
-  const web3js = getWeb3js();
   const instance = await getCoinContractPromise();
 
   instance.Donation({}, { fromBlock: 0, toBlock: 'latest' }).get((error, result) => {
@@ -126,7 +125,6 @@ const subscribeToNewChallengeEvents = async (store) => {
 };
 
 const subscribeToChallengeResolvedEvents = async (store) => {
-  const web3js = getWeb3js();
   const contract = await getCoinContractPromise();
 
   const challengeResolvedEvent = contract.ChallengeResolved();
@@ -159,7 +157,6 @@ const subscribeToChallengeResolvedEvents = async (store) => {
 };
 
 const subscribeToBonusFundEvents = async (store) => {
-  const web3js = getWeb3js();
   const contract = await getCoinContractPromise();
 
   const bonusFundChangedEvent = contract.BonusFundChanged();
@@ -175,13 +172,11 @@ const subscribeToBonusFundEvents = async (store) => {
 };
 
 const subscribeToNewUsernameEvents = async (store) => {
-  const web3js = getWeb3js();
   const contract = await getCoinContractPromise();
 
   const newUsernameEvent = contract.NewUsername();
   newUsernameEvent.watch((error, result) => {
     if (!error) {
-      const account = getAccount();
       const state = store.getState();
       const { addr, name } = result.args;
       if (!state.users.find(user => user.addr === addr)) {

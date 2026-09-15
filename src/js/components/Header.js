@@ -7,11 +7,6 @@ import {
 
 import { connect } from 'react-redux';
 
-import {
-  getWeb3js,
-  getNetwork,
-} from '../services/web3/web3';
-
 import logo from '../../img/logo.png';
 
 
@@ -29,7 +24,6 @@ class Header extends React.Component {
       locked,
       username,
       account,
-      bonusFund,
     } = this.props;
 
     return (

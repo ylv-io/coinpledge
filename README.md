@@ -69,7 +69,7 @@ challenge when reading an account's history.
 | `src/js/services/web3/` | Web3 callback adapter, contract calls, polling and events |
 | `src/js/components/` | React UI, including account withdrawals |
 | `src/js/tests/` | Jest/Enzyme frontend tests |
-| `dist/` | Maintained site HTML and generated bundles, source maps and flattened Solidity |
+| `dist/` | Maintained site HTML, generated JavaScript/CSS bundles and the active logo |
 
 Truffle, its wallet provider, migration contracts and Mocha contract tests have
 been removed. The browser uses Web3 directly through a small promise adapter;
@@ -108,7 +108,6 @@ With Node available, export the compiled artifact for the browser:
 ```sh
 node scripts/export-contract.js
 node scripts/test-export-contract.js
-forge flatten contracts/CoinPledge.sol --output dist/Complete.sol
 ```
 
 `npm run compile` is shorthand for `forge build` followed by the export.
@@ -186,7 +185,7 @@ and cached contract/event subscriptions do not fully handle network changes.
 | `npm run test:artifacts` | Standalone exporter checks; Node only |
 | `npm test -- --runInBand` | Frontend tests only, selected by `jest.config.json` |
 | `./node_modules/.bin/eslint src/js scripts` | JavaScript lint; no npm lint script |
-| `npm run build` | Regenerate production frontend bundles and source maps |
+| `npm run build` | Regenerate production frontend bundles |
 | `git diff --check` | Whitespace validation |
 
 For an end-to-end check, start a **separate** Anvil instance with the same Osaka
@@ -208,8 +207,11 @@ manifest or browser artifact. CI runs this check in addition to contract and
 frontend tests and builds.
 
 `out/`, `cache/` and `broadcast/` are disposable ignored Foundry outputs.
-`build/contracts/CoinPledge.json`, `dist/Complete.sol`, frontend bundles and source
-maps are tracked generated outputs. Never hand-edit their ABI, bytecode or bundles.
+`build/contracts/CoinPledge.json` and frontend bundles are tracked generated
+outputs. Never hand-edit their ABI, bytecode or bundles. Production builds omit
+source maps; the development server retains inline maps for debugging. Generate
+flattened Solidity on demand with `forge flatten contracts/CoinPledge.sol`; a
+duplicate flattened source file is not part of the build or CI.
 Preserve `dist/index.html` and `dist/404.html`; Webpack does not recreate them.
 
 ## Remaining maintenance caveats
@@ -217,10 +219,9 @@ Preserve `dist/index.html` and `dist/404.html`; Webpack does not recreate them.
 - The deleted `truffle.js` contained committed wallet and RPC credentials. Their
   deletion does not erase Git history. Never fund or reuse that wallet; replace
   any credentials still in use.
-- `npm run deploy` is the historical **website** publisher, with `noprompt: true`
-  and a destructive `clean-source` post hook. `npm run clean-source` deletes source
-  and configuration. Neither is a contract deployment or validation command.
-  Review that workflow before any website publication.
+- The legacy website publisher and its destructive source-deletion hook have been
+  removed. `npm run build` produces the static site in `dist/`; publishing that
+  directory requires a separately configured hosting workflow.
 - Historical explorer links in the UI may still point to Ropsten or the old mainnet
   deployment. They do not identify a deployment of the new contract.
 - [LICENSE](LICENSE) is MIT and Solidity headers follow it, while `package.json`

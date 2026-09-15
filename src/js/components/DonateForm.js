@@ -10,10 +10,6 @@ const DonateForm = (props) => {
     handleChange,
     handleBlur,
     handleSubmit,
-    handleReset,
-    setFieldValue,
-    setFieldTouched,
-    dirty,
   } = props;
   return (
     <form onSubmit={handleSubmit}>
@@ -110,13 +106,13 @@ const DonateForm = (props) => {
 
 export default withFormik({
   enableReinitialize: true,
-  mapPropsToValues: ({ users }) => ({
+  mapPropsToValues: () => ({
     username: '',
     value: '',
     url: '',
   }),
 
-  validate: (values, bag) => {
+  validate: (values) => {
     const errors = {};
 
     if (!values.url) {

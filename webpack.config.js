@@ -13,11 +13,6 @@ module.exports = (env) => {
     },
     module: {
       rules: [
-        // {
-        //   test: /\.js$/,
-        //   exclude: /node_modules/,
-        //   use: ['eslint-loader'],
-        // },
         {
           test: /\.s?css$/, // To load the css in react
           use: CSSExtract.extract({
@@ -25,13 +20,13 @@ module.exports = (env) => {
               {
                 loader: 'css-loader',
                 options: {
-                  sourceMap: true,
+                  sourceMap: !isProduction,
                 },
               },
               {
                 loader: 'sass-loader',
                 options: {
-                  sourceMap: true,
+                  sourceMap: !isProduction,
                 },
               },
             ],
@@ -41,9 +36,6 @@ module.exports = (env) => {
           loader: 'babel-loader',
           exclude: /node_modules/,
         }, {
-          test: /\.json$/, // To load the json files
-          loader: 'json-loader',
-        }, {
           test: /\.(jpe?g|png|gif|svg)$/i,
           loader: 'file-loader',
         },
@@ -52,7 +44,7 @@ module.exports = (env) => {
     plugins: [
       CSSExtract,
     ],
-    devtool: isProduction ? 'source-map' : 'inline-source-map',
+    devtool: isProduction ? false : 'inline-source-map',
     devServer: {
       contentBase: path.join(__dirname, 'dist'),
       historyApiFallback: true,

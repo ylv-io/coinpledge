@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import {
   Link,
-  NavLink,
 } from 'react-router-dom';
 
 import UserChallenge from './UserChallenge';
@@ -16,7 +15,7 @@ class UserChallenges extends React.Component {
     async (e) => {
       const { props } = this;
       e.preventDefault();
-      const hash = await resolveChallenge(challenge.id, decision);
+      await resolveChallenge(challenge.id, decision);
       props.dispatch(updateUserChallenge(challenge.id, { isSubmitting: true }));
     }
   )
@@ -82,7 +81,7 @@ class UserChallenges extends React.Component {
   }
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = state => ({
   challenges: getChallenges(state.userChallenges, state.users, o => !o.resolved),
   history: getChallenges(state.userChallenges, state.users, o => o.resolved),
 });

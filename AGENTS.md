@@ -29,7 +29,7 @@ separate from contract work. Preserve retained lockfile versions unless necessar
 - State: src/js/actions/, reducers/, selectors/, store/configureStore.js.
 - Web3 adapter, contract calls, polling/events: src/js/services/web3/.
 - Challenge tuple conversion: src/js/utils/web3.js.
-- Frontend tests: src/js/tests/; styling: src/css/index.css and Bulma classes.
+- Frontend tests: src/js/tests/; styling: imported Bulma, Bulma steps and react-dates CSS.
 
 Use two-space indentation, single quotes and semicolons in JavaScript; consult
 .eslintrc.js. Solidity formatting is defined by forge fmt. Avoid new frameworks,
@@ -69,8 +69,8 @@ explicitly replace these assumptions; reload after changing networks.
 
 ## Generated and tracked files
 
-Never hand-edit build/contracts/CoinPledge.json, dist/Complete.sol, bundles or maps.
-Use forge build, node scripts/export-contract.js, forge flatten, and npm run build.
+Never hand-edit build/contracts/CoinPledge.json or frontend bundles.
+Use forge build, node scripts/export-contract.js, and npm run build.
 The exporter uses deployments/CoinPledge.json and refuses stale bytecode. Register
 a deployment with --rpc-url and --address only after deploying the current build;
 it verifies runtime bytecode and network ID. Keep local addresses out of public
@@ -79,6 +79,8 @@ release commits. Never attach the new ABI to a historical contract.
 out/, cache/ and broadcast/ are ignored Foundry outputs. build/contracts/ and dist/
 contain tracked outputs; do not delete or blanket-ignore those directories.
 dist/index.html and dist/404.html are maintained site files Webpack does not create.
+Production bundles omit source maps; development uses inline maps. Flattened
+Solidity is optional local output, not a tracked build or CI artifact.
 
 ## Validation
 
@@ -91,9 +93,9 @@ Contract checks need Foundry and pinned submodules, not npm or a running chain:
 - forge lint contracts/CoinPledge.sol (review intentional timestamp/withdrawal diagnostics)
 
 With Node available: node scripts/export-contract.js and
-node scripts/test-export-contract.js. Regenerate flattened source with
-forge flatten contracts/CoinPledge.sol --output dist/Complete.sol. Verify generated
-outputs match source and inspect deployment metadata.
+node scripts/test-export-contract.js. Verify the generated browser artifact matches
+source and inspect deployment metadata. Use forge flatten contracts/CoinPledge.sol
+on demand if a flattened copy is needed.
 
 Frontend checks in the compatible legacy environment:
 
@@ -110,20 +112,20 @@ and uses its unlocked test accounts. It does not alter tracked deployment record
 Never use public network transactions or wallet operations as routine validation.
 
 Jest uses jest.config.json, whose roots/testMatch restrict discovery to frontend
-source/tests so vendored OpenZeppelin tests are excluded. Package-inline Jest
-settings are not merged. Do not overwrite snapshots just to make tests pass.
-Webpack lint is disabled. Report any unexecuted checks or runtime failures.
+source/tests so vendored OpenZeppelin tests are excluded. Keep Jest configuration
+in that file. Do not overwrite snapshots just to make tests pass. Run ESLint
+directly; it is not part of Webpack. Report any unexecuted checks or runtime failures.
 Run git diff --check for all changes; installing the frontend is unnecessary for
 prose-only changes. CI pins Foundry and checks contracts, generated artifacts,
 frontend tests/build, and the local integration path.
 
 ## Commands and credentials requiring care
 
-- npm run clean-source deletes source/configuration. npm run deploy publishes the
-  historical website with a destructive clean-source post hook and prompts disabled.
-  Neither is cleanup, validation or a contract deployment. Review hooks before use.
+- npm run build produces the static site in dist/. There is no website publishing
+  script; configure hosting separately when publication is requested. Never add
+  source-deletion hooks to a build or publishing workflow.
 - npm run compile now runs forge build and exports the browser artifact.
-  npm run flatten:contracts generates dist/Complete.sol. Truffle is no longer used.
+  Truffle is no longer used.
 - Select explicit RPC URLs and signers for Forge scripts. --broadcast sends actual
   transactions. Local work uses isolated Anvil accounts, never public signers.
 - The deleted truffle.js exposed a mnemonic and RPC credentials in Git history.

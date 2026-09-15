@@ -104,4 +104,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { exportContract, makeArtifact };
+module.exports = { exportContract };

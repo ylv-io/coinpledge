@@ -10,10 +10,6 @@ const SetUsernameForm = (props) => {
     handleChange,
     handleBlur,
     handleSubmit,
-    handleReset,
-    setFieldValue,
-    setFieldTouched,
-    dirty,
   } = props;
   return (
     <form onSubmit={handleSubmit}>
@@ -61,7 +57,7 @@ export default withFormik({
     users,
   }),
 
-  validate: (values, bag) => {
+  validate: (values) => {
     const errors = {};
 
     if (!values.username) {

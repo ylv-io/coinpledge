@@ -1,11 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
-
-import {
-  Link,
-  NavLink,
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import getDonations from '../selectors/donations';
 
@@ -78,7 +73,7 @@ export const Footer = (props) => {
   );
 };
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = state => ({
   donations: getDonations(state.donations),
 });
 

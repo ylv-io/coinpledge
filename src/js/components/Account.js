@@ -10,20 +10,7 @@ import { setUsername as setUsernameAction } from '../actions/web3';
 import { shortAddress } from '../utils/web3';
 
 class Account extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-    };
-  }
-
-  componentDidMount() {
-  }
-
-  componentDidUpdate(prevProps) {
-  }
-
-  handleSubmit = async ({ username }, { resetForm, setSubmitting, setStatus }) => {
+  handleSubmit = async ({ username }, { resetForm, setSubmitting }) => {
     try {
       const { props } = this;
 
@@ -33,7 +20,7 @@ class Account extends React.Component {
 
       props.dispatch(setUsernameAction(username));
 
-      const receipt = await getTransactionReceipt(result);
+      await getTransactionReceipt(result);
     } catch (e) {
       console.log(e);
       setSubmitting(false);
@@ -89,7 +76,7 @@ class Account extends React.Component {
   }
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = state => ({
   ...state.blockchain,
   users: state.users,
 });
