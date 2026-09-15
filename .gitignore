@@ -65,3 +65,7 @@ typings/
 # Optional local debugging and flattened contract output
 /dist/*.map
 /dist/Complete.sol
+
+# Browser test reports and traces
+/test-results/
+/playwright-report/
