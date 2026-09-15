@@ -49,7 +49,7 @@ const exportContract = async (args, directory = root) => {
   const options = {};
   for (let i = 0; i < args.length; i += 2) {
     if (!['--rpc-url', '--address'].includes(args[i]) || !args[i + 1]) {
-      throw new Error('Usage: node scripts/export-contract.js [--rpc-url URL --address ADDRESS]');
+      throw new Error('Usage: bun scripts/export-contract.js [--rpc-url URL --address ADDRESS]');
     }
     if (options[args[i]]) throw new Error(`Duplicate option: ${args[i]}`);
     options[args[i]] = args[i + 1];
